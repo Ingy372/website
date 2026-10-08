@@ -7,6 +7,7 @@ import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import Footer from "../components/Footer.astro";
 import { business } from "../data/business";
+import { siteVerification } from "../data/school";
 import { openingHoursSpecification } from "../data/schedule";
 
 interface Props {
@@ -62,6 +63,8 @@ const localBusinessSchema = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+
+    {Object.entries(siteVerification).map(([name, content]) => content && <meta name={name} content={content} />)}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 

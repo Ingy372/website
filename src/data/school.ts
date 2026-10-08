@@ -54,6 +54,18 @@ export const offer = OFFER
   : { noun: offerTodo, cta: offerTodo, first: offerTodo, visit: offerTodo, bookingTitle: offerTodo };
 
 // ---------------------------------------------------------------------------
+// Ownership verification meta tags, rendered in every page <head> only when
+// set. TODO(JAY: verification tokens) — paste each content="" value, or leave
+// null for any service verified by DNS record instead.
+// ---------------------------------------------------------------------------
+
+export const siteVerification: Record<"google-site-verification" | "msvalidate.01" | "facebook-domain-verification", string | null> = {
+  "google-site-verification": null, // Google Search Console
+  "msvalidate.01": null, // Bing Webmaster Tools
+  "facebook-domain-verification": null, // Meta Business Manager
+};
+
+// ---------------------------------------------------------------------------
 // Cloudflare Turnstile (spam check on the contact form). The site key is
 // public. TODO(JAY: Turnstile site key for actionzonecma.com — create a widget
 // in the Cloudflare dashboard and paste its site key here; put its secret in
