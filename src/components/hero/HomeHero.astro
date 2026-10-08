@@ -1,6 +1,7 @@
 ---
 import { reviews, ctaLabelGeneral } from "../../data/school";
 import { business, founded } from "../../data/business";
+import { minimumAge, trialDaysText } from "../../data/schedule";
 ---
 
 <header class="relative overflow-hidden bg-indigo text-white">
@@ -36,7 +37,7 @@ import { business, founded } from "../../data/business";
           <span class="text-[0.78rem] text-[#B0AFC2]">{reviews.count} Google reviews</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-white">Ages 3+</b>
+          <b class="block font-display text-[1.75rem] font-black text-white">Ages {minimumAge}+</b>
           <span class="text-[0.78rem] text-[#B0AFC2]">Preschool to adult</span>
         </div>
       </div>
@@ -46,7 +47,7 @@ import { business, founded } from "../../data/business";
       <h2 class="font-display text-2xl font-black text-indigo">Start with a free week.</h2>
       <div class="mb-4 mt-1 text-xs font-bold tracking-[0.14em] text-gold-deep uppercase">No cost</div>
       <p class="text-sm text-mist">
-        Pick a class, choose a day Monday through Thursday, and reserve your spot in under two minutes.
+        Pick a class, choose a day {trialDaysText}, and reserve your spot in under two minutes.
         No uniform, no equipment, no pressure.
       </p>
       <a

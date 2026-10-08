@@ -9,6 +9,7 @@ import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { reviews, ctaLabelGeneral } from "../data/school";
 import { cityState, founded } from "../data/business";
+import { programs, ageLabel } from "../data/schedule";
 
 import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
 import kidsClass from "../images/homepage/kids-class.jpg";
@@ -93,7 +94,7 @@ const quotes = [
         <ProgramCard
           image={littleWarriorsClass}
           alt="Little Warriors students lined up in uniform for a preschool martial arts class"
-          ageLabel="Ages 3–5"
+          ageLabel={ageLabel(programs.littleWarriors)}
           title="Little Warriors"
           tag="Preschool Martial Arts"
           description="Fun, structure, and discipline that help young children develop focus, confidence, and coordination, building lifelong skills on and off the mat."
@@ -103,7 +104,7 @@ const quotes = [
           image={kidsClass}
           alt="Kids martial arts class training together on the dojo mat"
           position="50% 30%"
-          ageLabel="Ages 6–12"
+          ageLabel={ageLabel(programs.kids)}
           title="Kids Classes"
           tag="Mixed Traditional Martial Arts"
           description="Practical self-defense paired with confidence, focus, and respect. High-energy classes that build strength, resilience, and leadership in everyday life."
@@ -113,7 +114,7 @@ const quotes = [
           image={teensAdultsClass}
           alt="Teens and adults training together in a martial arts and fitness class"
           position="50% 28%"
-          ageLabel="Ages 13+"
+          ageLabel={ageLabel(programs.teensAdults)}
           title="Teens & Adults"
           tag="Fitness & Self-Defense"
           description="Get in shape, learn to defend yourself, relieve stress. Real martial arts plus full-body fitness. No experience needed. Just show up and grow."

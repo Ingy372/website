@@ -4,6 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import DojoForgeWidget from "../components/booking/DojoForgeWidget.astro";
 import TrustSignals from "../components/sections/TrustSignals.astro";
 import { business } from "../data/business";
+import { trialDaysText } from "../data/schedule";
 ---
 
 <BaseLayout
@@ -15,7 +16,7 @@ import { business } from "../data/business";
     <Fragment slot="heading">Book My Free Class.</Fragment>
     <Fragment slot="subtext">
       Fill out the quick form below and we'll have your spot ready. Hannah is in the office
-      Monday through Thursday to walk you through everything in person.
+      {trialDaysText} to walk you through everything in person.
     </Fragment>
   </SimpleHero>
 

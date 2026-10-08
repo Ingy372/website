@@ -8,6 +8,9 @@ import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { cityState } from "../data/business";
+import { programs, ageLabel, ageRange } from "../data/schedule";
+
+const program = programs.littleWarriors;
 
 import heroImage from "../images/little-warriors/class-photo.jpg";
 import warmUpCircle from "../images/little-warriors/warm-up-circle.jpg";
@@ -32,11 +35,11 @@ const results = [
 ---
 
 <BaseLayout
-  title="Little Warriors Martial Arts, Ages 3–5"
-  description={`Little Warriors is martial arts built from the ground up for ages 3–5 in ${cityState}. Focus, listening, and confidence, taught through the fun of martial arts.`}
+  title={`Little Warriors Martial Arts, ${ageLabel(program)}`}
+  description={`Little Warriors is martial arts built from the ground up for ages ${ageRange(program)} in ${cityState}. Focus, listening, and confidence, taught through the fun of martial arts.`}
   path="/little-warriors"
 >
-  <ProgramHero badge="Little Warriors · Ages 3–5" image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
     <Fragment slot="heading">Small students. <em>Big beginnings.</em></Fragment>
     <Fragment slot="subtext">
       Little Warriors is martial arts built from the ground up for our youngest students. Before

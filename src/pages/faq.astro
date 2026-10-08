@@ -4,7 +4,10 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
-import { business, addressFull, cityState, founded } from "../data/business";
+import { business, addressFull, cityState, founded, numberToWords } from "../data/business";
+import { programs, programClassLength } from "../data/schedule";
+
+const { littleWarriors: lw, kids, teensAdults: ta } = programs;
 
 const groups = [
   {
@@ -15,13 +18,13 @@ const groups = [
       {
         question: "What age can a child start martial arts?",
         answer: [
-          "Children can begin at <strong>age three</strong> in our Little Warriors program. Ages six through twelve train in our Kids classes. Teens and adults train together from thirteen up.",
+          `Children can begin at <strong>age ${numberToWords(lw.minAge)}</strong> in our Little Warriors program. Ages ${numberToWords(kids.minAge)} through ${numberToWords(kids.maxAge!)} train in our Kids classes. Teens and adults train together from ${numberToWords(ta.minAge)} up.`,
         ],
       },
       {
         question: "Is three too young to start martial arts?",
         answer: [
-          "No. Little Warriors was designed specifically for ages three to five. It is our program for our littlest students, and it was built for them from the ground up.",
+          `No. Little Warriors was designed specifically for ages ${numberToWords(lw.minAge)} to ${numberToWords(lw.maxAge!)}. It is our program for our littlest students, and it was built for them from the ground up.`,
           "At that age we are teaching a child to listen. To wait their turn. To try something hard and not quit when it gets hard. The kicks and blocks are the delivery method. The lesson is underneath.",
         ],
       },
@@ -103,7 +106,7 @@ const groups = [
       {
         question: "How long is a class?",
         answer: [
-          "Little Warriors classes run <strong>forty-five minutes</strong>. Our kids, teen, and adult classes run <strong>a full hour</strong>.",
+          `Little Warriors classes run <strong>${programClassLength("littleWarriors")}</strong>. Our kids, teen, and adult classes run <strong>${programClassLength("kids")}</strong>.`,
         ],
       },
       {

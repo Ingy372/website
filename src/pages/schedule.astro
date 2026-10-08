@@ -5,6 +5,10 @@ import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { business, cityState } from "../data/business";
+import { closedDays, weeklySchedule } from "../data/schedule";
+
+// Closed days the grid doesn't already show as a "Closed" card.
+const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.day === d));
 ---
 
 <BaseLayout
@@ -24,7 +28,7 @@ import { business, cityState } from "../data/business";
       <WeeklyTimetable />
 
       <p class="mt-6 text-center text-sm text-mist">
-        Closed Sunday. Saturday mornings are open to the whole dojo, for makeup classes, extra
+        Closed {notInGrid.join(" and ")}. Saturday mornings are open to the whole dojo, for makeup classes, extra
         training, and testing.
       </p>
 

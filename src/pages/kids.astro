@@ -9,6 +9,9 @@ import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { cityState, founded } from "../data/business";
+import { programs, ageLabel, ageRange } from "../data/schedule";
+
+const program = programs.kids;
 
 import heroImage from "../images/kids/class-photo.jpg";
 import partnerDrill from "../images/kids/partner-drill.jpg";
@@ -48,11 +51,11 @@ const belts = [
 ---
 
 <BaseLayout
-  title="Kids Martial Arts, Ages 6–12"
-  description={`Kids martial arts classes for ages 6–12 in ${cityState}. Confidence, focus, respect, and real self-defense, in a non-competitive Christian dojo.`}
+  title={`Kids Martial Arts, ${ageLabel(program)}`}
+  description={`Kids martial arts classes for ages ${ageRange(program)} in ${cityState}. Confidence, focus, respect, and real self-defense, in a non-competitive Christian dojo.`}
   path="/kids"
 >
-  <ProgramHero badge="Kids · Ages 6–12" image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
     <Fragment slot="heading">Confidence that <em>shows up everywhere.</em></Fragment>
     <Fragment slot="subtext">
       Practical self-defense paired with confidence, focus, and respect. High-energy classes that
