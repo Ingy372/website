@@ -4,7 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
-import { business, addressFull, cityState, founded, numberToWords } from "../data/business";
+import { business, addressFull, cityState, founded, numberToWords, team, todo, PARENT_CHILD_TRAINING_AGE } from "../data/business";
 import { programs, programClassLength } from "../data/schedule";
 
 const { littleWarriors: lw, kids, teensAdults: ta } = programs;
@@ -38,7 +38,7 @@ const groups = [
       {
         question: "Can I train alongside my child?",
         answer: [
-          "Yes, once they reach <strong>age twelve</strong>.",
+          `Yes, once they reach <strong>age ${PARENT_CHILD_TRAINING_AGE === null ? todo("12 or 13? FAQ said 12, Teens & Adults is 13+") : numberToWords(PARENT_CHILD_TRAINING_AGE)}</strong>.`,
           "Our teen and adult class is where parents and older children train side by side. We also hold Saturday classes, where the entire dojo trains together regardless of age or rank.",
         ],
       },
@@ -126,7 +126,7 @@ const groups = [
       {
         question: "What is Yeshua's Ryu?",
         answer: [
-          "It is our system. Our founder, Michael Lowery, built it.",
+          `It is our system. Our founder, ${team.founder.name}, built it.`,
           "The name means <strong>Jesus' Way</strong>. It draws on Karate, Jiu Jitsu, Kung Fu, Tae Kwon Do, and the five traditional Japanese weapons, taught alongside Christian character.",
         ],
       },

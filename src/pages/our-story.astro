@@ -4,7 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import { Picture } from "astro:assets";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
-import { business, cityState, founded } from "../data/business";
+import { business, cityState, founded, team, todo, FOUNDER_STILL_TEACHES } from "../data/business";
 import { ratingText } from "../data/reviews";
 
 import michaelTeaching from "../images/our-story/michael-teaching.jpg";
@@ -15,7 +15,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
 <BaseLayout
   title="Our Story"
-  description={`${business.displayName} has taught Yeshua's Ryu in ${cityState} since ${founded.year}. The story of founder Michael Lowery and the school he built.`}
+  description={`${business.displayName} has taught Yeshua's Ryu in ${cityState} since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
   path="/our-story"
 >
   <SimpleHero eyebrow="Our Story">
@@ -28,8 +28,10 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
-      In {founded.year}, Michael Lowery built a martial arts school next to his own home in Raeford. He is
-      still teaching in it.
+      In {founded.year}, {team.founder.name} built a martial arts school next to his own home in {business.address.city}.
+      {FOUNDER_STILL_TEACHES === null
+        ? todo("does Michael still teach? this sentence said yes")
+        : FOUNDER_STILL_TEACHES && "He is still teaching in it."}
     </p>
   </div>
 
@@ -37,7 +39,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
     <div class="mx-auto aspect-square max-w-lg overflow-hidden rounded">
       <Picture
         src={michaelTeaching}
-        alt="Founder Michael Lowery teaching a class on the mat"
+        alt={`Founder ${team.founder.name} teaching a class on the mat`}
         formats={["avif", "webp"]}
         widths={[420, 512, 768, 1024]}
         sizes="(min-width: 512px) 512px, 100vw"
@@ -46,7 +48,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
         style="object-position:50% 6%"
       />
     </div>
-    <figcaption class="mt-3 text-center text-sm font-semibold text-mist">Shinan Michael Lowery, founder</figcaption>
+    <figcaption class="mt-3 text-center text-sm font-semibold text-mist">{team.founder.honorific} {team.founder.name}, founder</figcaption>
   </figure>
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
@@ -66,7 +68,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
       <div class="mx-auto h-40 w-40 overflow-hidden rounded-full">
         <Picture
           src={michaelPortrait}
-          alt="Portrait of founder Michael Lowery"
+          alt={`Portrait of founder ${team.founder.name}`}
           formats={["avif", "webp"]}
           widths={[160, 320]}
           sizes="160px"
@@ -140,7 +142,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="pb-14 text-lg leading-loose text-[#40403A] md:pb-16 md:leading-normal">
       <p class="mb-6 md:mb-4">
-        The school is run today by Michael's stepson, Jayson Lindemuth, who first stepped onto
+        The school is run today by Michael's stepson, {team.headInstructor.name}, who first stepped onto
         this mat at three years old and has spent twenty-six years in the art since. Same
         building. Same system. Same standard.
       </p>
@@ -156,7 +158,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
       <p class="mb-5 font-display text-xl font-semibold text-indigo md:mb-3">A Black Belt is not something you simply earn, though you will.</p>
       <p class="mb-5 font-display text-xl font-semibold text-indigo md:mb-3">A Black Belt is not just something you wear, though you will.</p>
       <p class="mb-6 font-display text-xl font-semibold text-indigo">A Black Belt is who you are becoming.</p>
-      <div class="text-sm font-bold tracking-[0.08em] text-gold-deep uppercase">Shinan Michael Lowery, Founder</div>
+      <div class="text-sm font-bold tracking-[0.08em] text-gold-deep uppercase">{team.founder.honorific} {team.founder.name}, {team.founder.title}</div>
     </div>
   </section>
 

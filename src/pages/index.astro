@@ -8,7 +8,7 @@ import ExtraCard from "../components/cards/ExtraCard.astro";
 import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
-import { cityState, founded } from "../data/business";
+import { cityState, founded, team } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
 import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
@@ -168,7 +168,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       <div class="aspect-[4/5] overflow-hidden rounded md:aspect-auto md:h-[420px]">
         <Picture
           src={founderAndHeadInstructor}
-          alt="Founder Michael Lowery with head instructor Jayson Lindemuth in the dojo"
+          alt={`Founder ${team.founder.name} with head instructor ${team.headInstructor.name} in the dojo`}
           formats={["avif", "webp"]}
           widths={[400, 600, 840, 1120]}
           sizes="(min-width: 768px) 42vw, 100vw"
@@ -183,7 +183,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
           Changing our world, <span class="text-gold-deep">one black belt at a time.</span>
         </h2>
         <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
-          Michael Lowery stepped onto a mat at eight years old and never really stepped off.
+          {team.founder.name} stepped onto a mat at eight years old and never really stepped off.
           Karate. Jiu Jitsu. Kung Fu. Tae Kwon Do. The five traditional Japanese weapons. A black
           belt in each one.
         </p>
@@ -201,7 +201,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         <div class="my-7 h-px w-14 bg-gold/40 md:hidden" aria-hidden="true"></div>
         <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">Then he handed it to his stepson.</p>
         <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
-          Jayson Lindemuth runs the school today. Every class. Every student. Same system. Same
+          {team.headInstructor.name} runs the school today. Every class. Every student. Same system. Same
           building. Same conviction that a punch should be taught beside a principle, and that a
           student is trained in mind, body, and spirit or they are not really being trained at
           all.

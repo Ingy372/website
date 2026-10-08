@@ -42,6 +42,26 @@ export const business = {
   googleWriteReviewUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
 };
 
+// ---------------------------------------------------------------------------
+// Team — names, titles, and the #anchor slug for each bio on /meet-the-team.
+// ---------------------------------------------------------------------------
+
+export const team = {
+  founder: { name: "Michael Lowery", title: "Founder", honorific: "Shinan", slug: "michael-lowery" },
+  headInstructor: { name: "Jayson Lindemuth", title: "Head Instructor", slug: "jayson-lindemuth" },
+  // TODO(JAY: confirm Hannah's title/role) — shown on /meet-the-team and in its meta description.
+  officeManager: { name: "Hannah Minter", title: todo("confirm Hannah's title/role, shown as Office Manager"), slug: "hannah-minter" },
+};
+
+// TODO(JAY: does Michael still teach classes?) — true or false. /our-story
+// says "He is still teaching in it" while /meet-the-team says the school is
+// now in Jayson's hands. null renders a TODO marker in that sentence.
+export const FOUNDER_STILL_TEACHES: boolean | null = null;
+
+// TODO(JAY: youngest age a child can join the Teens & Adults class to train
+// alongside a parent) — the FAQ said 12, the program page says 13+.
+export const PARENT_CHILD_TRAINING_AGE: number | null = null;
+
 export const addressCityLine = `${business.address.city}, ${business.address.state} ${business.address.zip}`;
 export const addressFull = `${business.address.street}, ${addressCityLine}`;
 export const cityState = `${business.address.city}, ${business.address.state}`;
