@@ -3,9 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ProgramHero from "../components/hero/ProgramHero.astro";
 import SectionHead from "../components/sections/SectionHead.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import { business, cityState } from "../data/business";
+import { nextParentsNightOut, eventWhenText, eventJsonLd } from "../data/events";
 
 import partyPhoto from "../images/parents-night-out/party.jpg";
-import { business, cityState } from "../data/business";
+
+const eventSchema = eventJsonLd("parents-night-out", new URL("/parents-night-out", Astro.site).href);
 ---
 
 <BaseLayout
@@ -13,6 +16,9 @@ import { business, cityState } from "../data/business";
   description={`Drop the kids off for a themed evening of games and martial arts at ${business.displayName} in ${cityState}, and enjoy a few hours to yourselves.`}
   path="/parents-night-out"
 >
+  {eventSchema.length > 0 && (
+    <script type="application/ld+json" slot="head" set:html={JSON.stringify(eventSchema)} is:inline />
+  )}
   <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact">
     <Fragment slot="heading">Drop the kids. <em>Enjoy the night.</em></Fragment>
     <Fragment slot="subtext">
@@ -20,6 +26,11 @@ import { business, cityState } from "../data/business";
       Night, Superhero Dress-Up, Water Wars, and more. You get a few hours to yourself, they get a
       night to remember.
     </Fragment>
+    {nextParentsNightOut && (
+      <Fragment slot="note">
+        Next date: {eventWhenText(nextParentsNightOut)}{nextParentsNightOut.theme && ` · ${nextParentsNightOut.theme}`}
+      </Fragment>
+    )}
   </ProgramHero>
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">

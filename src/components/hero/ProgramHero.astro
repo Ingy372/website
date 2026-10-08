@@ -35,6 +35,11 @@ const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
       >
         {ctaLabel}
       </a>
+      {Astro.slots.has("note") && (
+        <p class="mt-4 text-sm font-semibold text-gold-soft">
+          <slot name="note" />
+        </p>
+      )}
     </div>
     <div class="h-[280px] overflow-hidden rounded md:h-[400px]">
       <Picture

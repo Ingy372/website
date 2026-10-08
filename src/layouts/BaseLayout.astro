@@ -73,6 +73,7 @@ const localBusinessSchema = {
     <Font cssVariable="--font-fraunces" preload />
 
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} is:inline />
+    <slot name="head" />
   </head>
   <body>
     <a
