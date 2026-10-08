@@ -26,7 +26,14 @@ export default defineConfig({
 
   // The site stylesheet is small (~8.5 KB), so inline it into each page rather
   // than making the browser wait on a separate render-blocking request.
+  // One URL shape everywhere: no trailing slash. `format: 'file'` emits
+  // kids.html (served at /kids) instead of kids/index.html (which made
+  // Cloudflare redirect /kids -> /kids/ while canonicals said /kids).
+  // Internal links, canonicals, og:url, the sitemap, and public/_redirects
+  // all use the slash-less form.
+  trailingSlash: 'never',
   build: {
+    format: 'file',
     inlineStylesheets: 'always'
   },
 

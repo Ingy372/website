@@ -1,10 +1,48 @@
-# Legacy Wix URL redirects.
-# /contact and /meet-the-team already match the new URL structure exactly,
-# so no redirect entry is needed for those two.
-/about /our-story 301
-/testimony /reviews 301
-/little-warriors-class /little-warriors 301
-/children-class /kids 301
-/teen-adult-class /teens-adults 301
-/pictures-1 /facility 301
-/student-login /family-login 301
+# Legacy Wix URL -> new URL, one 301 hop each. Every rule has a trailing-slash
+# twin because _redirects runs before the static-asset slash handling.
+# Source: the old site's pages-sitemap.xml (Wix). /contact, /meet-the-team,
+# and /parents-night-out kept the same path and need no rule.
+# Host-level moves (www -> apex, workers.dev) are not possible here; see
+# docs/LAUNCH-REDIRECTS.md.
+
+/about                 /our-story                         301
+/about/                /our-story                         301
+/testimony             /reviews                           301
+/testimony/            /reviews                           301
+/little-warriors-class /little-warriors                   301
+/little-warriors-class/ /little-warriors                  301
+/children-class        /kids                              301
+/children-class/       /kids                              301
+/teen-adult-class      /teens-adults                      301
+/teen-adult-class/     /teens-adults                      301
+# TODO(JAY: pick one home for the photo galleries, see Phase 3 M5) - both
+# gallery URLs point at /facility until then.
+/pictures-1            /facility                          301
+/pictures-1/           /facility                          301
+/life-at-the-dojo      /facility                          301
+/life-at-the-dojo/     /facility                          301
+
+# Person pages -> their bio on /meet-the-team.
+/michael-lowery        /meet-the-team#michael-lowery      301
+/michael-lowery/       /meet-the-team#michael-lowery      301
+/jayson-lindemuth      /meet-the-team#jayson-lindemuth    301
+/jayson-lindemuth/     /meet-the-team#jayson-lindemuth    301
+/hannah-minter         /meet-the-team#hannah-minter       301
+/hannah-minter/        /meet-the-team#hannah-minter       301
+# TODO(JAY: Nicholas Lockleair had a person page on the old site but is not on
+# the new Meet the Team page. Add a bio (and anchor) or leave this pointing at
+# the team page.)
+/nicholas-lockleair    /meet-the-team                     301
+/nicholas-lockleair/   /meet-the-team                     301
+
+# Wix placeholder page with no new equivalent.
+/blank                 /                                  301
+/blank/                /                                  301
+
+# Renamed on this site.
+/student-login         /family-login                      301
+/student-login/        /family-login                      301
+
+# Any other single-segment page with a trailing slash -> canonical form, as a
+# permanent 301 (Cloudflare's built-in slash handling would answer 307).
+/:page/                /:page                             301
