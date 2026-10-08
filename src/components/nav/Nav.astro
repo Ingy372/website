@@ -1,5 +1,5 @@
 ---
-import { nav, offer, studentLoginHref } from "../../data/school";
+import { nav, offer } from "../../data/school";
 import { business } from "../../data/business";
 
 const dropdowns = [
@@ -55,12 +55,6 @@ const dropdowns = [
       >
         {offer.cta}
       </a>
-      <a
-        href={studentLoginHref}
-        class="border-l border-white/15 pl-[22px] text-[0.8rem] text-[#8A89A0] hover:text-white"
-      >
-        Student Login
-      </a>
     </div>
 
     <button
@@ -110,10 +104,6 @@ const dropdowns = [
           {item.label}
         </a>
       ))}
-
-      <a href={studentLoginHref} class="py-3 text-[0.9rem] text-[#8A89A0] hover:text-white">
-        Student Login
-      </a>
     </div>
 
     <a

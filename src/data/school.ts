@@ -77,12 +77,11 @@ export const dojoForge = {
 
 // ---------------------------------------------------------------------------
 // Navigation — data-driven so Nav.astro and Footer.astro don't hardcode links.
-// Student Login points at a placeholder route; the real deep-link destination
-// is pending from Nic (Tarnished Labs). TODO: swap studentLoginHref once the
-// platform's login/redirect URL is confirmed.
+// Family Login (training videos) is intentionally NOT in the nav or footer
+// until accounts roll out; see src/pages/family-login.astro.
 // ---------------------------------------------------------------------------
 
-export const studentLoginHref = "/student-login";
+export const familyLoginHref = "/family-login";
 
 export const nav = {
   programs: [

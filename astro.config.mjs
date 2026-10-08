@@ -14,7 +14,15 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()],
+  // Pages marked noindex (BaseLayout `noindex`) stay out of the sitemap too.
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !["/404", "/family-login", "/contact/sent", "/privacy", "/sms-terms"].some((p) =>
+          new URL(page).pathname.replace(/\/$/, "").endsWith(p)
+        ),
+    }),
+  ],
 
   // The site stylesheet is small (~8.5 KB), so inline it into each page rather
   // than making the browser wait on a separate render-blocking request.
