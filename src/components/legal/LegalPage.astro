@@ -1,0 +1,30 @@
+---
+// Shared shell for /privacy and /sms-terms. Both are drafts: they render a
+// visible TODO(JAY) banner and stay noindex until `reviewed` is set.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { todo } from "../../data/business";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  effectiveDate: string | null;
+  reviewed: boolean;
+}
+const { title, description, path, effectiveDate, reviewed } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path} noindex={!reviewed}>
+  <article class="mx-auto max-w-3xl px-6 py-16 md:px-5 md:py-20">
+    {!reviewed && (
+      <p class="mb-8 rounded border-l-4 border-[#8B3A2F] bg-[#8B3A2F]/10 p-4 text-sm font-semibold text-[#8B3A2F]">
+        {todo("review before publish: draft policy, not legal advice; have it checked, then set reviewed")}
+      </p>
+    )}
+    <h1 class="mb-2 text-[clamp(2rem,4vw,2.8rem)] text-indigo">{title}</h1>
+    <p class="mb-10 text-sm text-mist">Effective {effectiveDate ?? todo("effective date")}</p>
+    <div class="flex flex-col gap-4 text-[1.02rem] text-[#40403A] [&_a]:font-semibold [&_a]:text-indigo [&_a]:underline [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-indigo [&_li]:ml-5 [&_li]:list-disc [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

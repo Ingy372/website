@@ -7,61 +7,60 @@ import { analytics } from "../data/school";
 ---
 
 <!--
-  The gtag/fbq queues are set up immediately so every call (PageView, click
-  events below) is captured from the first moment. The libraries themselves
-  (~275 KB from Google + Meta) are fetched only after the page has finished
-  loading, so they no longer compete with the fonts, CSS, and hero on mobile.
-  Queued calls are replayed as soon as each library arrives.
+  Only on the production hostname (analytics.productionHosts). Elsewhere
+  window.gtag/fbq stay undefined and every optional-chained call is a no-op.
+  On production, the gtag/fbq queues are set up immediately so every call
+  (PageView, click events below) is captured from the first moment. The
+  libraries themselves (~275 KB from Google + Meta) are fetched only after the
+  page has finished loading, so they don't compete with the fonts, CSS, and
+  hero on mobile. Queued calls are replayed as soon as each library arrives.
+  (No <noscript> Pixel image: it can't check the hostname.)
 -->
-<script define:vars={{ GA4_ID: analytics.ga4MeasurementId, PIXEL_ID: analytics.metaPixelId }} is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    window.dataLayer.push(arguments);
-  }
-  window.gtag = gtag;
-  gtag("js", new Date());
-  gtag("config", GA4_ID);
+<script
+  define:vars={{ GA4_ID: analytics.ga4MeasurementId, PIXEL_ID: analytics.metaPixelId, HOSTS: analytics.productionHosts }}
+  is:inline
+>
+  if (HOSTS.indexOf(location.hostname) !== -1) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    gtag("js", new Date());
+    gtag("config", GA4_ID);
 
-  !(function (f) {
-    if (f.fbq) return;
-    var n = (f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    });
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = !0;
-    n.version = "2.0";
-    n.queue = [];
-  })(window);
-  fbq("init", PIXEL_ID);
-  fbq("track", "PageView");
+    !(function (f) {
+      if (f.fbq) return;
+      var n = (f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      });
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = "2.0";
+      n.queue = [];
+    })(window);
+    fbq("init", PIXEL_ID);
+    fbq("track", "PageView");
 
-  function loadAnalytics() {
-    [
-      "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID,
-      "https://connect.facebook.net/en_US/fbevents.js",
-    ].forEach(function (src) {
-      var s = document.createElement("script");
-      s.async = true;
-      s.src = src;
-      document.head.appendChild(s);
-    });
+    var loadAnalytics = function () {
+      [
+        "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID,
+        "https://connect.facebook.net/en_US/fbevents.js",
+      ].forEach(function (src) {
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = src;
+        document.head.appendChild(s);
+      });
+    };
+    var scheduleAnalytics = function () {
+      if ("requestIdleCallback" in window) requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      else setTimeout(loadAnalytics, 1);
+    };
+    if (document.readyState === "complete") scheduleAnalytics();
+    else window.addEventListener("load", scheduleAnalytics, { once: true });
   }
-  function scheduleAnalytics() {
-    if ("requestIdleCallback" in window) requestIdleCallback(loadAnalytics, { timeout: 2000 });
-    else setTimeout(loadAnalytics, 1);
-  }
-  if (document.readyState === "complete") scheduleAnalytics();
-  else window.addEventListener("load", scheduleAnalytics, { once: true });
 </script>
-<noscript>
-  <img
-    height="1"
-    width="1"
-    style="display:none"
-    src={`https://www.facebook.com/tr?id=${analytics.metaPixelId}&ev=PageView&noscript=1`}
-  />
-</noscript>
 
 <!--
   Site-wide click tracking via delegation, so every current and future

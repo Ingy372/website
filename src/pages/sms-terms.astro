@@ -1,0 +1,51 @@
+---
+// Wording follows the CTIA Messaging Principles / 10DLC campaign checklist:
+// program name and purpose, how to opt in, frequency, "Msg & data rates may
+// apply", STOP and HELP, consent not a condition of purchase, carrier
+// disclaimer, no sharing of mobile numbers, and a privacy policy link.
+import LegalPage from "../components/legal/LegalPage.astro";
+import { business, todo } from "../data/business";
+
+const programName = `${business.displayName} Notifications`;
+---
+
+<LegalPage
+  title="SMS Terms"
+  description={`Terms for text messages from ${business.displayName}: what we send, how often, and how to stop.`}
+  path="/sms-terms"
+  effectiveDate={null}
+  reviewed={false}
+>
+  <h2>The program</h2>
+  <p>
+    {programName} sends text messages to parents, guardians, and adult students who opt in, about
+    trial class bookings, class reminders, schedule changes and closures, and replies to questions
+    you send us. {todo("SMS program facts: who sends the texts, the school line or Dojo Forge, from which number, and which message types")}
+  </p>
+
+  <h2>How you opt in</h2>
+  <p>
+    You opt in by checking the text message consent box when you book a class, or by texting us
+    first. Consent to receive texts is not a condition of any purchase or enrollment.
+    {todo("confirm where the SMS consent checkbox lives, e.g. inside the Dojo Forge booking form")}
+  </p>
+
+  <h2>Message frequency and cost</h2>
+  <p>Message frequency varies. Message and data rates may apply. Check your mobile plan for details.</p>
+
+  <h2>Stopping and getting help</h2>
+  <ul>
+    <li>Reply <strong>STOP</strong> to any message to stop receiving texts. We will send one confirmation and then no more.</li>
+    <li>Reply <strong>HELP</strong> for help, or call us at <a href={business.phoneHref}>{business.phone}</a>.</li>
+  </ul>
+
+  <h2>Carriers</h2>
+  <p>Wireless carriers are not liable for delayed or undelivered messages.</p>
+
+  <h2>Privacy</h2>
+  <p>
+    We do not share your mobile number or text messaging consent with third parties or affiliates
+    for their marketing purposes. See our <a href="/privacy">Privacy Policy</a> for how we handle
+    your information.
+  </p>
+</LegalPage>

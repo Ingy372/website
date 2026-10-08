@@ -14,6 +14,9 @@ import { ratingText, countText } from "./reviews";
 export const analytics = {
   ga4MeasurementId: "G-51K77M3SNV",
   metaPixelId: "932835404913250",
+  // GA4 and the Pixel load only on these hostnames, never on workers.dev
+  // previews or localhost, so test traffic never pollutes the data.
+  productionHosts: ["actionzonecma.com", "www.actionzonecma.com"],
 };
 
 export const trustSignals = [
