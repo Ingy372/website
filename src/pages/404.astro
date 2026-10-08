@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { ctaLabelGeneral, nav } from "../data/school";
+import { offer, nav } from "../data/school";
 import { business } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
 
@@ -9,7 +9,7 @@ const programLinks = Object.values(programs);
 
 <BaseLayout
   title="Page Not Found"
-  description={`That page doesn't exist on the ${business.displayName} website. Find a program, the class schedule, or claim your free week.`}
+  description={`That page doesn't exist on the ${business.displayName} website. Find a program, the class schedule, or claim your ${offer.noun}.`}
   path="/404"
   noindex
 >
@@ -36,7 +36,7 @@ const programLinks = Object.values(programs);
           href="/booking"
           class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft"
         >
-          {ctaLabelGeneral}
+          {offer.cta}
         </a>
         <a href={business.phoneHref} class="font-bold text-gold-soft hover:text-gold">
           Or call {business.phone}

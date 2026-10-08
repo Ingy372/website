@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
 import { closedDays, weeklySchedule } from "../data/schedule";
 
@@ -50,16 +50,16 @@ const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.da
           href="/booking"
           class="inline-flex items-center gap-2 font-bold text-indigo hover:text-gold"
         >
-          New to Action Zone? Book a free trial class <span aria-hidden="true">&rarr;</span>
+          New to Action Zone? Book your {offer.noun} <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
     <Fragment slot="heading">See a class that works? <em>Come try it free.</em></Fragment>
     <Fragment slot="subtext">
-      Book any beginner class above and your first week is on us. No uniform, no equipment, no
+      Book any beginner class above and your {offer.first} is on us. No uniform, no equipment, no
       commitment.
     </Fragment>
   </CTASection>

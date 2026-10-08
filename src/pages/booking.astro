@@ -3,17 +3,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import DojoForgeWidget from "../components/booking/DojoForgeWidget.astro";
 import TrustSignals from "../components/sections/TrustSignals.astro";
+import { offer } from "../data/school";
 import { business } from "../data/business";
 import { trialDaysText } from "../data/schedule";
 ---
 
 <BaseLayout
-  title="Book Your Free Class"
-  description={`Book a free trial class at ${business.displayName}. Fill out the quick form and reserve your spot in minutes.`}
+  title={offer.bookingTitle}
+  description={`Book your ${offer.noun} at ${business.displayName}. Fill out the quick form and reserve your spot in minutes.`}
   path="/booking"
 >
   <SimpleHero eyebrow="New Families">
-    <Fragment slot="heading">Book My Free Class.</Fragment>
+    <Fragment slot="heading">{offer.cta}.</Fragment>
     <Fragment slot="subtext">
       Fill out the quick form below and we'll have your spot ready. Hannah is in the office
       {trialDaysText} to walk you through everything in person.

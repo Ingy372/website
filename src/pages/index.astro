@@ -7,7 +7,7 @@ import ProgramCard from "../components/cards/ProgramCard.astro";
 import ExtraCard from "../components/cards/ExtraCard.astro";
 import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { cityState, founded, team } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
 import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
@@ -69,7 +69,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
 <BaseLayout
   title={`Christian Martial Arts in ${cityState}`}
-  description={`A family dojo in ${cityState} serving kids, teens, and adults since ${founded.year}. Build confidence, focus, and real self-defense. Claim your free week.`}
+  description={`A family dojo in ${cityState} serving kids, teens, and adults since ${founded.year}. Build confidence, focus, and real self-defense. Claim your ${offer.noun}.`}
   path="/"
 >
   <HomeHero />
@@ -289,8 +289,8 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
-    <Fragment slot="heading">Your first week is <em>completely free.</em></Fragment>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
     <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
   </CTASection>
 </BaseLayout>

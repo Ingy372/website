@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
 import { getReview, displayAuthor, reviewDateText, ratingText, countText } from "../data/reviews";
 
@@ -86,8 +86,8 @@ const quotes = ["jacy-d", "crystal-c", "sarah-g"].map(getReview);
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={business.googleWriteReviewUrl}>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={business.googleWriteReviewUrl}>
     <Fragment slot="heading">Come see why families <em>keep coming back.</em></Fragment>
-    <Fragment slot="subtext">The best way to understand Action Zone is to walk through the door. Your first week is on us.</Fragment>
+    <Fragment slot="subtext">The best way to understand Action Zone is to walk through the door. Your {offer.first} is on us.</Fragment>
   </CTASection>
 </BaseLayout>

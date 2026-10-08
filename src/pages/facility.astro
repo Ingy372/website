@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import FeatureRow from "../components/cards/FeatureRow.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { business, cityState, founded } from "../data/business";
 
 import ninjaLine from "../images/facility/ninja-line.jpg";
@@ -96,8 +96,8 @@ import trampoline from "../images/facility/trampoline.jpg";
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
-    <Fragment slot="heading">Come see it in person. <em>The first week is free.</em></Fragment>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Come see it in person. <em>The {offer.first} is free.</em></Fragment>
     <Fragment slot="subtext">Tour the dojo, meet the team, and let the kids try the ninja line. No cost, no commitment.</Fragment>
   </CTASection>
 </BaseLayout>

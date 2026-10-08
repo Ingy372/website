@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { business, addressFull, cityState, founded, numberToWords, team, todo, PARENT_CHILD_TRAINING_AGE } from "../data/business";
 import { programs, programClassLength } from "../data/schedule";
 
@@ -63,7 +63,7 @@ const groups = [
           "We are instructors, not clinicians, so we are not going to promise you an outcome. What we can tell you is what we have seen in this building.",
           "Students with ADHD have trained here and progressed. Students with autism have trained here and progressed. One nonverbal student advanced a good way through our system.",
           "We think the structure is part of it. A class has clear expectations, one task at a time, an instructor watching, and a belt you can see coming. That is a good environment for a lot of children, and it is a good environment for children who struggle to find one.",
-          "Bring your child in for a free week. You will learn more from watching one class than from anything we could write here.",
+          `Bring your child in for a ${offer.noun}. You will learn more from watching one class than from anything we could write here.`,
         ],
       },
       {
@@ -79,7 +79,7 @@ const groups = [
         answer: [
           "Come and let us meet them.",
           "We have taught quiet children, anxious children, children who could not be still, children with physical disabilities, and children who did not speak. Progress looks different for every one of them, and we are not going to pretend otherwise.",
-          "The free week costs you nothing. It will tell you more than any answer we could write here.",
+          `The ${offer.noun} costs you nothing. It will tell you more than any answer we could write here.`,
         ],
       },
       {
@@ -100,7 +100,7 @@ const groups = [
         question: "What should my child wear to their first class?",
         answer: [
           "Comfortable clothes they can move in. A t-shirt and athletic shorts or sweatpants is perfect. We train barefoot, so no shoes are needed.",
-          "Please do not buy a uniform before your free week. If you enroll, we will fit them properly.",
+          `Please do not buy a uniform before your ${offer.noun}. If you enroll, we will fit them properly.`,
         ],
       },
       {
@@ -174,7 +174,7 @@ const groups = [
         ],
       },
       {
-        question: "How do I schedule my free week?",
+        question: `How do I schedule my ${offer.noun}?`,
         answer: [
           `Book a class on our <a href="/booking" class="text-indigo font-bold border-b border-gold">booking page</a>, or call us at <a href="${business.phoneHref}" class="text-indigo font-bold border-b border-gold">${business.phone}</a>.`,
           "We will get back to you quickly and get your child on the mat.",
@@ -217,7 +217,7 @@ const groups = [
     ))}
   </div>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
     <Fragment slot="heading">Still have a question? <em>Just ask.</em></Fragment>
     <Fragment slot="subtext">Nobody has ever bothered us by asking too many questions about their child.</Fragment>
   </CTASection>

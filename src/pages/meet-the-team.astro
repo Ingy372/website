@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import TeamPerson from "../components/sections/TeamPerson.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { business, founded, team } from "../data/business";
 
 const { founder, headInstructor, officeManager } = team;
@@ -85,8 +85,8 @@ import hannahPortrait from "../images/team/hannah-portrait.png";
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" bg="indigo">
-    <Fragment slot="heading">Come meet us in person. <em>Your first week is free.</em></Fragment>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking" bg="indigo">
+    <Fragment slot="heading">Come meet us in person. <em>Your {offer.first} is free.</em></Fragment>
     <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
   </CTASection>
 </BaseLayout>

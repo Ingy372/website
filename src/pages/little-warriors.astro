@@ -6,7 +6,7 @@ import NumberedCard from "../components/cards/NumberedCard.astro";
 import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
@@ -39,7 +39,7 @@ const results = [
   description={`Little Warriors is martial arts built from the ground up for ages ${ageRange(program)} in ${cityState}. Focus, listening, and confidence, taught through the fun of martial arts.`}
   path="/little-warriors"
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={offer.cta} ctaHref="/booking">
     <Fragment slot="heading">Small students. <em>Big beginnings.</em></Fragment>
     <Fragment slot="subtext">
       Little Warriors is martial arts built from the ground up for our youngest students. Before
@@ -127,8 +127,8 @@ const results = [
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
-    <Fragment slot="heading">See it for yourself. <em>The first week is free.</em></Fragment>
-    <Fragment slot="subtext">Bring your little one in for a week of classes. No cost, no commitment.</Fragment>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">See it for yourself. <em>The {offer.first} is free.</em></Fragment>
+    <Fragment slot="subtext">Bring your little one in for {offer.visit}. No cost, no commitment.</Fragment>
   </CTASection>
 </BaseLayout>

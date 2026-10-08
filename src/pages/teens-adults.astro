@@ -9,7 +9,7 @@ import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { Picture } from "astro:assets";
-import { ctaLabelGeneral } from "../data/school";
+import { offer } from "../data/school";
 import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
@@ -45,7 +45,7 @@ const steps = [
   description={`Martial arts and fitness for teens and adults, ages ${ageRange(program)}, in ${cityState}. Real self-defense, real fitness, no experience needed.`}
   path="/teens-adults"
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Adult martial arts and fitness class training on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Adult martial arts and fitness class training on the mat" ctaLabel={offer.cta} ctaHref="/booking">
     <Fragment slot="heading">The workout you'll <em>actually look forward to.</em></Fragment>
     <Fragment slot="subtext">
       Get in shape, burn off the stress of the day, and learn to defend yourself for real. No
@@ -163,8 +163,8 @@ const steps = [
 
   <ReviewQuote id="benjamin-s" />
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
-    <Fragment slot="heading">Your first week is <em>completely free.</em></Fragment>
-    <Fragment slot="subtext">Come train with us for a week. No cost, no commitment, no pressure. Just show up.</Fragment>
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
+    <Fragment slot="subtext">Come train with us for {offer.visit}. No cost, no commitment, no pressure. Just show up.</Fragment>
   </CTASection>
 </BaseLayout>
