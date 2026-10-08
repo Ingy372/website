@@ -33,7 +33,13 @@ export const business = {
     facebook: "https://www.facebook.com/cmamtma/",
     instagram: "https://www.instagram.com/yeshuas_ryu/",
   },
+  // TODO(JAY: Google Business Profile links). Until then both fall back to a
+  // Google search, which works but isn't the listing itself.
+  //  - googleReviewsUrl: the Maps listing (Share → copy link on the profile).
+  //  - googleWriteReviewUrl: the "Ask for reviews" link from the GBP dashboard
+  //    (https://g.page/r/<id>/review).
   googleReviewsUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
+  googleWriteReviewUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
 };
 
 export const addressCityLine = `${business.address.city}, ${business.address.state} ${business.address.zip}`;

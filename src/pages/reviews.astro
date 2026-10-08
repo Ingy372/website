@@ -71,17 +71,22 @@ const quotes = ["jacy-d", "crystal-c", "sarah-g"].map(getReview);
 
       <div class="mx-auto mt-10 max-w-3xl rounded border border-paper-warm bg-paper-warm p-8 text-center">
         <div class="mb-2 text-xs font-bold tracking-[0.15em] text-mist uppercase">Straight From Google</div>
-        <p class="text-[#40403A]">
-          <strong class="font-semibold text-indigo">Live Google reviews feed goes here.</strong> On
-          the live site this pulls your full Google reviews automatically, newest first, so the
-          page updates itself as families leave new ones. Connected during the build through your
-          Google Business Profile.
+        <p class="mb-5 text-[#40403A]">
+          Read every review families have left us, newest first, on our Google listing.
         </p>
+        <a
+          href={business.googleReviewsUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-block rounded-sm bg-indigo px-6 py-3.5 font-bold text-white hover:bg-gold hover:text-indigo-deep"
+        >
+          See all {countText} reviews on Google
+        </a>
       </div>
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={business.googleReviewsUrl}>
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={business.googleWriteReviewUrl}>
     <Fragment slot="heading">Come see why families <em>keep coming back.</em></Fragment>
     <Fragment slot="subtext">The best way to understand Action Zone is to walk through the door. Your first week is on us.</Fragment>
   </CTASection>
