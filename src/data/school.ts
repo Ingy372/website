@@ -31,6 +31,16 @@ export const ctaLabelGeneral = "Claim My Free Week";
 export const ctaLabelBooking = "Book My Free Class";
 
 // ---------------------------------------------------------------------------
+// Cloudflare Turnstile (spam check on the contact form). The site key is
+// public. TODO(JAY: Turnstile site key for actionzonecma.com — create a widget
+// in the Cloudflare dashboard and paste its site key here; put its secret in
+// TURNSTILE_SECRET_KEY). Until then this is Cloudflare's always-pass test key,
+// which a real production secret rejects, so the form fails closed.
+// ---------------------------------------------------------------------------
+
+export const turnstileSiteKey = "1x00000000000000000000AA";
+
+// ---------------------------------------------------------------------------
 // DojoForge hosted booking widget (Nic, Tarnished Labs) — active booking
 // method on /booking. publicKey is a client-safe tenant key (format
 // "dfw_..."), not a secret, so it's fine to ship in page markup.

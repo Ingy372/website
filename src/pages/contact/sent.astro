@@ -1,0 +1,22 @@
+---
+// Landing page for the no-JavaScript contact form path: /api/contact
+// redirects here (303) after a successful plain HTML form post.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { business } from "../../data/business";
+---
+
+<BaseLayout
+  title="Message Sent"
+  description={`Thanks for contacting ${business.displayName}. We'll get back to you soon.`}
+  path="/contact/sent"
+  noindex
+>
+  <section class="py-24 text-center md:py-28">
+    <div class="mx-auto max-w-xl px-6 md:px-5">
+      <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold text-2xl text-indigo-deep" aria-hidden="true">&#10003;</div>
+      <h1 class="mb-4 text-3xl font-black text-indigo md:text-4xl">Message sent</h1>
+      <p class="mb-8 text-lg text-mist">We'll get back to you quickly, usually the same day.</p>
+      <a href="/" class="font-bold text-indigo hover:text-gold">Back to the home page &rarr;</a>
+    </div>
+  </section>
+</BaseLayout>

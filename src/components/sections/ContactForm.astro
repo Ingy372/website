@@ -1,5 +1,12 @@
 ---
 import TrustSignals from "./TrustSignals.astro";
+import { turnstileSiteKey, analytics } from "../../data/school";
+import { business } from "../../data/business";
+import { LIMITS, HONEYPOT_FIELD } from "../../lib/contact";
+
+const inputClass =
+  "w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold";
+const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase";
 ---
 
 <div class="rounded border-t-4 border-gold bg-white p-7">
@@ -9,32 +16,34 @@ import TrustSignals from "./TrustSignals.astro";
       href="/booking" class="font-semibold text-indigo hover:text-gold">booking page</a>.
   </p>
 
-  <form id="contact-form" class="flex flex-col gap-4">
+  <!-- method/action keep the form working (and keep personal details out of
+       the URL) even if the script below never runs. -->
+  <form id="contact-form" method="post" action="/api/contact" data-pixel-id={analytics.metaPixelId} class="flex flex-col gap-4">
     <div class="grid gap-4 sm:grid-cols-2">
       <label class="block">
-        <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Name</span>
-        <input required name="name" type="text" class="w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+        <span class={labelClass}>Name</span>
+        <input required name="name" type="text" maxlength={LIMITS.name} class={inputClass} />
       </label>
       <label class="block">
-        <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Phone (optional)</span>
-        <input name="phone" type="tel" placeholder="(910) 000-0000" class="w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+        <span class={labelClass}>Phone (optional)</span>
+        <input name="phone" type="tel" maxlength={LIMITS.phone} placeholder="(910) 000-0000" class={inputClass} />
       </label>
     </div>
     <label class="block">
-      <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Email</span>
-      <input required name="email" type="email" class="w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+      <span class={labelClass}>Email</span>
+      <input required name="email" type="email" maxlength={LIMITS.email} class={inputClass} />
     </label>
     <label class="block">
-      <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Message</span>
-      <textarea required name="message" rows="4" class="w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold"></textarea>
+      <span class={labelClass}>Message</span>
+      <textarea required name="message" rows="4" maxlength={LIMITS.message} class={inputClass}></textarea>
     </label>
 
     <fieldset class="rounded border border-paper-warm bg-paper p-4">
       <legend class="px-1 text-xs font-semibold tracking-[0.05em] text-mist uppercase">Planning a party or event? (optional)</legend>
       <div class="mt-2 grid gap-4 sm:grid-cols-2">
         <label class="block">
-          <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Interested in</span>
-          <select name="interest" class="w-full rounded border border-paper-warm bg-white px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold">
+          <span class={labelClass}>Interested in</span>
+          <select name="interest" class={inputClass.replace("bg-paper", "bg-white")}>
             <option value="">Select one</option>
             <option>Birthday Party</option>
             <option>Parents Night Out</option>
@@ -42,19 +51,26 @@ import TrustSignals from "./TrustSignals.astro";
           </select>
         </label>
         <label class="block">
-          <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Preferred date</span>
-          <input name="preferredDate" type="date" class="w-full rounded border border-paper-warm bg-white px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+          <span class={labelClass}>Preferred date</span>
+          <input name="preferredDate" type="date" class={inputClass.replace("bg-paper", "bg-white")} />
         </label>
         <label class="block">
-          <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Child's age</span>
-          <input name="childAge" type="text" inputmode="numeric" class="w-full rounded border border-paper-warm bg-white px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+          <span class={labelClass}>Child's age</span>
+          <input name="childAge" type="text" inputmode="numeric" maxlength={LIMITS.childAge} class={inputClass.replace("bg-paper", "bg-white")} />
         </label>
         <label class="block">
-          <span class="mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mist uppercase">Approximate guest count</span>
-          <input name="guestCount" type="text" inputmode="numeric" class="w-full rounded border border-paper-warm bg-white px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold" />
+          <span class={labelClass}>Approximate guest count</span>
+          <input name="guestCount" type="text" inputmode="numeric" maxlength={LIMITS.guestCount} class={inputClass.replace("bg-paper", "bg-white")} />
         </label>
       </div>
     </fieldset>
+
+    <!-- Honeypot: hidden from people and screen readers; bots tend to fill it. -->
+    <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label>Leave this field empty <input name={HONEYPOT_FIELD} type="text" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible"></div>
 
     <button
       type="submit"
@@ -64,7 +80,8 @@ import TrustSignals from "./TrustSignals.astro";
       Send My Message
     </button>
     <p id="contact-error" class="hidden text-sm font-semibold text-[#8B3A2F]">
-      Something went wrong sending your message. Please call us instead.
+      <span id="contact-error-text">Something went wrong sending your message.</span>
+      Please call us at <a href={business.phoneHref} class="underline">{business.phone}</a> instead.
     </p>
   </form>
 
@@ -79,12 +96,13 @@ import TrustSignals from "./TrustSignals.astro";
   </div>
 </div>
 
-<script>
-  import { analytics } from "../../data/school";
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
+<script>
   const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement | null;
   const errorEl = document.getElementById("contact-error");
+  const errorText = document.getElementById("contact-error-text");
   const successEl = document.getElementById("contact-success");
 
   // Normalized (not pre-hashed) values for Meta's client-side Advanced
@@ -112,26 +130,31 @@ import TrustSignals from "./TrustSignals.astro";
       submitBtn.textContent = "Sending...";
     }
 
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
+    const payload = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(form.action, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error || "Something went wrong sending your message.");
+      }
       form.classList.add("hidden");
       successEl?.classList.remove("hidden");
 
       window.gtag?.("event", "generate_lead", { form_id: "contact_form" });
 
       const matchData = buildAdvancedMatching(payload);
-      if (Object.keys(matchData).length) window.fbq?.("init", analytics.metaPixelId, matchData);
+      if (Object.keys(matchData).length) window.fbq?.("init", form.dataset.pixelId, matchData);
       window.fbq?.("track", "Lead", { content_name: "contact_form" });
-    } catch {
+    } catch (err) {
+      if (errorText) errorText.textContent = err instanceof Error ? err.message : "Something went wrong sending your message.";
       errorEl?.classList.remove("hidden");
+      // A Turnstile token is single-use; get a fresh one for the retry.
+      (window as unknown as { turnstile?: { reset(): void } }).turnstile?.reset();
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
