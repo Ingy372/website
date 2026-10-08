@@ -11,6 +11,7 @@ import { ctaLabelGeneral } from "../data/school";
 import { cityState, founded } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
 import { getReview, ratingText, countText } from "../data/reviews";
+import { nextParentsNightOut } from "../data/events";
 
 import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
 import kidsClass from "../images/homepage/kids-class.jpg";
@@ -281,7 +282,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
           position="50% 35%"
           title="Parents Night Out"
           description="Drop the kids off and enjoy an evening to yourselves. Games, training, and a whole lot of running around."
-          linkLabel="Next date →"
+          linkLabel={nextParentsNightOut ? "Next date →" : "See details →"}
           href="/parents-night-out"
         />
       </div>
