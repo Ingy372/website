@@ -3,11 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import DojoForgeWidget from "../components/booking/DojoForgeWidget.astro";
 import TrustSignals from "../components/sections/TrustSignals.astro";
+import { business } from "../data/business";
 ---
 
 <BaseLayout
   title="Book Your Free Class"
-  description="Book a free trial class at Action Zone, CMA. Fill out the quick form and reserve your spot in minutes."
+  description={`Book a free trial class at ${business.displayName}. Fill out the quick form and reserve your spot in minutes.`}
   path="/booking"
 >
   <SimpleHero eyebrow="New Families">

@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/sections/ContactForm.astro";
-import { contact, hours } from "../data/school";
+import { hours } from "../data/school";
+import { business, addressFull, addressCityLine, cityState } from "../data/business";
 
-const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(contact.addressFull)}&output=embed`;
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)}&output=embed`;
 ---
 
 <BaseLayout
   title="Contact"
-  description="Contact Action Zone, CMA in Raeford, NC. Address, phone, hours, and a message form for questions, parties, and events."
+  description={`Contact ${business.displayName} in ${cityState}. Address, phone, hours, and a message form for questions, parties, and events.`}
   path="/contact"
 >
   <header class="bg-indigo py-20 text-white md:py-20">
@@ -33,17 +34,17 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(contact.addr
 
         <div class="mb-5">
           <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Address</div>
-          <p class="mt-1 text-[#40403A]">{contact.address.line1}<br />{contact.address.city}, {contact.address.state} {contact.address.zip}</p>
+          <p class="mt-1 text-[#40403A]">{business.address.street}<br />{addressCityLine}</p>
         </div>
 
         <div class="mb-5">
           <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Phone</div>
-          <p class="mt-1"><a href={contact.phoneHref} class="text-[#40403A] hover:text-indigo">{contact.phone}</a></p>
+          <p class="mt-1"><a href={business.phoneHref} class="text-[#40403A] hover:text-indigo">{business.phone}</a></p>
         </div>
 
         <div class="mb-5">
           <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Email</div>
-          <p class="mt-1"><a href={`mailto:${contact.email}`} class="text-[#40403A] hover:text-indigo">{contact.email}</a></p>
+          <p class="mt-1"><a href={`mailto:${business.email}`} class="text-[#40403A] hover:text-indigo">{business.email}</a></p>
         </div>
 
         <div class="mb-6">
@@ -65,7 +66,7 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(contact.addr
             style="border:0"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title={`Map of ${contact.addressFull}`}
+            title={`Map of ${addressFull}`}
           ></iframe>
         </div>
       </div>
@@ -77,7 +78,7 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(contact.addr
       <h2 class="mb-6 text-[clamp(1.9rem,4.2vw,2.9rem)]">
         Prefer to just call? <span class="text-gold-soft">We're happy to talk.</span>
       </h2>
-      <a href={contact.phoneHref} class="font-display text-3xl font-black text-gold-soft">{contact.phone}</a>
+      <a href={business.phoneHref} class="font-display text-3xl font-black text-gold-soft">{business.phone}</a>
     </div>
   </section>
 </BaseLayout>

@@ -6,7 +6,8 @@ import BeltBar from "../components/BeltBar.astro";
 import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import Footer from "../components/Footer.astro";
-import { contact, reviews } from "../data/school";
+import { reviews } from "../data/school";
+import { business } from "../data/business";
 
 interface Props {
   title: string;
@@ -16,21 +17,21 @@ interface Props {
 
 const { title, description, path } = Astro.props;
 const canonicalURL = new URL(path, Astro.site);
-const fullTitle = `${title} | Action Zone, CMA`;
+const fullTitle = `${title} | ${business.displayName}`;
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "SportsActivityLocation",
-  name: contact.businessName,
+  name: business.displayName,
   image: `${Astro.site}og-image.jpg`,
-  telephone: contact.phone,
-  email: contact.email,
+  telephone: business.phone,
+  email: business.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: contact.address.line1,
-    addressLocality: contact.address.city,
-    addressRegion: contact.address.state,
-    postalCode: contact.address.zip,
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.zip,
     addressCountry: "US",
   },
   openingHoursSpecification: [
@@ -52,7 +53,7 @@ const localBusinessSchema = {
     ratingValue: reviews.rating,
     reviewCount: 80,
   },
-  sameAs: [contact.socials.facebook, contact.socials.instagram],
+  sameAs: [business.socials.facebook, business.socials.instagram],
   url: Astro.site,
 };
 ---

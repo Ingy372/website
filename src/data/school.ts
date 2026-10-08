@@ -1,6 +1,9 @@
 // Single source of truth for shared school data.
 // Every page/component should import from here rather than hardcoding
-// schedule, hours, ages, or contact info.
+// schedule, hours, or ages. Business identity (name, address, phone, email,
+// socials, founding year) lives in ./business.ts.
+
+import { founded } from "./business";
 
 export type Level = "beginner" | "intermediate" | "advanced";
 export type AgeGroup = "3-5" | "6-12" | "teen-adult";
@@ -56,28 +59,6 @@ export const analytics = {
   metaPixelId: "932835404913250",
 };
 
-export const contact = {
-  businessName: "Action Zone, CMA",
-  legalName: "CMA Martial Arts, Inc.",
-  address: {
-    line1: "6105 Phillipi Church Rd.",
-    city: "Raeford",
-    state: "NC",
-    zip: "28376",
-  },
-  addressFull: "6105 Phillipi Church Rd., Raeford, NC 28376",
-  phone: "(910) 429-2467",
-  phoneHref: "tel:9104292467",
-  // Temporary — will become a branded address (e.g. info@actionzonecma.com).
-  // Kept here as a single line so swapping it later is a one-line change.
-  email: "jay.lindemuth@gmail.com",
-  founded: 1993,
-  socials: {
-    facebook: "https://www.facebook.com/cmamtma/",
-    instagram: "https://www.instagram.com/yeshuas_ryu/",
-  },
-};
-
 export const reviews = {
   rating: 5.0,
   count: "80+",
@@ -85,7 +66,7 @@ export const reviews = {
 };
 
 export const trustSignals = [
-  "Teaching martial arts since 1993",
+  `Teaching martial arts since ${founded.year}`,
   "5.0 stars across 80+ Google reviews",
   "Parents are always welcome to watch class",
 ];

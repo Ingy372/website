@@ -4,6 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import FeatureRow from "../components/cards/FeatureRow.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
+import { business, cityState, founded } from "../data/business";
 
 import ninjaLine from "../images/facility/ninja-line.jpg";
 import throwingWall from "../images/facility/throwing-wall.jpg";
@@ -13,14 +14,14 @@ import trampoline from "../images/facility/trampoline.jpg";
 
 <BaseLayout
   title="Our Facility"
-  description="Tour the Action Zone, CMA dojo in Raeford, NC: a ninja line, a throwing wall, an outdoor playground, and a trampoline, all built by hand on two acres."
+  description={`Tour the ${business.displayName} dojo in ${cityState}: a ninja line, a throwing wall, an outdoor playground, and a trampoline, all built by hand on two acres.`}
   path="/facility"
 >
   <SimpleHero eyebrow="Our Facility">
     <Fragment slot="heading">A building made <em>for exactly this.</em></Fragment>
     <Fragment slot="subtext">
       Most schools rent a storefront and roll out some mats. We are not most schools. Come see
-      what thirty-three years in one place lets you build.
+      what {founded.yearsWords} years in one place lets you build.
     </Fragment>
   </SimpleHero>
 

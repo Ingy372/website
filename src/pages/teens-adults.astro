@@ -10,6 +10,7 @@ import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { Picture } from "astro:assets";
 import { ctaLabelGeneral } from "../data/school";
+import { cityState } from "../data/business";
 
 import heroImage from "../images/teens-adults/adult-class.jpg";
 import drillingTechnique from "../images/teens-adults/drilling-technique.jpg";
@@ -38,7 +39,7 @@ const steps = [
 
 <BaseLayout
   title="Teens & Adults Martial Arts & Fitness, Ages 13+"
-  description="Martial arts and fitness for teens and adults, ages 13+, in Raeford, NC. Real self-defense, real fitness, no experience needed."
+  description={`Martial arts and fitness for teens and adults, ages 13+, in ${cityState}. Real self-defense, real fitness, no experience needed.`}
   path="/teens-adults"
 >
   <ProgramHero badge="Teens & Adults · Ages 13+" image={heroImage} alt="Adult martial arts and fitness class training on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">

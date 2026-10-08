@@ -1,5 +1,5 @@
 ---
-import { contact } from "../../data/school";
+import { business } from "../../data/business";
 
 interface Props {
   ctaLabel: string;
@@ -40,8 +40,8 @@ const bgClass = bg === "indigo" ? "bg-indigo" : "bg-indigo-deep";
       )}
     </div>
     <div class="mt-6 text-[0.8rem] tracking-[0.16em] text-[#9695AA] uppercase">Or call us</div>
-    <a href={contact.phoneHref} class="mt-2 block font-display text-3xl font-black text-gold-soft">
-      {contact.phone}
+    <a href={business.phoneHref} class="mt-2 block font-display text-3xl font-black text-gold-soft">
+      {business.phone}
     </a>
   </div>
 </section>

@@ -9,6 +9,7 @@ import CTASection from "../components/sections/CTASection.astro";
 
 import partyPhoto from "../images/birthday-parties/party.jpg";
 import cakeCut from "../images/birthday-parties/cake-cut.jpg";
+import { business, cityState } from "../data/business";
 
 const included = [
   { title: "Led by our instructors", desc: "Our instructors run the entire party start to finish, keeping every kid engaged, safe, and having the time of their life." },
@@ -28,7 +29,7 @@ const steps = [
 
 <BaseLayout
   title="Birthday Parties"
-  description="Book a martial arts birthday party at Action Zone, CMA in Raeford, NC. Ninja line, throwing wall, games, and a cake cut with a real sword."
+  description={`Book a martial arts birthday party at ${business.displayName} in ${cityState}. Ninja line, throwing wall, games, and a cake cut with a real sword.`}
   path="/birthday-parties"
 >
   <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact">

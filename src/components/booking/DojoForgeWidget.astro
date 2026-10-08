@@ -2,7 +2,8 @@
 // The widget's accent color (button, links) is set per-tenant in DojoForge's
 // own dashboard (a "primaryColor" tied to the public key below), not from
 // anything in this markup — ask Nic to match it to our indigo/gold palette.
-import { contact, dojoForge } from "../../data/school";
+import { dojoForge } from "../../data/school";
+import { business } from "../../data/business";
 ---
 
 <div class="rounded border border-paper-warm bg-white p-5 sm:p-8">
@@ -13,7 +14,7 @@ import { contact, dojoForge } from "../../data/school";
   <noscript>
     <p class="py-8 text-center text-sm text-mist">
       Enable JavaScript to use the booking form, or call us at <a
-        href={contact.phoneHref} class="font-semibold text-indigo hover:text-gold">{contact.phone}</a> and
+        href={business.phoneHref} class="font-semibold text-indigo hover:text-gold">{business.phone}</a> and
       we'll get you booked right away.
     </p>
   </noscript>

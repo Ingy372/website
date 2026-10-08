@@ -12,7 +12,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "check:todos": "node scripts/check-todos.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.4",

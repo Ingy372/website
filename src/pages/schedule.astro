@@ -4,11 +4,12 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
+import { business, cityState } from "../data/business";
 ---
 
 <BaseLayout
   title="Class Schedule"
-  description="The full weekly class schedule at Action Zone, CMA in Raeford, NC. Monday through Thursday, plus Saturday open training."
+  description={`The full weekly class schedule at ${business.displayName} in ${cityState}. Monday through Thursday, plus Saturday open training.`}
   path="/schedule"
 >
   <SimpleHero eyebrow="Class Schedule">

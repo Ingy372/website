@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { reviews, ctaLabelGeneral } from "../data/school";
+import { business, cityState } from "../data/business";
 
 const quotes = [
   {
@@ -24,7 +25,7 @@ const quotes = [
 
 <BaseLayout
   title="Reviews"
-  description="See what families say about Action Zone, CMA in Raeford, NC. 5.0 stars across 80+ Google reviews."
+  description={`See what families say about ${business.displayName} in ${cityState}. 5.0 stars across 80+ Google reviews.`}
   path="/reviews"
 >
   <header class="relative overflow-hidden bg-indigo py-20 text-center text-white md:py-20">

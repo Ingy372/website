@@ -5,11 +5,12 @@ import SectionHead from "../components/sections/SectionHead.astro";
 import CTASection from "../components/sections/CTASection.astro";
 
 import partyPhoto from "../images/parents-night-out/party.jpg";
+import { business, cityState } from "../data/business";
 ---
 
 <BaseLayout
   title="Parents Night Out"
-  description="Drop the kids off for a themed evening of games and martial arts at Action Zone, CMA in Raeford, NC, and enjoy a few hours to yourselves."
+  description={`Drop the kids off for a themed evening of games and martial arts at ${business.displayName} in ${cityState}, and enjoy a few hours to yourselves.`}
   path="/parents-night-out"
 >
   <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact">

@@ -4,6 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import { Picture } from "astro:assets";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
+import { business, cityState, founded } from "../data/business";
 
 import michaelTeaching from "../images/our-story/michael-teaching.jpg";
 import michaelPortrait from "../images/team/mike-portrait.png";
@@ -13,11 +14,11 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
 <BaseLayout
   title="Our Story"
-  description="Action Zone, CMA has taught Yeshua's Ryu in Raeford, NC since 1993. The story of founder Michael Lowery and the school he built."
+  description={`${business.displayName} has taught Yeshua's Ryu in ${cityState} since ${founded.year}. The story of founder Michael Lowery and the school he built.`}
   path="/our-story"
 >
   <SimpleHero eyebrow="Our Story">
-    <Fragment slot="heading">Thirty-three years, <em>one standard.</em></Fragment>
+    <Fragment slot="heading">{founded.yearsWordsCap} years, <em>one standard.</em></Fragment>
     <Fragment slot="subtext">
       Action Zone was not built to be the biggest school in the area. It was built to change who
       walks out the door.
@@ -26,7 +27,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
-      In 1993, Michael Lowery built a martial arts school next to his own home in Raeford. He is
+      In {founded.year}, Michael Lowery built a martial arts school next to his own home in Raeford. He is
       still teaching in it.
     </p>
   </div>
@@ -95,7 +96,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
   <section class="bg-paper-warm py-18 md:py-14">
     <div class="mx-auto grid max-w-3xl grid-cols-3 gap-6 px-6 md:px-5 text-center">
       <div>
-        <div class="font-display text-3xl font-black text-indigo">1993</div>
+        <div class="font-display text-3xl font-black text-indigo">{founded.year}</div>
         <div class="mt-1 text-sm text-mist">Teaching since</div>
       </div>
       <div>
@@ -143,7 +144,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
         building. Same system. Same standard.
       </p>
       <p>
-        Thirty-three years in one town means most of the people on this floor are not strangers,
+        {founded.yearsWordsCap} years in one town means most of the people on this floor are not strangers,
         and we teach like it.
       </p>
     </div>
@@ -159,7 +160,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
   </section>
 
   <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
-    <Fragment slot="heading">Come see what thirty-three years <em>built.</em></Fragment>
+    <Fragment slot="heading">Come see what {founded.yearsWords} years <em>built.</em></Fragment>
     <Fragment slot="subtext">Your first week is on us. No pressure.</Fragment>
   </CTASection>
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
-import { contact, reviews, ctaLabelGeneral } from "../../data/school";
+import { reviews, ctaLabelGeneral } from "../../data/school";
+import { business, founded } from "../../data/business";
 ---
 
 <header class="relative overflow-hidden bg-indigo text-white">
@@ -12,7 +13,7 @@ import { contact, reviews, ctaLabelGeneral } from "../../data/school";
     <div>
       <span class="mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
         <span class="h-px w-[30px] bg-gold" aria-hidden="true"></span>
-        Christian Martial Arts &middot; Since {contact.founded}
+        Christian Martial Arts &middot; Since {founded.year}
       </span>
       <h1 class="max-w-[15ch] text-[clamp(2.4rem,4.6vw,4rem)]">
         Discipline that follows them <span class="text-gold-soft">off the mat.</span>
@@ -25,7 +26,7 @@ import { contact, reviews, ctaLabelGeneral } from "../../data/school";
       </p>
       <div class="mt-9 flex flex-wrap gap-8">
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-white">33</b>
+          <b class="block font-display text-[1.75rem] font-black text-white">{founded.yearsNumeral}</b>
           <span class="text-[0.78rem] text-[#B0AFC2]">Years, one family</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
@@ -55,7 +56,7 @@ import { contact, reviews, ctaLabelGeneral } from "../../data/school";
         {ctaLabelGeneral}
       </a>
       <div class="mt-3 text-center text-[0.76rem] text-mist">
-        Or call <a href={contact.phoneHref} class="font-bold text-indigo">{contact.phone}</a>
+        Or call <a href={business.phoneHref} class="font-bold text-indigo">{business.phone}</a>
       </div>
     </div>
   </div>

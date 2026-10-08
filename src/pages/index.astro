@@ -8,6 +8,7 @@ import ExtraCard from "../components/cards/ExtraCard.astro";
 import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { reviews, ctaLabelGeneral } from "../data/school";
+import { cityState, founded } from "../data/business";
 
 import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
 import kidsClass from "../images/homepage/kids-class.jpg";
@@ -77,8 +78,8 @@ const quotes = [
 ---
 
 <BaseLayout
-  title="Christian Martial Arts in Raeford, NC"
-  description="A family dojo in Raeford, NC serving kids, teens, and adults since 1993. Build confidence, focus, and real self-defense. Claim your free week."
+  title={`Christian Martial Arts in ${cityState}`}
+  description={`A family dojo in ${cityState} serving kids, teens, and adults since ${founded.year}. Build confidence, focus, and real self-defense. Claim your free week.`}
   path="/"
 >
   <HomeHero />
@@ -202,7 +203,7 @@ const quotes = [
           <strong class="font-semibold">Yeshua's Ryu</strong>. Jesus' Way.
         </p>
         <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
-          He spent three decades on it. Refining the system, teaching the classes, watching
+          He spent {founded.decades} on it. Refining the system, teaching the classes, watching
           students walk in as one person and leave as another. It became his life's work. To see
           people grow in Christ, and to send them into the world able to protect themselves and
           the people they love.

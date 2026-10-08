@@ -5,12 +5,13 @@
 // page with a redirect, or point studentLoginHref in src/data/school.ts
 // directly at the platform URL and remove this route.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { contact } from "../data/school";
+import { business } from "../data/business";
+
 ---
 
 <BaseLayout
   title="Student Login"
-  description="Training video access is coming soon to Action Zone, CMA."
+  description={`Training video access is coming soon to ${business.displayName}.`}
   path="/student-login"
 >
   <section class="py-24 text-center md:py-28">
@@ -20,8 +21,8 @@ import { contact } from "../data/school";
         Training video access is arriving shortly. In the meantime, call us and we'll help you
         find what you're looking for.
       </p>
-      <a href={contact.phoneHref} class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">
-        Call {contact.phone}
+      <a href={business.phoneHref} class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">
+        Call {business.phone}
       </a>
     </div>
   </section>
