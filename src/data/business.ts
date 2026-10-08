@@ -33,6 +33,7 @@ export const business = {
     facebook: "https://www.facebook.com/cmamtma/",
     instagram: "https://www.instagram.com/yeshuas_ryu/",
   },
+  googleReviewsUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
 };
 
 export const addressCityLine = `${business.address.city}, ${business.address.state} ${business.address.zip}`;

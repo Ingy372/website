@@ -5,6 +5,7 @@ import { Picture } from "astro:assets";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { business, cityState, founded } from "../data/business";
+import { ratingText } from "../data/reviews";
 
 import michaelTeaching from "../images/our-story/michael-teaching.jpg";
 import michaelPortrait from "../images/team/mike-portrait.png";
@@ -104,7 +105,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
         <div class="mt-1 text-sm text-mist">Hours to Black Belt</div>
       </div>
       <div>
-        <div class="font-display text-3xl font-black text-indigo">5.0</div>
+        <div class="font-display text-3xl font-black text-indigo">{ratingText}</div>
         <div class="mt-1 text-sm text-mist">Google rating</div>
       </div>
     </div>

@@ -6,9 +6,9 @@ import BeltBar from "../components/BeltBar.astro";
 import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import Footer from "../components/Footer.astro";
-import { reviews } from "../data/school";
 import { business } from "../data/business";
 import { openingHoursSpecification } from "../data/schedule";
+import { reviewSummary } from "../data/reviews";
 
 interface Props {
   title: string;
@@ -38,8 +38,8 @@ const localBusinessSchema = {
   openingHoursSpecification,
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: reviews.rating,
-    reviewCount: 80,
+    ratingValue: reviewSummary.rating,
+    reviewCount: reviewSummary.count,
   },
   sameAs: [business.socials.facebook, business.socials.instagram],
   url: Astro.site,

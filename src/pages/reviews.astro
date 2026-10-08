@@ -1,31 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { reviews, ctaLabelGeneral } from "../data/school";
+import { ctaLabelGeneral } from "../data/school";
 import { business, cityState } from "../data/business";
+import { getReview, reviewDateText, ratingText, countText } from "../data/reviews";
 
-const quotes = [
-  {
-    quote: "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is.",
-    who: "Jacy D.",
-    avatarLetter: "J",
-  },
-  {
-    quote: "My daughter is 5 and she has been at Action Zone for 6 months. I love the care they provide when teaching her. The instructors are very patient, and they teach the importance of owning the responsibility of your actions.",
-    who: "Crystal C.",
-    avatarLetter: "C",
-  },
-  {
-    quote: "My daughter started a year ago in the little warrior classes and absolutely loves it. Great family atmosphere, the instructors are fantastic, and she has learned so much about self discipline and herself. It has raised her confidence and helped her make new friends.",
-    who: "Sarah G.",
-    avatarLetter: "S",
-  },
-];
+const quotes = ["jacy-d", "crystal-c", "sarah-g"].map(getReview);
 ---
 
 <BaseLayout
   title="Reviews"
-  description={`See what families say about ${business.displayName} in ${cityState}. 5.0 stars across 80+ Google reviews.`}
+  description={`See what families say about ${business.displayName} in ${cityState}. ${ratingText} stars across ${countText} Google reviews.`}
   path="/reviews"
 >
   <header class="relative overflow-hidden bg-indigo py-20 text-center text-white md:py-20">
@@ -42,13 +27,13 @@ const quotes = [
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-5">
-        <div class="font-display text-4xl font-black text-gold-soft">{reviews.rating.toFixed(1)}</div>
+        <div class="font-display text-4xl font-black text-gold-soft">{ratingText}</div>
         <div>
           <div class="text-xl tracking-[3px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-sm text-[#C4C3D4]">Based on {reviews.count} Google reviews</div>
+          <div class="text-sm text-[#C4C3D4]">Based on {countText} Google reviews</div>
         </div>
         <a
-          href={reviews.googleSearchUrl}
+          href={business.googleReviewsUrl}
           target="_blank"
           rel="noopener"
           class="rounded-sm border border-white/25 px-5 py-2.5 text-sm font-semibold text-white hover:border-gold-soft hover:text-gold-soft"
@@ -70,14 +55,14 @@ const quotes = [
         {quotes.map((q) => (
           <div class="rounded border border-paper-warm bg-white p-6">
             <div class="mb-3 text-sm tracking-[2px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="text-[0.95rem] text-[#40403A]">{q.quote}</p>
+            <p class="text-[0.95rem] text-[#40403A]">{q.text}</p>
             <div class="mt-5 flex items-center gap-3">
               <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo/10 font-display font-bold text-indigo">
-                {q.avatarLetter}
+                {q.author.charAt(0)}
               </div>
               <div>
-                <div class="text-sm font-bold text-indigo">{q.who}</div>
-                <div class="text-xs text-mist">Google Review</div>
+                <div class="text-sm font-bold text-indigo">{q.author}</div>
+                <div class="text-xs text-mist">{q.source} Review{reviewDateText(q) && ` · ${reviewDateText(q)}`}</div>
               </div>
             </div>
           </div>
@@ -96,7 +81,7 @@ const quotes = [
     </div>
   </section>
 
-  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={reviews.googleSearchUrl}>
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={business.googleReviewsUrl}>
     <Fragment slot="heading">Come see why families <em>keep coming back.</em></Fragment>
     <Fragment slot="subtext">The best way to understand Action Zone is to walk through the door. Your first week is on us.</Fragment>
   </CTASection>

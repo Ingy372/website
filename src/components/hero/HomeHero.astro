@@ -1,7 +1,8 @@
 ---
-import { reviews, ctaLabelGeneral } from "../../data/school";
+import { ctaLabelGeneral } from "../../data/school";
 import { business, founded } from "../../data/business";
 import { minimumAge, trialDaysText } from "../../data/schedule";
+import { ratingText, countText } from "../../data/reviews";
 ---
 
 <header class="relative overflow-hidden bg-indigo text-white">
@@ -32,9 +33,9 @@ import { minimumAge, trialDaysText } from "../../data/schedule";
         </div>
         <div class="border-l-2 border-gold pl-3.5">
           <b class="block font-display text-[1.75rem] font-black text-white">
-            {reviews.rating.toFixed(1)} <span class="text-[0.9rem] tracking-[2px] text-gold">&#9733;</span>
+            {ratingText} <span class="text-[0.9rem] tracking-[2px] text-gold">&#9733;</span>
           </b>
-          <span class="text-[0.78rem] text-[#B0AFC2]">{reviews.count} Google reviews</span>
+          <span class="text-[0.78rem] text-[#B0AFC2]">{countText} Google reviews</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
           <b class="block font-display text-[1.75rem] font-black text-white">Ages {minimumAge}+</b>

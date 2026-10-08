@@ -1,0 +1,58 @@
+{
+  "summary": {
+    "rating": 5.0,
+    "count": 80,
+    "countLabel": "80+",
+    "source": "Google",
+    "lastChecked": null
+  },
+  "reviews": [
+    {
+      "id": "taylor-s",
+      "author": "Taylor S.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "Staff is without a doubt some of the most patient and caring individuals I have met. They deal with our son who is literally all gas no break with compassion. His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable. Highly recommend to anyone.",
+      "excerpt": "His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable."
+    },
+    {
+      "id": "benjamin-s",
+      "author": "Benjamin S.",
+      "relationship": "Student",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "Very skilled instructors with a rich history in martial arts! This is absolutely one of the best if not the best in a 60 mile radius! I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here. I have experience in martial arts and know what to look for in a gym and in instructors. I've been a student here for a while and can say with 100% confidence that this is where you want to be.",
+      "excerpt": "This is absolutely one of the best if not the best in a 60 mile radius! … I've been a student here for a while and can say with 100% confidence that this is where you want to be."
+    },
+    {
+      "id": "sarah-g",
+      "author": "Sarah G.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "My daughter is 5 and started a year ago in the little warrior classes and absolutely loves it. It has a great family atmosphere, the instructors are fantastic and she has learned so much about karate, self discipline and herself. It has also given her a positive focus for her energy, helped her make new friends and raised her self confidence. Its a great program and I can't say enough good thing."
+    },
+    {
+      "id": "jacy-d",
+      "author": "Jacy D.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is."
+    },
+    {
+      "id": "crystal-c",
+      "author": "Crystal C.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "My daughter is 5 and she has been at Action Zone for 6 months. I love the care they provide when teaching her. The instructors are very patient, and they teach the importance of owning the responsibility of your actions."
+    }
+  ]
+}

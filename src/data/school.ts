@@ -3,6 +3,7 @@
 // lives in ./business.ts; programs, classes, and hours live in ./schedule.ts.
 
 import { founded } from "./business";
+import { ratingText, countText } from "./reviews";
 
 // ---------------------------------------------------------------------------
 // Analytics — single source of truth for both IDs. Loaded site-wide via
@@ -15,15 +16,9 @@ export const analytics = {
   metaPixelId: "932835404913250",
 };
 
-export const reviews = {
-  rating: 5.0,
-  count: "80+",
-  googleSearchUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
-};
-
 export const trustSignals = [
   `Teaching martial arts since ${founded.year}`,
-  "5.0 stars across 80+ Google reviews",
+  `${ratingText} stars across ${countText} Google reviews`,
   "Parents are always welcome to watch class",
 ];
 

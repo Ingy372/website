@@ -7,9 +7,10 @@ import ProgramCard from "../components/cards/ProgramCard.astro";
 import ExtraCard from "../components/cards/ExtraCard.astro";
 import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { reviews, ctaLabelGeneral } from "../data/school";
+import { ctaLabelGeneral } from "../data/school";
 import { cityState, founded } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
+import { getReview, ratingText, countText } from "../data/reviews";
 
 import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
 import kidsClass from "../images/homepage/kids-class.jpg";
@@ -62,20 +63,7 @@ const audiences = [
   },
 ];
 
-const quotes = [
-  {
-    quote: "Staff is without a doubt some of the most patient and caring individuals I have met. They deal with our son who is literally all gas no break with compassion. His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable. Highly recommend to anyone.",
-    who: "Taylor S.",
-  },
-  {
-    quote: "Very skilled instructors with a rich history in martial arts! This is absolutely one of the best if not the best in a 60 mile radius! I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here. I have experience in martial arts and know what to look for in a gym and in instructors. I've been a student here for a while and can say with 100% confidence that this is where you want to be.",
-    who: "Benjamin S.",
-  },
-  {
-    quote: "My daughter is 5 and started a year ago in the little warrior classes and absolutely loves it. It has a great family atmosphere, the instructors are fantastic and she has learned so much about karate, self discipline and herself. It has also given her a positive focus for her energy, helped her make new friends and raised her self confidence. Its a great program and I can't say enough good thing.",
-    who: "Sarah G.",
-  },
-];
+const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 ---
 
 <BaseLayout
@@ -258,17 +246,17 @@ const quotes = [
   <section class="bg-indigo py-20 text-white md:py-20" id="reviews">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
       <div class="mb-4 flex flex-wrap items-center justify-center gap-5">
-        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft">{reviews.rating.toFixed(1)}</span>
+        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft">{ratingText}</span>
         <div>
           <div class="text-2xl tracking-[4px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]">{reviews.count} reviews on Google</div>
+          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]">{countText} reviews on Google</div>
         </div>
       </div>
       <p class="mx-auto mb-11 max-w-[30ch] text-center font-display text-[1.35rem] font-semibold text-white">
         Trusted by families across Raeford, Fayetteville, and Hope Mills.
       </p>
       <div class="grid gap-8 md:grid-cols-3 md:gap-5">
-        {quotes.map((q) => <QuoteCard quote={q.quote} who={q.who} />)}
+        {quotes.map((r) => <QuoteCard quote={r.text} who={r.author} />)}
       </div>
     </div>
   </section>
