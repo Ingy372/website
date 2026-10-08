@@ -2,13 +2,35 @@
 // The widget's accent color (button, links) is set per-tenant in DojoForge's
 // own dashboard (a "primaryColor" tied to the public key below), not from
 // anything in this markup — ask Nic to match it to our indigo/gold palette.
+//
+// Boundary: this component only embeds the widget and handles it failing to
+// load. Everything the widget shows (class names, times, bookable days,
+// blackout dates, the offer wording inside it) is Dojo Forge admin config,
+// not site code; keep it in sync with src/data/schedule.ts by hand there.
 import { dojoForge } from "../../data/school";
 import { business } from "../../data/business";
+
+// How long to wait for the widget to render before showing the fallback.
+const LOAD_TIMEOUT_MS = 10000;
 ---
 
 <div class="rounded border border-paper-warm bg-white p-5 sm:p-8">
   <div data-dojo-forge-widget class="min-h-[420px]">
-    <p class="py-16 text-center text-sm text-mist">Loading the booking form…</p>
+    <p data-df-placeholder class="py-16 text-center text-sm text-mist">Loading the booking form…</p>
+  </div>
+
+  <div id="df-fallback" class="hidden py-10 text-center" role="alert">
+    <h2 class="mb-2 font-display text-xl font-black text-indigo">The booking form didn't load.</h2>
+    <p class="mb-6 text-sm text-mist">
+      That's on us, not you. Call and we'll book your visit right away, or send us a message and
+      we'll reach out.
+    </p>
+    <div class="flex flex-col items-center gap-3">
+      <a href={business.phoneHref} class="rounded-sm bg-gold px-7 py-4 font-bold text-indigo-deep hover:bg-gold-soft">
+        Call {business.phone}
+      </a>
+      <a href="/contact" class="text-sm font-semibold text-indigo hover:text-gold">Send us a message</a>
+    </div>
   </div>
 
   <noscript>
@@ -20,4 +42,38 @@ import { business } from "../../data/business";
   </noscript>
 </div>
 
-<script is:inline src={dojoForge.widgetSrc} data-key={dojoForge.publicKey} async></script>
+<script is:inline define:vars={{ timeoutMs: LOAD_TIMEOUT_MS }}>
+  (function () {
+    var mount = document.querySelector("[data-dojo-forge-widget]");
+    var fallback = document.getElementById("df-fallback");
+    if (!mount || !fallback) return;
+
+    // The widget counts as loaded once it puts anything in place of our placeholder.
+    var rendered = function () {
+      return !mount.querySelector("[data-df-placeholder]") || mount.children.length > 1;
+    };
+    var showFallback = function () {
+      if (rendered()) return;
+      mount.classList.add("hidden");
+      fallback.classList.remove("hidden");
+      window.gtag && window.gtag("event", "booking_widget_failed", { link_url: location.pathname });
+    };
+
+    var timer = setTimeout(showFallback, timeoutMs);
+    new MutationObserver(function (_, observer) {
+      if (rendered()) {
+        clearTimeout(timer);
+        observer.disconnect();
+      }
+    }).observe(mount, { childList: true, subtree: true });
+
+    window.__dfWidgetError = showFallback;
+  })();
+</script>
+<script
+  is:inline
+  src={dojoForge.widgetSrc}
+  data-key={dojoForge.publicKey}
+  async
+  onerror="window.__dfWidgetError && window.__dfWidgetError()"
+></script>
