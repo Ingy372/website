@@ -1,0 +1,9 @@
+# Legacy Wix URL redirects.
+# /contact and /meet-the-team already match the new URL structure exactly,
+# so no redirect entry is needed for those two.
+/about /our-story 301
+/testimony /reviews 301
+/little-warriors-class /little-warriors 301
+/children-class /kids 301
+/teen-adult-class /teens-adults 301
+/pictures-1 /facility 301

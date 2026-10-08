@@ -1,0 +1,165 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import { Picture } from "astro:assets";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+
+import michaelTeaching from "../images/our-story/michael-teaching.jpg";
+import michaelPortrait from "../images/team/mike-portrait.png";
+import studentActionShot from "../images/our-story/student-action-shot.jpg";
+import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
+---
+
+<BaseLayout
+  title="Our Story"
+  description="Action Zone, CMA has taught Yeshua's Ryu in Raeford, NC since 1993. The story of founder Michael Lowery and the school he built."
+  path="/our-story"
+>
+  <SimpleHero eyebrow="Our Story">
+    <Fragment slot="heading">Thirty-three years, <em>one standard.</em></Fragment>
+    <Fragment slot="subtext">
+      Action Zone was not built to be the biggest school in the area. It was built to change who
+      walks out the door.
+    </Fragment>
+  </SimpleHero>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
+      In 1993, Michael Lowery built a martial arts school next to his own home in Raeford. He is
+      still teaching in it.
+    </p>
+  </div>
+
+  <figure class="px-6 md:px-5">
+    <div class="mx-auto aspect-square max-w-lg overflow-hidden rounded">
+      <Picture
+        src={michaelTeaching}
+        alt="Founder Michael Lowery teaching a class on the mat"
+        formats={["avif", "webp"]}
+        widths={[420, 512, 768, 1024]}
+        sizes="(min-width: 512px) 512px, 100vw"
+        pictureAttributes={{ class: "block h-full w-full" }}
+        class="h-full w-full object-cover"
+        style="object-position:50% 6%"
+      />
+    </div>
+    <figcaption class="mt-3 text-center text-sm font-semibold text-mist">Shinan Michael Lowery, founder</figcaption>
+  </figure>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <div class="py-20 text-lg leading-loose text-[#40403A] md:py-16 md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        What he built was not a franchise or a fitness trend. Yeshua's Ryu is his own system,
+        drawn from more than fifty years in the art, blending Karate, Jiu Jitsu, Kung Fu, Tae Kwon
+        Do, and the five traditional Japanese weapons into one thing that gets taught the same way
+        every night.
+      </p>
+      <p>We are a non-competitive school. That is on purpose, and Michael has always been direct about why.</p>
+    </div>
+  </div>
+
+  <section class="bg-indigo py-20 text-white md:py-18">
+    <div class="mx-auto grid max-w-4xl gap-8 px-6 md:px-5 sm:grid-cols-[auto_1fr] sm:items-center">
+      <div class="mx-auto h-40 w-40 overflow-hidden rounded-full">
+        <Picture
+          src={michaelPortrait}
+          alt="Portrait of founder Michael Lowery"
+          formats={["avif", "webp"]}
+          widths={[160, 320]}
+          sizes="160px"
+          pictureAttributes={{ class: "block h-full w-full" }}
+          class="h-full w-full object-cover"
+          style="object-position:50% 20%"
+        />
+      </div>
+      <blockquote class="text-lg italic leading-relaxed text-[#E8E7F0]">
+        <p class="mb-6 md:mb-4">
+          "Our focus isn't on winning trophies or gaining recognition. Instead, we seek
+          self-enlightenment and a deeper spiritual understanding through the demanding practice of
+          martial arts."
+        </p>
+        <p>"Knowledge is incomplete without wisdom, and our habits define who we become."</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <p class="py-20 text-lg leading-loose text-[#40403A] md:py-16 md:leading-normal">
+      That standard shows up in who is allowed to teach here. Every instructor has put in a
+      minimum of 480 hours to earn their Black Belt, plus a leadership program on top of it. Your
+      child is not being handed off to someone who learned the moves last year.
+    </p>
+  </div>
+
+  <section class="bg-paper-warm py-18 md:py-14">
+    <div class="mx-auto grid max-w-3xl grid-cols-3 gap-6 px-6 md:px-5 text-center">
+      <div>
+        <div class="font-display text-3xl font-black text-indigo">1993</div>
+        <div class="mt-1 text-sm text-mist">Teaching since</div>
+      </div>
+      <div>
+        <div class="font-display text-3xl font-black text-indigo">480+</div>
+        <div class="mt-1 text-sm text-mist">Hours to Black Belt</div>
+      </div>
+      <div>
+        <div class="font-display text-3xl font-black text-indigo">5.0</div>
+        <div class="mt-1 text-sm text-mist">Google rating</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 md:px-5 py-20 sm:grid-cols-2 md:py-16">
+    <div class="aspect-[4/3] overflow-hidden rounded">
+      <Picture
+        src={studentActionShot}
+        alt="Students mid-technique during a training session"
+        formats={["avif", "webp"]}
+        widths={[400, 600, 800, 1120]}
+        sizes="(min-width: 640px) 45vw, 100vw"
+        pictureAttributes={{ class: "block h-full w-full" }}
+        class="h-full w-full object-cover"
+        style="object-position:50% 28%"
+      />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded">
+      <Picture
+        src={beltsAfterTest}
+        alt="Newly earned belts tied on after a rank test"
+        formats={["avif", "webp"]}
+        widths={[400, 600, 800, 1120]}
+        sizes="(min-width: 640px) 45vw, 100vw"
+        pictureAttributes={{ class: "block h-full w-full" }}
+        class="h-full w-full object-cover"
+      />
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <div class="pb-14 text-lg leading-loose text-[#40403A] md:pb-16 md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        The school is run today by Michael's stepson, Jayson Lindemuth, who first stepped onto
+        this mat at three years old and has spent twenty-six years in the art since. Same
+        building. Same system. Same standard.
+      </p>
+      <p>
+        Thirty-three years in one town means most of the people on this floor are not strangers,
+        and we teach like it.
+      </p>
+    </div>
+  </div>
+
+  <section class="bg-paper-warm py-20 md:py-20">
+    <div class="mx-auto max-w-2xl px-6 md:px-5 text-center">
+      <p class="mb-5 font-display text-xl font-semibold text-indigo md:mb-3">A Black Belt is not something you simply earn, though you will.</p>
+      <p class="mb-5 font-display text-xl font-semibold text-indigo md:mb-3">A Black Belt is not just something you wear, though you will.</p>
+      <p class="mb-6 font-display text-xl font-semibold text-indigo">A Black Belt is who you are becoming.</p>
+      <div class="text-sm font-bold tracking-[0.08em] text-gold-deep uppercase">Shinan Michael Lowery, Founder</div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Come see what thirty-three years <em>built.</em></Fragment>
+    <Fragment slot="subtext">Your first week is on us. No pressure.</Fragment>
+  </CTASection>
+</BaseLayout>

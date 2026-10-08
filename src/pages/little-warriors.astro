@@ -1,0 +1,130 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import NumberedCard from "../components/cards/NumberedCard.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+
+import heroImage from "../images/little-warriors/class-photo.jpg";
+import warmUpCircle from "../images/little-warriors/warm-up-circle.jpg";
+import instructorTeachingKick from "../images/little-warriors/instructor-teaching-kick.jpg";
+import matGame from "../images/little-warriors/mat-game.jpg";
+import earningAStripe from "../images/little-warriors/earning-a-stripe.jpg";
+import bowingIn from "../images/little-warriors/bowing-in.jpg";
+import parentWatchingFromLobby from "../images/little-warriors/parent-watching-from-lobby.jpg";
+
+const classSteps = [
+  { image: warmUpCircle, position: "50% 38%", alt: "Young students in a circle warming up at the start of a Little Warriors class", title: "Move and warm up", description: "Every class starts with the whole body: stretches, movement, and energy spent on purpose. It settles them and gets them ready to learn." },
+  { image: instructorTeachingKick, position: "50% 35%", alt: "Instructor teaching a preschool student how to throw a kick", title: "Learn a skill", description: "Age-appropriate kicks, blocks, and stances, taught one clear step at a time, with an instructor watching and helping every child." },
+  { image: matGame, position: "50% 45%", alt: "Little Warriors playing an active game on the dojo mat", title: "Play with a point", description: "Games and drills that never feel like a lesson, but quietly teach listening, patience, teamwork, and taking turns." },
+];
+
+const results = [
+  { title: "They listen better", desc: "Following directions on the mat has a way of carrying over to following them at the dinner table." },
+  { title: "They focus longer", desc: "Learning to hold attention for a few minutes at a time is a skill, and it grows with practice." },
+  { title: "They believe in themselves", desc: "A child who earns a new stripe learns that hard things are worth doing, and that they can do them." },
+  { title: "They start school ready", desc: "Listening, waiting, focus, and confidence are the exact things a kindergarten teacher hopes a child walks in with." },
+];
+---
+
+<BaseLayout
+  title="Little Warriors Martial Arts, Ages 3–5"
+  description="Little Warriors is martial arts built from the ground up for ages 3–5 in Raeford, NC. Focus, listening, and confidence, taught through the fun of martial arts."
+  path="/little-warriors"
+>
+  <ProgramHero badge="Little Warriors · Ages 3–5" image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Small students. <em>Big beginnings.</em></Fragment>
+    <Fragment slot="subtext">
+      Little Warriors is martial arts built from the ground up for our youngest students. Before
+      the kicks and blocks, they learn to listen, to focus, and to finish what they start.
+    </Fragment>
+  </ProgramHero>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 md:py-20">
+      <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">All that energy has to go somewhere.</h2>
+      <p class="mb-6 text-lg leading-loose text-[#3E3E38] md:mb-4 md:leading-normal">
+        A three, four, or five year old is not short on energy, curiosity, or opinions. What they
+        are still learning is how to focus it &mdash; how to wait their turn, follow a direction
+        the first time, and keep going when something gets hard.
+      </p>
+      <p class="text-lg leading-loose text-[#3E3E38] md:leading-normal">
+        That is what Little Warriors is really for. The martial arts are real, but at this age,
+        they are also the <strong class="font-semibold text-indigo">delivery method for something bigger</strong>:
+        the focus and self-control that follow your child into kindergarten and every
+        classroom after it.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="What a Class Looks Like">
+        <Fragment slot="heading">Fun on the surface. <em>Serious underneath.</em></Fragment>
+      </SectionHead>
+      <div class="grid gap-8 md:grid-cols-3 md:gap-6">
+        {classSteps.map((s, i) => (
+          <NumberedCard image={s.image} alt={s.alt} position={s.position} number={i + 1} title={s.title} description={s.description} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-white md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="mb-11">
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-soft uppercase">What Parents Notice</div>
+        <h2 class="max-w-[22ch] text-[clamp(1.9rem,3.6vw,2.7rem)] text-white">
+          The change shows up <span class="text-gold-soft">at home, too.</span>
+        </h2>
+      </div>
+      <div class="grid gap-8 sm:grid-cols-2 md:gap-6">
+        {results.map((r) => (
+          <div class="border-t-2 border-gold pt-4">
+            <h3 class="mb-1.5 font-display text-lg font-semibold text-white">{r.title}</h3>
+            <p class="text-[0.94rem] text-[#A3A2B6]">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        caption="A typical Little Warriors class"
+        ratioClass="aspect-square"
+        images={[
+          { src: earningAStripe, alt: "Young student receiving a stripe on their belt from an instructor", position: "50% 40%" },
+          { src: bowingIn, alt: "Little Warriors bowing in at the start of class", position: "50% 35%" },
+          { src: parentWatchingFromLobby, alt: "Parent watching a Little Warriors class from the lobby", position: "50% 40%" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <ReassuranceBox heading={`"Is my child ready? They're a handful."`}>
+        <p>
+          We hear this constantly, and here is the honest answer: the wilder ones are often the
+          ones who get the most out of it. Little Warriors was built for exactly this age, with
+          all its energy and all its wiggles. We are not expecting a still, quiet child to walk
+          through the door. We are expecting a three year old to be a three year old.
+        </p>
+        <p>
+          Our instructors have spent years teaching students this age. Nothing your child does on
+          the mat will surprise us, and we will meet them right where they are.
+        </p>
+      </ReassuranceBox>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">See it for yourself. <em>The first week is free.</em></Fragment>
+    <Fragment slot="subtext">Bring your little one in for a week of classes. No cost, no commitment.</Fragment>
+  </CTASection>
+</BaseLayout>

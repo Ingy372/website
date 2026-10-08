@@ -1,0 +1,53 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  badge: string;
+  image: ImageMetadata;
+  alt: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
+---
+
+<header class="relative overflow-hidden bg-indigo text-white">
+  <div
+    class="pointer-events-none absolute -right-24 -top-24 h-[480px] w-[480px] rounded-full border border-gold/[0.14]"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 md:px-5 py-20 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-10 md:py-18">
+    <div>
+      <span class="mb-5 inline-block rounded-sm bg-gold/[0.16] px-4 py-1.5 text-xs font-bold tracking-[0.16em] text-gold-soft uppercase">
+        {badge}
+      </span>
+      <h1 class="max-w-[15ch] text-[clamp(2.3rem,4.6vw,3.7rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
+        <slot name="heading" />
+      </h1>
+      <p class="my-5 max-w-[46ch] text-lg text-[#C7C6D6]">
+        <slot name="subtext" />
+      </p>
+      <a
+        href={ctaHref}
+        class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep transition-all hover:-translate-y-0.5 hover:bg-gold-soft"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+    <div class="h-[280px] overflow-hidden rounded md:h-[400px]">
+      <Picture
+        src={image}
+        alt={alt}
+        formats={["avif", "webp"]}
+        widths={[400, 640, 900, 1200]}
+        sizes="(min-width: 768px) 45vw, calc(100vw - 48px)"
+        loading="eager"
+        fetchpriority="high"
+        pictureAttributes={{ class: "block h-full w-full" }}
+        class="h-full w-full object-cover"
+      />
+    </div>
+  </div>
+</header>

@@ -1,0 +1,45 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  title: string;
+  description: string;
+  linkLabel: string;
+  href: string;
+  eyebrow?: string;
+  when?: string;
+  /** CSS object-position for the image, e.g. "50% 30%". Defaults to center. */
+  position?: string;
+  /** Heading level for the title. h3 under a section h2 (default); h2 when the cards sit directly under the page h1. */
+  headingLevel?: "h2" | "h3";
+}
+const { image, alt, title, description, linkLabel, href, eyebrow, when, position, headingLevel = "h3" } = Astro.props;
+const Heading = headingLevel;
+---
+
+<a href={href} class="block overflow-hidden rounded border border-paper-warm bg-white transition-all hover:-translate-y-1 hover:border-gold">
+  <div class="aspect-square overflow-hidden">
+    <Picture
+      src={image}
+      alt={alt}
+      formats={["avif", "webp"]}
+      widths={[280, 420, 560, 760]}
+      sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+      pictureAttributes={{ class: "block h-full w-full" }}
+      class="h-full w-full object-cover"
+      style={position ? `object-position:${position}` : undefined}
+    />
+  </div>
+  <div class="p-5">
+    {eyebrow && (
+      <span class="mb-2 inline-block text-[0.72rem] font-bold tracking-[0.12em] text-mist uppercase">{eyebrow}</span>
+    )}
+    <Heading class="mb-1.5 text-xl font-black text-indigo">{title}</Heading>
+    <p class="text-sm text-mist">{description}</p>
+    {when && <div class="mt-3 text-sm text-mist"><strong class="text-indigo">When:</strong> {when}</div>}
+    <span class="mt-3.5 inline-block text-sm font-bold text-gold-deep">{linkLabel}</span>
+  </div>
+</a>

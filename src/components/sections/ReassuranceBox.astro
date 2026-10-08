@@ -1,0 +1,13 @@
+---
+interface Props {
+  heading: string;
+}
+const { heading } = Astro.props;
+---
+
+<div class="mx-auto max-w-3xl rounded-r border border-paper-warm border-l-4 border-l-gold bg-white p-8">
+  <h2 class="mb-3.5 text-2xl font-black text-indigo">{heading}</h2>
+  <div class="flex flex-col gap-5 text-[1.02rem] text-[#40403A] md:gap-3">
+    <slot />
+  </div>
+</div>

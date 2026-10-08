@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Muth3/Desktop/Action Zone site/**)",
+      "Bash(npm create *)",
+      "Bash(mkdir -p /c/Users/Muth3/AppData/Local/Temp/claude/C--Users-Muth3-Desktop-Action-Zone-site/0860780d-89a2-41d9-a5bf-dcfff1cc2b77/scratchpad)",
+      "Read(//c/Users/Muth3/AppData/Local/Temp/claude/C--Users-Muth3-Desktop-Action-Zone-site/0860780d-89a2-41d9-a5bf-dcfff1cc2b77/scratchpad/**)",
+      "Bash(rm -rf astro-scaffold)",
+      "Bash(npx create-astro@latest --help)",
+      "Bash(npx create-astro@latest . --template minimal --install --no-git --typescript strict --no-ai --yes)",
+      "Bash(mv absolute-azimuth/.gitignore .)",
+      "Bash(mv absolute-azimuth/.vscode .)",
+      "Bash(mv absolute-azimuth/astro.config.mjs .)",
+      "Bash(mv absolute-azimuth/node_modules .)",
+      "Bash(rmdir absolute-azimuth *)",
+      "Bash(npx astro *)",
+      "Bash(curl -sS -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4321/)",
+      "Bash(sed -i \"s/Michael Lowery — portrait/Michael Lowery, portrait/; s/Jayson Lindemuth — portrait/Jayson Lindemuth, portrait/; s/Hannah Minter — portrait/Hannah Minter, portrait/\" src/pages/meet-the-team.astro)",
+      "Bash(grep -rniE '\\\\$[0-9]|pricing|price|starting at|per month|fee[^d]' src/ --include=\"*.astro\" --include=\"*.ts\")",
+      "Bash(npm audit *)",
+      "Bash(npm run *)",
+      "Bash(sed -i 's/<section class=\"py-10\">/<section class=\"py-14 md:py-10\">/' src/components/cards/FeatureRow.astro)",
+      "Bash(sed -i 's/<section class={`\\\\${bgClass} py-20 text-center text-white`}>/<section class={`${bgClass} py-24 md:py-20 text-center text-white`}>/' src/components/sections/CTASection.astro)",
+      "Bash(sed -i 's/class=\"py-20 text-center md:py-28\"/class=\"py-24 text-center md:py-28\"/' src/pages/student-login.astro)"
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+---
+// GA4 + Meta Pixel, loaded on every page via BaseLayout. Both third-party
+// libraries load after the page has finished loading, so they never compete
+// with first render. IDs live in
+// data/school.ts (analytics) — this is the only place that reads them.
+import { analytics } from "../data/school";
+---
+
+<!--
+  The gtag/fbq queues are set up immediately so every call (PageView, click
+  events below) is captured from the first moment. The libraries themselves
+  (~275 KB from Google + Meta) are fetched only after the page has finished
+  loading, so they no longer compete with the fonts, CSS, and hero on mobile.
+  Queued calls are replayed as soon as each library arrives.
+-->
+<script define:vars={{ GA4_ID: analytics.ga4MeasurementId, PIXEL_ID: analytics.metaPixelId }} is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+  gtag("js", new Date());
+  gtag("config", GA4_ID);
+
+  !(function (f) {
+    if (f.fbq) return;
+    var n = (f.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    });
+    if (!f._fbq) f._fbq = n;
+    n.push = n;
+    n.loaded = !0;
+    n.version = "2.0";
+    n.queue = [];
+  })(window);
+  fbq("init", PIXEL_ID);
+  fbq("track", "PageView");
+
+  function loadAnalytics() {
+    [
+      "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID,
+      "https://connect.facebook.net/en_US/fbevents.js",
+    ].forEach(function (src) {
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+    });
+  }
+  function scheduleAnalytics() {
+    if ("requestIdleCallback" in window) requestIdleCallback(loadAnalytics, { timeout: 2000 });
+    else setTimeout(loadAnalytics, 1);
+  }
+  if (document.readyState === "complete") scheduleAnalytics();
+  else window.addEventListener("load", scheduleAnalytics, { once: true });
+</script>
+<noscript>
+  <img
+    height="1"
+    width="1"
+    style="display:none"
+    src={`https://www.facebook.com/tr?id=${analytics.metaPixelId}&ev=PageView&noscript=1`}
+  />
+</noscript>
+
+<!--
+  Site-wide click tracking via delegation, so every current and future
+  tap-to-call link and /booking CTA gets tracked without touching each
+  component individually.
+-->
+<script is:inline>
+  document.addEventListener(
+    "click",
+    function (e) {
+      const link = e.target instanceof Element ? e.target.closest("a") : null;
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+
+      if (href.startsWith("tel:")) {
+        window.gtag?.("event", "phone_call_click", {
+          phone_number: href.replace("tel:", ""),
+          link_url: window.location.pathname,
+          transport_type: "beacon",
+        });
+      }
+
+      if (href === "/booking" || href.startsWith("/booking?") || href.startsWith("/booking#")) {
+        window.gtag?.("event", "booking_cta_click", {
+          link_text: (link.textContent || "").trim(),
+          link_url: window.location.pathname,
+          transport_type: "beacon",
+        });
+        window.fbq?.("track", "Lead", { content_name: "booking_cta_click" });
+      }
+    },
+    true
+  );
+</script>

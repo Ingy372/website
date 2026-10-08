@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import TeamPerson from "../components/sections/TeamPerson.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+
+import michaelPortrait from "../images/team/mike-portrait.png";
+import jaysonPortrait from "../images/team/jay-portrait.png";
+import hannahPortrait from "../images/team/hannah-portrait.png";
+---
+
+<BaseLayout
+  title="Meet the Team"
+  description="Meet the team at Action Zone, CMA: founder Michael Lowery, head instructor Jayson Lindemuth, and office manager Hannah Minter."
+  path="/meet-the-team"
+>
+  <SimpleHero eyebrow="Meet the Team">
+    <Fragment slot="heading">Three decades. One family. <em>One system.</em></Fragment>
+    <Fragment slot="subtext">
+      A team that treats every student like their own, teaching the same proven system we have
+      for years. This is who you'll train with.
+    </Fragment>
+  </SimpleHero>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto flex max-w-4xl flex-col gap-20 px-6 md:px-5 md:gap-20">
+      <TeamPerson image={michaelPortrait} alt="Portrait of founder Michael Lowery" role="Founder" name="Michael Lowery" position="50% 25%">
+        <p>Everything here began with Michael. He founded the school, and he created the system it teaches.</p>
+        <p>
+          What his students remember is not the belts he earned, though there were many. It is the
+          way he taught. He believed a martial artist should be built in mind, body, and spirit
+          together, never one without the others, and he spent more than thirty years proving it
+          one student at a time.
+        </p>
+        <p>Today the school is in his stepson's hands. But the standard he set is still the standard we hold.</p>
+      </TeamPerson>
+
+      <TeamPerson image={jaysonPortrait} alt="Portrait of head instructor Jayson Lindemuth" role="Head Instructor" name="Jayson Lindemuth" flip position="50% 15%">
+        <p>
+          Jayson stepped onto a mat at three years old. He started helping with classes at twelve,
+          was leading his own by fourteen, and has now spent more than twenty-six years in this
+          art. Today he runs the school.
+        </p>
+        <p>He treats every student like family, and he means it literally.</p>
+        <p class="pull">"I teach kids the way I'd want someone to teach my own child. Our adults, I see as my brothers, sisters, mothers, and fathers."</p>
+        <p>
+          His favorite part of the job is watching students surprise themselves, finding the
+          confidence to do something they were sure they could not do. When he is not on the mat,
+          you will find him working in the yard, kayaking or surfing, or at home with his family
+          and his two dogs, Scooby Doo and Willow.
+        </p>
+        <p class="pull">"Everything is scary the first time. We do our best to make you feel comfortable and confident. Martial arts changes lives. We'll treat you like family."</p>
+      </TeamPerson>
+
+      <TeamPerson image={hannahPortrait} alt="Portrait of office manager Hannah Minter" role="Office Manager" name="Hannah Minter" position="50% 15%">
+        <p>
+          Hannah is often the first person you will meet. She greets everyone at the door with a
+          smile, ready to help however she can, whether you are a nervous first-timer or a parent
+          with a dozen questions.
+        </p>
+        <p>
+          She began training here in 2017 and earned her Black Belt in Yeshua's Ryu through years
+          of steady work. Along the way, she gained confidence, real self-defense skill, and a
+          deeper faith, much of it formed through working with our children.
+        </p>
+        <p>Today she keeps the school running as our Office Manager. She is the one who makes sure every family is cared for from the moment they walk in.</p>
+        <p class="pull">Her passion is helping people grow in mind, body, and spirit, and it shows the moment you meet her.</p>
+      </TeamPerson>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-center text-white md:py-20">
+    <div class="mx-auto max-w-2xl px-6 md:px-5">
+      <h2 class="mb-4 text-[clamp(1.7rem,3.4vw,2.5rem)]">
+        We are not a franchise. <span class="text-gold-soft">We are a family.</span>
+      </h2>
+      <p class="text-lg leading-loose text-[#B7B6C8] md:leading-normal">
+        The same people, in the same building, teaching the same system for thirty-three years.
+        When you train here, you become part of that.
+      </p>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" bg="indigo">
+    <Fragment slot="heading">Come meet us in person. <em>Your first week is free.</em></Fragment>
+    <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
+  </CTASection>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+import { trustSignals } from "../../data/school";
+
+interface Props {
+  variant?: "light" | "dark";
+}
+const { variant = "light" } = Astro.props;
+const textClass = variant === "dark" ? "text-[#CFCEDC]" : "text-mist";
+---
+
+<ul class="flex flex-col gap-2">
+  {trustSignals.map((signal) => (
+    <li class={`flex items-start gap-2 text-sm ${textClass}`}>
+      <span class="mt-0.5 text-gold" aria-hidden="true">&#10003;</span>
+      {signal}
+    </li>
+  ))}
+</ul>

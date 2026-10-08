@@ -1,0 +1,12 @@
+---
+import { contact } from "../../data/school";
+---
+
+<a
+  href={contact.phoneHref}
+  class="fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2 bg-gold py-3 text-center font-bold text-indigo-deep shadow-[0_-4px_16px_rgba(0,0,0,0.15)] lg:hidden"
+  style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+>
+  <span aria-hidden="true">&#128222;</span>
+  Call {contact.phone}
+</a>

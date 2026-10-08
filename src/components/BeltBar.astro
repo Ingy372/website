@@ -1,0 +1,19 @@
+---
+// The belt bar motif: a 7-segment strip at the top of every page,
+// white -> yellow -> orange -> green -> blue -> brown -> black.
+const segments = [
+  "#F5F2EA", // white
+  "#E4C765", // yellow
+  "#C9A227", // orange (gold)
+  "#2E7D5B", // green
+  "#2C5C93", // blue
+  "#7B5E1E", // brown
+  "#191A3E", // black (indigo stand-in)
+];
+---
+
+<div class="flex h-1.5 w-full" aria-hidden="true">
+  {segments.map((color) => (
+    <span class="flex-1" style={{ backgroundColor: color }}></span>
+  ))}
+</div>

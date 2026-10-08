@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import IconBenefitCard from "../components/cards/IconBenefitCard.astro";
+import StepList from "../components/sections/StepList.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+
+import heroImage from "../images/kids/class-photo.jpg";
+import partnerDrill from "../images/kids/partner-drill.jpg";
+import beltTest from "../images/kids/belt-test.jpg";
+import ninjaLine from "../images/kids/ninja-line.jpg";
+import instructorCorrectingStance from "../images/kids/instructor-correcting-stance.jpg";
+import throwingWall from "../images/kids/throwing-wall.jpg";
+
+const benefits = [
+  { title: "Confidence that lasts", desc: "Every belt your child earns is proof they set a goal and reached it. That feeling of \"I did it\" builds into a quiet, real self-belief they carry everywhere." },
+  { title: "Focus that shows at school", desc: "The attention it takes to learn a technique is the same attention that finishes homework and listens in class. Teachers notice. So will you." },
+  { title: "Respect they bring home", desc: "Respect is trained in every class, not printed on a poster. Parents tell us it follows their kids right to the dinner table." },
+  { title: "Real self-defense", desc: "Your child learns to protect themselves and others, along with the wisdom to know when those skills belong and when to walk away." },
+  { title: "Strength and coordination", desc: "High-energy classes that build real fitness, balance, and body control, and send an active kid home pleasantly worn out." },
+  { title: "Character rooted in faith", desc: "Our Yeshua's Ryu system pairs martial arts with Christian character, so what your child learns on the mat shapes who they are off it." },
+];
+
+const steps = [
+  { title: "They warm up and lock in", description: "Every class opens with movement that gets the body going and the mind focused. Wiggles out, attention on." },
+  { title: "They train real skills", description: "Strikes, blocks, footwork, and partner drills, taught step by step by instructors who have done this for years. Every child is watched and helped." },
+  { title: "They earn their progress", description: "Kids work toward the next belt and test for it in front of the room. Nothing is handed out, which is exactly why it means so much when they get it." },
+  { title: "They have a blast doing it", description: "Between the ninja line, the throwing wall, and instructors who make it fun, our kids forget they are learning discipline. They just know they want to come back." },
+];
+
+const belts = [
+  { color: "#F5F2EA", title: "White" },
+  { color: "#EBC94A", title: "Yellow" },
+  { color: "#E08A2B", title: "Orange" },
+  { color: "#2E7D5B", title: "Green" },
+  { color: "#2C5C93", title: "Blue" },
+  { color: "#9B2D26", title: "Red" },
+  { color: "#9B2D26", title: "Red / Black Stripe", stripe: true },
+  { color: "#5A3A24", title: "Brown" },
+  { color: "#5A3A24", title: "Brown / Black Stripe", stripe: true },
+  { color: "#14141C", title: "Black" },
+];
+---
+
+<BaseLayout
+  title="Kids Martial Arts, Ages 6–12"
+  description="Kids martial arts classes for ages 6–12 in Raeford, NC. Confidence, focus, respect, and real self-defense, in a non-competitive Christian dojo."
+  path="/kids"
+>
+  <ProgramHero badge="Kids · Ages 6–12" image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Confidence that <em>shows up everywhere.</em></Fragment>
+    <Fragment slot="subtext">
+      Practical self-defense paired with confidence, focus, and respect. High-energy classes that
+      build strength, resilience, and leadership in everyday life.
+    </Fragment>
+  </ProgramHero>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 text-center md:py-20">
+      <h2 class="mb-5 text-[clamp(1.9rem,3.6vw,2.6rem)] text-indigo">
+        You want them to <span class="text-gold-deep">lead, not follow.</span>
+      </h2>
+      <p class="mb-6 text-lg leading-loose text-[#3E3E38] md:mb-4 md:leading-normal">
+        You want a child who looks people in the eye, finishes what they start, and knows how to
+        stand up for themselves and for others. A child who is respectful at home, focused at
+        school, and proud of who they are becoming.
+      </p>
+      <p class="text-lg leading-loose text-[#3E3E38] md:leading-normal">
+        Those qualities take time, encouragement, and the right environment to grow. That is what
+        we have spent thirty-three years building here, and we would be glad to help your family
+        be part of it.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="Why Families Choose Us" center hasSubtext>
+        <Fragment slot="heading">More than kicks and punches.</Fragment>
+        <Fragment slot="subtext">Parents bring their kids to us for the martial arts. They keep them here for everything that comes with it.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-5">
+        {benefits.map((b, i) => <IconBenefitCard number={i + 1} title={b.title} description={b.desc} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-white md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="What a Class Looks Like" dark>
+        <Fragment slot="heading">Structured, upbeat, <em>and never boring.</em></Fragment>
+      </SectionHead>
+      <StepList steps={steps} dark />
+      <div class="mt-12">
+        <PhotoStrip
+          caption="Inside a kids class"
+          dark
+          ratioClass="aspect-[4/5]"
+          images={[
+            { src: partnerDrill, alt: "Two kids practicing a partner drill in class", position: "50% 40%" },
+            { src: beltTest, alt: "Student performing a belt test in front of the class", position: "50% 20%" },
+            { src: ninjaLine, alt: "Kids class training beneath the ninja line strung across the dojo", position: "50% 30%" },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="What Parents Ask First" center>
+        <Fragment slot="heading">The two questions on every parent's mind.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 md:grid-cols-2 md:gap-6">
+        <div class="rounded-r border border-paper-warm border-l-4 border-l-gold bg-white p-8">
+          <h3 class="mb-3 text-xl font-black text-indigo">"Will this make my child aggressive?"</h3>
+          <p class="mb-5 text-[#40403A] md:mb-3">
+            No. In our experience it does the opposite. We spend as much time on what martial arts
+            is not as on what it is, and we talk openly about anger and where these skills belong.
+          </p>
+          <p class="text-[#40403A]">
+            We are a non-competitive school. We are not raising fighters. We are raising the kind
+            of people you would want living next door.
+          </p>
+        </div>
+        <div class="rounded-r border border-paper-warm border-l-4 border-l-gold bg-white p-8">
+          <h3 class="mb-3 text-xl font-black text-indigo">"Is it safe?"</h3>
+          <p class="mb-5 text-[#40403A] md:mb-3">
+            Safety comes before everything in this building. Beginners are not sparring. Students
+            work at a level right for their age and rank, always supervised.
+          </p>
+          <p class="text-[#40403A]">
+            We teach control long before we teach contact, because a child who has not learned
+            control has no business making any.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        ratioClass="aspect-[4/5]"
+        images={[
+          { src: instructorCorrectingStance, alt: "Instructor adjusting a young student's stance", position: "50% 25%" },
+          { src: throwingWall, alt: "Kids kneeling in a line practicing blow darts at the throwing wall", position: "50% 30%" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 text-center md:py-20">
+      <h2 class="mb-4 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
+        Every belt is a <span class="text-gold-deep">goal they can see.</span>
+      </h2>
+      <p class="mx-auto mb-8 max-w-[58ch] text-lg leading-loose text-[#3E3E38] md:leading-normal">
+        Kids this age thrive on clear goals and honest recognition. Our belt system gives them
+        both: a visible path, a reason to keep going, and the deep pride of earning the next rank
+        through real work.
+      </p>
+      <div class="flex flex-wrap justify-center gap-2">
+        {belts.map((b) => (
+          <div class="relative h-8 w-[58px] rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]" style={{ backgroundColor: b.color }} title={b.title}>
+            {b.stripe && <div class="absolute inset-x-0 top-1/2 h-[9px] -translate-y-1/2 bg-[#14141C]"></div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ReviewQuote
+    quote="His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable."
+    who="Taylor S. · Parent at Action Zone"
+  />
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Come see it for yourself. <em>The first week is free.</em></Fragment>
+    <Fragment slot="subtext">Bring your child in for a full week of classes. No cost, no commitment, no pressure.</Fragment>
+  </CTASection>
+</BaseLayout>

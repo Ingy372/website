@@ -1,0 +1,28 @@
+---
+// Placeholder destination for the "Student Login" nav/footer link.
+// TODO: once Nic confirms the Tarnished Labs deep-link (ideally one that
+// routes straight to the training videos section after auth), replace this
+// page with a redirect, or point studentLoginHref in src/data/school.ts
+// directly at the platform URL and remove this route.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contact } from "../data/school";
+---
+
+<BaseLayout
+  title="Student Login"
+  description="Training video access is coming soon to Action Zone, CMA."
+  path="/student-login"
+>
+  <section class="py-24 text-center md:py-28">
+    <div class="mx-auto max-w-xl px-6 md:px-5">
+      <h1 class="mb-4 text-3xl font-black text-indigo md:text-4xl">Coming Soon</h1>
+      <p class="mb-8 text-lg leading-loose text-mist md:leading-normal">
+        Training video access is arriving shortly. In the meantime, call us and we'll help you
+        find what you're looking for.
+      </p>
+      <a href={contact.phoneHref} class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">
+        Call {contact.phone}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

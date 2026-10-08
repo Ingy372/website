@@ -1,0 +1,47 @@
+---
+import { contact } from "../../data/school";
+
+interface Props {
+  ctaLabel: string;
+  ctaHref: string;
+  bg?: "indigo" | "indigo-deep";
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const { ctaLabel, ctaHref, bg = "indigo-deep", secondaryLabel, secondaryHref } = Astro.props;
+const bgClass = bg === "indigo" ? "bg-indigo" : "bg-indigo-deep";
+---
+
+<section class={`${bgClass} py-24 md:py-20 text-center text-white`}>
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <h2 class="mx-auto max-w-[19ch] text-[clamp(2rem,4.4vw,3.1rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
+      <slot name="heading" />
+    </h2>
+    <p class="mx-auto mt-4 max-w-[46ch] text-[1.05rem] text-[#BCBBCE]">
+      <slot name="subtext" />
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href={ctaHref}
+        class="inline-block rounded-sm bg-gold px-8 py-4 text-base font-bold text-indigo-deep transition-all hover:-translate-y-0.5 hover:bg-gold-soft"
+      >
+        {ctaLabel}
+      </a>
+      {secondaryLabel && secondaryHref && (
+        <a
+          href={secondaryHref}
+          target="_blank"
+          rel="noopener"
+          class="inline-block rounded-sm border border-white/25 px-6 py-4 text-base font-semibold text-white hover:border-gold-soft hover:text-gold-soft"
+        >
+          {secondaryLabel}
+        </a>
+      )}
+    </div>
+    <div class="mt-6 text-[0.8rem] tracking-[0.16em] text-[#9695AA] uppercase">Or call us</div>
+    <a href={contact.phoneHref} class="mt-2 block font-display text-3xl font-black text-gold-soft">
+      {contact.phone}
+    </a>
+  </div>
+</section>

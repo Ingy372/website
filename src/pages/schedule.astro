@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+---
+
+<BaseLayout
+  title="Class Schedule"
+  description="The full weekly class schedule at Action Zone, CMA in Raeford, NC. Monday through Thursday, plus Saturday open training."
+  path="/schedule"
+>
+  <SimpleHero eyebrow="Class Schedule">
+    <Fragment slot="heading">Find a class that <em>fits your week.</em></Fragment>
+    <Fragment slot="subtext">
+      Every class we teach, Monday through Saturday, at a glance.
+    </Fragment>
+  </SimpleHero>
+
+  <section class="py-20 md:py-16">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <WeeklyTimetable />
+
+      <p class="mt-6 text-center text-sm text-mist">
+        Closed Sunday. Saturday mornings are open to the whole dojo, for makeup classes, extra
+        training, and testing.
+      </p>
+
+      <div class="mx-auto mt-10 max-w-2xl rounded border border-paper-warm bg-paper-warm p-6 text-center">
+        <h2 class="mb-2 font-display text-lg font-bold text-indigo">Where do I start?</h2>
+        <p class="mb-2 text-sm text-[#3E3E38]">
+          Basic Club and Little Warriors are the classes open for booking. Black Belt Club and
+          Masters Club are joined by invitation from your instructor.
+        </p>
+        <p class="text-sm text-[#3E3E38]">
+          Whether you are a beginner or have been training for years, everyone has a place here.
+          No uniform or equipment required. Wear something comfortable, bring water, and show up a
+          few minutes early. We look forward to seeing you on the mat.
+        </p>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href="/booking"
+          class="inline-flex items-center gap-2 font-bold text-indigo hover:text-gold"
+        >
+          New to Action Zone? Book a free trial class <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">See a class that works? <em>Come try it free.</em></Fragment>
+    <Fragment slot="subtext">
+      Book any beginner class above and your first week is on us. No uniform, no equipment, no
+      commitment.
+    </Fragment>
+  </CTASection>
+</BaseLayout>

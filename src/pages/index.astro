@@ -1,0 +1,305 @@
+---
+import { Picture } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeHero from "../components/hero/HomeHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import ProgramCard from "../components/cards/ProgramCard.astro";
+import ExtraCard from "../components/cards/ExtraCard.astro";
+import QuoteCard from "../components/sections/QuoteCard.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { reviews, ctaLabelGeneral } from "../data/school";
+
+import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
+import kidsClass from "../images/homepage/kids-class.jpg";
+import teensAdultsClass from "../images/homepage/teens-adults-class.jpg";
+import founderAndHeadInstructor from "../images/homepage/founder-and-head-instructor.jpg";
+import homeBirthdayParty from "../images/homepage/birthday-party.jpg";
+import homeParentsNightOut from "../images/homepage/parents-night-out.jpg";
+import facilityNinjaLine from "../images/facility/ninja-line.jpg";
+import facilityThrowingWall from "../images/facility/throwing-wall.jpg";
+import facilityPlayground from "../images/facility/playground.jpg";
+import facilityTrampoline from "../images/facility/trampoline.jpg";
+
+const facilityFeatures = [
+  { image: facilityNinjaLine, position: "50% 42%", alt: "The ninja line strung across the middle of the dojo, a hanging grip-and-balance obstacle course", title: "The Ninja Line", desc: "Strung across the middle of the dojo. Grip, balance, and upper body strength training in a fun, challenging way." },
+  { image: facilityThrowingWall, position: "50% 45%", alt: "The dedicated throwing wall for ninja stars, knives, and blow darts", title: "The Throwing Wall", desc: "Hira shuriken (ninja stars), kunai (throwing knives), and fukiya (blow guns). Traditional Japanese weapons, taught with real discipline and real safety." },
+  { image: facilityPlayground, position: "50% 50%", alt: "The outdoor playground on Action Zone's two acres, where siblings play during class time", title: "Outdoor Playground", desc: "For siblings to have something to do during class time. Where they can be loud, have fun, and act like kids." },
+  { image: facilityTrampoline, position: "50% 45%", alt: "The outdoor trampoline beside the playground", title: "Trampoline", desc: "Because a kid who just spent time learning self-control has earned a few minutes of bouncing and having fun." },
+];
+
+const audiences = [
+  {
+    who: "For Parents",
+    title: "Peace of mind.",
+    items: [
+      "Christian character taught alongside technique",
+      "Every instructor: 480+ hours of training and leadership",
+      "Non-competitive. We're not chasing trophies",
+      "A clear belt path, so progress is visible",
+    ],
+  },
+  {
+    who: "For Kids",
+    title: "Learn that hard work can be fun too.",
+    items: [
+      "A ninja line running across the dojo",
+      "Hira shuriken (ninja stars), kunai (throwing knives), and fukiya (blow guns)",
+      "A playground and trampoline after class",
+      "Earning the next belt in front of friends",
+    ],
+  },
+  {
+    who: "For Adults",
+    title: "Real training, real results.",
+    items: [
+      "Full-body fitness that isn't a treadmill",
+      "Self-defense you'd actually use",
+      "Stress gone by the end of class",
+      "No experience required. Start at zero",
+    ],
+  },
+];
+
+const quotes = [
+  {
+    quote: "Staff is without a doubt some of the most patient and caring individuals I have met. They deal with our son who is literally all gas no break with compassion. His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable. Highly recommend to anyone.",
+    who: "Taylor S.",
+  },
+  {
+    quote: "Very skilled instructors with a rich history in martial arts! This is absolutely one of the best if not the best in a 60 mile radius! I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here. I have experience in martial arts and know what to look for in a gym and in instructors. I've been a student here for a while and can say with 100% confidence that this is where you want to be.",
+    who: "Benjamin S.",
+  },
+  {
+    quote: "My daughter is 5 and started a year ago in the little warrior classes and absolutely loves it. It has a great family atmosphere, the instructors are fantastic and she has learned so much about karate, self discipline and herself. It has also given her a positive focus for her energy, helped her make new friends and raised her self confidence. Its a great program and I can't say enough good thing.",
+    who: "Sarah G.",
+  },
+];
+---
+
+<BaseLayout
+  title="Christian Martial Arts in Raeford, NC"
+  description="A family dojo in Raeford, NC serving kids, teens, and adults since 1993. Build confidence, focus, and real self-defense. Claim your free week."
+  path="/"
+>
+  <HomeHero />
+
+  <section class="py-20 md:py-20" id="programs">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="Find Your Class">
+        <Fragment slot="heading">A program for every age and stage.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 md:grid-cols-3 md:gap-6">
+        <ProgramCard
+          image={littleWarriorsClass}
+          alt="Little Warriors students lined up in uniform for a preschool martial arts class"
+          ageLabel="Ages 3–5"
+          title="Little Warriors"
+          tag="Preschool Martial Arts"
+          description="Fun, structure, and discipline that help young children develop focus, confidence, and coordination, building lifelong skills on and off the mat."
+          href="/little-warriors"
+        />
+        <ProgramCard
+          image={kidsClass}
+          alt="Kids martial arts class training together on the dojo mat"
+          position="50% 30%"
+          ageLabel="Ages 6–12"
+          title="Kids Classes"
+          tag="Mixed Traditional Martial Arts"
+          description="Practical self-defense paired with confidence, focus, and respect. High-energy classes that build strength, resilience, and leadership in everyday life."
+          href="/kids"
+        />
+        <ProgramCard
+          image={teensAdultsClass}
+          alt="Teens and adults training together in a martial arts and fitness class"
+          position="50% 28%"
+          ageLabel="Ages 13+"
+          title="Teens & Adults"
+          tag="Fitness & Self-Defense"
+          description="Get in shape, learn to defend yourself, relieve stress. Real martial arts plus full-body fitness. No experience needed. Just show up and grow."
+          href="/teens-adults"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-white md:py-20" id="facility">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="mb-11">
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-soft uppercase">Our Facility</div>
+        <h2 class="max-w-[20ch] text-[clamp(1.9rem,3.8vw,2.9rem)] text-white">
+          A building built <span class="text-gold-soft">for exactly this.</span>
+        </h2>
+        <p class="mt-3.5 max-w-[52ch] text-[#A5A4B8]">
+          Our founder built this 2,400 square foot dojo by hand, on two cleared acres. Every inch of
+          it exists to teach martial arts, and to give a family somewhere to spend the afternoon.
+        </p>
+      </div>
+
+      <div class="mb-11 max-w-2xl rounded-r border-l-[3px] border-gold bg-gold/[0.09] px-7 py-6">
+        <h3 class="mb-2 font-display text-xl font-semibold text-gold-soft">Bringing a sibling along?</h3>
+        <p class="text-[#C5C4D4]">
+          We have an outdoor playground and a trampoline, so the brother or sister who isn't in
+          class has somewhere to be while they wait. And when class lets out, everybody plays.
+        </p>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+        {facilityFeatures.map((f) => (
+          <div class="overflow-hidden rounded border border-white/[0.09] bg-white/[0.04]">
+            <div class="aspect-square overflow-hidden">
+              <Picture
+                src={f.image}
+                alt={f.alt}
+                formats={["avif", "webp"]}
+                widths={[260, 390, 520]}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                pictureAttributes={{ class: "block h-full w-full" }}
+                class="h-full w-full object-cover"
+                style={`object-position:${f.position}`}
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="mb-1.5 font-display text-lg font-semibold text-white">{f.title}</h3>
+              <p class="text-[0.87rem] text-[#9695AA]">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a href="/facility" class="mt-9 inline-flex items-center gap-2 font-bold text-gold-soft hover:text-gold">
+        Tour the facility <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto grid max-w-6xl gap-12 px-6 md:px-5 py-20 md:grid-cols-[0.85fr_1.15fr] md:items-center md:gap-10 md:py-20">
+      <div class="aspect-[4/5] overflow-hidden rounded md:aspect-auto md:h-[420px]">
+        <Picture
+          src={founderAndHeadInstructor}
+          alt="Founder Michael Lowery with head instructor Jayson Lindemuth in the dojo"
+          formats={["avif", "webp"]}
+          widths={[400, 600, 840, 1120]}
+          sizes="(min-width: 768px) 42vw, 100vw"
+          pictureAttributes={{ class: "block h-full w-full" }}
+          class="h-full w-full object-cover"
+          style="object-position:50% 18%"
+        />
+      </div>
+      <div>
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">Our Story</div>
+        <h2 class="mb-5 max-w-[18ch] text-[clamp(1.8rem,3.4vw,2.6rem)] text-indigo">
+          Changing our world, <span class="text-gold-deep">one black belt at a time.</span>
+        </h2>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
+          Michael Lowery stepped onto a mat at eight years old and never really stepped off.
+          Karate. Jiu Jitsu. Kung Fu. Tae Kwon Do. The five traditional Japanese weapons. A black
+          belt in each one.
+        </p>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
+          Somewhere along the line he saw a way to glorify God through martial arts. So he built a
+          system that put the two together, and he named it after the reason:
+          <strong class="font-semibold">Yeshua's Ryu</strong>. Jesus' Way.
+        </p>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
+          He spent three decades on it. Refining the system, teaching the classes, watching
+          students walk in as one person and leave as another. It became his life's work. To see
+          people grow in Christ, and to send them into the world able to protect themselves and
+          the people they love.
+        </p>
+        <div class="my-7 h-px w-14 bg-gold/40 md:hidden" aria-hidden="true"></div>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">Then he handed it to his stepson.</p>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
+          Jayson Lindemuth runs the school today. Every class. Every student. Same system. Same
+          building. Same conviction that a punch should be taught beside a principle, and that a
+          student is trained in mind, body, and spirit or they are not really being trained at
+          all.
+        </p>
+        <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
+          We keep no trophy case. We are not raising competitors. We are raising the kind of people
+          you would want living next door.
+        </p>
+        <p class="mt-5 font-display text-[1.05rem] font-semibold italic text-indigo">
+          "A Black Belt is not something you simply earn. A Black Belt is who you are becoming."
+        </p>
+        <a href="/meet-the-team" class="mt-5 inline-flex items-center gap-2 font-bold text-indigo hover:text-gold">
+          Meet the team <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="Why Action Zone">
+        <Fragment slot="heading">Everybody in the family gets something out of it.</Fragment>
+      </SectionHead>
+      <div class="grid gap-12 md:grid-cols-3 md:gap-10">
+        {audiences.map((a) => (
+          <div>
+            <div class="mb-3.5 text-xs font-bold tracking-[0.18em] text-gold-deep uppercase">{a.who}</div>
+            <h3 class="text-[1.35rem] font-black text-indigo">{a.title}</h3>
+            <ul class="mt-3.5">
+              {a.items.map((item) => (
+                <li class="relative border-b border-paper-warm py-2.5 pl-6 text-[0.94rem] text-[#43423B]">
+                  <span class="absolute left-0 top-[19px] h-0.5 w-[11px] bg-gold" aria-hidden="true"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo py-20 text-white md:py-20" id="reviews">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="mb-4 flex flex-wrap items-center justify-center gap-5">
+        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft">{reviews.rating.toFixed(1)}</span>
+        <div>
+          <div class="text-2xl tracking-[4px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]">{reviews.count} reviews on Google</div>
+        </div>
+      </div>
+      <p class="mx-auto mb-11 max-w-[30ch] text-center font-display text-[1.35rem] font-semibold text-white">
+        Trusted by families across Raeford, Fayetteville, and Hope Mills.
+      </p>
+      <div class="grid gap-8 md:grid-cols-3 md:gap-5">
+        {quotes.map((q) => <QuoteCard quote={q.quote} who={q.who} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="More Than Classes">
+        <Fragment slot="heading">Parties and a night off.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 md:grid-cols-2 md:gap-5">
+        <ExtraCard
+          image={homeBirthdayParty}
+          alt="Children at a martial arts birthday party at Action Zone"
+          title="Birthday Parties"
+          description="Ninja line, throwing wall, games, and real martial arts, with the playground outside. We handle setup and cleanup."
+          linkLabel="Book a party →"
+          href="/birthday-parties"
+        />
+        <ExtraCard
+          image={homeParentsNightOut}
+          alt="Kids playing games at a themed Parents Night Out event"
+          position="50% 35%"
+          title="Parents Night Out"
+          description="Drop the kids off and enjoy an evening to yourselves. Games, training, and a whole lot of running around."
+          linkLabel="Next date →"
+          href="/parents-night-out"
+        />
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Your first week is <em>completely free.</em></Fragment>
+    <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
+  </CTASection>
+</BaseLayout>

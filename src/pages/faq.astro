@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { contact, ctaLabelGeneral } from "../data/school";
+
+const groups = [
+  {
+    id: "starting",
+    title: "Getting Started",
+    tag: "Ages & Timing",
+    items: [
+      {
+        question: "What age can a child start martial arts?",
+        answer: [
+          "Children can begin at <strong>age three</strong> in our Little Warriors program. Ages six through twelve train in our Kids classes. Teens and adults train together from thirteen up.",
+        ],
+      },
+      {
+        question: "Is three too young to start martial arts?",
+        answer: [
+          "No. Little Warriors was designed specifically for ages three to five. It is our program for our littlest students, and it was built for them from the ground up.",
+          "At that age we are teaching a child to listen. To wait their turn. To try something hard and not quit when it gets hard. The kicks and blocks are the delivery method. The lesson is underneath.",
+        ],
+      },
+      {
+        question: "Is my child too old to start? Is it too late to start as an adult?",
+        answer: [
+          "No, and no.",
+          "We meet our students exactly where they are the day they walk in. Your level of knowledge, your fitness, your experience: none of it matters to us. We treat our students like members of our family, and we build you from the ground up.",
+        ],
+      },
+      {
+        question: "Can I train alongside my child?",
+        answer: [
+          "Yes, once they reach <strong>age twelve</strong>.",
+          "Our teen and adult class is where parents and older children train side by side. We also hold Saturday classes, where the entire dojo trains together regardless of age or rank.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "kids",
+    title: "About Your Child",
+    tag: "The Real Questions",
+    items: [
+      {
+        question: "Will martial arts make my child aggressive?",
+        answer: [
+          "In our experience it does the opposite, and it is something we take seriously.",
+          "We spend as much time on what martial arts <em>is not</em> as on what it is. We talk about anger. What it feels like, what to do with it, and where these skills belong and where they never do. A student who cannot control themselves has not learned martial arts. They have only learned motion.",
+          "We are also a non-competitive school. We keep no trophy case. We are not raising fighters. We are raising the kind of people you would want living next door.",
+        ],
+      },
+      {
+        question: "Does martial arts help with ADHD, focus, or behavior at school?",
+        answer: [
+          "We are instructors, not clinicians, so we are not going to promise you an outcome. What we can tell you is what we have seen in this building.",
+          "Students with ADHD have trained here and progressed. Students with autism have trained here and progressed. One nonverbal student advanced a good way through our system.",
+          "We think the structure is part of it. A class has clear expectations, one task at a time, an instructor watching, and a belt you can see coming. That is a good environment for a lot of children, and it is a good environment for children who struggle to find one.",
+          "Bring your child in for a free week. You will learn more from watching one class than from anything we could write here.",
+        ],
+      },
+      {
+        question: "Does martial arts help with bullying?",
+        answer: [
+          "Yes, though often in ways parents do not expect.",
+          "We never encourage a student to fight, and we never encourage them to become the aggressor. We do teach them to stand up for themselves, including when that is difficult.",
+          "Here is what we watch happen. A student grows physically capable. They accomplish things they did not believe they could. Their confidence rises with it. And a confident child handles confrontation differently and holds a boundary more firmly, often without ever needing to raise a hand.",
+        ],
+      },
+      {
+        question: "My child is shy or has special needs. Will this work?",
+        answer: [
+          "Come and let us meet them.",
+          "We have taught quiet children, anxious children, children who could not be still, children with physical disabilities, and children who did not speak. Progress looks different for every one of them, and we are not going to pretend otherwise.",
+          "The free week costs you nothing. It will tell you more than any answer we could write here.",
+        ],
+      },
+      {
+        question: "Is it safe? Do students hit each other?",
+        answer: [
+          "Safety comes before everything else in this building.",
+          "Students work at a level appropriate to their age and rank, always supervised. We teach control long before we teach contact, because a student who has not learned control has no business making any.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "firstclass",
+    title: "Your First Class",
+    tag: "Practical Details",
+    items: [
+      {
+        question: "What should my child wear to their first class?",
+        answer: [
+          "Comfortable clothes they can move in. A t-shirt and athletic shorts or sweatpants is perfect. We train barefoot, so no shoes are needed.",
+          "Please do not buy a uniform before your free week. If you enroll, we will fit them properly.",
+        ],
+      },
+      {
+        question: "How long is a class?",
+        answer: [
+          "Little Warriors classes run <strong>forty-five minutes</strong>. Our kids, teen, and adult classes run <strong>a full hour</strong>.",
+        ],
+      },
+      {
+        question: "What if we go on vacation or miss classes?",
+        answer: [
+          "We keep track of the days your student misses and offer them back as make-ups.",
+          "Come in on one of your off days and pick up an additional session until you are caught up. Saturday classes are also open to everyone, both as an extra day of training and as a chance to make up anything missed.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "school",
+    title: "Our School",
+    tag: "What We Teach",
+    items: [
+      {
+        question: "What is Yeshua's Ryu?",
+        answer: [
+          "It is our system. Our founder, Michael Lowery, built it.",
+          "The name means <strong>Jesus' Way</strong>. It draws on Karate, Jiu Jitsu, Kung Fu, Tae Kwon Do, and the five traditional Japanese weapons, taught alongside Christian character.",
+        ],
+      },
+      {
+        question: "Do we have to be Christian to train here?",
+        answer: [
+          "No.",
+          "Our faith shapes how we teach character, and we will not hide that. The name of the system says it plainly. But we ask nothing of what our students believe, and we never have. Families of every background have trained on this mat and been welcome on it.",
+        ],
+      },
+      {
+        question: "What is the difference between karate, jiu jitsu, and taekwondo?",
+        answer: [
+          "Broadly speaking: karate emphasizes strikes. Jiu jitsu emphasizes grappling and ground control. Taekwondo emphasizes kicking.",
+          "Most schools teach one of them. We teach a mixed traditional system drawing from all three, plus Kung Fu and traditional weapons.",
+        ],
+      },
+      {
+        question: "Do you offer birthday parties or a parents night out?",
+        answer: [
+          "Both.",
+          "Our facility has an indoor ninja line, a throwing wall for hira shuriken (ninja stars), kunai (throwing knives), and fukiya (blow guns), an outdoor playground, and a trampoline.",
+          "And at every birthday party, the birthday child cuts the cake with a real Chinese double-edged straight sword.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "visiting",
+    title: "Visiting Us",
+    tag: "Raeford & Beyond",
+    items: [
+      {
+        question: "Do you have students who drive from Fayetteville or Hope Mills?",
+        answer: [
+          "Yes. Families come to us from Fayetteville, Hope Mills, and across Hoke County.",
+          "We are roughly twenty-five minutes from Fayetteville. Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one.",
+        ],
+      },
+      {
+        question: "Where are you located?",
+        answer: [
+          `${contact.addressFull}.`,
+          "Our founder built the dojo by hand on two cleared acres. It is a real building, dedicated entirely to this, with room outside for children to be children.",
+        ],
+      },
+      {
+        question: "How do I schedule my free week?",
+        answer: [
+          `Book a class on our <a href="/booking" class="text-indigo font-bold border-b border-gold">booking page</a>, or call us at <a href="${contact.phoneHref}" class="text-indigo font-bold border-b border-gold">${contact.phone}</a>.`,
+          "We will get back to you quickly and get your child on the mat.",
+        ],
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Frequently Asked Questions"
+  description="Answers to the questions parents ask most about Action Zone, CMA in Raeford, NC: getting started, safety, our school, and visiting us."
+  path="/faq"
+>
+  <SimpleHero eyebrow="Questions & Answers">
+    <Fragment slot="heading">Everything you were <em>going to ask anyway.</em></Fragment>
+    <Fragment slot="subtext">
+      Thirty-three years of parents standing in our lobby, asking good questions. Here are the
+      answers, written the way we would give them to you in person.
+    </Fragment>
+  </SimpleHero>
+
+  <div class="border-b border-[#DFD9C9] bg-paper-warm">
+    <div class="mx-auto flex max-w-3xl flex-wrap gap-2.5 px-6 md:px-5 py-5">
+      {groups.map((g) => (
+        <a
+          href={`#${g.id}`}
+          class="rounded-sm border border-[#DFD9C9] bg-white px-3.5 py-2 text-xs font-semibold tracking-[0.05em] text-indigo uppercase hover:border-indigo hover:bg-indigo hover:text-white"
+        >
+          {g.title}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="py-8">
+    {groups.map((g) => (
+      <FAQGroup id={g.id} title={g.title} tag={g.tag} items={g.items} />
+    ))}
+  </div>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Still have a question? <em>Just ask.</em></Fragment>
+    <Fragment slot="subtext">Nobody has ever bothered us by asking too many questions about their child.</Fragment>
+  </CTASection>
+</BaseLayout>

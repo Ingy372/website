@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import CTASection from "../components/sections/CTASection.astro";
+
+import partyPhoto from "../images/parents-night-out/party.jpg";
+---
+
+<BaseLayout
+  title="Parents Night Out"
+  description="Drop the kids off for a themed evening of games and martial arts at Action Zone, CMA in Raeford, NC, and enjoy a few hours to yourselves."
+  path="/parents-night-out"
+>
+  <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact">
+    <Fragment slot="heading">Drop the kids. <em>Enjoy the night.</em></Fragment>
+    <Fragment slot="subtext">
+      A themed evening of games, martial arts, and fun your kids won't stop talking about. Nerf
+      Night, Superhero Dress-Up, Water Wars, and more. You get a few hours to yourself, they get a
+      night to remember.
+    </Fragment>
+  </ProgramHero>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
+      <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
+        When did you two last <span class="text-gold-deep">finish a conversation?</span>
+      </h2>
+      <p class="mb-6 md:mb-4">
+        Between work, school, and everything in between, a quiet evening can feel impossible to
+        come by. Parents Night Out gives you a few hours to yourself, and gives your kids a themed
+        night they can't wait for.
+      </p>
+      <p>
+        Your kids get a themed night they look forward to, in a place you already trust, with
+        instructors who make every kid feel at home. You get a few hours that are actually yours.
+      </p>
+    </div>
+  </div>
+
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="The Deal" center>
+        <Fragment slot="heading">Two happy outcomes, one evening.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 md:grid-cols-2 md:gap-6">
+        <div class="rounded border border-paper-warm bg-white p-8">
+          <div class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">For You</div>
+          <h3 class="mb-4 text-2xl font-black text-indigo">A break.</h3>
+          <ul class="flex flex-col gap-2.5">
+            {[
+              "Go out to dinner without watching the clock",
+              "Run errands at twice the speed",
+              "Enjoy a quiet house for a few hours",
+              "Leave them somewhere you already trust",
+            ].map((item) => (
+              <li class="relative pl-5 text-[#43423B]">
+                <span class="absolute left-0 top-2 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded border border-paper-warm bg-white p-8">
+          <div class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">For Them</div>
+          <h3 class="mb-4 text-2xl font-black text-indigo">A blast.</h3>
+          <ul class="flex flex-col gap-2.5">
+            {[
+              "Games, martial arts, and pure FUN",
+              "A warm, welcoming crew that makes every kid feel at home",
+              "New friends and a whole lot of energy spent",
+              "Themed nights and memories that stick",
+            ].map((item) => (
+              <li class="relative pl-5 text-[#43423B]">
+                <span class="absolute left-0 top-2 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel="Ask About the Next Date" ctaHref="/contact">
+    <Fragment slot="heading">Your next quiet evening <em>is closer than you think.</em></Fragment>
+    <Fragment slot="subtext">We hold Parents Night Out regularly. Reach out for the next date and to reserve your child's spot.</Fragment>
+  </CTASection>
+</BaseLayout>

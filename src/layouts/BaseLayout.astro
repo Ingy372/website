@@ -1,0 +1,103 @@
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import Analytics from "../components/Analytics.astro";
+import BeltBar from "../components/BeltBar.astro";
+import Nav from "../components/nav/Nav.astro";
+import MobileCallBar from "../components/nav/MobileCallBar.astro";
+import Footer from "../components/Footer.astro";
+import { contact, reviews } from "../data/school";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+const canonicalURL = new URL(path, Astro.site);
+const fullTitle = `${title} | Action Zone, CMA`;
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  name: contact.businessName,
+  image: `${Astro.site}og-image.jpg`,
+  telephone: contact.phone,
+  email: contact.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: contact.address.line1,
+    addressLocality: contact.address.city,
+    addressRegion: contact.address.state,
+    postalCode: contact.address.zip,
+    addressCountry: "US",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      opens: "15:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "10:00",
+      closes: "12:00",
+    },
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: reviews.rating,
+    reviewCount: 80,
+  },
+  sameAs: [contact.socials.facebook, contact.socials.instagram],
+  url: Astro.site,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Analytics />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Self-hosted via the Astro Fonts API (astro.config.mjs). Each family is a
+         single latin variable-font file covering every weight, and both are used
+         above the fold (hero paragraph = LCP, hero headline), so preload both. -->
+    <Font cssVariable="--font-archivo" preload />
+    <Font cssVariable="--font-fraunces" preload />
+
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} is:inline />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-indigo"
+    >
+      Skip to content
+    </a>
+    <BeltBar />
+    <Nav />
+    <main id="main" class="pb-16 lg:pb-0">
+      <slot />
+    </main>
+    <Footer />
+    <MobileCallBar />
+  </body>
+</html>

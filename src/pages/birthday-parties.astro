@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import IconBenefitCard from "../components/cards/IconBenefitCard.astro";
+import FeatureRow from "../components/cards/FeatureRow.astro";
+import StepList from "../components/sections/StepList.astro";
+import CTASection from "../components/sections/CTASection.astro";
+
+import partyPhoto from "../images/birthday-parties/party.jpg";
+import cakeCut from "../images/birthday-parties/cake-cut.jpg";
+
+const included = [
+  { title: "Led by our instructors", desc: "Our instructors run the entire party start to finish, keeping every kid engaged, safe, and having the time of their life." },
+  { title: "The ninja line and throwing wall", desc: "The two things no other party in town has. Every guest gets a turn on the line and a chance to throw at the wall, supervised the whole way." },
+  { title: "Games and real moves", desc: "High-energy martial arts games plus a few genuine techniques, so every kid leaves feeling like they learned something cool." },
+  { title: "Room for the whole crew", desc: "Space inside on the mat and out on the playground, so there is always somewhere for the energy to go." },
+  { title: "Time for cake and gifts", desc: "We build in time for all the birthday traditions, and we turn the cake cutting into a moment nobody at the party will forget." },
+  { title: "Setup and cleanup handled", desc: "We set it up before you arrive and clean it up after you leave. You bring the cake and the kids. That is it." },
+];
+
+const steps = [
+  { title: "Reach out", description: "Give us a call or send a message with your child's age and the date you have in mind." },
+  { title: "We lock in the details", description: "We will walk you through timing, guest count, and everything the party includes, then reserve your date." },
+  { title: "You show up and enjoy it", description: "Bring the cake and the crew. We handle the rest, from the first game to the last sweep of the floor." },
+];
+---
+
+<BaseLayout
+  title="Birthday Parties"
+  description="Book a martial arts birthday party at Action Zone, CMA in Raeford, NC. Ninja line, throwing wall, games, and a cake cut with a real sword."
+  path="/birthday-parties"
+>
+  <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact">
+    <Fragment slot="heading">The party they'll <em>talk about for months.</em></Fragment>
+    <Fragment slot="subtext">
+      Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. Your child
+      is the star of the show, and you clean up nothing.
+    </Fragment>
+  </ProgramHero>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
+      <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
+        You bring the cake. <span class="text-gold-deep">We bring everything else.</span>
+      </h2>
+      <p class="mb-6 md:mb-4">
+        Our instructors run the entire party, from the first game to the last sweep of the floor.
+        No crowd control, no cleanup. You get to actually be there for it instead of working
+        through it.
+      </p>
+      <p>
+        Your child spends their birthday running the ninja line, throwing stars at the wall, and
+        leading their friends through martial arts moves, in a space made for this kind of energy.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="What's Included" center hasSubtext>
+        <Fragment slot="heading">Everything but the stress.</Fragment>
+        <Fragment slot="subtext">Our instructors run the whole show. You get to actually enjoy the party.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-5">
+        {included.map((item, i) => <IconBenefitCard number={i + 1} title={item.title} description={item.desc} />)}
+      </div>
+    </div>
+  </section>
+
+  <FeatureRow image={cakeCut} alt="Birthday child cutting the cake with a real sword, guided by an instructor" tag="The Moment of the Party" title="They cut the cake with a real sword.">
+    <p>
+      When it is time for cake, the birthday child does not reach for a plastic knife. They cut it
+      with a genuine Chinese double-edged straight sword, with our instructors right there guiding
+      every move.
+    </p>
+    <p>
+      It is safe, it is supervised, and it is the single thing every kid at the party goes home
+      talking about. Nothing else comes close.
+    </p>
+  </FeatureRow>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="How to Book" center>
+        <Fragment slot="heading">Three steps and it's on the calendar.</Fragment>
+      </SectionHead>
+      <div class="mx-auto flex justify-center">
+        <StepList steps={steps} />
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel="Book a Party" ctaHref="/contact">
+    <Fragment slot="heading">Give them a birthday <em>nobody forgets.</em></Fragment>
+    <Fragment slot="subtext">Dates fill up, especially on weekends. Reach out and let's find yours.</Fragment>
+  </CTASection>
+</BaseLayout>

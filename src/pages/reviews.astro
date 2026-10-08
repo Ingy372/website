@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { reviews, ctaLabelGeneral } from "../data/school";
+
+const quotes = [
+  {
+    quote: "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is.",
+    who: "Jacy D.",
+    avatarLetter: "J",
+  },
+  {
+    quote: "My daughter is 5 and she has been at Action Zone for 6 months. I love the care they provide when teaching her. The instructors are very patient, and they teach the importance of owning the responsibility of your actions.",
+    who: "Crystal C.",
+    avatarLetter: "C",
+  },
+  {
+    quote: "My daughter started a year ago in the little warrior classes and absolutely loves it. Great family atmosphere, the instructors are fantastic, and she has learned so much about self discipline and herself. It has raised her confidence and helped her make new friends.",
+    who: "Sarah G.",
+    avatarLetter: "S",
+  },
+];
+---
+
+<BaseLayout
+  title="Reviews"
+  description="See what families say about Action Zone, CMA in Raeford, NC. 5.0 stars across 80+ Google reviews."
+  path="/reviews"
+>
+  <header class="relative overflow-hidden bg-indigo py-20 text-center text-white md:py-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <span class="mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
+        What Families Say
+      </span>
+      <h1 class="mx-auto max-w-[18ch] text-[clamp(2.2rem,4.4vw,3.5rem)]">
+        Families in Raeford <span class="text-gold-soft">trust us with their kids.</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-[52ch] text-lg leading-loose text-[#C4C3D4] md:leading-normal">
+        We are grateful for every family that has walked through our doors. Here is what some of
+        them have shared.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-5">
+        <div class="font-display text-4xl font-black text-gold-soft">{reviews.rating.toFixed(1)}</div>
+        <div>
+          <div class="text-xl tracking-[3px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="text-sm text-[#C4C3D4]">Based on {reviews.count} Google reviews</div>
+        </div>
+        <a
+          href={reviews.googleSearchUrl}
+          target="_blank"
+          rel="noopener"
+          class="rounded-sm border border-white/25 px-5 py-2.5 text-sm font-semibold text-white hover:border-gold-soft hover:text-gold-soft"
+        >
+          Google Reviews
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="mb-11 text-center">
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">In Their Words</div>
+        <h2 class="text-[clamp(1.9rem,3.6vw,2.7rem)] text-indigo">Real reviews from real families.</h2>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3 md:gap-5">
+        {quotes.map((q) => (
+          <div class="rounded border border-paper-warm bg-white p-6">
+            <div class="mb-3 text-sm tracking-[2px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="text-[0.95rem] text-[#40403A]">{q.quote}</p>
+            <div class="mt-5 flex items-center gap-3">
+              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo/10 font-display font-bold text-indigo">
+                {q.avatarLetter}
+              </div>
+              <div>
+                <div class="text-sm font-bold text-indigo">{q.who}</div>
+                <div class="text-xs text-mist">Google Review</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl rounded border border-paper-warm bg-paper-warm p-8 text-center">
+        <div class="mb-2 text-xs font-bold tracking-[0.15em] text-mist uppercase">Straight From Google</div>
+        <p class="text-[#40403A]">
+          <strong class="font-semibold text-indigo">Live Google reviews feed goes here.</strong> On
+          the live site this pulls your full Google reviews automatically, newest first, so the
+          page updates itself as families leave new ones. Connected during the build through your
+          Google Business Profile.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking" secondaryLabel="Leave Us a Review" secondaryHref={reviews.googleSearchUrl}>
+    <Fragment slot="heading">Come see why families <em>keep coming back.</em></Fragment>
+    <Fragment slot="subtext">The best way to understand Action Zone is to walk through the door. Your first week is on us.</Fragment>
+  </CTASection>
+</BaseLayout>

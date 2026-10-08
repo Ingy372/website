@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-indigo: #191A3E;
+  --color-indigo-deep: #0F1029;
+  --color-gold: #C9A227;
+  --color-gold-soft: #E4C765;
+  /* Gold for text on light (paper/white) backgrounds: #C9A227 fails WCAG AA
+     there (2.0-2.4:1). This keeps the hue and clears 4.5:1 on every light bg. */
+  --color-gold-deep: #80640E;
+  --color-paper: #FAF9F5;
+  --color-paper-warm: #EFEADC;
+  --color-ink: #1C1C17;
+  --color-mist: #67665B;
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-archivo);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 1.05;
+  }
+
+  /* Mobile-only: narrow-column body copy reads better a little larger and
+     looser. Scoped to max-width so desktop (md and up) is untouched. */
+  @media (max-width: 767.98px) {
+    body {
+      font-size: 17px;
+    }
+
+    p {
+      line-height: 1.85;
+    }
+  }
+}

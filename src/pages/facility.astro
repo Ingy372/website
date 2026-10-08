@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import FeatureRow from "../components/cards/FeatureRow.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { ctaLabelGeneral } from "../data/school";
+
+import ninjaLine from "../images/facility/ninja-line.jpg";
+import throwingWall from "../images/facility/throwing-wall.jpg";
+import playground from "../images/facility/playground.jpg";
+import trampoline from "../images/facility/trampoline.jpg";
+---
+
+<BaseLayout
+  title="Our Facility"
+  description="Tour the Action Zone, CMA dojo in Raeford, NC: a ninja line, a throwing wall, an outdoor playground, and a trampoline, all built by hand on two acres."
+  path="/facility"
+>
+  <SimpleHero eyebrow="Our Facility">
+    <Fragment slot="heading">A building made <em>for exactly this.</em></Fragment>
+    <Fragment slot="subtext">
+      Most schools rent a storefront and roll out some mats. We are not most schools. Come see
+      what thirty-three years in one place lets you build.
+    </Fragment>
+  </SimpleHero>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
+      <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
+        Built by hand, <span class="text-gold-deep">for a purpose.</span>
+      </h2>
+      <p class="mb-6 md:mb-4">
+        Our founder built this 2,400 square foot dojo himself, on two cleared acres. Every wall,
+        every mat, and every inch of space was placed with intention, shaped around what a martial
+        arts school is meant to be.
+      </p>
+      <p>
+        That care shows up everywhere you look. Inside and out, we have room for the things that
+        turn training into something a student genuinely looks forward to.
+      </p>
+    </div>
+  </div>
+
+  <FeatureRow image={ninjaLine} alt="The ninja line strung across the middle of the dojo, a hanging grip-and-balance obstacle course" tag="Inside the Dojo" title="The Ninja Line" tallImage position="50% 35%">
+    <p>
+      Stretched across the heart of the dojo, our ninja line is a hanging obstacle course of
+      grips, holds, and hand-over-hand challenges that put every muscle in the upper body to work.
+    </p>
+    <p>
+      Students conquer it one hold at a time, week after week, building grip strength, balance,
+      and body control while they are having far too much fun to call it exercise.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow image={throwingWall} alt="The dedicated throwing wall for ninja stars, knives, and blow darts" tag="Inside the Dojo" title="The Throwing Wall" flip tallImage position="50% 45%">
+    <p>
+      Hira shuriken (ninja stars), kunai (throwing knives), and fukiya (blow guns). Our dedicated throwing wall is a purpose-built target area
+      where students get to take aim and let fly, always under close supervision.
+    </p>
+    <p>
+      It takes focus, a steady hand, and control, and there is nothing quite like the thrill of a
+      throw that lands exactly where you meant it to. It is a favorite the moment students earn
+      their turn at it.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow image={playground} alt="The outdoor playground on Action Zone's two acres, where siblings play during class" tag="Outside" title="The Outdoor Playground">
+    <p>
+      Out on our two acres, we have a full outdoor playground. It is where siblings play during
+      class, and where everybody heads once training wraps up.
+    </p>
+    <p>
+      It is a small thing that makes a big difference, especially for a parent trying to keep one
+      kid entertained while another trains.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow image={trampoline} alt="The outdoor trampoline beside the playground" tag="Outside" title="The Trampoline" flip tallImage position="50% 40%">
+    <p>
+      Right alongside the playground sits a trampoline, one more spot for kids to burn off energy
+      and have a little fun before or after class.
+    </p>
+  </FeatureRow>
+
+  <section class="py-20 md:py-16">
+    <div class="mx-auto max-w-3xl px-6 md:px-5 text-center">
+      <h2 class="mb-4 text-[clamp(1.7rem,3.2vw,2.4rem)] text-indigo">
+        Bringing the whole family? <span class="text-gold-deep">We planned for that.</span>
+      </h2>
+      <p class="text-lg text-[#40403A]">
+        Between the ninja line inside and the playground and trampoline outside, there is
+        somewhere for everyone to be. A sibling who is not in class has plenty of room to play, so
+        the whole family can come along and feel at home.
+      </p>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Come see it in person. <em>The first week is free.</em></Fragment>
+    <Fragment slot="subtext">Tour the dojo, meet the team, and let the kids try the ninja line. No cost, no commitment.</Fragment>
+  </CTASection>
+</BaseLayout>

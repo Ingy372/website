@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import IconBenefitCard from "../components/cards/IconBenefitCard.astro";
+import StepList from "../components/sections/StepList.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { Picture } from "astro:assets";
+import { ctaLabelGeneral } from "../data/school";
+
+import heroImage from "../images/teens-adults/adult-class.jpg";
+import drillingTechnique from "../images/teens-adults/drilling-technique.jpg";
+import partnerSelfDefense from "../images/teens-adults/partner-self-defense.jpg";
+import weaponsTraining from "../images/teens-adults/weapons-training.jpg";
+import teenClass from "../images/teens-adults/teen-class.jpg";
+import studentsOnTheMat from "../images/teens-adults/students-on-the-mat.jpg";
+import trainingFloorWide from "../images/teens-adults/training-floor-wide.jpg";
+
+const benefits = [
+  { title: "Get in real shape", desc: "A full-body workout that builds strength, endurance, and coordination while you are too busy learning to notice you are exercising." },
+  { title: "Leave the stress on the mat", desc: "There is nothing quite like a hard hour of training to clear your head. Whatever the day handed you, it stays at the door." },
+  { title: "Defend yourself and your family", desc: "Practical self-defense that actually works, taught with control, so you carry real confidence in how you move through the world." },
+  { title: "Sharpen your focus", desc: "The concentration it takes to master a technique carries straight into work, home, and everything else you juggle." },
+  { title: "Train with people who show up", desc: "You are not grinding alone. You become part of a group that notices when you are there and misses you when you are not." },
+  { title: "Grow in more than fitness", desc: "Our Yeshua's Ryu system pairs real martial arts with Christian character. You leave stronger in body, mind, and spirit." },
+];
+
+const steps = [
+  { title: "Warm up and get moving", description: "Every class starts by getting the blood going and the body loose. You work at your own pace from the very first minute." },
+  { title: "Drill real technique", description: "Strikes, blocks, footwork, and self-defense from our mixed traditional system, broken down so anyone can follow, then built up as you grow." },
+  { title: "Put it to work", description: "Partner drills and controlled practice at a level that fits you. Beginners are never thrown in over their heads." },
+  { title: "Earn your progress", description: "A belt system built for adults too. Real milestones, honestly earned, that keep you moving forward long after a New Year's resolution would have quit." },
+];
+---
+
+<BaseLayout
+  title="Teens & Adults Martial Arts & Fitness, Ages 13+"
+  description="Martial arts and fitness for teens and adults, ages 13+, in Raeford, NC. Real self-defense, real fitness, no experience needed."
+  path="/teens-adults"
+>
+  <ProgramHero badge="Teens & Adults · Ages 13+" image={heroImage} alt="Adult martial arts and fitness class training on the mat" ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">The workout you'll <em>actually look forward to.</em></Fragment>
+    <Fragment slot="subtext">
+      Get in shape, burn off the stress of the day, and learn to defend yourself for real. No
+      experience needed, no judgment, and nothing like the lonely grind of a gym.
+    </Fragment>
+  </ProgramHero>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 text-center md:py-20">
+      <h2 class="mb-5 text-[clamp(1.9rem,3.6vw,2.6rem)] text-indigo">
+        When was the last time exercise <span class="text-gold-deep">felt like this?</span>
+      </h2>
+      <p class="mb-6 text-lg leading-loose text-[#3E3E38] md:mb-4 md:leading-normal">
+        You already know you should move more. The problem is that the treadmill is boring, the
+        gym membership is guilt in card form, and willpower runs out somewhere around week three.
+      </p>
+      <p class="text-lg leading-loose text-[#3E3E38] md:leading-normal">
+        Training here is different. You are learning a real skill, working toward a real goal, and
+        doing it alongside people who want you to show up. An hour flies by, you leave stronger
+        than you came, and you find yourself looking forward to the next one.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="Why Adults Train Here" center hasSubtext>
+        <Fragment slot="heading">One class. A lot of reasons to stay.</Fragment>
+        <Fragment slot="subtext">Whatever brings you through the door, you will find more than you came for.</Fragment>
+      </SectionHead>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-5">
+        {benefits.map((b, i) => <IconBenefitCard number={i + 1} title={b.title} description={b.desc} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-white md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="What a Class Looks Like" dark>
+        <Fragment slot="heading">Serious training. <em>Zero intimidation.</em></Fragment>
+      </SectionHead>
+      <StepList steps={steps} dark />
+      <div class="mt-12">
+        <PhotoStrip
+          caption="Inside a teen and adult class"
+          dark
+          ratioClass="aspect-[4/3]"
+          images={[
+            { src: drillingTechnique, alt: "Adult students drilling a technique together" },
+            { src: partnerSelfDefense, alt: "Adults practicing partner self-defense", position: "50% 30%" },
+            { src: weaponsTraining, alt: "Adult class training with traditional weapons" },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <ReassuranceBox heading={`"I'm out of shape and I've never done this."`}>
+        <p>Good. So was almost everyone on that mat when they started.</p>
+        <p>
+          We are not going to put you next to a black belt and expect you to keep up. Every
+          student here trains at their own level and works toward their own potential. <strong
+            class="font-semibold text-indigo">Nobody is compared to anybody.</strong> The
+          person beside you might be twenty years old or fifty, a natural athlete or someone who
+          has not exercised since high school. It does not matter. You start where you are, and we
+          build you up from there.
+        </p>
+        <p>The only thing you need to bring is a willingness to show up. We will handle the rest.</p>
+      </ReassuranceBox>
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto grid max-w-6xl gap-12 px-6 md:px-5 md:grid-cols-2 md:gap-10 md:items-center">
+      <div class="aspect-[4/3] overflow-hidden rounded">
+        <Picture
+          src={teenClass}
+          alt="Teenagers training alongside adults in class"
+          formats={["avif", "webp"]}
+          widths={[400, 600, 800, 1000]}
+          sizes="(min-width: 768px) 45vw, 100vw"
+          pictureAttributes={{ class: "block h-full w-full" }}
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div>
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">For Teens Too</div>
+        <h2 class="mb-4 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">A better place for a teenager to be.</h2>
+        <p class="mb-5 text-[#40403A] md:mb-3.5">
+          Our teens train right alongside the adults, and it is good for them. They build real
+          fitness and real self-defense, but they also spend their time around grown-ups who model
+          discipline, respect, and hard work.
+        </p>
+        <p class="text-[#40403A]">
+          For a teenager, that is a rare and valuable room to stand in. It is confidence, focus,
+          and character, at exactly the age those things matter most.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        ratioClass="aspect-[4/3]"
+        images={[
+          { src: studentsOnTheMat, alt: "Adult students training on the dojo mat" },
+          { src: trainingFloorWide, alt: "Wide view of the Action Zone training floor during class" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <ReviewQuote
+    quote="One of the best in a 60-mile radius. I visited five or six gyms before landing here. I know what to look for, and this is where you want to be."
+    who="Benjamin S. · Student at Action Zone"
+  />
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Your first week is <em>completely free.</em></Fragment>
+    <Fragment slot="subtext">Come train with us for a week. No cost, no commitment, no pressure. Just show up.</Fragment>
+  </CTASection>
+</BaseLayout>

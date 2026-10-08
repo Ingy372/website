@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import ExtraCard from "../components/cards/ExtraCard.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { contact, ctaLabelGeneral } from "../data/school";
+
+import beltTesting from "../images/events/belt-testing.jpg";
+import eventsParentsNightOut from "../images/events/parents-night-out.jpg";
+import demoTeam from "../images/events/demo-team.jpg";
+import eventsBirthdayParty from "../images/events/birthday-party.jpg";
+import saturdayTraining from "../images/events/saturday-training.jpg";
+
+const events = [
+  { image: beltTesting, position: "50% 30%", alt: "An instructor tying a newly earned belt on a student during a belt test", eyebrow: "Throughout the year", title: "Belt Testing", description: "Students test for their next rank in front of the room, with family watching. Nothing is handed out here, which is exactly why it means so much when they tie on a new belt.", when: "Scheduled as students are ready", href: "/schedule", linkLabel: "See the schedule →" },
+  { image: eventsParentsNightOut, position: "50% 28%", alt: "Kids with glow accessories and face paint at a Parents Night Out", eyebrow: "Recurring", title: "Parents Night Out", description: "A themed evening of games and martial arts for the kids, and a few quiet hours for you. Nerf Night, Superhero Dress-Up, Water Wars, and more.", when: "Call for the next date", href: "/parents-night-out", linkLabel: "Learn more →" },
+  { image: demoTeam, position: "50% 22%", alt: "The Action Zone demo team performing at a community event", eyebrow: "Community", title: "Demonstrations", description: "We bring the demo team out to schools, churches, and community events around Raeford, Fayetteville, and Hope Mills. Board breaking, weapons forms, and a lot of noise.", when: "Announced on Facebook", href: contact.socials.facebook, linkLabel: "Follow along →" },
+  { image: eventsBirthdayParty, position: "50% 35%", alt: "Children at a martial arts birthday party at Action Zone", eyebrow: "By booking", title: "Birthday Parties", description: "Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. We run the whole thing so you get to actually be there for it.", when: "Book your date with us", href: "/birthday-parties", linkLabel: "Learn more →" },
+  { image: saturdayTraining, position: "50% 40%", alt: "The whole dojo training together during Saturday open training", eyebrow: "Weekly", title: "Saturday Open Training", description: "The whole dojo trains together regardless of age or rank. It doubles as a makeup day and as a chance to work with students you would not normally share a mat with.", when: "Saturdays, 10:00am to 12:00pm", href: "/schedule", linkLabel: "See the schedule →" },
+];
+---
+
+<BaseLayout
+  title="Events"
+  description="Belt testing, Parents Night Out, demonstrations, birthday parties, and Saturday open training at Action Zone, CMA in Raeford, NC."
+  path="/events"
+>
+  <SimpleHero eyebrow="Events">
+    <Fragment slot="heading">There is always <em>something happening.</em></Fragment>
+    <Fragment slot="subtext">
+      Training is the foundation, but the events are where this school feels like a family. Here
+      is what we run throughout the year.
+    </Fragment>
+  </SimpleHero>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+        {events.map((e) => <ExtraCard {...e} headingLevel="h2" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-deep py-20 text-center text-white md:py-18">
+    <div class="mx-auto max-w-2xl px-6 md:px-5">
+      <h2 class="mb-4 text-[clamp(1.7rem,3.4vw,2.5rem)]">
+        Dates go out <span class="text-gold-soft">as they are set.</span>
+      </h2>
+      <p class="mb-6 text-lg text-[#B7B6C8]">
+        The fastest way to catch an upcoming event is to follow us on Facebook or Instagram, where
+        we post dates, photos, and reminders as they happen. Current families also hear about
+        everything at the school.
+      </p>
+      <div class="flex justify-center gap-6">
+        <a href={contact.socials.facebook} target="_blank" rel="noopener" class="font-bold text-gold-soft hover:text-gold">Facebook</a>
+        <a href={contact.socials.instagram} target="_blank" rel="noopener" class="font-bold text-gold-soft hover:text-gold">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection ctaLabel={ctaLabelGeneral} ctaHref="/booking">
+    <Fragment slot="heading">Want in on the next one? <em>Start with a free week.</em></Fragment>
+    <Fragment slot="subtext">Events are better when you already know the room. Come train with us first.</Fragment>
+  </CTASection>
+</BaseLayout>
