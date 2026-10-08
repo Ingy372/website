@@ -1,6 +1,6 @@
 ---
 import { business } from "../../data/business";
-import { getReview } from "../../data/reviews";
+import { getReview, displayAuthor } from "../../data/reviews";
 
 interface Props {
   /** Review id from src/data/reviews.json. Shows its excerpt (or full text). */
@@ -16,6 +16,6 @@ const brand = business.displayName.split(",")[0];
     <blockquote class="mx-auto max-w-[30ch] font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-semibold italic leading-[1.4] text-white">
       "{review.excerpt ?? review.text}"
     </blockquote>
-    <div class="mt-5 text-sm font-bold text-gold-soft">{review.author} &middot; {review.relationship} at {brand}</div>
+    <div class="mt-5 text-sm font-bold text-gold-soft">{displayAuthor(review)} &middot; {review.relationship} at {brand}</div>
   </div>
 </section>

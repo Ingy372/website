@@ -6,6 +6,7 @@
     "source": "Google",
     "lastChecked": null
   },
+  "_todo": "TODO(JAY: add each review's posted date as \"date\": \"YYYY-MM-DD\" so cards can show it; confirm the summary rating/count and set lastChecked)",
   "reviews": [
     {
       "id": "taylor-s",
@@ -21,6 +22,7 @@
       "id": "benjamin-s",
       "author": "Benjamin S.",
       "relationship": "Student",
+      "verify": "possibly an instructor/staff review; if so, remove it or disclose the relationship",
       "source": "Google",
       "date": null,
       "rating": 5,
@@ -49,6 +51,7 @@
       "id": "crystal-c",
       "author": "Crystal C.",
       "relationship": "Parent",
+      "verify": "name was inferred from a Google display handle; confirm the reviewer's real name",
       "source": "Google",
       "date": null,
       "rating": 5,

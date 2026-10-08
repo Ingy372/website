@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { business, cityState } from "../data/business";
-import { getReview, reviewDateText, ratingText, countText } from "../data/reviews";
+import { getReview, displayAuthor, reviewDateText, ratingText, countText } from "../data/reviews";
 
 const quotes = ["jacy-d", "crystal-c", "sarah-g"].map(getReview);
 ---
@@ -61,7 +61,7 @@ const quotes = ["jacy-d", "crystal-c", "sarah-g"].map(getReview);
                 {q.author.charAt(0)}
               </div>
               <div>
-                <div class="text-sm font-bold text-indigo">{q.author}</div>
+                <div class="text-sm font-bold text-indigo">{displayAuthor(q)}</div>
                 <div class="text-xs text-mist">{q.source} Review{reviewDateText(q) && ` · ${reviewDateText(q)}`}</div>
               </div>
             </div>

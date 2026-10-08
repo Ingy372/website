@@ -10,7 +10,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import { ctaLabelGeneral } from "../data/school";
 import { cityState, founded } from "../data/business";
 import { programs, ageLabel } from "../data/schedule";
-import { getReview, ratingText, countText } from "../data/reviews";
+import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
 
 import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
@@ -257,7 +257,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         Trusted by families across Raeford, Fayetteville, and Hope Mills.
       </p>
       <div class="grid gap-8 md:grid-cols-3 md:gap-5">
-        {quotes.map((r) => <QuoteCard quote={r.text} who={r.author} />)}
+        {quotes.map((r) => <QuoteCard quote={r.text} who={displayAuthor(r)} />)}
       </div>
     </div>
   </section>
