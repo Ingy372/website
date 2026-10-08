@@ -1,0 +1,8 @@
+# Keep workers.dev copies of the site (production and preview/version URLs)
+# out of search results. Static assets only; src/middleware.ts adds the same
+# header to responses rendered by the Worker (API routes, 404).
+https://:worker.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:worker.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

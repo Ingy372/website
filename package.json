@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types",
-    "check:todos": "node scripts/check-todos.mjs"
+    "check:todos": "node scripts/check-todos.mjs",
+    "build:bulk-redirects": "node scripts/build-bulk-redirects.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.4",

@@ -43,6 +43,10 @@
 /student-login         /family-login                      301
 /student-login/        /family-login                      301
 
+# Old sitemap locations (Wix) -> the Astro sitemap index.
+/sitemap.xml           /sitemap-index.xml                 301
+/pages-sitemap.xml     /sitemap-index.xml                 301
+
 # Any other single-segment page with a trailing slash -> canonical form, as a
 # permanent 301 (Cloudflare's built-in slash handling would answer 307).
 /:page/                /:page                             301
