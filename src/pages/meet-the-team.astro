@@ -28,7 +28,7 @@ import hannahPortrait from "../images/team/hannah-portrait.png";
 
   <section class="py-20 md:py-20">
     <div class="mx-auto flex max-w-4xl flex-col gap-20 px-6 md:px-5 md:gap-20">
-      <TeamPerson image={michaelPortrait} alt={`Portrait of ${founder.name}`} role={founder.title} name={founder.name} position="50% 25%">
+      <TeamPerson image={michaelPortrait} alt={`Portrait of ${founder.name}`} role={founder.title} name={founder.name} id={founder.slug} position="50% 25%">
         <p>Everything here began with Michael. He founded the school, and he created the system it teaches.</p>
         <p>
           What his students remember is not the belts he earned, though there were many. It is the
@@ -39,7 +39,7 @@ import hannahPortrait from "../images/team/hannah-portrait.png";
         <p>Today the school is in his stepson's hands. But the standard he set is still the standard we hold.</p>
       </TeamPerson>
 
-      <TeamPerson image={jaysonPortrait} alt={`Portrait of ${headInstructor.name}`} role={headInstructor.title} name={headInstructor.name} flip position="50% 15%">
+      <TeamPerson image={jaysonPortrait} alt={`Portrait of ${headInstructor.name}`} role={headInstructor.title} name={headInstructor.name} id={headInstructor.slug} flip position="50% 15%">
         <p>
           Jayson stepped onto a mat at three years old. He started helping with classes at twelve,
           was leading his own by fourteen, and has now spent more than twenty-six years in this
@@ -56,7 +56,7 @@ import hannahPortrait from "../images/team/hannah-portrait.png";
         <p class="pull">"Everything is scary the first time. We do our best to make you feel comfortable and confident. Martial arts changes lives. We'll treat you like family."</p>
       </TeamPerson>
 
-      <TeamPerson image={hannahPortrait} alt={`Portrait of ${officeManager.name}`} role={officeManager.title} name={officeManager.name} position="50% 15%">
+      <TeamPerson image={hannahPortrait} alt={`Portrait of ${officeManager.name}`} role={officeManager.title} name={officeManager.name} id={officeManager.slug} position="50% 15%">
         <p>
           Hannah is often the first person you will meet. She greets everyone at the door with a
           smile, ready to help however she can, whether you are a nervous first-timer or a parent

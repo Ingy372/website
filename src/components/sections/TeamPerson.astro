@@ -10,11 +10,13 @@ interface Props {
   flip?: boolean;
   /** CSS object-position for the portrait, e.g. "50% 20%". Defaults to center. */
   position?: string;
+  /** Anchor id, e.g. "jayson-lindemuth" (legacy person-page redirects target it). */
+  id?: string;
 }
-const { image, alt, role, name, flip = false, position } = Astro.props;
+const { image, alt, role, name, flip = false, position, id } = Astro.props;
 ---
 
-<div class={`grid gap-10 md:grid-cols-2 md:items-center md:gap-8 ${flip ? "" : ""}`}>
+<div id={id} class="grid scroll-mt-24 gap-10 md:grid-cols-2 md:items-center md:gap-8">
   <div class={`aspect-[4/5] overflow-hidden rounded md:aspect-auto md:h-[440px] ${flip ? "md:order-2" : ""}`}>
     <Picture
       src={image}
