@@ -42,7 +42,7 @@ const LOAD_TIMEOUT_MS = 10000;
   </noscript>
 </div>
 
-<script is:inline define:vars={{ timeoutMs: LOAD_TIMEOUT_MS }}>
+<script is:inline define:vars={{ timeoutMs: LOAD_TIMEOUT_MS, widgetSrc: dojoForge.widgetSrc }}>
   (function () {
     var mount = document.querySelector("[data-dojo-forge-widget]");
     var fallback = document.getElementById("df-fallback");
@@ -68,6 +68,27 @@ const LOAD_TIMEOUT_MS = 10000;
     }).observe(mount, { childList: true, subtree: true });
 
     window.__dfWidgetError = showFallback;
+
+    // A completed trial booking is the real lead. The widget should announce
+    // it as a "dojoforge:lead" CustomEvent on window, or as a postMessage of
+    // { type: "dojoforge:lead" } from its own origin if it renders in an
+    // iframe. TODO(JAY: ask Nic to emit "dojoforge:lead" on a successful
+    // booking; until it does, no booking Lead is recorded.)
+    var widgetOrigin = new URL(widgetSrc).origin;
+    var recordLead = function (detail) {
+      var id = detail && detail.id;
+      if (id && recordLead.seen[id]) return;
+      if (id) recordLead.seen[id] = true;
+      window.gtag && window.gtag("event", "generate_lead", { form_id: "dojoforge_booking" });
+      window.fbq && window.fbq("track", "Lead", { content_name: "trial_booking" });
+    };
+    recordLead.seen = {};
+    window.addEventListener("dojoforge:lead", function (e) {
+      recordLead(e.detail);
+    });
+    window.addEventListener("message", function (e) {
+      if (e.origin === widgetOrigin && e.data && e.data.type === "dojoforge:lead") recordLead(e.data);
+    });
   })();
 </script>
 <script

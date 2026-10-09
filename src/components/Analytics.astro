@@ -63,6 +63,11 @@ import { analytics } from "../data/school";
 </script>
 
 <!--
+  Leads (GA4 generate_lead + Meta "Lead") fire only on a real submission:
+  the contact form after the server accepts it (ContactForm.astro), and a
+  trial booking when the Dojo Forge widget announces one (DojoForgeWidget.astro).
+  CTA clicks are tracked as clicks, never as leads.
+
   Site-wide click tracking via delegation, so every current and future
   tap-to-call link and /booking CTA gets tracked without touching each
   component individually.
@@ -89,7 +94,6 @@ import { analytics } from "../data/school";
           link_url: window.location.pathname,
           transport_type: "beacon",
         });
-        window.fbq?.("track", "Lead", { content_name: "booking_cta_click" });
       }
     },
     true
