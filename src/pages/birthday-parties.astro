@@ -6,6 +6,9 @@ import IconBenefitCard from "../components/cards/IconBenefitCard.astro";
 import FeatureRow from "../components/cards/FeatureRow.astro";
 import StepList from "../components/sections/StepList.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import FactList from "../components/sections/FactList.astro";
+import SafetyRules from "../components/sections/SafetyRules.astro";
+import { birthdayPartyFacts } from "../data/parties";
 import { business, cityState } from "../data/business";
 
 import partyPhoto from "../images/birthday-parties/party.jpg";
@@ -69,6 +72,12 @@ const steps = [
     </div>
   </section>
 
+  <section class="pb-16 md:pb-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <FactList heading="Party details" facts={birthdayPartyFacts} />
+    </div>
+  </section>
+
   <FeatureRow image={cakeCut} alt="Birthday child cutting the cake with a real sword, guided by an instructor" tag="The Moment of the Party" title="They cut the cake with a real sword.">
     <p>
       When it is time for cake, the birthday child does not reach for a plastic knife. They cut it
@@ -80,6 +89,12 @@ const steps = [
       talking about. Nothing else comes close.
     </p>
   </FeatureRow>
+
+  <section class="pt-16 md:pt-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <SafetyRules />
+    </div>
+  </section>
 
   <section class="py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">

@@ -6,8 +6,14 @@ import CTASection from "../components/sections/CTASection.astro";
 import { offer } from "../data/school";
 import { business, addressFull, cityState, founded, numberToWords, team } from "../data/business";
 import { programs, programClassLength } from "../data/schedule";
+import { safetyRules } from "../data/safety";
 
 const { littleWarriors: lw, kids, teensAdults: ta } = programs;
+const escapeHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const safetyListHtml =
+  '<ul class="flex list-disc flex-col gap-1.5 pl-5">' +
+  safetyRules.map((r) => "<li>" + escapeHtml(r) + "</li>").join("") +
+  "</ul>";
 
 const groups = [
   {
@@ -86,8 +92,9 @@ const groups = [
       {
         question: "Is it safe? Do students hit each other?",
         answer: [
-          "Safety comes before everything else in this building.",
-          "Students work at a level appropriate to their age and rank, always supervised. We teach control long before we teach contact, because a student who has not learned control has no business making any.",
+          "Safety comes before everything else in this building. These are the rules we hold to:",
+          safetyListHtml,
+          "A student who has not learned control has no business making contact.",
         ],
       },
     ],
