@@ -9,8 +9,8 @@ import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
 import { offer } from "../data/school";
-import { cityState, founded, team } from "../data/business";
-import { programs, ageLabel } from "../data/schedule";
+import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
+import { programs, ageLabel, hours } from "../data/schedule";
 import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
 
@@ -290,6 +290,36 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
           linkLabel={nextParentsNightOut ? "Next date →" : "See details →"}
           href="/parents-night-out"
         />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-paper-warm bg-paper-warm py-14">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-3 md:items-start md:px-5">
+      <div>
+        <h2 class="mb-2 text-2xl font-black text-indigo">Come see us</h2>
+        <p class="text-[#40403A]">{business.address.street}<br />{addressCityLine}</p>
+        <a href={mapsDirectionsUrl} target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-2 font-bold text-indigo hover:text-gold">
+          Get directions <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+      <div>
+        <h2 class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">Hours</h2>
+        <p class="text-[#40403A]">
+          {hours.summary.map((row) => (
+            <>
+              {row.days} {row.time}<br />
+            </>
+          ))}
+        </p>
+      </div>
+      <div>
+        <h2 class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">Follow along</h2>
+        <p class="mb-3 text-[#40403A]">Event dates, photos, and reminders go up there.</p>
+        <div class="flex gap-5">
+          <a href={business.socials.facebook} target="_blank" rel="noopener" class="font-bold text-indigo hover:text-gold">Facebook</a>
+          <a href={business.socials.instagram} target="_blank" rel="noopener" class="font-bold text-indigo hover:text-gold">Instagram</a>
+        </div>
       </div>
     </div>
   </section>

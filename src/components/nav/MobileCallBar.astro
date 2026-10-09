@@ -1,12 +1,22 @@
 ---
+// Mobile-only sticky bar: [Call] [Free Trial Week], one thumb-tap each.
 import { business } from "../../data/business";
+import { offer } from "../../data/school";
 ---
 
-<a
-  href={business.phoneHref}
-  class="fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2 bg-gold py-3 text-center font-bold text-indigo-deep shadow-[0_-4px_16px_rgba(0,0,0,0.15)] lg:hidden"
-  style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+<div
+  class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] lg:hidden"
+  style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
 >
-  <span aria-hidden="true">&#128222;</span>
-  Call {business.phone}
-</a>
+  <a
+    href={business.phoneHref}
+    class="flex min-h-[52px] items-center justify-center gap-2 bg-indigo-deep py-3 text-center font-bold text-white"
+    aria-label={`Call ${business.phone}`}
+  >
+    <span aria-hidden="true">&#128222;</span>
+    Call
+  </a>
+  <a href="/booking" class="flex min-h-[52px] items-center justify-center bg-gold py-3 text-center font-bold text-indigo-deep">
+    {offer.short}
+  </a>
+</div>

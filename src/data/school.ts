@@ -40,6 +40,8 @@ export const trustSignals = [
 export const offer = {
   noun: "free trial week",
   cta: "Claim My Free Trial Week",
+  /** Compact button label, e.g. the mobile sticky bar. */
+  short: "Free Trial Week",
   first: "trial week",
   visit: "a trial week of classes",
   bookingTitle: "Book Your Free Trial Week",
