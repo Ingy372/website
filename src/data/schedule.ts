@@ -215,3 +215,27 @@ export function beginnerTimes(program: ProgramId): { days: string; time: string 
 }
 
 export const programIds = Object.keys(programs) as ProgramId[];
+
+// ---------------------------------------------------------------------------
+// Holiday / special closures (src/data/closures.json). Filtered against the
+// build date, so a past closure drops off on the next deploy.
+// ---------------------------------------------------------------------------
+
+import closureData from "./closures.json";
+
+export interface Closure {
+  start: string;
+  end?: string;
+  name: string;
+}
+
+const fmtDay = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
+
+/** "Thu, Nov 26" or "Wed, Dec 24 – Fri, Jan 1" */
+export const closureDatesText = (c: Closure) => (c.end && c.end !== c.start ? `${fmtDay(c.start)} – ${fmtDay(c.end)}` : fmtDay(c.start));
+
+const buildDay = new Date().toISOString().slice(0, 10);
+export const upcomingClosures: Closure[] = (closureData.closures as Closure[])
+  .filter((c) => (c.end ?? c.start) >= buildDay)
+  .sort((a, b) => a.start.localeCompare(b.start));
