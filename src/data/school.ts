@@ -2,7 +2,7 @@
 // Business identity (name, address, phone, email, socials, founding year)
 // lives in ./business.ts; programs, classes, and hours live in ./schedule.ts.
 
-import { founded, todo } from "./business";
+import { founded } from "./business";
 import { ratingText, countText } from "./reviews";
 
 // ---------------------------------------------------------------------------
@@ -30,28 +30,20 @@ export const trustSignals = [
 // headlines, FAQ answers, meta descriptions, and the booking page all build
 // their text from `offer`. The Dojo Forge widget's own text is set in its
 // admin; match it there by hand.
-// TODO(JAY: pick ONE offer wording) — set OFFER to "week", "class", or "trial".
-// While it is null every phrase renders a TODO marker.
 // ---------------------------------------------------------------------------
 
-type OfferKind = "week" | "class" | "trial";
-export const OFFER: OfferKind | null = null;
-
-const offerPhrases: Record<OfferKind, { noun: string; cta: string; first: string; visit: string; bookingTitle: string }> = {
-  week: { noun: "free week", cta: "Claim My Free Week", first: "first week", visit: "a week of classes", bookingTitle: "Book Your Free Week" },
-  class: { noun: "free class", cta: "Book My Free Class", first: "first class", visit: "a free class", bookingTitle: "Book Your Free Class" },
-  trial: { noun: "free trial", cta: "Start My Free Trial", first: "trial class", visit: "a free trial class", bookingTitle: "Book Your Free Trial" },
-};
-
-const offerTodo = todo("OFFER wording");
-
 /**
- * noun "free week" · cta "Claim My Free Week" · first "first week" (as in
- * "Your first week is free") · visit "a week of classes" · bookingTitle.
+ * The offer is a free trial week (confirmed by Jay).
+ * noun "free trial week" · cta button label · first "trial week" (as in
+ * "Your trial week is free") · visit "a trial week of classes" · bookingTitle.
  */
-export const offer = OFFER
-  ? offerPhrases[OFFER]
-  : { noun: offerTodo, cta: offerTodo, first: offerTodo, visit: offerTodo, bookingTitle: offerTodo };
+export const offer = {
+  noun: "free trial week",
+  cta: "Claim My Free Trial Week",
+  first: "trial week",
+  visit: "a trial week of classes",
+  bookingTitle: "Book Your Free Trial Week",
+};
 
 // ---------------------------------------------------------------------------
 // Ownership verification meta tags, rendered in every page <head> only when
