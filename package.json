@@ -14,7 +14,8 @@
     "astro": "astro",
     "generate-types": "wrangler types",
     "check:todos": "node scripts/check-todos.mjs",
-    "build:bulk-redirects": "node scripts/build-bulk-redirects.mjs"
+    "build:bulk-redirects": "node scripts/build-bulk-redirects.mjs",
+    "build:social-images": "node scripts/build-social-images.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.4",
