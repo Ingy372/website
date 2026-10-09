@@ -19,58 +19,58 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
   <!-- method/action keep the form working (and keep personal details out of
        the URL) even if the script below never runs. -->
   <form id="contact-form" method="post" action="/api/contact" data-pixel-id={analytics.metaPixelId} class="flex flex-col gap-4">
-    <label class="block">
-      <span class={labelClass}>What's this about?</span>
+    <div>
+      <label for="contact-interest" class={labelClass}>What's this about?</label>
       <select name="interest" id="contact-interest" class={inputClass}>
         <option value="">Choose one (optional)</option>
         {INTERESTS.map((i) => <option value={i.value}>{i.label}</option>)}
       </select>
-    </label>
-    <div class="grid gap-4 sm:grid-cols-2">
-      <label class="block">
-        <span class={labelClass}>Name</span>
-        <input required name="name" type="text" maxlength={LIMITS.name} class={inputClass} />
-      </label>
-      <label class="block">
-        <span class={labelClass}>Phone (optional)</span>
-        <input name="phone" type="tel" maxlength={LIMITS.phone} placeholder="(910) 000-0000" class={inputClass} />
-      </label>
     </div>
-    <label class="block">
-      <span class={labelClass}>Email</span>
-      <input required name="email" type="email" maxlength={LIMITS.email} class={inputClass} />
-    </label>
-    <label class="block">
-      <span class={labelClass}>Message <span id="contact-message-optional" class="hidden normal-case tracking-normal">(optional)</span></span>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label for="contact-name" class={labelClass}>Name</label>
+        <input id="contact-name" required name="name" autocomplete="name" type="text" maxlength={LIMITS.name} class={inputClass} />
+      </div>
+      <div>
+        <label for="contact-phone" class={labelClass}>Phone (optional)</label>
+        <input id="contact-phone" name="phone" autocomplete="tel" type="tel" maxlength={LIMITS.phone} placeholder="(910) 000-0000" class={inputClass} />
+      </div>
+    </div>
+    <div>
+      <label for="contact-email" class={labelClass}>Email</label>
+      <input id="contact-email" required name="email" autocomplete="email" type="email" maxlength={LIMITS.email} class={inputClass} />
+    </div>
+    <div>
+      <label for="contact-message" class={labelClass}>Message <span id="contact-message-optional" class="hidden normal-case tracking-normal">(optional)</span></label>
       <textarea required name="message" id="contact-message" rows="4" maxlength={LIMITS.message} class={inputClass}></textarea>
-    </label>
+    </div>
 
     <!-- Shown for party, PNO, and demo topics once the script runs; always shown without it. -->
     <fieldset id="contact-event-details" class="rounded border border-paper-warm bg-paper p-4">
       <legend class="px-1 text-xs font-semibold tracking-[0.05em] text-mist uppercase">Event details (optional)</legend>
       <div class="mt-2 grid gap-4 sm:grid-cols-2">
-        <label class="block">
-          <span class={labelClass}>Preferred date</span>
-          <input name="preferredDate" type="date" class={inputClass.replace("bg-paper", "bg-white")} />
-        </label>
-        <label class="block">
-          <span class={labelClass}>Child's age</span>
-          <input name="childAge" type="text" inputmode="numeric" maxlength={LIMITS.childAge} class={inputClass.replace("bg-paper", "bg-white")} />
-        </label>
-        <label class="block">
-          <span class={labelClass}>Approximate guest count</span>
-          <input name="guestCount" type="text" inputmode="numeric" maxlength={LIMITS.guestCount} class={inputClass.replace("bg-paper", "bg-white")} />
-        </label>
+        <div>
+          <label for="contact-preferred-date" class={labelClass}>Preferred date</label>
+          <input id="contact-preferred-date" name="preferredDate" type="date" class={inputClass.replace("bg-paper", "bg-white")} />
+        </div>
+        <div>
+          <label for="contact-child-age" class={labelClass}>Child's age</label>
+          <input id="contact-child-age" name="childAge" type="text" inputmode="numeric" maxlength={LIMITS.childAge} class={inputClass.replace("bg-paper", "bg-white")} />
+        </div>
+        <div>
+          <label for="contact-guest-count" class={labelClass}>Approximate guest count</label>
+          <input id="contact-guest-count" name="guestCount" type="text" inputmode="numeric" maxlength={LIMITS.guestCount} class={inputClass.replace("bg-paper", "bg-white")} />
+        </div>
       </div>
     </fieldset>
 
-    <label class="block">
-      <span class={labelClass}>How did you hear about us? (optional)</span>
-      <select name="heardFrom" class={inputClass}>
+    <div>
+      <label for="contact-heard-from" class={labelClass}>How did you hear about us? (optional)</label>
+      <select id="contact-heard-from" name="heardFrom" class={inputClass}>
         <option value="">Choose one</option>
         {HEARD_FROM.map((h) => <option value={h.value}>{h.label}</option>)}
       </select>
-    </label>
+    </div>
 
     <!-- First-touch attribution, filled from localStorage (FirstTouch.astro). -->
     {ATTRIBUTION_FIELDS.map((f) => <input type="hidden" name={f} maxlength={LIMITS[f]} />)}
@@ -92,15 +92,14 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
     <p class="text-xs text-mist">
       We use your details only to reply to you. See our <a href="/privacy" class="underline hover:text-indigo">privacy policy</a>.
     </p>
-    <p id="contact-error" class="hidden text-sm font-semibold text-[#8B3A2F]">
-      <span id="contact-error-text">Something went wrong sending your message.</span>
-      Please call us at <a href={business.phoneHref} class="underline">{business.phone}</a> instead.
+    <p id="contact-error" role="alert" class="hidden text-sm font-semibold text-[#8B3A2F]">
+      <span id="contact-error-text">Something went wrong sending your message.</span> Please call us at <a href={business.phoneHref} class="underline">{business.phone}</a> instead.
     </p>
   </form>
 
-  <div id="contact-success" class="hidden text-center">
+  <div id="contact-success" class="hidden text-center" aria-live="polite">
     <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold text-2xl text-indigo-deep" aria-hidden="true">&#10003;</div>
-    <h2 class="mb-2 font-display text-2xl font-black text-indigo">Message sent</h2>
+    <h2 id="contact-success-heading" tabindex="-1" class="mb-2 font-display text-2xl font-black text-indigo focus:outline-none">Message sent</h2>
     <p class="text-mist">We'll get back to you quickly, usually the same day.</p>
   </div>
 
@@ -190,6 +189,8 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
       }
       form.classList.add("hidden");
       successEl?.classList.remove("hidden");
+      // Move focus to the confirmation so keyboard and screen-reader users hear it.
+      document.getElementById("contact-success-heading")?.focus();
 
       window.gtag?.("event", "generate_lead", { form_id: "contact_form" });
 
