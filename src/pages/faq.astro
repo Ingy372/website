@@ -4,7 +4,7 @@ import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { offer } from "../data/school";
-import { business, addressFull, cityState, founded, numberToWords, team } from "../data/business";
+import { business, addressFull, cityState, founded, numberToWords, team, directions } from "../data/business";
 import { programs, programClassLength } from "../data/schedule";
 import { safetyRules } from "../data/safety";
 
@@ -171,7 +171,7 @@ const groups = [
         question: "Do you have students who drive from Fayetteville or Hope Mills?",
         answer: [
           "Yes. Families come to us from Fayetteville, Hope Mills, and across Hoke County.",
-          "We are roughly twenty-five minutes from Fayetteville. Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one.",
+          `We are ${directions.driveTimes[0].timeWords} from ${directions.driveTimes[0].from}. Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one.`,
         ],
       },
       {

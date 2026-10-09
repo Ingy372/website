@@ -1,0 +1,63 @@
+---
+// "Getting here" block for /contact and /facility. Facts live in
+// directions (src/data/business.ts).
+import {
+  business,
+  addressCityLine,
+  directions,
+  mapsDirectionsUrl,
+  mapsPlaceUrl,
+  todo,
+} from "../../data/business";
+
+interface Props {
+  heading?: string;
+}
+const { heading = "Getting here" } = Astro.props;
+---
+
+<div class="rounded border border-paper-warm bg-white p-7">
+  <h2 class="mb-4 font-display text-2xl font-black text-indigo">{heading}</h2>
+  <p class="mb-5 text-[#40403A]">
+    {business.address.street}<br />
+    {addressCityLine}
+  </p>
+
+  <div class="mb-6 flex flex-wrap gap-3">
+    <a
+      href={mapsDirectionsUrl}
+      target="_blank"
+      rel="noopener"
+      class="rounded-sm bg-indigo px-5 py-3 text-sm font-bold text-white hover:bg-gold hover:text-indigo-deep"
+    >
+      Get directions
+    </a>
+    <a
+      href={mapsPlaceUrl}
+      target="_blank"
+      rel="noopener"
+      class="rounded-sm border border-indigo/25 px-5 py-3 text-sm font-semibold text-indigo hover:border-gold"
+    >
+      Open in Google Maps
+    </a>
+  </div>
+
+  <dl class="grid gap-x-6 gap-y-3 text-[#40403A] sm:grid-cols-[auto_1fr]">
+    {directions.driveTimes.map((d) => (
+      <>
+        <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">From {d.from}</dt>
+        <dd>{d.time}</dd>
+      </>
+    ))}
+    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Parking</dt>
+    <dd>{directions.parking}</dd>
+    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Which door</dt>
+    <dd>{directions.entrance}</dd>
+    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Finding us</dt>
+    <dd>{directions.landmark}</dd>
+  </dl>
+
+  {!directions.hasBuildingPhoto && (
+    <p class="mt-5 rounded bg-paper-warm p-4 text-sm text-mist">{todo("photo of the building as you pull in")}</p>
+  )}
+</div>

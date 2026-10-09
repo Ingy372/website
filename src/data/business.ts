@@ -53,6 +53,30 @@ export const addressFull = `${business.address.street}, ${addressCityLine}`;
 export const cityState = `${business.address.city}, ${business.address.state}`;
 
 // ---------------------------------------------------------------------------
+// Directions block (/contact, /facility) and the FAQ drive-time answer.
+// ---------------------------------------------------------------------------
+
+export const directions = {
+  driveTimes: [
+    // From the existing FAQ copy ("roughly twenty-five minutes from Fayetteville").
+    { from: "Fayetteville", time: "about 25 minutes", timeWords: "roughly twenty-five minutes" },
+    { from: "Hope Mills", time: todo("drive time from Hope Mills"), timeWords: todo("drive time from Hope Mills") },
+  ],
+  parking: todo("where families park"),
+  entrance: todo("which door to use, and where parents wait or watch"),
+  landmark: todo("anything that helps people find the turn, e.g. a sign or landmark; delete if none"),
+  // TODO(JAY: photo of the building as you pull in) — add it under
+  // src/images/facility/ and import it in Directions.astro; until then the
+  // block shows a TODO marker in its place.
+  hasBuildingPhoto: false,
+};
+
+/** Google Maps turn-by-turn directions to the dojo. */
+export const mapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressFull)}`;
+/** The dojo on Google Maps. */
+export const mapsPlaceUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.displayName}, ${addressFull}`)}`;
+
+// ---------------------------------------------------------------------------
 // Founding-year derived strings. Computed at build time, so the counts roll
 // forward on the next deploy after New Year's.
 // ---------------------------------------------------------------------------
