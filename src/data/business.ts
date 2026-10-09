@@ -48,10 +48,6 @@ export const team = {
   officeManager: { name: "Hannah Minter", title: "Office Manager", slug: "hannah-minter" },
 };
 
-// TODO(JAY: youngest age a child can join the Teens & Adults class to train
-// alongside a parent) — the FAQ said 12, the program page says 13+.
-export const PARENT_CHILD_TRAINING_AGE: number | null = null;
-
 export const addressCityLine = `${business.address.city}, ${business.address.state} ${business.address.zip}`;
 export const addressFull = `${business.address.street}, ${addressCityLine}`;
 export const cityState = `${business.address.city}, ${business.address.state}`;
