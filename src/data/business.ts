@@ -8,18 +8,14 @@
 
 export const todo = (note: string) => `TODO(JAY: ${note})`;
 
-// TODO(JAY: 1993 vs ~1996) — set to the confirmed year (a number). Every
-// "since …", "… years", and "… decades" string on the site is computed from it.
-export const FOUNDED_YEAR: number | null = null;
-
-// TODO(JAY: confirm "Philippi" vs "Phillipi" spelling) — the street name only.
-const STREET_NAME = todo("confirm Philippi vs Phillipi spelling");
+// Every "since …", "… years", and "… decades" string on the site is computed from this.
+export const FOUNDED_YEAR = 1993;
 
 export const business = {
   displayName: "Action Zone, CMA",
   legalName: "CMA Martial Arts, Inc.",
   address: {
-    street: `6105 ${STREET_NAME} Church Rd.`,
+    street: "6105 Philippi Church Rd.",
     city: "Raeford",
     state: "NC",
     stateName: "North Carolina",
@@ -49,14 +45,8 @@ export const business = {
 export const team = {
   founder: { name: "Michael Lowery", title: "Founder", honorific: "Shinan", slug: "michael-lowery" },
   headInstructor: { name: "Jayson Lindemuth", title: "Head Instructor", slug: "jayson-lindemuth" },
-  // TODO(JAY: confirm Hannah's title/role) — shown on /meet-the-team and in its meta description.
-  officeManager: { name: "Hannah Minter", title: todo("confirm Hannah's title/role, shown as Office Manager"), slug: "hannah-minter" },
+  officeManager: { name: "Hannah Minter", title: "Office Manager", slug: "hannah-minter" },
 };
-
-// TODO(JAY: does Michael still teach classes?) — true or false. /our-story
-// says "He is still teaching in it" while /meet-the-team says the school is
-// now in Jayson's hands. null renders a TODO marker in that sentence.
-export const FOUNDER_STILL_TEACHES: boolean | null = null;
 
 // TODO(JAY: youngest age a child can join the Teens & Adults class to train
 // alongside a parent) — the FAQ said 12, the program page says 13+.
@@ -88,22 +78,20 @@ export function numberToWords(n: number): string {
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const FOUNDED_TODO = todo("FOUNDED_YEAR");
-
-export const yearsOpen: number | null =
-  FOUNDED_YEAR === null ? null : new Date().getFullYear() - FOUNDED_YEAR;
+export const yearsOpen = new Date().getFullYear() - FOUNDED_YEAR;
+const decadesWords = numberToWords(Math.floor(yearsOpen / 10));
 
 export const founded = {
   /** "1993" */
-  year: FOUNDED_YEAR === null ? FOUNDED_TODO : String(FOUNDED_YEAR),
+  year: String(FOUNDED_YEAR),
   /** "33" */
-  yearsNumeral: yearsOpen === null ? FOUNDED_TODO : String(yearsOpen),
+  yearsNumeral: String(yearsOpen),
   /** "thirty-three" */
-  yearsWords: yearsOpen === null ? FOUNDED_TODO : numberToWords(yearsOpen),
+  yearsWords: numberToWords(yearsOpen),
   /** "Thirty-three" */
-  yearsWordsCap: yearsOpen === null ? FOUNDED_TODO : capitalize(numberToWords(yearsOpen)),
+  yearsWordsCap: capitalize(numberToWords(yearsOpen)),
   /** "three decades" */
-  decades: yearsOpen === null ? FOUNDED_TODO : `${numberToWords(Math.floor(yearsOpen / 10))} decades`,
+  decades: `${decadesWords} decades`,
   /** "Three decades" */
-  decadesCap: yearsOpen === null ? FOUNDED_TODO : `${capitalize(numberToWords(Math.floor(yearsOpen / 10)))} decades`,
+  decadesCap: `${capitalize(decadesWords)} decades`,
 };
