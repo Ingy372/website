@@ -18,6 +18,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# wrangler local state (Miniflare cache/KV/images) and deploy pointer
+.wrangler/
+
 # wrangler local dev secrets (DOJOFORGE_LEAD_KEY, etc.) — never commit
 .dev.vars
 .dev.vars.*
