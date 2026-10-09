@@ -2,7 +2,7 @@
 import TrustSignals from "./TrustSignals.astro";
 import { turnstileSiteKey, analytics } from "../../data/school";
 import { business } from "../../data/business";
-import { LIMITS, HONEYPOT_FIELD } from "../../lib/contact";
+import { LIMITS, HONEYPOT_FIELD, INTERESTS, HEARD_FROM, ATTRIBUTION_FIELDS } from "../../lib/contact";
 
 const inputClass =
   "w-full rounded border border-paper-warm bg-paper px-3.5 py-3 text-[0.95rem] focus:border-transparent focus:outline focus:outline-2 focus:outline-gold";
@@ -19,6 +19,13 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
   <!-- method/action keep the form working (and keep personal details out of
        the URL) even if the script below never runs. -->
   <form id="contact-form" method="post" action="/api/contact" data-pixel-id={analytics.metaPixelId} class="flex flex-col gap-4">
+    <label class="block">
+      <span class={labelClass}>What's this about?</span>
+      <select name="interest" id="contact-interest" class={inputClass}>
+        <option value="">Choose one (optional)</option>
+        {INTERESTS.map((i) => <option value={i.value}>{i.label}</option>)}
+      </select>
+    </label>
     <div class="grid gap-4 sm:grid-cols-2">
       <label class="block">
         <span class={labelClass}>Name</span>
@@ -34,22 +41,14 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
       <input required name="email" type="email" maxlength={LIMITS.email} class={inputClass} />
     </label>
     <label class="block">
-      <span class={labelClass}>Message</span>
-      <textarea required name="message" rows="4" maxlength={LIMITS.message} class={inputClass}></textarea>
+      <span class={labelClass}>Message <span id="contact-message-optional" class="hidden normal-case tracking-normal">(optional)</span></span>
+      <textarea required name="message" id="contact-message" rows="4" maxlength={LIMITS.message} class={inputClass}></textarea>
     </label>
 
-    <fieldset class="rounded border border-paper-warm bg-paper p-4">
-      <legend class="px-1 text-xs font-semibold tracking-[0.05em] text-mist uppercase">Planning a party or event? (optional)</legend>
+    <!-- Shown for party, PNO, and demo topics once the script runs; always shown without it. -->
+    <fieldset id="contact-event-details" class="rounded border border-paper-warm bg-paper p-4">
+      <legend class="px-1 text-xs font-semibold tracking-[0.05em] text-mist uppercase">Event details (optional)</legend>
       <div class="mt-2 grid gap-4 sm:grid-cols-2">
-        <label class="block">
-          <span class={labelClass}>Interested in</span>
-          <select name="interest" class={inputClass.replace("bg-paper", "bg-white")}>
-            <option value="">Select one</option>
-            <option>Birthday Party</option>
-            <option>Parents Night Out</option>
-            <option>Not sure yet</option>
-          </select>
-        </label>
         <label class="block">
           <span class={labelClass}>Preferred date</span>
           <input name="preferredDate" type="date" class={inputClass.replace("bg-paper", "bg-white")} />
@@ -64,6 +63,17 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
         </label>
       </div>
     </fieldset>
+
+    <label class="block">
+      <span class={labelClass}>How did you hear about us? (optional)</span>
+      <select name="heardFrom" class={inputClass}>
+        <option value="">Choose one</option>
+        {HEARD_FROM.map((h) => <option value={h.value}>{h.label}</option>)}
+      </select>
+    </label>
+
+    <!-- First-touch attribution, filled from localStorage (FirstTouch.astro). -->
+    {ATTRIBUTION_FIELDS.map((f) => <input type="hidden" name={f} maxlength={LIMITS[f]} />)}
 
     <!-- Honeypot: hidden from people and screen readers; bots tend to fill it. -->
     <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
@@ -123,6 +133,39 @@ const labelClass = "mb-1.5 block text-xs font-semibold tracking-[0.05em] text-mi
     if (name[0]) data.fn = name[0].toLowerCase();
     if (name.length > 1) data.ln = name.slice(1).join(" ").toLowerCase();
     return data;
+  }
+
+  const interest = document.getElementById("contact-interest") as HTMLSelectElement | null;
+  const message = document.getElementById("contact-message") as HTMLTextAreaElement | null;
+  const messageOptional = document.getElementById("contact-message-optional");
+  const eventDetails = document.getElementById("contact-event-details");
+  const EVENT_TOPICS = ["birthday-party", "parents-night-out", "demo"];
+
+  // Message is optional once a topic is chosen; event fields only matter for events.
+  function syncTopic() {
+    const topic = interest?.value ?? "";
+    if (message) message.required = !topic;
+    messageOptional?.classList.toggle("hidden", !topic);
+    eventDetails?.classList.toggle("hidden", !EVENT_TOPICS.includes(topic));
+  }
+
+  // ?interest=birthday-party etc. preselects the topic.
+  const requested = new URLSearchParams(location.search).get("interest");
+  if (interest && requested && [...interest.options].some((o) => o.value === requested)) {
+    interest.value = requested;
+  }
+  interest?.addEventListener("change", syncTopic);
+  syncTopic();
+
+  // Copy first-touch attribution into the hidden fields.
+  try {
+    const firstTouch = JSON.parse(localStorage.getItem("az_first_touch") || "{}") as Record<string, string>;
+    for (const [key, value] of Object.entries(firstTouch)) {
+      const field = form?.elements.namedItem(key);
+      if (field instanceof HTMLInputElement && field.type === "hidden") field.value = value;
+    }
+  } catch {
+    /* storage blocked: attribution is optional */
   }
 
   form?.addEventListener("submit", async (e) => {

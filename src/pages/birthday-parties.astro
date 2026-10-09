@@ -35,7 +35,7 @@ const steps = [
   description={`Book a martial arts birthday party at ${business.displayName} in ${cityState}. Ninja line, throwing wall, games, and a cake cut with a real sword.`}
   path="/birthday-parties"
 >
-  <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact">
+  <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact?interest=birthday-party">
     <Fragment slot="heading">The party they'll <em>talk about for months.</em></Fragment>
     <Fragment slot="subtext">
       Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. Your child
@@ -107,7 +107,7 @@ const steps = [
     </div>
   </section>
 
-  <CTASection ctaLabel="Book a Party" ctaHref="/contact">
+  <CTASection ctaLabel="Book a Party" ctaHref="/contact?interest=birthday-party">
     <Fragment slot="heading">Give them a birthday <em>nobody forgets.</em></Fragment>
     <Fragment slot="subtext">Dates fill up, especially on weekends. Reach out and let's find yours.</Fragment>
   </CTASection>

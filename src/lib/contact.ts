@@ -13,15 +13,58 @@
 //   CONTACT_LOG           optional KV namespace; when bound, every submission is
 //                         also stored for 90 days as a backup copy.
 
+// Topic options. Values are stable (used by ?interest= links and reports);
+// labels are what the visitor sees.
+export const INTERESTS = [
+  { value: "trial-question", label: "Free trial / class question" },
+  { value: "birthday-party", label: "Birthday Party" },
+  { value: "parents-night-out", label: "Parents Night Out" },
+  { value: "demo", label: "Demo team / school visit" },
+  { value: "other", label: "Something else" },
+] as const;
+
+export const HEARD_FROM = [
+  { value: "google", label: "Google search" },
+  { value: "facebook", label: "Facebook" },
+  { value: "instagram", label: "Instagram" },
+  { value: "friend-family", label: "A friend or family member" },
+  { value: "drove-by", label: "Drove by" },
+  { value: "demo-event", label: "A demo or community event" },
+  { value: "other", label: "Other" },
+] as const;
+
+/** Hidden first-touch attribution fields (filled from the visitor's first landing). */
+export const ATTRIBUTION_FIELDS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "fbclid",
+  "landing_page",
+  "referrer",
+] as const;
+
 export const LIMITS = {
   name: 100,
   email: 254,
   phone: 30,
   message: 2000,
-  interest: 60,
+  interest: 40,
+  heardFrom: 40,
   preferredDate: 10,
   childAge: 10,
   guestCount: 10,
+  utm_source: 200,
+  utm_medium: 200,
+  utm_campaign: 200,
+  utm_term: 200,
+  utm_content: 200,
+  gclid: 300,
+  fbclid: 300,
+  landing_page: 500,
+  referrer: 500,
 } as const;
 
 export type ContactField = keyof typeof LIMITS;
@@ -62,7 +105,11 @@ export function parseSubmission(raw: Record<string, unknown>): { data?: ContactS
     if (value.length > LIMITS[field]) return { error: `${field} is too long` };
     data[field] = value;
   }
-  if (!data.name || !data.email || !data.message) return { error: "Name, email, and message are required" };
+  if (data.interest && !INTERESTS.some((i) => i.value === data.interest)) return { error: "Unknown topic" };
+  if (data.heardFrom && !HEARD_FROM.some((h) => h.value === data.heardFrom)) return { error: "Unknown option" };
+  if (!data.name || !data.email) return { error: "Name and email are required" };
+  // The message is optional once a topic is chosen.
+  if (!data.message && !data.interest) return { error: "Please add a message or choose what it's about" };
   if (!EMAIL_RE.test(data.email)) return { error: "Please enter a valid email address" };
   return { data };
 }
@@ -84,20 +131,29 @@ async function verifyTurnstile(token: string, ip: string | null, secret: string)
 
 const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ");
 
+const labelOf = (list: readonly { value: string; label: string }[], value: string) =>
+  list.find((o) => o.value === value)?.label ?? value;
+
 function formatEmail(d: ContactSubmission) {
+  const topic = d.interest ? labelOf(INTERESTS, d.interest) : "";
   const rows: [string, string][] = [
     ["Name", d.name],
     ["Email", d.email],
     ["Phone", d.phone],
-    ["Interested in", d.interest],
+    ["About", topic],
     ["Preferred date", d.preferredDate],
     ["Child's age", d.childAge],
     ["Guest count", d.guestCount],
+    ["Heard about us from", d.heardFrom ? labelOf(HEARD_FROM, d.heardFrom) : ""],
   ];
   const details = rows.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("\n");
+  const attribution = ATTRIBUTION_FIELDS.filter((f) => d[f]).map((f) => `${f}: ${d[f]}`).join("\n");
   return {
-    subject: oneLine(`Website inquiry from ${d.name}${d.interest ? ` (${d.interest})` : ""}`),
-    text: `${details}\n\nMessage:\n${d.message}\n\nSent from the contact form on actionzonecma.com`,
+    subject: oneLine(`Website inquiry from ${d.name}${topic ? ` (${topic})` : ""}`),
+    text:
+      `${details}\n\nMessage:\n${d.message || "(none)"}` +
+      (attribution ? `\n\nFirst visit (how they found the site):\n${attribution}` : "") +
+      `\n\nSent from the contact form on actionzonecma.com`,
   };
 }
 

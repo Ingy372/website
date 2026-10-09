@@ -1,0 +1,27 @@
+---
+// Remembers how a visitor first arrived (UTM tags, Google/Meta click IDs,
+// landing page, external referrer) in this browser's localStorage, once.
+// The contact form copies it into hidden fields so an inquiry says which ad
+// or link brought the family in. Nothing is sent anywhere until they submit.
+---
+
+<script is:inline>
+  (function () {
+    try {
+      var KEY = "az_first_touch";
+      if (localStorage.getItem(KEY)) return;
+      var params = new URLSearchParams(location.search);
+      var data = { landing_page: location.pathname };
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"].forEach(function (k) {
+        var v = params.get(k);
+        if (v) data[k] = v.slice(0, 300);
+      });
+      if (document.referrer && new URL(document.referrer).hostname !== location.hostname) {
+        data.referrer = document.referrer.slice(0, 500);
+      }
+      localStorage.setItem(KEY, JSON.stringify(data));
+    } catch (e) {
+      /* storage blocked (private mode, etc.): attribution is optional */
+    }
+  })();
+</script>

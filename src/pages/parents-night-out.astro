@@ -22,7 +22,7 @@ const upcomingDates = upcoming("parents-night-out");
   {eventSchema.length > 0 && (
     <script type="application/ld+json" slot="head" set:html={JSON.stringify(eventSchema)} is:inline />
   )}
-  <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact">
+  <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
     <Fragment slot="heading">Drop the kids. <em>Enjoy the night.</em></Fragment>
     <Fragment slot="subtext">
       A themed evening of games, martial arts, and fun your kids won't stop talking about. Nerf
@@ -121,7 +121,7 @@ const upcomingDates = upcoming("parents-night-out");
     </div>
   </section>
 
-  <CTASection ctaLabel="Ask About the Next Date" ctaHref="/contact">
+  <CTASection ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
     <Fragment slot="heading">Your next quiet evening <em>is closer than you think.</em></Fragment>
     <Fragment slot="subtext">We hold Parents Night Out regularly. Reach out for the next date and to reserve your child's spot.</Fragment>
   </CTASection>
