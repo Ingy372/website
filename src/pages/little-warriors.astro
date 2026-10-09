@@ -6,6 +6,7 @@ import NumberedCard from "../components/cards/NumberedCard.astro";
 import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { offer } from "../data/school";
 import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
@@ -39,13 +40,19 @@ const results = [
   description={`Little Warriors is martial arts built from the ground up for ages ${ageRange(program)} in ${cityState}. Focus, listening, and confidence, taught through the fun of martial arts.`}
   path="/little-warriors"
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={offer.cta} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={offer.cta} ctaHref="/booking?program=littleWarriors">
     <Fragment slot="heading">Small students. <em>Big beginnings.</em></Fragment>
     <Fragment slot="subtext">
       Little Warriors is martial arts built from the ground up for our youngest students. Before
       the kicks and blocks, they learn to listen, to focus, and to finish what they start.
     </Fragment>
   </ProgramHero>
+
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <ClassAtAGlance program="littleWarriors" />
+    </div>
+  </section>
 
   <section class="bg-paper-warm">
     <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 md:py-20">
@@ -127,7 +134,7 @@ const results = [
     </div>
   </section>
 
-  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=littleWarriors">
     <Fragment slot="heading">See it for yourself. <em>The {offer.first} is free.</em></Fragment>
     <Fragment slot="subtext">Bring your little one in for {offer.visit}. No cost, no commitment.</Fragment>
   </CTASection>

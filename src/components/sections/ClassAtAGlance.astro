@@ -1,0 +1,29 @@
+---
+// "Class at a glance" for a program page: everything a new family asks
+// first, derived from schedule.ts where possible.
+import FactList from "./FactList.astro";
+import { programs, ageLabel, programClassLength, beginnerTimes, type ProgramId } from "../../data/schedule";
+import { todo } from "../../data/business";
+
+interface Props {
+  program: ProgramId;
+}
+const { program } = Astro.props;
+const p = programs[program];
+
+const facts = [
+  { label: "Ages", value: ageLabel(p).replace("Ages ", "") },
+  { label: "Class length", value: programClassLength(program).replace(/^a /, "A ") },
+  {
+    label: "Beginner classes",
+    value: beginnerTimes(program).map((t) => `${t.days}, ${t.time}`).join(" · "),
+  },
+  { label: "Class size", value: todo(`typical ${p.name} class size`) },
+  // From the existing FAQ and schedule copy.
+  { label: "What to wear", value: "Comfortable clothes you can move in. We train barefoot. No uniform needed to start." },
+  { label: "Bring", value: "Water, and arrive a few minutes early." },
+  { label: "Parents", value: "Always welcome to watch class." },
+];
+---
+
+<FactList heading={`${p.name} at a glance`} facts={facts} />

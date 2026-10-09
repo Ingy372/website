@@ -192,3 +192,26 @@ export const bookableClasses = {
   monday: bookable(mondayWednesday, "mon"),
   tuesday: bookable(tuesdayThursday, "tue"),
 };
+
+// ---------------------------------------------------------------------------
+// Beginner (open-enrollment) class times per program, grouped by matching
+// time, e.g. Kids → [{ days: "Mon & Wed", time: "5:00 – 6:00pm" }, …].
+// Used by the program "at a glance" blocks and /booking?program=.
+// ---------------------------------------------------------------------------
+
+const SHORT_DAY: Record<Weekday, string> = {
+  Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed", Thursday: "Thu", Friday: "Fri", Saturday: "Sat", Sunday: "Sun",
+};
+
+export function beginnerTimes(program: ProgramId): { days: string; time: string }[] {
+  const byTime = new Map<string, Weekday[]>();
+  for (const day of weeklySchedule) {
+    for (const c of day.classes) {
+      if (c.program !== program || c.inviteOnly) continue;
+      byTime.set(c.time, [...(byTime.get(c.time) ?? []), day.day]);
+    }
+  }
+  return [...byTime].map(([time, days]) => ({ days: days.map((d) => SHORT_DAY[d]).join(" & "), time }));
+}
+
+export const programIds = Object.keys(programs) as ProgramId[];

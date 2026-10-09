@@ -7,6 +7,7 @@ import StepList from "../components/sections/StepList.astro";
 import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { offer } from "../data/school";
 import { cityState, founded } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
@@ -55,13 +56,19 @@ const belts = [
   description={`Kids martial arts classes for ages ${ageRange(program)} in ${cityState}. Confidence, focus, respect, and real self-defense, in a non-competitive Christian dojo.`}
   path="/kids"
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={offer.cta} ctaHref="/booking">
+  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={offer.cta} ctaHref="/booking?program=kids">
     <Fragment slot="heading">Confidence that <em>shows up everywhere.</em></Fragment>
     <Fragment slot="subtext">
       Practical self-defense paired with confidence, focus, and respect. High-energy classes that
       build strength, resilience, and leadership in everyday life.
     </Fragment>
   </ProgramHero>
+
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <ClassAtAGlance program="kids" />
+    </div>
+  </section>
 
   <section class="bg-paper-warm">
     <div class="mx-auto max-w-3xl px-6 md:px-5 py-20 text-center md:py-20">
@@ -180,7 +187,7 @@ const belts = [
 
   <ReviewQuote id="taylor-s" />
 
-  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=kids">
     <Fragment slot="heading">Come see it for yourself. <em>The {offer.first} is free.</em></Fragment>
     <Fragment slot="subtext">Bring your child in for {offer.visit}. No cost, no commitment, no pressure.</Fragment>
   </CTASection>
