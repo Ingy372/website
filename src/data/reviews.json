@@ -1,12 +1,12 @@
 {
   "summary": {
     "rating": 5.0,
-    "count": 80,
-    "countLabel": "80+",
+    "count": 83,
+    "countLabel": "83",
     "source": "Google",
-    "lastChecked": null
+    "lastChecked": "2026-10-09"
   },
-  "_todo": "TODO(JAY: add each review's posted date as \"date\": \"YYYY-MM-DD\" so cards can show it; confirm the summary rating/count and set lastChecked)",
+  "_todo": "TODO(JAY: add each review's posted date as \"date\": \"YYYY-MM-DD\" so cards can show it) Update summary.count and lastChecked when the Google count changes.",
   "reviews": [
     {
       "id": "taylor-s",
@@ -22,7 +22,6 @@
       "id": "benjamin-s",
       "author": "Benjamin S.",
       "relationship": "Student",
-      "verify": "possibly an instructor/staff review; if so, remove it or disclose the relationship",
       "source": "Google",
       "date": null,
       "rating": 5,
@@ -46,16 +45,6 @@
       "date": null,
       "rating": 5,
       "text": "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is."
-    },
-    {
-      "id": "crystal-c",
-      "author": "Crystal C.",
-      "relationship": "Parent",
-      "verify": "name was inferred from a Google display handle; confirm the reviewer's real name",
-      "source": "Google",
-      "date": null,
-      "rating": 5,
-      "text": "My daughter is 5 and she has been at Action Zone for 6 months. I love the care they provide when teaching her. The instructors are very patient, and they teach the importance of owning the responsibility of your actions."
     }
   ]
 }
