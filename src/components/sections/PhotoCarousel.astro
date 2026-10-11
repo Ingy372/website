@@ -1,0 +1,220 @@
+---
+// A horizontal strip of real class photos that gently advances itself.
+// The track is a native scroll-snap scroller, so swipe, trackpad, and arrow
+// keys (once focused) all work with no script. The script only adds
+// autoplay and the prev/next buttons. Autoplay stops for good once the
+// visitor swipes, scrolls, or presses Pause, waits while the strip is
+// hovered, focused, or off screen, and never starts under reduced motion.
+// Images are lazy-loaded, so nothing downloads until the strip is near.
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  label: string;
+  photos: { src: ImageMetadata; alt: string; landscape?: boolean; position?: string }[];
+  /** Milliseconds between auto-advances. */
+  interval?: number;
+}
+const { label, photos, interval = 4500 } = Astro.props;
+---
+
+<div data-carousel data-interval={interval} role="region" aria-roledescription="carousel" aria-label={label}>
+  <!-- Pulled up into the section heading row: beside it on desktop, tucked under it on mobile. -->
+  <div class="-mt-6 mb-5 flex items-center justify-end gap-2 md:-mt-[5.5rem] md:mb-8">
+    <button type="button" data-carousel-pause class="carousel-btn hidden" aria-label="Pause slideshow">
+      <svg data-icon-pause viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor" /></svg>
+      <svg data-icon-play class="hidden" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor" /></svg>
+    </button>
+    <button type="button" data-carousel-prev class="carousel-btn" aria-label="Previous photo">
+      <span aria-hidden="true">&larr;</span>
+    </button>
+    <button type="button" data-carousel-next class="carousel-btn" aria-label="Next photo">
+      <span aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+
+  <ul
+    data-carousel-track
+    class="carousel-track flex snap-x snap-mandatory gap-3 overflow-x-auto md:gap-4"
+    tabindex="0"
+    aria-label={`${label}: use arrow keys or swipe to see more`}
+  >
+    {photos.map((p) => (
+      <li
+        class:list={[
+          "h-[260px] shrink-0 snap-start overflow-hidden rounded md:h-[380px]",
+          p.landscape ? "aspect-[4/3]" : "aspect-[3/4]",
+        ]}
+      >
+        <Picture
+          src={p.src}
+          alt={p.alt}
+          formats={["avif", "webp"]}
+          widths={p.landscape ? [380, 560, 760, 1020] : [220, 320, 440, 580]}
+          sizes={p.landscape ? "(min-width: 768px) 507px, 347px" : "(min-width: 768px) 285px, 195px"}
+          loading="lazy"
+          decoding="async"
+          pictureAttributes={{ class: "block h-full w-full" }}
+          class="h-full w-full object-cover"
+          style={p.position ? `object-position:${p.position}` : undefined}
+        />
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .carousel-track {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+  }
+
+  .carousel-btn {
+    display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-indigo) 25%, transparent);
+    color: var(--color-indigo);
+    font-weight: 700;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s,
+      opacity 0.2s;
+  }
+
+  .carousel-btn.hidden {
+    display: none;
+  }
+
+  .carousel-btn[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  @media (hover: hover) {
+    .carousel-btn:not([aria-disabled="true"]):hover {
+      border-color: var(--color-gold);
+      background-color: white;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-carousel]")) {
+    const track = root.querySelector<HTMLElement>("[data-carousel-track]")!;
+    const prev = root.querySelector<HTMLButtonElement>("[data-carousel-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-carousel-next]")!;
+    const pause = root.querySelector<HTMLButtonElement>("[data-carousel-pause]")!;
+    const slides = [...track.children] as HTMLElement[];
+    const interval = Number(root.dataset.interval) || 4500;
+
+    // Slide offsets relative to the track's scroll origin.
+    const offsets = () => slides.map((s) => s.offsetLeft - track.offsetLeft);
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
+    const atStart = () => track.scrollLeft <= 2;
+    const atEnd = () => track.scrollLeft >= maxScroll() - 2;
+
+    const go = (dir: 1 | -1) => {
+      const x = track.scrollLeft;
+      const all = offsets();
+      const target =
+        dir === 1 ? all.find((o) => o > x + 2) ?? maxScroll() : [...all].reverse().find((o) => o < x - 2) ?? 0;
+      track.scrollTo({ left: Math.min(target, maxScroll()) });
+    };
+
+    const syncButtons = () => {
+      prev.setAttribute("aria-disabled", String(atStart()));
+      next.setAttribute("aria-disabled", String(atEnd()));
+    };
+    track.addEventListener("scroll", syncButtons, { passive: true });
+    syncButtons();
+
+    // --- Autoplay -------------------------------------------------------
+    let stopped = reduceMotion; // stopped for good (Pause, swipe, or reduced motion)
+    let hovered = false;
+    let focused = false;
+    let onScreen = false;
+    let timer: number | undefined;
+
+    const tick = () => {
+      if (atEnd()) track.scrollTo({ left: 0 });
+      else go(1);
+    };
+    const schedule = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+      if (stopped || hovered || focused || !onScreen || document.hidden) return;
+      timer = window.setInterval(tick, interval);
+    };
+    const stop = () => {
+      if (stopped) return;
+      stopped = true;
+      pause.setAttribute("aria-label", "Play slideshow");
+      pause.querySelector("[data-icon-pause]")!.classList.add("hidden");
+      pause.querySelector("[data-icon-play]")!.classList.remove("hidden");
+      schedule();
+    };
+    const play = () => {
+      stopped = false;
+      pause.setAttribute("aria-label", "Pause slideshow");
+      pause.querySelector("[data-icon-pause]")!.classList.remove("hidden");
+      pause.querySelector("[data-icon-play]")!.classList.add("hidden");
+      // Move right away so Play visibly does something.
+      tick();
+      schedule();
+    };
+
+    prev.addEventListener("click", () => {
+      go(-1);
+      schedule();
+    });
+    next.addEventListener("click", () => {
+      go(1);
+      schedule();
+    });
+
+    if (!reduceMotion) {
+      pause.classList.remove("hidden");
+      pause.addEventListener("click", () => (stopped ? play() : stop()));
+
+      // A swipe, wheel, or arrow key in the strip means the visitor is
+      // browsing on their own; don't fight them.
+      track.addEventListener("pointerdown", stop, { passive: true });
+      track.addEventListener("wheel", (e) => Math.abs(e.deltaX) > Math.abs(e.deltaY) && stop(), { passive: true });
+      track.addEventListener("keydown", (e) => /^(Arrow|Page|Home|End)/.test(e.key) && stop());
+
+      if (window.matchMedia("(hover: hover)").matches) {
+        root.addEventListener("mouseenter", () => ((hovered = true), schedule()));
+        root.addEventListener("mouseleave", () => ((hovered = false), schedule()));
+      }
+      track.addEventListener("focusin", () => ((focused = true), schedule()));
+      track.addEventListener("focusout", () => ((focused = false), schedule()));
+      document.addEventListener("visibilitychange", schedule);
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        schedule();
+      }, { threshold: 0.5 }).observe(track);
+    }
+  }
+</script>

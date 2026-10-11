@@ -11,6 +11,7 @@ import SafetyRules from "../components/sections/SafetyRules.astro";
 import Marquee from "../components/motion/Marquee.astro";
 import CountUp from "../components/motion/CountUp.astro";
 import ScrollReveal from "../components/motion/ScrollReveal.astro";
+import PhotoCarousel from "../components/sections/PhotoCarousel.astro";
 import { offer } from "../data/school";
 import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
@@ -27,6 +28,14 @@ import facilityNinjaLine from "../images/facility/ninja-line.jpg";
 import facilityThrowingWall from "../images/facility/throwing-wall.jpg";
 import facilityPlayground from "../images/facility/playground.jpg";
 import facilityTrampoline from "../images/facility/trampoline.jpg";
+import galleryWarmUp from "../images/little-warriors/warm-up-circle.jpg";
+import galleryOneOnOne from "../images/little-warriors/bowing-in.jpg";
+import galleryGroundWork from "../images/kids/partner-drill.jpg";
+import galleryBoStaff from "../images/kids/instructor-correcting-stance.jpg";
+import galleryStoryTime from "../images/events/saturday-training.jpg";
+import gallerySparringGear from "../images/little-warriors/earning-a-stripe.jpg";
+import galleryKickDrills from "../images/teens-adults/drilling-technique.jpg";
+import galleryDemoTeam from "../images/events/demo-team.jpg";
 
 const facilityFeatures = [
   { image: facilityNinjaLine, position: "50% 42%", alt: "The ninja line strung across the middle of the dojo, a hanging grip-and-balance obstacle course", title: "The Ninja Line", desc: "Strung across the middle of the dojo. Grip, balance, and upper body strength training in a fun, challenging way." },
@@ -66,6 +75,19 @@ const audiences = [
       "No experience required. Start at zero",
     ],
   },
+];
+
+// Real class photos for the "Life on the mat" strip. Alt text describes
+// what's in each frame (a few filenames don't match their contents).
+const galleryPhotos = [
+  { src: galleryBoStaff, position: "50% 30%", alt: "An instructor guiding a student's form with the bo staff" },
+  { src: galleryWarmUp, landscape: true, alt: "Young students stretching through warm-ups on the dojo mat" },
+  { src: galleryOneOnOne, alt: "An instructor working one-on-one with a young yellow-belt student" },
+  { src: galleryKickDrills, landscape: true, alt: "Students drilling kicks into pads held by partners across the dojo floor" },
+  { src: galleryGroundWork, alt: "Two students practicing ground technique on the mat" },
+  { src: galleryStoryTime, landscape: true, alt: "An instructor reading to a circle of students seated on the mat" },
+  { src: gallerySparringGear, alt: "Smiling young students suited up in red sparring gear" },
+  { src: galleryDemoTeam, position: "50% 25%", alt: "The Action Zone demo team in red uniforms at a community event" },
 ];
 
 const martialStyles = ["Karate", "Jiu Jitsu", "Kung Fu", "Tae Kwon Do", "Japanese Weapons"];
@@ -268,6 +290,15 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="overflow-hidden bg-paper-warm py-20 md:py-20" id="gallery">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead reveal kicker="Life on the Mat">
+        <Fragment slot="heading">A look inside the dojo.</Fragment>
+      </SectionHead>
+      <PhotoCarousel label="Photos from class at Action Zone" photos={galleryPhotos} />
     </div>
   </section>
 
