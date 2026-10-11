@@ -92,7 +92,7 @@ import { bookableClasses } from "../../data/schedule";
       <button
         type="submit"
         id="booking-submit"
-        class="mt-1 rounded bg-indigo px-5 py-4 text-base font-bold text-bone transition-colors hover:bg-gold hover:text-indigo-deep disabled:opacity-60"
+        class="mt-1 rounded bg-indigo px-5 py-4 text-base font-bold text-white transition-colors hover:bg-gold hover:text-indigo-deep disabled:opacity-60"
       >
         Confirm My Spot
       </button>
@@ -171,7 +171,7 @@ import { bookableClasses } from "../../data/schedule";
       const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
 
       if (isSelected) {
-        btn.className += " bg-indigo text-bone";
+        btn.className += " bg-indigo text-white";
       } else if (selectable) {
         btn.className += " bg-gold/15 text-indigo hover:bg-gold hover:text-indigo-deep";
       } else {

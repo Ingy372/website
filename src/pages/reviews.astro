@@ -13,7 +13,7 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
   description={`See what families say about ${business.displayName} in ${cityState}. ${ratingText} stars across ${countText} Google reviews.`}
   path="/reviews"
 >
-  <header class="relative overflow-hidden bg-indigo py-20 text-center text-bone md:py-20">
+  <header class="relative overflow-hidden bg-indigo py-20 text-center text-white md:py-20">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
       <span class="mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
         What Families Say
@@ -21,7 +21,7 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
       <h1 class="mx-auto max-w-[18ch] text-[clamp(2.2rem,4.4vw,3.5rem)]">
         Families in Raeford <span class="text-gold-soft">trust us with their kids.</span>
       </h1>
-      <p class="mx-auto mt-5 max-w-[52ch] text-lg leading-loose text-bone-soft md:leading-normal">
+      <p class="mx-auto mt-5 max-w-[52ch] text-lg leading-loose text-[#C4C3D4] md:leading-normal">
         We are grateful for every family that has walked through our doors. Here is what some of
         them have shared.
       </p>
@@ -30,13 +30,13 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
         <div class="font-display text-4xl font-black text-gold-soft">{ratingText}</div>
         <div>
           <div class="text-xl tracking-[3px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-sm text-bone-soft">Based on {countText} Google reviews</div>
+          <div class="text-sm text-[#C4C3D4]">Based on {countText} Google reviews</div>
         </div>
         <a
           href={business.googleReviewsUrl}
           target="_blank"
           rel="noopener"
-          class="rounded-sm border border-white/25 px-5 py-2.5 text-sm font-semibold text-bone hover:border-gold-soft hover:text-gold-soft"
+          class="rounded-sm border border-white/25 px-5 py-2.5 text-sm font-semibold text-white hover:border-gold-soft hover:text-gold-soft"
         >
           Google Reviews
         </a>
@@ -78,7 +78,7 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
           href={business.googleReviewsUrl}
           target="_blank"
           rel="noopener"
-          class="inline-block rounded-sm bg-indigo px-6 py-3.5 font-bold text-bone hover:bg-gold hover:text-indigo-deep"
+          class="inline-block rounded-sm bg-indigo px-6 py-3.5 font-bold text-white hover:bg-gold hover:text-indigo-deep"
         >
           See all {countText} reviews on Google
         </a>

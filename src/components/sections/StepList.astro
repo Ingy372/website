@@ -15,8 +15,8 @@ const { steps, dark = false } = Astro.props;
     <div class={`grid grid-cols-[auto_1fr] gap-6 py-6 ${i < steps.length - 1 ? (dark ? "border-b border-white/[0.09]" : "border-b border-paper-warm") : ""}`}>
       <div class={`font-display text-2xl font-black leading-none ${dark ? "text-gold-soft" : "text-gold"}`}>{i + 1}</div>
       <div>
-        <h3 class={`mb-1.5 font-display text-xl font-semibold ${dark ? "text-bone" : "text-indigo"}`}>{step.title}</h3>
-        <p class={`max-w-[52ch] text-[0.98rem] ${dark ? "text-bone-muted" : "text-mist"}`}>{step.description}</p>
+        <h3 class={`mb-1.5 font-display text-xl font-semibold ${dark ? "text-white" : "text-indigo"}`}>{step.title}</h3>
+        <p class={`max-w-[52ch] text-[0.98rem] ${dark ? "text-[#A3A2B6]" : "text-mist"}`}>{step.description}</p>
       </div>
     </div>
   ))}

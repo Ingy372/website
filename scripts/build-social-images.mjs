@@ -18,8 +18,8 @@ await sharp(OG_SOURCE)
 // Full-bleed square (iOS rounds the corners itself).
 const mark = (size) =>
   Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#14130F"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="15" fill="#E2C173">AZ</text>
+  <rect width="32" height="32" fill="#191A3E"/>
+  <text x="16" y="22" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="15" fill="#E4C765">AZ</text>
 </svg>`);
 
 await sharp(mark(180)).png().toFile("public/apple-touch-icon.png");

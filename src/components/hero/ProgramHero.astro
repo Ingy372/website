@@ -13,7 +13,7 @@ interface Props {
 const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
 ---
 
-<header class="relative overflow-hidden bg-indigo text-bone">
+<header class="relative overflow-hidden bg-indigo text-white">
   <div
     class="pointer-events-none absolute -right-24 -top-24 h-[480px] w-[480px] rounded-full border border-gold/[0.14]"
     aria-hidden="true"
@@ -27,7 +27,7 @@ const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
       <h1 class="max-w-[15ch] text-[clamp(2.3rem,4.6vw,3.7rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
         <slot name="heading" />
       </h1>
-      <p class="my-5 max-w-[46ch] text-lg text-bone-soft">
+      <p class="my-5 max-w-[46ch] text-lg text-[#C7C6D6]">
         <slot name="subtext" />
       </p>
       <a
@@ -36,7 +36,7 @@ const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
       >
         {ctaLabel}
       </a>
-      <p class="mt-4 text-sm text-bone-soft">
+      <p class="mt-4 text-sm text-[#C7C6D6]">
         Or call <a href={business.phoneHref} class="font-bold text-gold-soft hover:text-gold">{business.phone}</a>
       </p>
       {Astro.slots.has("note") && (

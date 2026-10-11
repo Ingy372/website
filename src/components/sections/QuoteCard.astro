@@ -10,7 +10,7 @@ const { quote, who, avatarLetter, sourceLabel } = Astro.props;
 
 <div class="rounded border border-white/[0.09] bg-white/5 p-6 border-l-[3px] border-l-gold">
   <div class="mb-3 tracking-[2px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-  <p class="text-[0.9rem] italic leading-[1.72] text-bone-soft">"{quote}"</p>
+  <p class="text-[0.9rem] italic leading-[1.72] text-[#CFCEDC]">"{quote}"</p>
   {avatarLetter ? (
     <div class="mt-4 flex items-center gap-3">
       <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gold/20 font-display font-bold text-gold-soft">
@@ -18,7 +18,7 @@ const { quote, who, avatarLetter, sourceLabel } = Astro.props;
       </div>
       <div>
         <div class="text-sm font-bold text-gold-soft">{who}</div>
-        {sourceLabel && <div class="text-xs text-bone-muted">{sourceLabel}</div>}
+        {sourceLabel && <div class="text-xs text-[#9695AA]">{sourceLabel}</div>}
       </div>
     </div>
   ) : (

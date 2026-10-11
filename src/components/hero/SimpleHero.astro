@@ -7,7 +7,7 @@ const { eyebrow, narrow = true } = Astro.props;
 const containerClass = narrow ? "max-w-3xl" : "max-w-6xl";
 ---
 
-<header class="relative overflow-hidden bg-indigo py-20 text-bone md:py-20">
+<header class="relative overflow-hidden bg-indigo py-20 text-white md:py-20">
   <div
     class="pointer-events-none absolute -right-24 -top-24 h-[460px] w-[460px] rounded-full border border-gold/[0.14]"
     aria-hidden="true"
@@ -21,7 +21,7 @@ const containerClass = narrow ? "max-w-3xl" : "max-w-6xl";
     <h1 class="max-w-[16ch] text-[clamp(2.2rem,4.4vw,3.5rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
       <slot name="heading" />
     </h1>
-    <p class="mt-5 max-w-[52ch] text-lg text-bone-soft">
+    <p class="mt-5 max-w-[52ch] text-lg text-[#C4C3D4]">
       <slot name="subtext" />
     </p>
   </div>

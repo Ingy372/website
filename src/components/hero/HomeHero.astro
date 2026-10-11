@@ -5,7 +5,7 @@ import { minimumAge, trialDaysText } from "../../data/schedule";
 import { ratingText, countText } from "../../data/reviews";
 ---
 
-<header class="relative overflow-hidden bg-indigo text-bone">
+<header class="relative overflow-hidden bg-indigo text-white">
   <div
     class="pointer-events-none absolute left-[44%] top-[-140px] h-[560px] w-[560px] rounded-full border border-gold/[0.13]"
     aria-hidden="true"
@@ -20,26 +20,26 @@ import { ratingText, countText } from "../../data/reviews";
       <h1 class="max-w-[15ch] text-[clamp(2.4rem,4.6vw,4rem)]">
         Discipline that follows them <span class="text-gold-soft">off the mat.</span>
       </h1>
-      <p class="mt-6 max-w-[44ch] text-lg text-bone-soft">
-        A family dojo serving <b class="font-semibold text-bone">Raeford</b>, <b
-          class="font-semibold text-bone">Fayetteville</b>, and <b
-          class="font-semibold text-bone">Hope Mills</b>. Where kids, teens, and adults build
+      <p class="mt-6 max-w-[44ch] text-lg text-[#C9C8D8]">
+        A family dojo serving <b class="font-semibold text-white">Raeford</b>, <b
+          class="font-semibold text-white">Fayetteville</b>, and <b
+          class="font-semibold text-white">Hope Mills</b>. Where kids, teens, and adults build
         confidence, focus, and real self-defense. One belt at a time.
       </p>
       <div class="mt-9 flex flex-wrap gap-8">
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-bone">{founded.yearsNumeral}</b>
-          <span class="text-[0.78rem] text-bone-muted">Years, one family</span>
+          <b class="block font-display text-[1.75rem] font-black text-white">{founded.yearsNumeral}</b>
+          <span class="text-[0.78rem] text-[#B0AFC2]">Years, one family</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-bone">
+          <b class="block font-display text-[1.75rem] font-black text-white">
             {ratingText} <span class="text-[0.9rem] tracking-[2px] text-gold">&#9733;</span>
           </b>
-          <span class="text-[0.78rem] text-bone-muted">{countText} Google reviews</span>
+          <span class="text-[0.78rem] text-[#B0AFC2]">{countText} Google reviews</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-bone">Ages {minimumAge}+</b>
-          <span class="text-[0.78rem] text-bone-muted">Preschool to adult</span>
+          <b class="block font-display text-[1.75rem] font-black text-white">Ages {minimumAge}+</b>
+          <span class="text-[0.78rem] text-[#B0AFC2]">Preschool to adult</span>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ import { ratingText, countText } from "../../data/reviews";
       </p>
       <a
         href="/booking"
-        class="mt-6 block rounded-sm bg-indigo px-4 py-4 text-center font-bold text-bone transition-colors hover:bg-gold hover:text-indigo-deep"
+        class="mt-6 block rounded-sm bg-indigo px-4 py-4 text-center font-bold text-white transition-colors hover:bg-gold hover:text-indigo-deep"
       >
         {offer.cta}
       </a>
