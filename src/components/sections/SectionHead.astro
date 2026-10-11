@@ -5,11 +5,13 @@ interface Props {
   hasSubtext?: boolean;
   dark?: boolean;
   class?: string;
+  /** Fade-and-rise on first scroll into view (needs <ScrollReveal /> on the page). */
+  reveal?: boolean;
 }
-const { kicker, center = false, hasSubtext = false, dark = false, class: className = "" } = Astro.props;
+const { kicker, center = false, hasSubtext = false, dark = false, class: className = "", reveal = false } = Astro.props;
 ---
 
-<div class={`mb-11 ${center ? "mx-auto max-w-2xl text-center" : ""} ${className}`}>
+<div class={`mb-11 ${center ? "mx-auto max-w-2xl text-center" : ""} ${className}`} data-reveal={reveal ? "" : undefined}>
   <div class={`mb-3 text-xs font-bold tracking-[0.2em] uppercase ${dark ? "text-gold-soft" : "text-gold-deep"}`}>{kicker}</div>
   <h2 class={`text-[clamp(1.9rem,3.6vw,2.7rem)] [&_em]:font-normal [&_em]:not-italic ${dark ? "text-white [&_em]:text-gold-soft" : "text-indigo [&_em]:text-gold-deep"} ${center ? "" : "max-w-[22ch]"}`}>
     <slot name="heading" />

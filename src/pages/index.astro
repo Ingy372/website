@@ -10,6 +10,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
 import Marquee from "../components/motion/Marquee.astro";
 import CountUp from "../components/motion/CountUp.astro";
+import ScrollReveal from "../components/motion/ScrollReveal.astro";
 import { offer } from "../data/school";
 import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
@@ -91,7 +92,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
   <section class="py-20 md:py-20" id="programs">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <SectionHead kicker="Find Your Class">
+      <SectionHead reveal kicker="Find Your Class">
         <Fragment slot="heading">A program for every age and stage.</Fragment>
       </SectionHead>
       <div class="grid gap-8 md:grid-cols-3 md:gap-6">
@@ -130,7 +131,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
   <section class="bg-indigo-deep py-20 text-white md:py-20" id="facility">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <div class="mb-11">
+      <div class="mb-11" data-reveal>
         <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-soft uppercase">Our Facility</div>
         <h2 class="max-w-[20ch] text-[clamp(1.9rem,3.8vw,2.9rem)] text-white">
           A building built <span class="text-gold-soft">for exactly this.</span>
@@ -197,10 +198,12 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         />
       </div>
       <div>
-        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">Our Story</div>
-        <h2 class="mb-5 max-w-[18ch] text-[clamp(1.8rem,3.4vw,2.6rem)] text-indigo">
-          Changing our world, <span class="text-gold-deep">one black belt at a time.</span>
-        </h2>
+        <div data-reveal>
+          <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">Our Story</div>
+          <h2 class="mb-5 max-w-[18ch] text-[clamp(1.8rem,3.4vw,2.6rem)] text-indigo">
+            Changing our world, <span class="text-gold-deep">one black belt at a time.</span>
+          </h2>
+        </div>
         <p class="mb-5 text-[1.02rem] text-[#40403A] md:mb-3.5">
           {team.founder.name} stepped onto a mat at eight years old and never really stepped off.
           Karate. Jiu Jitsu. Kung Fu. Tae Kwon Do. The five traditional Japanese weapons. A black
@@ -243,7 +246,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
   <section class="py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <SectionHead kicker="Why Action Zone">
+      <SectionHead reveal kicker="Why Action Zone">
         <Fragment slot="heading">Everybody in the family gets something out of it.</Fragment>
       </SectionHead>
       <div class="grid gap-12 md:grid-cols-3 md:gap-10">
@@ -267,16 +270,18 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
   <section class="bg-indigo py-20 text-white md:py-20" id="reviews">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <div class="mb-4 flex flex-wrap items-center justify-center gap-5">
-        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft"><CountUp value={ratingText} /></span>
-        <div>
-          <div class="text-2xl tracking-[4px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]"><CountUp value={countText} /> reviews on Google</div>
-        </div>
+      <div data-reveal>
+        <div class="mb-4 flex flex-wrap items-center justify-center gap-5">
+          <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft"><CountUp value={ratingText} /></span>
+          <div>
+            <div class="text-2xl tracking-[4px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]"><CountUp value={countText} /> reviews on Google</div>
+          </div>
       </div>
       <p class="mx-auto mb-11 max-w-[30ch] text-center font-display text-[1.35rem] font-semibold text-white">
         Trusted by families across Raeford, Fayetteville, and Hope Mills.
       </p>
+      </div>
       <div class="grid gap-8 md:grid-cols-3 md:gap-5">
         {quotes.map((r) => <QuoteCard quote={r.text} who={displayAuthor(r)} />)}
       </div>
@@ -285,7 +290,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 
   <section class="py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <SectionHead kicker="More Than Classes">
+      <SectionHead reveal kicker="More Than Classes">
         <Fragment slot="heading">Parties and a night off.</Fragment>
       </SectionHead>
       <div class="grid gap-8 md:grid-cols-2 md:gap-5">
@@ -344,4 +349,5 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
     <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
     <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
   </CTASection>
+  <ScrollReveal />
 </BaseLayout>
