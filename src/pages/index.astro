@@ -9,6 +9,7 @@ import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
 import Marquee from "../components/motion/Marquee.astro";
+import CountUp from "../components/motion/CountUp.astro";
 import { offer } from "../data/school";
 import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
@@ -267,10 +268,10 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
   <section class="bg-indigo py-20 text-white md:py-20" id="reviews">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
       <div class="mb-4 flex flex-wrap items-center justify-center gap-5">
-        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft">{ratingText}</span>
+        <span class="font-display text-[3.4rem] font-black leading-none text-gold-soft"><CountUp value={ratingText} /></span>
         <div>
           <div class="text-2xl tracking-[4px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]">{countText} reviews on Google</div>
+          <div class="text-[0.92rem] tracking-[0.04em] text-[#B4B3C6]"><CountUp value={countText} /> reviews on Google</div>
         </div>
       </div>
       <p class="mx-auto mb-11 max-w-[30ch] text-center font-display text-[1.35rem] font-semibold text-white">

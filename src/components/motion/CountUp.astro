@@ -1,0 +1,71 @@
+---
+// A stat that counts up from zero the first time it scrolls into view.
+// The real value is what renders in the HTML: no JS, a script error, or
+// reduced motion all leave the final number showing, never "0". An invisible
+// copy of the final value reserves the width, so the count can't shift layout.
+interface Props {
+  /** Final value as displayed, e.g. "32", "5.0", "83". */
+  value: string;
+}
+const { value } = Astro.props;
+---
+
+<span class="relative inline-block tabular-nums"
+  ><span class="sr-only">{value}</span><span class="invisible" aria-hidden="true">{value}</span><span
+    class="absolute inset-0 whitespace-nowrap"
+    aria-hidden="true"
+    data-count-to={value}>{value}</span
+  ></span
+>
+
+<script>
+  const DURATION = 1400;
+
+  function countUp(el: HTMLElement) {
+    const final = el.dataset.countTo ?? "";
+    const target = Number.parseFloat(final);
+    if (!Number.isFinite(target)) return;
+    const decimals = (final.split(".")[1] ?? "").length;
+    let finished = false;
+    const finish = () => {
+      finished = true;
+      el.textContent = final;
+    };
+    // Safety net: whatever happens mid-animation, land on the real number.
+    const safety = window.setTimeout(finish, DURATION + 500);
+    let start: number | undefined;
+    const step = (now: number) => {
+      if (finished) return;
+      try {
+        start ??= now;
+        const progress = Math.min((now - start) / DURATION, 1);
+        if (progress >= 1) {
+          window.clearTimeout(safety);
+          finish();
+          return;
+        }
+        const eased = 1 - (1 - progress) ** 3;
+        el.textContent = (target * eased).toFixed(decimals);
+        requestAnimationFrame(step);
+      } catch {
+        finish();
+      }
+    };
+    requestAnimationFrame(step);
+  }
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          countUp(entry.target as HTMLElement);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    document.querySelectorAll<HTMLElement>("[data-count-to]").forEach((el) => observer.observe(el));
+  }
+</script>
