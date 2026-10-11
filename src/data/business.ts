@@ -10,6 +10,9 @@ export const todo = (note: string) => `TODO(JAY: ${note})`;
 
 // Every "since …", "… years", and "… decades" string on the site is computed from this.
 export const FOUNDED_YEAR = 1993;
+// Founded late in 1993, so a full year is only counted once this month passes
+// (32 years until December 2026). Month assumed (December); not yet confirmed.
+export const FOUNDED_MONTH = 12;
 
 export const business = {
   displayName: "Action Zone, CMA",
@@ -78,7 +81,7 @@ export const mapsPlaceUrl = `https://www.google.com/maps/search/?api=1&query=${e
 
 // ---------------------------------------------------------------------------
 // Founding-year derived strings. Computed at build time, so the counts roll
-// forward on the next deploy after New Year's.
+// forward on the next deploy after the founding anniversary.
 // ---------------------------------------------------------------------------
 
 const ONES = [
@@ -98,17 +101,19 @@ export function numberToWords(n: number): string {
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-export const yearsOpen = new Date().getFullYear() - FOUNDED_YEAR;
+const now = new Date();
+export const yearsOpen =
+  now.getFullYear() - FOUNDED_YEAR - (now.getMonth() + 1 < FOUNDED_MONTH ? 1 : 0);
 const decadesWords = numberToWords(Math.floor(yearsOpen / 10));
 
 export const founded = {
   /** "1993" */
   year: String(FOUNDED_YEAR),
-  /** "33" */
+  /** "32" */
   yearsNumeral: String(yearsOpen),
-  /** "thirty-three" */
+  /** "thirty-two" */
   yearsWords: numberToWords(yearsOpen),
-  /** "Thirty-three" */
+  /** "Thirty-two" */
   yearsWordsCap: capitalize(numberToWords(yearsOpen)),
   /** "three decades" */
   decades: `${decadesWords} decades`,
