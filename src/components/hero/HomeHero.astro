@@ -14,7 +14,7 @@ const figureColor: "white" | "gold" = "white";
 const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("${figureGold.src}");--hero-figure:var(--figure-${figureColor})`;
 ---
 
-<header class="relative overflow-hidden bg-indigo text-white">
+<header class="relative overflow-hidden bg-indigo text-white" data-nav-sentinel>
   <div
     class="pointer-events-none absolute left-[44%] top-[-140px] h-[560px] w-[560px] rounded-full border border-gold/[0.13] will-change-transform"
     data-parallax="0.35"

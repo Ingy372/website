@@ -9,8 +9,8 @@ const dropdowns = [
 ];
 ---
 
-<nav class="sticky top-0 z-50 bg-indigo/97 backdrop-blur-sm">
-  <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5">
+<nav class="site-nav sticky top-0 z-50 bg-indigo/97 backdrop-blur-sm" data-site-nav>
+  <div class="site-nav-bar mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5">
     <a href="/" class="font-display text-xl font-black leading-none text-white">
       {business.displayName}
       <span class="mt-0.5 hidden font-body text-[0.6rem] font-medium tracking-[0.26em] text-gold-soft sm:block">
@@ -121,7 +121,51 @@ const dropdowns = [
   </div>
 </dialog>
 
+<style>
+  /* Pages that mark their hero with data-nav-sentinel (the homepage, for
+     now) get a nav that tightens once the hero scrolls away: 72px -> 60px
+     and solid deep navy with a soft shadow. A matching bottom margin keeps
+     the nav's footprint at 72px, so nothing below it moves. */
+  .site-nav {
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease,
+      margin-bottom 0.3s ease;
+  }
+
+  .site-nav-bar {
+    transition: height 0.3s ease;
+  }
+
+  .site-nav[data-scrolled] {
+    background-color: var(--color-indigo-deep);
+    box-shadow: 0 10px 28px -14px rgb(0 0 0 / 0.55);
+    margin-bottom: 12px;
+  }
+
+  .site-nav[data-scrolled] .site-nav-bar {
+    height: 60px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .site-nav-bar {
+      transition: none;
+    }
+  }
+</style>
+
 <script>
+  const siteNav = document.querySelector<HTMLElement>("[data-site-nav]");
+  const navSentinel = document.querySelector("[data-nav-sentinel]");
+  if (siteNav && navSentinel && "IntersectionObserver" in window) {
+    // Flip once the sentinel's bottom edge passes under the 72px nav.
+    new IntersectionObserver(
+      ([entry]) => siteNav.toggleAttribute("data-scrolled", !entry.isIntersecting),
+      { rootMargin: "-72px 0px 0px 0px" },
+    ).observe(navSentinel);
+  }
+
   const openBtn = document.getElementById("nav-menu-btn");
   const closeBtn = document.getElementById("nav-drawer-close");
   const drawer = document.getElementById("nav-drawer") as HTMLDialogElement | null;
