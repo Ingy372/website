@@ -61,7 +61,7 @@ const upcomingDates = upcoming("parents-night-out");
         {upcomingDates.length > 0 ? (
           <ul class="flex flex-col gap-3">
             {upcomingDates.map((e) => (
-              <li class="border-b border-[#DFD9C9] pb-3 last:border-0 last:pb-0">
+              <li class="border-b border-paper-line pb-3 last:border-0 last:pb-0">
                 <div class="font-semibold text-indigo">{eventWhenText(e)}</div>
                 {e.theme && <div class="text-sm text-mist">{e.theme}</div>}
               </li>

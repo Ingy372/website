@@ -11,7 +11,7 @@ const dropdowns = [
 
 <nav class="sticky top-0 z-50 bg-indigo/97 backdrop-blur-sm">
   <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5">
-    <a href="/" class="font-display text-xl font-black leading-none text-white">
+    <a href="/" class="font-display text-xl font-black leading-none text-bone">
       {business.displayName}
       <span class="mt-0.5 hidden font-body text-[0.6rem] font-medium tracking-[0.26em] text-gold-soft sm:block">
         YESHUA'S RYU &middot; JESUS' WAY
@@ -23,7 +23,7 @@ const dropdowns = [
         <div class="group relative">
           <button
             type="button"
-            class="flex items-center gap-1 text-sm font-medium text-[#D9D8E6] transition-colors hover:text-gold-soft focus-visible:text-gold-soft"
+            class="flex items-center gap-1 text-sm font-medium text-bone transition-colors hover:text-gold-soft focus-visible:text-gold-soft"
             aria-haspopup="true"
           >
             {dd.label} <span aria-hidden="true">&#9662;</span>
@@ -34,7 +34,7 @@ const dropdowns = [
             {dd.items.map((item) => (
               <a
                 href={item.href}
-                class="block px-4 py-2 text-sm text-[#D9D8E6] hover:bg-white/5 hover:text-gold-soft"
+                class="block px-4 py-2 text-sm text-bone hover:bg-white/5 hover:text-gold-soft"
               >
                 {item.label}
               </a>
@@ -44,7 +44,7 @@ const dropdowns = [
       ))}
 
       {nav.primary.map((item) => (
-        <a href={item.href} class="text-sm font-medium text-[#D9D8E6] transition-colors hover:text-gold-soft">
+        <a href={item.href} class="text-sm font-medium text-bone transition-colors hover:text-gold-soft">
           {item.label}
         </a>
       ))}
@@ -60,7 +60,7 @@ const dropdowns = [
     <button
       type="button"
       id="nav-menu-btn"
-      class="text-2xl text-white lg:hidden"
+      class="text-2xl text-bone lg:hidden"
       aria-label="Open menu"
       aria-haspopup="dialog"
       aria-controls="nav-drawer"
@@ -77,8 +77,8 @@ const dropdowns = [
 >
   <div class="flex h-full flex-col overflow-y-auto p-6">
     <div class="mb-6 flex items-center justify-between">
-      <span class="font-display text-lg font-black text-white">{business.displayName}</span>
-      <button type="button" id="nav-drawer-close" class="text-3xl leading-none text-white" aria-label="Close menu">
+      <span class="font-display text-lg font-black text-bone">{business.displayName}</span>
+      <button type="button" id="nav-drawer-close" class="text-3xl leading-none text-bone" aria-label="Close menu">
         &times;
       </button>
     </div>
@@ -86,12 +86,12 @@ const dropdowns = [
     <div class="flex flex-1 flex-col gap-1">
       {dropdowns.map((dd) => (
         <details class="border-b border-white/10 py-2">
-          <summary class="cursor-pointer list-none py-2 text-base font-medium text-white">
+          <summary class="cursor-pointer list-none py-2 text-base font-medium text-bone">
             {dd.label}
           </summary>
           <div class="flex flex-col gap-1 pb-2 pl-3">
             {dd.items.map((item) => (
-              <a href={item.href} class="py-2 text-[0.95rem] text-[#D9D8E6] hover:text-gold-soft">
+              <a href={item.href} class="py-2 text-[0.95rem] text-bone hover:text-gold-soft">
                 {item.label}
               </a>
             ))}
@@ -100,7 +100,7 @@ const dropdowns = [
       ))}
 
       {nav.primary.map((item) => (
-        <a href={item.href} class="border-b border-white/10 py-3 text-base font-medium text-white hover:text-gold-soft">
+        <a href={item.href} class="border-b border-white/10 py-3 text-base font-medium text-bone hover:text-gold-soft">
           {item.label}
         </a>
       ))}

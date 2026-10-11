@@ -10,10 +10,10 @@ const review = getReview(Astro.props.id);
 const brand = business.displayName.split(",")[0];
 ---
 
-<section class="bg-indigo py-16 text-center text-white md:py-18">
+<section class="bg-indigo py-16 text-center text-bone md:py-18">
   <div class="mx-auto max-w-2xl px-6 md:px-5">
     <div class="mb-5 text-xl tracking-[3px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <blockquote class="mx-auto max-w-[30ch] font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-semibold italic leading-[1.4] text-white">
+    <blockquote class="mx-auto max-w-[30ch] font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-semibold italic leading-[1.4] text-bone">
       "{review.excerpt ?? review.text}"
     </blockquote>
     <div class="mt-5 text-sm font-bold text-gold-soft">{displayAuthor(review)} &middot; {review.relationship} at {brand}</div>

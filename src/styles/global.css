@@ -1,17 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-indigo: #191A3E;
-  --color-indigo-deep: #0F1029;
-  --color-gold: #C9A227;
-  --color-gold-soft: #E4C765;
-  /* Gold for text on light (paper/white) backgrounds: #C9A227 fails WCAG AA
-     there (2.0-2.4:1). This keeps the hue and clears 4.5:1 on every light bg. */
-  --color-gold-deep: #80640E;
-  --color-paper: #FAF9F5;
-  --color-paper-warm: #EFEADC;
+  /* Warm charcoal-and-gold palette. The dark tokens keep their original
+     "indigo" names so every existing utility (bg-indigo, text-indigo-deep,
+     bg-indigo/97, ...) cascades without touching markup. */
+  --color-indigo: #14130F;      /* base dark background (deep warm charcoal) */
+  --color-indigo-deep: #1E1C17; /* raised dark panel: alt sections, menus, mobile bar */
+  --color-charcoal-raised: #262219; /* second panel depth */
+  --color-charcoal-deepest: #0D0C0A; /* footer */
+  --color-bone: #F3EDE1;        /* primary text on dark */
+  --color-bone-soft: #D6CEBE;   /* lead/body copy on dark */
+  --color-bone-muted: #B3AA98;  /* muted text on dark (8:1 on charcoal) */
+  --color-gold: #C49A3F;
+  --color-gold-soft: #E2C173;   /* highlights, italic accent words, eyebrows */
+  /* Gold for text on light (paper/white) backgrounds: #C49A3F fails WCAG AA
+     there (2.1-2.6:1). This keeps the hue and clears 4.5:1 on every light bg. */
+  --color-gold-deep: #7A5C1C;
+  /* Belt-maroon secondary accent. Fills/borders on dark, or text on light
+     only: as text on charcoal it is ~2:1. */
+  --color-maroon: #7D2B24;
+  --color-paper: #F7F3EA;
+  --color-paper-warm: #EDE5D4;
+  --color-paper-line: #DCD2BF;  /* hairline borders on paper-warm */
   --color-ink: #1C1C17;
-  --color-mist: #67665B;
+  --color-mist: #6A6255;
+
+  /* Card hover lift, tinted with the base charcoal. */
+  --shadow-lift: 0 16px 36px -20px rgb(20 19 15 / 0.4);
+  --shadow-lift-lg: 0 18px 40px -20px rgb(20 19 15 / 0.45);
 
   --font-display: var(--font-fraunces);
   --font-body: var(--font-archivo);

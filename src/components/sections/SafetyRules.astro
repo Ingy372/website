@@ -10,10 +10,10 @@ const { dark = false, heading = "How we keep everyone safe" } = Astro.props;
 ---
 
 <div class={`rounded-r border-l-4 border-gold p-7 ${dark ? "bg-white/[0.05]" : "border border-l-4 border-paper-warm border-l-gold bg-white"}`}>
-  <h2 class={`mb-4 font-display text-2xl font-black ${dark ? "text-white" : "text-indigo"}`}>{heading}</h2>
+  <h2 class={`mb-4 font-display text-2xl font-black ${dark ? "text-bone" : "text-indigo"}`}>{heading}</h2>
   <ul class="flex flex-col gap-2.5">
     {safetyRules.map((rule) => (
-      <li class={`relative pl-6 ${dark ? "text-[#C5C4D4]" : "text-[#40403A]"}`}>
+      <li class={`relative pl-6 ${dark ? "text-bone-soft" : "text-[#40403A]"}`}>
         <span class="absolute left-0 top-0 text-gold" aria-hidden="true">&#10003;</span>
         {rule}
       </li>
