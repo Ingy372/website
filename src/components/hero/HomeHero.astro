@@ -4,6 +4,14 @@ import { business, founded } from "../../data/business";
 import { minimumAge, trialDaysText } from "../../data/schedule";
 import { ratingText, countText } from "../../data/reviews";
 import CountUp from "../motion/CountUp.astro";
+import figureWhite from "../../images/figure_white.png";
+import figureGold from "../../images/figure_gold.png";
+
+// The kick figure's color. This is the ONE line to change: "white" | "gold".
+// To preview live in the browser, set --hero-figure: var(--figure-gold) on
+// .hero-figure in devtools.
+const figureColor: "white" | "gold" = "white";
+const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("${figureGold.src}");--hero-figure:var(--figure-${figureColor})`;
 ---
 
 <header class="relative overflow-hidden bg-indigo text-white">
@@ -13,7 +21,7 @@ import CountUp from "../motion/CountUp.astro";
   >
   </div>
   <div class="relative z-10 mx-auto grid max-w-6xl gap-14 px-6 md:px-5 py-20 md:grid-cols-[1.25fr_0.85fr] md:items-start md:gap-12 md:py-20">
-    <div>
+    <div class="relative">
       <span style="--hero-delay:0ms" class="hero-in mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
         <span class="h-px w-[30px] bg-gold" aria-hidden="true"></span>
         Christian Martial Arts &middot; Since {founded.year}
@@ -42,6 +50,16 @@ import CountUp from "../motion/CountUp.astro";
           <b class="block font-display text-[1.75rem] font-black text-white">Ages {minimumAge}+</b>
           <span class="text-[0.78rem] text-[#B0AFC2]">Preschool to adult</span>
         </div>
+      </div>
+
+      <!-- The logo's kick silhouette, driving in toward the trial card. It sits
+           in the open space right of the stats row. Hidden md–lg, where all
+           three stats fit on one line and there's no room beside them. -->
+      <div
+        class="pointer-events-none absolute right-0 bottom-0 aspect-[1541/1478] w-[clamp(96px,26vw,140px)] md:hidden lg:-right-10 lg:block lg:w-[clamp(150px,15vw,205px)]"
+        aria-hidden="true"
+      >
+        <div class="hero-figure h-full w-full" style={figureVars}></div>
       </div>
     </div>
 
@@ -85,8 +103,25 @@ import CountUp from "../motion/CountUp.astro";
     }
   }
 
+  /* The kick figure: full-res PNG scaled down by CSS, so it stays crisp on
+     any screen. One fast kick-in from the left that settles crisply, once
+     per load, starting just after the trial card. */
+  .hero-figure {
+    background: var(--hero-figure) center / contain no-repeat;
+    transform-origin: 40% 100%;
+    animation: kick-in 0.7s cubic-bezier(0.3, 0.8, 0.25, 1) 320ms both;
+  }
+
+  @keyframes kick-in {
+    from {
+      opacity: 0;
+      transform: translateX(-70px) rotate(-8deg);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-in {
+    .hero-in,
+    .hero-figure {
       animation: none;
     }
   }
