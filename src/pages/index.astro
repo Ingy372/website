@@ -251,7 +251,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       </SectionHead>
       <div class="grid gap-12 md:grid-cols-3 md:gap-10">
         {audiences.map((a) => (
-          <div>
+          <div class="-m-4 rounded border border-transparent p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gold hover:shadow-[0_16px_36px_-20px_rgba(25,26,62,0.4)] motion-reduce:hover:translate-y-0">
             <div class="mb-3.5 text-xs font-bold tracking-[0.18em] text-gold-deep uppercase">{a.who}</div>
             <h3 class="text-[1.35rem] font-black text-indigo">{a.title}</h3>
             <ul class="mt-3.5">
@@ -345,7 +345,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
     </div>
   </section>
 
-  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking" glow>
     <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
     <Fragment slot="subtext">No pressure. Just come train with us.</Fragment>
   </CTASection>

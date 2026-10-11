@@ -7,9 +7,11 @@ interface Props {
   bg?: "indigo" | "indigo-deep";
   secondaryLabel?: string;
   secondaryHref?: string;
+  /** Soft gold glow on the primary button's hover (homepage motion layer). */
+  glow?: boolean;
 }
 
-const { ctaLabel, ctaHref, bg = "indigo-deep", secondaryLabel, secondaryHref } = Astro.props;
+const { ctaLabel, ctaHref, bg = "indigo-deep", secondaryLabel, secondaryHref, glow = false } = Astro.props;
 const bgClass = bg === "indigo" ? "bg-indigo" : "bg-indigo-deep";
 ---
 
@@ -24,7 +26,10 @@ const bgClass = bg === "indigo" ? "bg-indigo" : "bg-indigo-deep";
     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
       <a
         href={ctaHref}
-        class="inline-block rounded-sm bg-gold px-8 py-4 text-base font-bold text-indigo-deep transition-all hover:-translate-y-0.5 hover:bg-gold-soft"
+        class:list={[
+          "inline-block rounded-sm bg-gold px-8 py-4 text-base font-bold text-indigo-deep transition-all hover:-translate-y-0.5 hover:bg-gold-soft",
+          glow && "duration-200 ease-out hover:shadow-lg hover:shadow-gold/35 motion-reduce:hover:translate-y-0",
+        ]}
       >
         {ctaLabel}
       </a>
