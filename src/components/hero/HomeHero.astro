@@ -16,7 +16,8 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
 
 <header class="relative overflow-hidden bg-indigo text-white">
   <div
-    class="pointer-events-none absolute left-[44%] top-[-140px] h-[560px] w-[560px] rounded-full border border-gold/[0.13]"
+    class="pointer-events-none absolute left-[44%] top-[-140px] h-[560px] w-[560px] rounded-full border border-gold/[0.13] will-change-transform"
+    data-parallax="0.35"
     aria-hidden="true"
   >
   </div>
@@ -56,7 +57,8 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
            in the open space right of the stats row. Hidden md–lg, where all
            three stats fit on one line and there's no room beside them. -->
       <div
-        class="pointer-events-none absolute right-0 bottom-0 aspect-[1541/1478] w-[clamp(96px,26vw,140px)] md:hidden lg:-right-10 lg:block lg:w-[clamp(150px,15vw,205px)]"
+        class="pointer-events-none absolute right-0 bottom-0 aspect-[1541/1478] w-[clamp(96px,26vw,140px)] md:hidden lg:-right-10 lg:block lg:w-[clamp(150px,15vw,205px)] will-change-transform"
+        data-parallax="0.1"
         aria-hidden="true"
       >
         <div class="hero-figure h-full w-full" style={figureVars}></div>
@@ -88,6 +90,38 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
     </div>
   </div>
 </header>
+
+<script>
+  // Gentle depth: as the page scrolls, the background ring (and, less, the
+  // kick figure) drift down at a fraction of scroll speed, so they lag the
+  // copy. Transform only (no layout, no CLS), one rAF per frame, and only
+  // while the hero is on screen. Reduced motion: never runs.
+  const layers = [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
+  const hero = layers[0]?.closest("header");
+  if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let onScreen = true;
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const y = Math.min(window.scrollY, hero.offsetTop + hero.offsetHeight);
+      for (const el of layers) {
+        el.style.transform = `translate3d(0, ${(y * Number(el.dataset.parallax)).toFixed(1)}px, 0)`;
+      }
+    };
+    const onScroll = () => {
+      if (!onScreen || queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      // Leaving fast can skip frames; snap to the final offset on exit too.
+      queued = false;
+      requestAnimationFrame(update);
+    }).observe(hero);
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>
 
 <style>
   /* One quick staggered rise on load: eyebrow, headline, subtext, stats,
