@@ -8,6 +8,7 @@ import ExtraCard from "../components/cards/ExtraCard.astro";
 import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
+import Marquee from "../components/motion/Marquee.astro";
 import { offer } from "../data/school";
 import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
@@ -65,6 +66,17 @@ const audiences = [
   },
 ];
 
+const martialStyles = ["Karate", "Jiu Jitsu", "Kung Fu", "Tae Kwon Do", "Japanese Weapons"];
+const values = [
+  "Discipline",
+  "Respect",
+  "Perseverance",
+  "Physical Fitness",
+  "Strong Work Ethic",
+  "Confidence",
+  "Humility",
+];
+
 const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 ---
 
@@ -74,6 +86,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
   path="/"
 >
   <HomeHero />
+  <Marquee items={martialStyles} label="Styles we teach" duration={40} />
 
   <section class="py-20 md:py-20" id="programs">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
@@ -224,6 +237,8 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       </div>
     </div>
   </section>
+
+  <Marquee items={values} label="What we teach beyond technique" variant="light" duration={60} reverse />
 
   <section class="py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">

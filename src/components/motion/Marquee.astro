@@ -1,0 +1,101 @@
+---
+// Infinite horizontal word strip. Pure CSS: the track holds two identical
+// halves and slides exactly one half's width, so the loop point is invisible.
+// Each half repeats the words enough times to stay wider than the screen.
+// Screen readers get the plain list once; the moving track is aria-hidden.
+// Reduced motion: no movement, the words sit centered and wrap.
+interface Props {
+  items: string[];
+  label: string;
+  variant?: "dark" | "light";
+  /** Copies of the word list inside each half (keep each half wider than ~2600px). */
+  repeat?: number;
+  /** Seconds for one half to scroll past. */
+  duration?: number;
+  reverse?: boolean;
+}
+const { items, label, variant = "dark", repeat = 3, duration = 45, reverse = false } = Astro.props;
+const half = Array.from({ length: repeat }, () => items).flat();
+---
+
+<div
+  class:list={[
+    "marquee relative overflow-hidden py-5",
+    variant === "dark"
+      ? "border-y border-gold/15 bg-indigo-deep text-white"
+      : "border-y border-paper-warm bg-white text-indigo",
+  ]}
+  style={`--marquee-duration:${duration}s`}
+  data-reverse={reverse ? "" : undefined}
+>
+  <ul class="sr-only" aria-label={label}>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+  <div class="marquee-track flex w-max" aria-hidden="true">
+    {[0, 1].map((copy) => (
+      <div class:list={["marquee-half flex shrink-0 items-center", copy === 1 && "marquee-copy"]}>
+        {half.map((item, i) => (
+          <span class:list={["flex items-center", i >= items.length && "marquee-repeat"]}>
+            <span
+              class:list={[
+                "whitespace-nowrap px-7",
+                variant === "dark"
+                  ? "text-sm font-bold tracking-[0.22em] uppercase"
+                  : "font-display text-[1.35rem] font-semibold italic",
+              ]}
+            >
+              {item}
+            </span>
+            <span class="h-1.5 w-1.5 rotate-45 bg-gold"></span>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-track {
+    animation: marquee var(--marquee-duration) linear infinite;
+  }
+
+  .marquee[data-reverse] .marquee-track {
+    animation-direction: reverse;
+  }
+
+  @media (hover: hover) {
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .marquee-half {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 0.75rem;
+      flex-shrink: 1;
+    }
+
+    /* Show the word list once, not the repeats used for looping. */
+    .marquee-copy,
+    .marquee-repeat {
+      display: none;
+    }
+  }
+</style>
