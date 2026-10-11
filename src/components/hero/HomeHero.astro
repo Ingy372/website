@@ -14,20 +14,20 @@ import CountUp from "../motion/CountUp.astro";
   </div>
   <div class="relative z-10 mx-auto grid max-w-6xl gap-14 px-6 md:px-5 py-20 md:grid-cols-[1.25fr_0.85fr] md:items-start md:gap-12 md:py-20">
     <div>
-      <span class="mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
+      <span style="--hero-delay:0ms" class="hero-in mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
         <span class="h-px w-[30px] bg-gold" aria-hidden="true"></span>
         Christian Martial Arts &middot; Since {founded.year}
       </span>
-      <h1 class="max-w-[15ch] text-[clamp(2.4rem,4.6vw,4rem)]">
+      <h1 style="--hero-delay:70ms" class="hero-in max-w-[15ch] text-[clamp(2.4rem,4.6vw,4rem)]">
         Discipline that follows them <span class="text-gold-soft">off the mat.</span>
       </h1>
-      <p class="mt-6 max-w-[44ch] text-lg text-[#C9C8D8]">
+      <p style="--hero-delay:140ms" class="hero-in mt-6 max-w-[44ch] text-lg text-[#C9C8D8]">
         A family dojo serving <b class="font-semibold text-white">Raeford</b>, <b
           class="font-semibold text-white">Fayetteville</b>, and <b
           class="font-semibold text-white">Hope Mills</b>. Where kids, teens, and adults build
         confidence, focus, and real self-defense. One belt at a time.
       </p>
-      <div class="mt-9 flex flex-wrap gap-8">
+      <div style="--hero-delay:210ms" class="hero-in mt-9 flex flex-wrap gap-8">
         <div class="border-l-2 border-gold pl-3.5">
           <b class="block font-display text-[1.75rem] font-black text-white"><CountUp value={founded.yearsNumeral} /></b>
           <span class="text-[0.78rem] text-[#B0AFC2]">Years, one family</span>
@@ -45,7 +45,7 @@ import CountUp from "../motion/CountUp.astro";
       </div>
     </div>
 
-    <div class="rounded border-t-4 border-gold bg-white p-7 shadow-[0_26px_60px_-28px_rgba(0,0,0,0.6)]">
+    <div style="--hero-delay:260ms" class="hero-in rounded border-t-4 border-gold bg-white p-7 shadow-[0_26px_60px_-28px_rgba(0,0,0,0.6)]">
       <h2 class="font-display text-2xl font-black text-indigo">Start with a {offer.noun}.</h2>
       <div class="mb-4 mt-1 text-xs font-bold tracking-[0.14em] text-gold-deep uppercase">No cost</div>
       <p class="text-sm text-mist">
@@ -70,3 +70,24 @@ import CountUp from "../motion/CountUp.astro";
     </div>
   </div>
 </header>
+
+<style>
+  /* One quick staggered rise on load: eyebrow, headline, subtext, stats,
+     then the trial card. CSS only, so the copy never waits on a script. */
+  .hero-in {
+    animation: hero-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--hero-delay, 0ms) both;
+  }
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in {
+      animation: none;
+    }
+  }
+</style>
