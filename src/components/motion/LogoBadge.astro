@@ -1,0 +1,140 @@
+---
+// The logo assembles itself: the badge shows with the kick figure's slot
+// faint, then the figure flies in from the right and lands exactly where it
+// sits in the real logo, and the badge gives a small "thump". Plays once,
+// when the badge scrolls into view and its art has loaded. Reduced motion:
+// the finished logo, no animation. Without JS it plays on load.
+import figureWhite from "../../images/figure_white.png";
+import figureGold from "../../images/figure_gold.png";
+// The full logo badge with the kick figure cut out (derived from
+// School_logo_black_background.svg: figure and a hidden white box removed,
+// cropped to the badge).
+import badgeUrl from "../../images/logo-badge-no-figure.svg?url";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+
+// The kick figure's color. This is the ONE line to change: "white" | "gold".
+// White matches the real logo. To preview live in the browser, set
+// --badge-figure: var(--figure-gold) on .logo-badge in devtools.
+const figureColor: "white" | "gold" = "white";
+const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("${figureGold.src}");--badge-figure:var(--figure-${figureColor})`;
+---
+
+<div
+  class:list={["logo-badge relative aspect-[430/470]", className]}
+  style={figureVars}
+  role="img"
+  aria-label="Yeshua's Ryu Martial Arts emblem: a martial artist kicking over a red cross, ringed by the words Be More Than a Conqueror"
+>
+  <div class="badge-stage absolute inset-0">
+    <img src={badgeUrl} alt="" width="430" height="470" loading="lazy" class="absolute inset-0 h-full w-full" />
+    <div class="badge-figure badge-slot" aria-hidden="true"></div>
+    <div class="badge-figure badge-kick" aria-hidden="true"></div>
+  </div>
+</div>
+<script is:inline>
+  // Hold everything until the badge art has loaded and the badge is well
+  // on screen, so the landing is seen. Runs before first paint.
+  (function () {
+    var badge = document.currentScript.previousElementSibling;
+    if (!("IntersectionObserver" in window)) return;
+    var art = badge.querySelector("img");
+    var loaded = art.complete;
+    var seen = false;
+    badge.classList.add("badge-wait");
+    var go = function () {
+      if (loaded && seen) badge.classList.remove("badge-wait");
+    };
+    art.addEventListener("load", function () { loaded = true; go(); });
+    art.addEventListener("error", function () { loaded = true; go(); });
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      seen = true;
+      go();
+    }, { threshold: 0.6 });
+    io.observe(badge);
+  })();
+</script>
+
+<style>
+  /* The badge fades up; the figure flies in from the right, slightly big and
+     tilted, drives in, overshoots a hair, and snaps home. Full-res PNG
+     scaled by CSS, so it stays crisp. */
+  .logo-badge {
+    animation: badge-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Timed to the kick's landing (450ms delay + ~78% of 1000ms). */
+  .badge-stage {
+    animation: badge-thump 0.6s cubic-bezier(0.3, 0, 0.3, 1) 1230ms;
+  }
+
+  /* The PNG's full extent in the badge's 430x470 viewBox, measured against
+     the logo's own silhouette mask (x 224.40, y 239.33, w 172.89,
+     h 203.63), and stretched to it the same way the logo stretches it. */
+  .badge-figure {
+    position: absolute;
+    left: 25.907%;
+    top: 32.624%;
+    width: 40.207%;
+    height: 43.325%;
+    background: var(--badge-figure) 0 0 / 100% 100% no-repeat;
+  }
+
+  .badge-slot {
+    opacity: 0.13;
+  }
+
+  .badge-kick {
+    transform-origin: 30% 95%;
+    animation: badge-kick 1s cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+  }
+
+  .badge-wait,
+  .badge-wait .badge-stage,
+  .badge-wait .badge-kick {
+    animation-play-state: paused;
+  }
+
+  @keyframes badge-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  @keyframes badge-kick {
+    0% {
+      opacity: 0;
+      transform: translate(170%, -14%) rotate(14deg) scale(1.3);
+    }
+    25% {
+      opacity: 1;
+    }
+    78% {
+      transform: translate(-3%, 1%) rotate(-2deg) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes badge-thump {
+    40% {
+      transform: scale(1.025);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-badge,
+    .badge-stage,
+    .badge-kick {
+      animation: none;
+    }
+  }
+</style>
