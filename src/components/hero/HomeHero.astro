@@ -25,7 +25,7 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
     aria-hidden="true"
   >
   </div>
-  <div class="relative z-10 mx-auto grid max-w-6xl gap-14 px-6 md:px-5 py-20 md:grid-cols-[1.25fr_0.85fr] md:items-center md:gap-12 md:py-20">
+  <div class="relative z-10 mx-auto grid max-w-6xl gap-14 px-6 md:px-5 py-20 md:grid-cols-[1.25fr_0.85fr] md:items-start md:gap-12 md:py-20">
     <div>
       <span style="--hero-delay:0ms" class="hero-in mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
         <span class="h-px w-[30px] bg-gold" aria-hidden="true"></span>
@@ -58,7 +58,7 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
       </div>
     </div>
 
-    <div class="flex flex-col items-center gap-8">
+    <div class="flex flex-col items-center gap-8 md:gap-6">
     <!-- The logo assembles itself: the badge shows with the kick figure's slot
          faint, then the figure flies in from the right and lands exactly where
          it sits in the real logo. The figure box is the PNG's full extent in
@@ -66,7 +66,7 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
          silhouette mask (x 224.40, y 239.33, w 172.89, h 203.63), and
          stretched to it the same way the logo stretches it. -->
     <div
-      class="hero-badge relative aspect-[430/470] w-[200px] lg:w-[250px]"
+      class="hero-badge relative aspect-[430/470] w-[200px] md:w-[124px]"
       style={figureVars}
       role="img"
       aria-label="Yeshua's Ryu Martial Arts emblem: a martial artist kicking over a red cross, ringed by the words Be More Than a Conqueror"
@@ -176,16 +176,16 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
   }
 
   /* The badge fades in with the hero; the figure flies in from the right,
-     slightly big and tilted, drives in fast, overshoots a hair, and snaps
+     slightly big and tilted, drives in, overshoots a hair, and snaps
      home. The badge gives a small "thump" as it lands. Full-res PNG scaled
      by CSS, so it stays crisp. */
   .hero-badge {
     animation: hero-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
   }
 
-  /* Timed to the kick's landing (450ms delay + ~78% of 500ms). */
+  /* Timed to the kick's landing (450ms delay + ~78% of 1000ms). */
   .badge-stage {
-    animation: badge-thump 0.3s cubic-bezier(0.3, 0, 0.3, 1) 840ms;
+    animation: badge-thump 0.6s cubic-bezier(0.3, 0, 0.3, 1) 1230ms;
   }
 
   .badge-figure {
@@ -203,7 +203,7 @@ const figureVars = `--figure-white:url("${figureWhite.src}");--figure-gold:url("
 
   .badge-kick {
     transform-origin: 30% 95%;
-    animation: badge-kick 0.5s cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+    animation: badge-kick 1s cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
   }
 
   .badge-wait .badge-stage,
