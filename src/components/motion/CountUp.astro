@@ -28,7 +28,7 @@ const { value } = Astro.props;
     overlay.style.cssText = `position:absolute;inset:0;color:${getComputedStyle(el).color}`;
     overlay.textContent = (0).toFixed(decimals);
     el.style.color = "transparent";
-    el.append(overlay);
+    el.appendChild(overlay);
 
     let finished = false;
     const finish = () => {

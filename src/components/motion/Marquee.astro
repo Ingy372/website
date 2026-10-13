@@ -61,13 +61,13 @@ const { items, label, variant = "dark", repeat = 3, duration = 45, reverse = fal
         for (const li of words) {
           const clone = li.cloneNode(true) as HTMLElement;
           clone.setAttribute("aria-hidden", "true");
-          half.append(clone);
+          half.appendChild(clone);
         }
       }
       const copy = half.cloneNode(true) as HTMLElement;
       copy.removeAttribute("aria-label");
       copy.setAttribute("aria-hidden", "true");
-      track.append(copy);
+      track.appendChild(copy);
       root.classList.add("is-looping");
     }
   }
