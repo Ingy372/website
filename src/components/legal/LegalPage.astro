@@ -1,23 +1,23 @@
 ---
-// Shared shell for /privacy and /sms-terms. Both stay noindex until
-// `reviewed` is set. TODO(JAY: have both drafts reviewed, then set reviewed
-// and an effectiveDate on each page.)
+// Shared shell for /privacy and /sms-terms: title, effective date, and
+// prose styles. `noindex` keeps a page out of search results.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 interface Props {
   title: string;
   description: string;
   path: string;
-  effectiveDate: string | null;
-  reviewed: boolean;
+  /** Shown as "Effective …", e.g. "October 12, 2026". */
+  effectiveDate: string;
+  noindex?: boolean;
 }
-const { title, description, path, effectiveDate, reviewed } = Astro.props;
+const { title, description, path, effectiveDate, noindex = false } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} path={path} noindex={!reviewed}>
+<BaseLayout title={title} description={description} path={path} noindex={noindex}>
   <article class="mx-auto max-w-3xl px-6 py-16 md:px-5 md:py-20">
     <h1 class="mb-2 text-[clamp(2rem,4vw,2.8rem)] text-indigo">{title}</h1>
-    {effectiveDate ? <p class="mb-10 text-sm text-mist">Effective {effectiveDate}</p> : <div class="mb-8"></div>}
+    <p class="mb-10 text-sm text-mist">Effective {effectiveDate}</p>
     <div class="flex flex-col gap-4 text-[1.02rem] text-[#40403A] [&_a]:font-semibold [&_a]:text-indigo [&_a]:underline [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-indigo [&_li]:ml-5 [&_li]:list-disc [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5">
       <slot />
     </div>
