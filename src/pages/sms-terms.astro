@@ -3,6 +3,10 @@
 // program name and purpose, how to opt in, frequency, "Msg & data rates may
 // apply", STOP and HELP, consent not a condition of purchase, carrier
 // disclaimer, no sharing of mobile numbers, and a privacy policy link.
+// SMS is not live (10DLC pending), so the page says so and describes the
+// opt-in only as explicit consent, not a specific checkbox. When it
+// launches: drop the Status section, put the program in the present tense,
+// and name the actual opt-in step.
 import LegalPage from "../components/legal/LegalPage.astro";
 import { business } from "../data/business";
 
@@ -16,23 +20,29 @@ const programName = `${business.displayName} Notifications`;
   effectiveDate="October 12, 2026"
   noindex
 >
+  <h2>Status</h2>
+  <p>
+    Text messaging is not active yet. We do not currently send text messages through this program,
+    and nobody is signed up for it. These terms describe how it will work once it launches.
+  </p>
+
   <h2>The program</h2>
   <p>
-    {programName} sends text messages to parents, guardians, and adult students who opt in, about
-    trial class bookings, class reminders, schedule changes and closures, and replies to questions
-    you send us.
-    {/* TODO(JAY: SMS sending number and message types, pending 10DLC registration; the site sends no texts yet) */}
+    When it launches, {programName} will send text messages to parents, guardians, and adult
+    students who have opted in, about trial class bookings, class reminders, schedule changes and
+    closures, and replies to questions you send us.
   </p>
 
   <h2>How you opt in</h2>
   <p>
-    You opt in by checking the text message consent box when you book a class, or by texting us
-    first. Consent to receive texts is not a condition of any purchase or enrollment.
-    {/* TODO(JAY: confirm where the SMS consent checkbox lives, e.g. inside the Dojo Forge booking form) */}
+    We will text you only after you give us your explicit consent to receive text messages from
+    this program. We will ask for that consent separately, and we will not treat booking a class,
+    filling out a form, or giving us your phone number as consent on its own. Consent to receive
+    texts is never a condition of any purchase or enrollment.
   </p>
 
   <h2>Message frequency and cost</h2>
-  <p>Message frequency varies. Message and data rates may apply. Check your mobile plan for details.</p>
+  <p>Message frequency will vary. Message and data rates may apply. Check your mobile plan for details.</p>
 
   <h2>Stopping and getting help</h2>
   <ul>
