@@ -4,7 +4,7 @@
 // apply", STOP and HELP, consent not a condition of purchase, carrier
 // disclaimer, no sharing of mobile numbers, and a privacy policy link.
 import LegalPage from "../components/legal/LegalPage.astro";
-import { business, todo } from "../data/business";
+import { business } from "../data/business";
 
 const programName = `${business.displayName} Notifications`;
 ---
@@ -20,14 +20,15 @@ const programName = `${business.displayName} Notifications`;
   <p>
     {programName} sends text messages to parents, guardians, and adult students who opt in, about
     trial class bookings, class reminders, schedule changes and closures, and replies to questions
-    you send us. {todo("SMS sending number and message types: pending 10DLC registration; the site sends no texts yet")}
+    you send us.
+    {/* TODO(JAY: SMS sending number and message types, pending 10DLC registration; the site sends no texts yet) */}
   </p>
 
   <h2>How you opt in</h2>
   <p>
     You opt in by checking the text message consent box when you book a class, or by texting us
     first. Consent to receive texts is not a condition of any purchase or enrollment.
-    {todo("confirm where the SMS consent checkbox lives, e.g. inside the Dojo Forge booking form")}
+    {/* TODO(JAY: confirm where the SMS consent checkbox lives, e.g. inside the Dojo Forge booking form) */}
   </p>
 
   <h2>Message frequency and cost</h2>

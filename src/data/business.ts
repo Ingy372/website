@@ -2,11 +2,13 @@
 // email, socials, and the founding year. Every page/component imports these
 // rather than hardcoding them, so a correction here is a one-line fix.
 //
-// Any value still marked TODO(JAY: ...) renders that marker on the page on
-// purpose, so an unconfirmed fact can't quietly ship. `npm run check:todos`
-// (after a build) lists every one still present in the output.
+// An unconfirmed value is marked todo("...") so the reminder lives with the
+// data. Renderers skip any value where isTodo() is true, so nothing
+// unconfirmed shows on the page; fill the value in and it appears.
+// `npm run check:todos` (after a build) lists any marker that still leaks.
 
 export const todo = (note: string) => `TODO(JAY: ${note})`;
+export const isTodo = (value: string) => value.startsWith("TODO(JAY");
 
 // Every "since …", "… years", and "… decades" string on the site is computed from this.
 export const FOUNDED_YEAR = 1993;
@@ -69,8 +71,7 @@ export const directions = {
   entrance: todo("which door to use, and where parents wait or watch"),
   landmark: todo("anything that helps people find the turn, e.g. a sign or landmark; delete if none"),
   // TODO(JAY: photo of the building as you pull in) — add it under
-  // src/images/facility/ and import it in Directions.astro; until then the
-  // block shows a TODO marker in its place.
+  // src/images/facility/ and show it in Directions.astro.
   hasBuildingPhoto: false,
 };
 

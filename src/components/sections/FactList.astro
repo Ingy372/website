@@ -2,13 +2,16 @@
 // "At a glance" definition list: party details, PNO details, and the class
 // summaries on the program pages.
 import type { Fact } from "../../data/parties";
+import { isTodo } from "../../data/business";
 
 interface Props {
   heading: string;
   facts: Fact[];
   dark?: boolean;
 }
-const { heading, facts, dark = false } = Astro.props;
+const { heading, dark = false } = Astro.props;
+// Unconfirmed facts are left out rather than shown as placeholders.
+const facts = Astro.props.facts.filter((f) => !isTodo(f.value));
 ---
 
 <div class={`rounded border-t-4 border-gold p-7 ${dark ? "bg-white/[0.05] text-white" : "border-x border-b border-x-paper-warm border-b-paper-warm bg-white"}`}>

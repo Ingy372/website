@@ -1,7 +1,7 @@
 // Birthday party and Parents Night Out facts: the "at a glance" blocks on
 // /birthday-parties and /parents-night-out. PNO *dates* live in events.ts.
 // No prices anywhere (BUILD-BRIEF: no pricing on the site). Unconfirmed
-// values are TODO(JAY) and render as markers until filled in.
+// values are todo() and are left off the page until filled in.
 
 import { todo } from "./business";
 

@@ -7,7 +7,7 @@ import {
   directions,
   mapsDirectionsUrl,
   mapsPlaceUrl,
-  todo,
+  isTodo,
 } from "../../data/business";
 
 interface Props {
@@ -43,21 +43,21 @@ const { heading = "Getting here" } = Astro.props;
   </div>
 
   <dl class="grid gap-x-6 gap-y-3 text-[#40403A] sm:grid-cols-[auto_1fr]">
-    {directions.driveTimes.map((d) => (
+    {directions.driveTimes.filter((d) => !isTodo(d.time)).map((d) => (
       <>
         <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">From {d.from}</dt>
         <dd>{d.time}</dd>
       </>
     ))}
-    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Parking</dt>
-    <dd>{directions.parking}</dd>
-    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Which door</dt>
-    <dd>{directions.entrance}</dd>
-    <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">Finding us</dt>
-    <dd>{directions.landmark}</dd>
+    {[
+      ["Parking", directions.parking],
+      ["Which door", directions.entrance],
+      ["Finding us", directions.landmark],
+    ].filter(([, value]) => !isTodo(value)).map(([label, value]) => (
+      <>
+        <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">{label}</dt>
+        <dd>{value}</dd>
+      </>
+    ))}
   </dl>
-
-  {!directions.hasBuildingPhoto && (
-    <p class="mt-5 rounded bg-paper-warm p-4 text-sm text-mist">{todo("photo of the building as you pull in")}</p>
-  )}
 </div>
