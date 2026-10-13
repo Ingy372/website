@@ -1,8 +1,10 @@
 ---
 // A stat that counts up from zero the first time it scrolls into view.
-// The real value is what renders in the HTML: no JS, a script error, or
-// reduced motion all leave the final number showing, never "0". An invisible
-// copy of the final value reserves the width, so the count can't shift layout.
+// The HTML holds the real value once (what screen readers and crawlers get):
+// no JS, a script error, or reduced motion all leave the final number
+// showing, never "0". While counting, the real number is kept in place but
+// transparent (so it still reserves the width) and an aria-hidden overlay
+// shows the count; the overlay is removed when it lands.
 interface Props {
   /** Final value as displayed, e.g. "32", "5.0", "83". */
   value: string;
@@ -10,13 +12,7 @@ interface Props {
 const { value } = Astro.props;
 ---
 
-<span class="relative inline-block tabular-nums"
-  ><span class="sr-only">{value}</span><span class="invisible" aria-hidden="true">{value}</span><span
-    class="absolute inset-0 whitespace-nowrap"
-    aria-hidden="true"
-    data-count-to={value}>{value}</span
-  ></span
->
+<span class="relative inline-block whitespace-nowrap tabular-nums" data-count-to={value}>{value}</span>
 
 <script>
   const DURATION = 2100;
@@ -26,10 +22,19 @@ const { value } = Astro.props;
     const target = Number.parseFloat(final);
     if (!Number.isFinite(target)) return;
     const decimals = (final.split(".")[1] ?? "").length;
+
+    const overlay = document.createElement("span");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.style.cssText = `position:absolute;inset:0;color:${getComputedStyle(el).color}`;
+    overlay.textContent = (0).toFixed(decimals);
+    el.style.color = "transparent";
+    el.append(overlay);
+
     let finished = false;
     const finish = () => {
       finished = true;
-      el.textContent = final;
+      overlay.remove();
+      el.style.color = "";
     };
     // Safety net: whatever happens mid-animation, land on the real number.
     const safety = window.setTimeout(finish, DURATION + 500);
@@ -45,7 +50,7 @@ const { value } = Astro.props;
           return;
         }
         const eased = 1 - (1 - progress) ** 3;
-        el.textContent = (target * eased).toFixed(decimals);
+        overlay.textContent = (target * eased).toFixed(decimals);
         requestAnimationFrame(step);
       } catch {
         finish();

@@ -1,9 +1,10 @@
 ---
-// Infinite horizontal word strip. Pure CSS: the track holds two identical
-// halves and slides exactly one half's width, so the loop point is invisible.
-// Each half repeats the words enough times to stay wider than the screen.
-// Screen readers get the plain list once; the moving track is aria-hidden.
-// Reduced motion: no movement, the words sit centered and wrap.
+// Infinite horizontal word strip. The track holds two identical halves and
+// slides exactly one half's width, so the loop point is invisible. Each half
+// repeats the words enough times to stay wider than the screen.
+// The HTML holds the word list once (what screen readers and crawlers get);
+// the script clones the looping copies and marks every clone aria-hidden.
+// Reduced motion: no clones, no movement; the words sit centered and wrap.
 interface Props {
   items: string[];
   label: string;
@@ -15,7 +16,6 @@ interface Props {
   reverse?: boolean;
 }
 const { items, label, variant = "dark", repeat = 3, duration = 45, reverse = false } = Astro.props;
-const half = Array.from({ length: repeat }, () => items).flat();
 ---
 
 <div
@@ -27,35 +27,69 @@ const half = Array.from({ length: repeat }, () => items).flat();
   ]}
   style={`--marquee-duration:${duration}s`}
   data-reverse={reverse ? "" : undefined}
+  data-marquee-repeat={repeat}
 >
-  <ul class="sr-only" aria-label={label}>
-    {items.map((item) => <li>{item}</li>)}
-  </ul>
-  <div class="marquee-track flex w-max" aria-hidden="true">
-    {[0, 1].map((copy) => (
-      <div class:list={["marquee-half flex shrink-0 items-center", copy === 1 && "marquee-copy"]}>
-        {half.map((item, i) => (
-          <span class:list={["flex items-center", i >= items.length && "marquee-repeat"]}>
-            <span
-              class:list={[
-                "whitespace-nowrap px-7",
-                variant === "dark"
-                  ? "text-sm font-bold tracking-[0.22em] uppercase"
-                  : "font-display text-[1.35rem] font-semibold italic",
-              ]}
-            >
-              {item}
-            </span>
-            <span class="h-1.5 w-1.5 rotate-45 bg-gold"></span>
+  <div class="marquee-track flex w-max">
+    <ul class="marquee-half flex shrink-0 items-center" aria-label={label}>
+      {items.map((item) => (
+        <li class="flex items-center">
+          <span
+            class:list={[
+              "whitespace-nowrap px-7",
+              variant === "dark"
+                ? "text-sm font-bold tracking-[0.22em] uppercase"
+                : "font-display text-[1.35rem] font-semibold italic",
+            ]}
+          >
+            {item}
           </span>
-        ))}
-      </div>
-    ))}
+          <span class="h-1.5 w-1.5 rotate-45 bg-gold" aria-hidden="true"></span>
+        </li>
+      ))}
+    </ul>
   </div>
 </div>
 
+<script>
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    for (const root of document.querySelectorAll<HTMLElement>(".marquee")) {
+      const track = root.querySelector<HTMLElement>(".marquee-track")!;
+      const half = track.querySelector<HTMLElement>(".marquee-half")!;
+      const words = [...half.children];
+      const repeat = Number(root.dataset.marqueeRepeat) || 3;
+      for (let i = 1; i < repeat; i++) {
+        for (const li of words) {
+          const clone = li.cloneNode(true) as HTMLElement;
+          clone.setAttribute("aria-hidden", "true");
+          half.append(clone);
+        }
+      }
+      const copy = half.cloneNode(true) as HTMLElement;
+      copy.removeAttribute("aria-label");
+      copy.setAttribute("aria-hidden", "true");
+      track.append(copy);
+      root.classList.add("is-looping");
+    }
+  }
+</script>
+
 <style>
-  .marquee-track {
+  /* Reduced motion: the list once, centered, wrapping. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .marquee-half {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 0.75rem;
+      flex-shrink: 1;
+    }
+  }
+
+  .is-looping .marquee-track {
     animation: marquee var(--marquee-duration) linear infinite;
   }
 
@@ -75,27 +109,6 @@ const half = Array.from({ length: repeat }, () => items).flat();
     }
     to {
       transform: translateX(-50%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .marquee-half {
-      flex-wrap: wrap;
-      justify-content: center;
-      row-gap: 0.75rem;
-      flex-shrink: 1;
-    }
-
-    /* Show the word list once, not the repeats used for looping. */
-    .marquee-copy,
-    .marquee-repeat {
-      display: none;
     }
   }
 </style>
