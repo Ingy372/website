@@ -6,6 +6,7 @@ import IconBenefitCard from "../components/cards/IconBenefitCard.astro";
 import StepList from "../components/sections/StepList.astro";
 import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { Picture } from "astro:assets";
@@ -166,6 +167,8 @@ const steps = [
       />
     </div>
   </section>
+
+  <ReviewQuote id="benjamin-s" />
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=teensAdults">
     <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>

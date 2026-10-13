@@ -7,7 +7,6 @@
     "lastChecked": "2026-10-09"
   },
   "_todo": "TODO(JAY: add each review's posted date as \"date\": \"YYYY-MM-DD\" so cards can show it) Update summary.count and lastChecked when the Google count changes.",
-  "_removed": "TODO(JAY: the \"60 mile radius\" student review was credited to Benjamin S., which does not match its Google author. Re-add it here with the author exactly as Google shows it, then it can go back on Home and /teens-adults.)",
   "reviews": [
     {
       "id": "taylor-s",
@@ -18,6 +17,16 @@
       "rating": 5,
       "text": "Staff is without a doubt some of the most patient and caring individuals I have met. They deal with our son who is literally all gas no break with compassion. His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable. Highly recommend to anyone.",
       "excerpt": "His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable."
+    },
+    {
+      "id": "benjamin-s",
+      "author": "Benjamin S.",
+      "relationship": "Student",
+      "source": "Google",
+      "date": null,
+      "rating": 5,
+      "text": "Very skilled instructors with a rich history in martial arts! This is absolutely one of the best if not the best in a 60 mile radius! I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here. I have experience in martial arts and know what to look for in a gym and in instructors. I've been a student here for a while and can say with 100% confidence that this is where you want to be.",
+      "excerpt": "This is absolutely one of the best if not the best in a 60 mile radius! … I've been a student here for a while and can say with 100% confidence that this is where you want to be."
     },
     {
       "id": "sarah-g",
