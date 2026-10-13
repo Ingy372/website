@@ -5,6 +5,16 @@
 		"global_fetch_strictly_public"
 	],
 	"name": "action-zone-cma",
+	// Keep the workers.dev URL and preview URLs on (wrangler turns them off by
+	// default once routes are listed).
+	"workers_dev": true,
+	"preview_urls": true,
+	// Production hostnames, served as Worker Custom Domains (Cloudflare manages
+	// their DNS records and certificates).
+	"routes": [
+		{ "pattern": "actionzonecma.com", "custom_domain": true },
+		{ "pattern": "www.actionzonecma.com", "custom_domain": true }
+	],
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
 		"directory": "./dist",
