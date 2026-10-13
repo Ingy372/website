@@ -1,7 +1,8 @@
 // Birthday party and Parents Night Out facts: the "at a glance" blocks on
 // /birthday-parties and /parents-night-out. PNO *dates* live in events.ts.
-// No prices anywhere (BUILD-BRIEF: no pricing on the site). Unconfirmed
-// values are todo() and are left off the page until filled in.
+// Party pricing is confirmed by Jay and shown on /birthday-parties (an
+// exception to the brief's no-pricing rule). Unconfirmed values are todo()
+// and are left off the page until filled in.
 
 import { todo } from "./business";
 
@@ -12,13 +13,12 @@ export interface Fact {
 
 export const birthdayPartyFacts: Fact[] = [
   { label: "Ages", value: todo("birthday party ages") },
-  { label: "Party length", value: todo("how long a party runs") },
-  { label: "Guests", value: todo("maximum number of kids") },
+  { label: "Party length", value: "1 hour ($100) or 2 hours ($200)" },
+  { label: "Guests", value: "Up to 10 kids included, plus $10 for each child over 10" },
   { label: "When", value: todo("days and times parties can be booked") },
   { label: "Book ahead", value: todo("how far in advance to book") },
-  // From the existing page copy: "You bring the cake and the kids."
-  { label: "You bring", value: "The cake and the kids. We handle setup and cleanup." },
-  { label: "Food and drinks", value: todo("what food and drinks families may bring or serve") },
+  { label: "You bring", value: "The cake, decorations, food and drinks, and plates, napkins, and utensils. You set up your party area." },
+  { label: "We handle", value: "Running the party, cutting and serving the cake, serving the food, and cleanup afterward." },
 ];
 
 export const parentsNightOutFacts: Fact[] = [

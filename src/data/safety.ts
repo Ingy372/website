@@ -13,3 +13,10 @@ export const safetyRules: string[] = [
   // Confirmed by Jay: a parent supervises siblings on the outdoor playground.
   "Siblings can play on our outdoor playground with a parent supervising.",
 ];
+
+// Party version for /birthday-parties: only what is confirmed for parties.
+export const partySafetyRules: string[] = [
+  "Every party activity is run and supervised by our instructors.",
+  "The throwing wall is used only under close instructor supervision.",
+  "The sword cake cut is guided by an instructor every step of the way.",
+];

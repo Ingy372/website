@@ -9,49 +9,72 @@ import CTASection from "../components/sections/CTASection.astro";
 import FactList from "../components/sections/FactList.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
 import { birthdayPartyFacts } from "../data/parties";
+import { partySafetyRules } from "../data/safety";
 import { business, cityState } from "../data/business";
 
 import partyPhoto from "../images/birthday-parties/party.jpg";
 import cakeCut from "../images/birthday-parties/cake-cut.jpg";
 
 const included = [
-  { title: "Led by our instructors", desc: "Our instructors run the entire party start to finish, keeping every kid engaged, safe, and having the time of their life." },
+  { title: "Led by our instructors", desc: "Our instructors run every game and activity, keeping every kid engaged, safe, and having the time of their life." },
   { title: "The ninja line and throwing wall", desc: "The two things no other party in town has. Every guest gets a turn on the line and a chance to throw at the wall, supervised the whole way." },
   { title: "Games and real moves", desc: "High-energy martial arts games plus a few genuine techniques, so every kid leaves feeling like they learned something cool." },
   { title: "Room for the whole crew", desc: "Space inside on the mat and out on the playground, so there is always somewhere for the energy to go." },
-  { title: "Time for cake and gifts", desc: "We build in time for all the birthday traditions, and we turn the cake cutting into a moment nobody at the party will forget." },
-  { title: "Setup and cleanup handled", desc: "We set it up before you arrive and clean it up after you leave. You bring the cake and the kids. That is it." },
+  { title: "Time for cake and gifts", desc: "We build in time for all the birthday traditions, turn the cake cutting into a moment nobody at the party will forget, then cut and serve the cake for you." },
+  { title: "Serving and cleanup handled", desc: "Our team serves the cake and food you bring, and cleans up after the party. You decorate and set up your space; we take it from there." },
+];
+
+const weHandle = [
+  "Run the party: martial arts activities, games, the ninja line, and the throwing wall, all supervised",
+  "Cut and serve the cake",
+  "Serve the food",
+  "Clean up afterward",
+];
+
+const youBring = [
+  "The cake",
+  "Your decorations (set up your party area however you like)",
+  "Food and drinks",
+  "Plates, napkins, and utensils",
+];
+
+const pricing = [
+  { name: "1-Hour Party", price: "$100", note: "Up to 10 kids", desc: "About 30 minutes of martial arts warm-up, drills, and fun, then a break for cake, food, and presents." },
+  { name: "2-Hour Party", price: "$200", note: "A full hour on the mat", desc: "A full hour of instruction and activities, then cake, food, presents, and everything after." },
 ];
 
 const steps = [
   { title: "Reach out", description: "Give us a call or send a message with your child's age and the date you have in mind." },
-  { title: "We lock in the details", description: "We will walk you through timing, guest count, and everything the party includes, then reserve your date." },
-  { title: "You show up and enjoy it", description: "Bring the cake and the crew. We handle the rest, from the first game to the last sweep of the floor." },
+  { title: "We lock in the details", description: "We will walk you through party length, guest count, and who handles what, then reserve your date." },
+  { title: "Set up and enjoy it", description: "Bring the cake, food, and decorations, and set up your party area. Our instructors run the party, serve the cake and food, and clean up when it is over." },
 ];
+
+const checkItem = "relative pl-6 text-[#40403A]";
 ---
 
 <BaseLayout
   title="Birthday Parties"
-  description={`Book a martial arts birthday party at ${business.displayName} in ${cityState}. Ninja line, throwing wall, games, and a cake cut with a real sword.`}
+  description={`Book a martial arts birthday party at ${business.displayName} in ${cityState}. Ninja line, throwing wall, games, and a cake cut with a real sword. You bring the cake and food; we run the party and clean up.`}
   path="/birthday-parties"
 >
   <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact?interest=birthday-party">
     <Fragment slot="heading">The party they'll <em>talk about for months.</em></Fragment>
     <Fragment slot="subtext">
       Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. Your child
-      is the star of the show, and you clean up nothing.
+      is the star of the show, our instructors run the party, and we clean up when it is over.
     </Fragment>
   </ProgramHero>
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
       <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
-        You bring the cake. <span class="text-gold-deep">We bring everything else.</span>
+        You set the scene. <span class="text-gold-deep">We run the party.</span>
       </h2>
       <p class="mb-6 md:mb-4">
-        Our instructors run the entire party, from the first game to the last sweep of the floor.
-        No crowd control, no cleanup. You get to actually be there for it instead of working
-        through it.
+        You bring the cake, the food, and the decorations, and set up your party area however you
+        like. Our instructors take it from there: they run the kids through every game and
+        activity, cut and serve the cake, serve the food, and clean up afterward. No crowd control
+        on your end. You get to actually be there for it instead of working through it.
       </p>
       <p>
         Your child spends their birthday running the ninja line, throwing stars at the wall, and
@@ -60,15 +83,65 @@ const steps = [
     </div>
   </div>
 
+  <section class="pb-4">
+    <div class="mx-auto max-w-5xl px-6 md:px-5">
+      <SectionHead kicker="Who Does What" center>
+        <Fragment slot="heading">Here's how the party splits up.</Fragment>
+      </SectionHead>
+      <div class="grid gap-6 md:grid-cols-2 md:gap-5">
+        <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7">
+          <h3 class="mb-4 text-xl font-black text-indigo">What we handle</h3>
+          <ul class="flex flex-col gap-2.5">
+            {weHandle.map((item) => (
+              <li class={checkItem}><span class="absolute left-0 top-0 text-gold" aria-hidden="true">&#10003;</span>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-indigo bg-white p-7">
+          <h3 class="mb-4 text-xl font-black text-indigo">What you bring</h3>
+          <ul class="flex flex-col gap-2.5">
+            {youBring.map((item) => (
+              <li class={checkItem}><span class="absolute left-0 top-0 text-gold" aria-hidden="true">&#10003;</span>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <p class="mx-auto mt-8 max-w-3xl text-center text-lg text-[#3E3E38]">
+        It's your party, so it runs your way. Some parents sit back and let our team cut and serve
+        the cake and handle the food; others take over after the cake and run things themselves.
+        Either way works. Just tell us how you want it.
+      </p>
+    </div>
+  </section>
+
   <section class="py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
       <SectionHead kicker="What's Included" center hasSubtext>
-        <Fragment slot="heading">Everything but the stress.</Fragment>
-        <Fragment slot="subtext">Our instructors run the whole show. You get to actually enjoy the party.</Fragment>
+        <Fragment slot="heading">We handle the kids. You enjoy the party.</Fragment>
+        <Fragment slot="subtext">Our instructors run every activity, then help with the cake, the food, and the cleanup.</Fragment>
       </SectionHead>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-5">
         {included.map((item, i) => <IconBenefitCard number={i + 1} title={item.title} description={item.desc} />)}
       </div>
+    </div>
+  </section>
+
+  <section class="pb-20">
+    <div class="mx-auto max-w-5xl px-6 md:px-5">
+      <SectionHead kicker="Pricing" center>
+        <Fragment slot="heading">Two ways to party.</Fragment>
+      </SectionHead>
+      <div class="grid gap-6 md:grid-cols-2 md:gap-5">
+        {pricing.map((p) => (
+          <div class="rounded border border-paper-warm bg-white p-7">
+            <h3 class="mb-1 text-xl font-black text-indigo">{p.name}</h3>
+            <p class="mb-1 font-display text-4xl font-black text-gold-deep">{p.price}</p>
+            <p class="mb-4 text-xs font-bold tracking-[0.1em] text-mist uppercase">{p.note}</p>
+            <p class="text-[#40403A]">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-center text-[#3E3E38]">Add $10 for each child over 10.</p>
     </div>
   </section>
 
@@ -92,7 +165,7 @@ const steps = [
 
   <section class="pt-16 md:pt-20">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
-      <SafetyRules />
+      <SafetyRules rules={partySafetyRules} />
     </div>
   </section>
 
