@@ -6,7 +6,10 @@ import { hours } from "../data/schedule";
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-[#0A0B1C] pb-28 pt-14 text-[#8E8DA2] lg:pb-14">
+<!-- Below lg the fixed MobileCallBar (52px + safe-area inset) sits over the
+     bottom of the page, so the footer adds exactly that much under its own
+     3.5rem of padding. -->
+<footer class="bg-[#0A0B1C] pb-[calc(3.5rem+52px+env(safe-area-inset-bottom))] pt-14 text-[#8E8DA2] lg:pb-14">
   <div class="mx-auto max-w-6xl px-6 md:px-5">
     <div class="mb-9 grid grid-cols-2 gap-9 md:grid-cols-[1.7fr_1fr_1fr_1fr]">
       <div class="col-span-2 md:col-span-1">
