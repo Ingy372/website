@@ -4,16 +4,16 @@
     "count": 83,
     "countLabel": "83",
     "source": "Google",
-    "lastChecked": "2026-10-09"
+    "lastChecked": "2026-10-23"
   },
-  "_todo": "TODO(JAY: add each review's posted date as \"date\": \"YYYY-MM-DD\" so cards can show it) Update summary.count and lastChecked when the Google count changes.",
+  "_todo": "Reviews are copied word for word from the Google Business Profile (pulled 2026-10-23); only line breaks and broken apostrophes were cleaned up. Update summary.count and lastChecked when the Google count changes.",
   "reviews": [
     {
       "id": "taylor-s",
       "author": "Taylor S.",
       "relationship": "Parent",
       "source": "Google",
-      "date": null,
+      "date": "2023-09-13",
       "rating": 5,
       "text": "Staff is without a doubt some of the most patient and caring individuals I have met. They deal with our son who is literally all gas no break with compassion. His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable. Highly recommend to anyone.",
       "excerpt": "His progression from bouncing around and doing push-ups for correction constantly has progressed dramatically. The positive influence this has had on him is unmeasurable."
@@ -23,7 +23,7 @@
       "author": "Benjamin S.",
       "relationship": "Student",
       "source": "Google",
-      "date": null,
+      "date": "2023-10-11",
       "rating": 5,
       "text": "Very skilled instructors with a rich history in martial arts! This is absolutely one of the best if not the best in a 60 mile radius! I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here. I have experience in martial arts and know what to look for in a gym and in instructors. I've been a student here for a while and can say with 100% confidence that this is where you want to be.",
       "excerpt": "This is absolutely one of the best if not the best in a 60 mile radius! … I've been a student here for a while and can say with 100% confidence that this is where you want to be."
@@ -33,7 +33,7 @@
       "author": "Sarah G.",
       "relationship": "Parent",
       "source": "Google",
-      "date": null,
+      "date": "2022-11-21",
       "rating": 5,
       "text": "My daughter is 5 and started a year ago in the little warrior classes and absolutely loves it. It has a great family atmosphere, the instructors are fantastic and she has learned so much about karate, self discipline and herself. It has also given her a positive focus for her energy, helped her make new friends and raised her self confidence. Its a great program and I can't say enough good thing."
     },
@@ -42,9 +42,83 @@
       "author": "Jacy D.",
       "relationship": "Parent",
       "source": "Google",
-      "date": null,
+      "date": "2021-11-04",
       "rating": 5,
-      "text": "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is."
+      "text": "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is.",
+      "verify": "not shown on /reviews: text is paraphrased, and Jacy Dial appears to be an instructor (another review names 'Mr. Jacy'). Confirm before using"
+    },
+    {
+      "id": "rachel-b",
+      "author": "Rachel B.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2023-08-30",
+      "rating": 5,
+      "text": "We have been going to Action Zone for the past several months. I have been so impressed how the instructors have firm expectations and challenge the kids to grow physically, mentally, and emotionally, well also doing so in a kind and encouraging manner. My daughter seems to be growing in confidence and I believe it is in part because of Action Zone. Edit: My son now it's in his absolutely loving their classes. He is learning how to be strong in mind and body and growing in respect and self-discipline. The instructors are very helpful and patient."
+    },
+    {
+      "id": "savanna-f",
+      "author": "Savanna F.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2020-06-10",
+      "rating": 5,
+      "text": "Little warriors class (3-5) is excellent for my little guy who enjoys anything ninja. He gets exercise, discipline, routine and structure. Learns basic defense in a controlled environment. The teachers are incredibly patient and loving, I couldn't have asked for better people to spend an hour instructing my child."
+    },
+    {
+      "id": "amber-l",
+      "author": "Amber L.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2021-01-20",
+      "rating": 5,
+      "text": "We have had our boys in the karate classes here for 1.5 years and have nothing but great things to say! They teach them with enthusiasm and discipline that easily flows right into our kids (now 4 and 6 but 2 and 4 when we began) life in all facets. That make Biblical principles an important aspect and speak about Jesus and the Bible in ways the kids understand and soak in. We look forward to classes each week!"
+    },
+    {
+      "id": "heidi-c",
+      "author": "Heidi C.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2021-11-02",
+      "rating": 5,
+      "text": "My daughter is 5 and she has been at Action Zone for 6 months. I love the care they provide when teaching her. The instructors are very patient, but teach the importance of owning the responsibility of your actions. This is her first sport and I don’t go in with her during classes. Before her belt test she showed me her kata and I was impressed! I couldn’t stop smiling watching her perform the moves and say the names. They pray with the children and recite the pledge of allegiance. I heard about Action Zone CMA from word of mouth of 2 people and I can’t speak highly enough of them. I tell everyone how wonderful it is having my daughter in an organized event that I know she will benefit and grow from in multiple ways."
+    },
+    {
+      "id": "courtney-m",
+      "author": "Courtney M.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2023-06-06",
+      "rating": 5,
+      "text": "We absolutely love Action Zone CMA. From day 1 we have felt at home and the instructors are phenomenal with my son who has sensory processing disorder. The cost is budgetable and fair for the amount of class time offered each week. Yes, they are a Christian based dojo but it is not in your face and shoved down your throat especially at the little warriors level. The older class does have bible verses and covenants to remember and the creed does use the word God. There are members from all walks of life here. We love participating in the camp and Parents Night Out. I highly recommend coming in for trial classes and getting all the information before making a decision about Action Zone CMA."
+    },
+    {
+      "id": "john-s",
+      "author": "John S.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2014-12-22",
+      "rating": 5,
+      "text": "Michael Lowery and his CMA team give life-changing martial arts instruction that can't be found anywhere else. CMA is the best martial arts instruction in Fayetteville and the Cape Fear region - and as a family that has lived all over the US, we learned it is the best available anywhere. The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way. The physical prowess and skill students learn is amazing to see, especially in young students, and the focus and discipline is not just physical but spiritual as well. That kind of instruction has life-long value. We can't thank Mr. Lowery and CMA enough!",
+      "excerpt": "CMA is the best martial arts instruction in Fayetteville and the Cape Fear region - and as a family that has lived all over the US, we learned it is the best available anywhere. … The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way."
+    },
+    {
+      "id": "cara-p",
+      "author": "Cara P.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2026-07-10",
+      "rating": 5,
+      "text": "Action Zone CMA has been a blessing in our family’s life. Our children enjoy their classes, friendships, and I enjoy seeing them grow, mature, and strengthen in areas of behavior, teamwork, confidence, and respect. Highly recommend stopping in for more information."
+    },
+    {
+      "id": "dee-a",
+      "author": "Dee A.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2021-09-07",
+      "rating": 5,
+      "text": "I have two kids taking Karate classes here and they enjoy it! The CMA family is awesome and very professional. CMA is very family oriented and would definitely refer family and friends!"
     }
   ]
 }

@@ -11,12 +11,15 @@ const { founder, headInstructor, officeManager } = team;
 import michaelPortrait from "../images/team/mike-portrait.png";
 import jaysonPortrait from "../images/team/jay-portrait.png";
 import hannahPortrait from "../images/team/hannah-portrait.png";
+import teamPhoto from "../images/homepage/founder-and-head-instructor.jpg";
 ---
 
 <BaseLayout
   title="Meet the Team"
-  description={`Meet the team at ${business.displayName}: ${founder.title.toLowerCase()} ${founder.name}, ${headInstructor.title.toLowerCase()} ${headInstructor.name}, and ${officeManager.name}.`}
+  description={`Meet the team at ${business.displayName} in ${business.address.city}, ${business.address.state}: ${founder.title.toLowerCase()} ${founder.name}, ${headInstructor.title.toLowerCase()} ${headInstructor.name}, and ${officeManager.name}.`}
   path="/meet-the-team"
+  ogImage={teamPhoto}
+  ogImageAlt={`Founder ${founder.name} with head instructor ${headInstructor.name} in the dojo`}
 >
   <SimpleHero eyebrow="Meet the Team">
     <Fragment slot="heading">{founded.decadesCap}. One family. <em>One system.</em></Fragment>

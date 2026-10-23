@@ -10,8 +10,9 @@ import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { Picture } from "astro:assets";
-import { offer } from "../data/school";
-import { cityState } from "../data/business";
+import Tuition from "../components/sections/Tuition.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import { offer, tuitionFaqItem } from "../data/school";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
 const program = programs.teensAdults;
@@ -27,10 +28,28 @@ import trainingFloorWide from "../images/teens-adults/training-floor-wide.jpg";
 const benefits = [
   { title: "Get in real shape", desc: "A full-body workout that builds strength, endurance, and coordination while you are too busy learning to notice you are exercising." },
   { title: "Leave the stress on the mat", desc: "There is nothing quite like a hard hour of training to clear your head. Whatever the day handed you, it stays at the door." },
-  { title: "Defend yourself and your family", desc: "Practical self-defense that actually works, taught with control, so you carry real confidence in how you move through the world." },
+  { title: "Defend yourself and your family", desc: "Self-defense classes built on karate striking and jiu jitsu escapes, taught with control, so you carry real confidence in how you move through the world." },
   { title: "Sharpen your focus", desc: "The concentration it takes to master a technique carries straight into work, home, and everything else you juggle." },
   { title: "Train with people who show up", desc: "You are not grinding alone. You become part of a group that notices when you are there and misses you when you are not." },
   { title: "Grow in more than fitness", desc: "Our Yeshua's Ryu system pairs real martial arts with Christian character. You leave stronger in body, mind, and spirit." },
+];
+
+const faqItems = [
+  {
+    question: "Do you teach adult karate, jiu jitsu, or self-defense?",
+    answer: [
+      `All three. Our Yeshua's Ryu system blends karate (striking), <a href="/jiu-jitsu" class="text-indigo font-bold border-b border-gold">jiu jitsu</a> (grappling, ground control, and escapes), Kung Fu, Tae Kwon Do, and traditional Japanese weapons. Every class is built around practical <a href="/self-defense" class="text-indigo font-bold border-b border-gold">self-defense</a> you could actually use.`,
+    ],
+  },
+  {
+    question: "I'm out of shape and have never trained. Can I start?",
+    answer: ["Yes. Most of our adults started with no experience. You train at your own level, beginners are never thrown in over their heads, and nobody is compared to anybody."],
+  },
+  {
+    question: "Can I train with my teenager?",
+    answer: [`Yes. Teens ${programs.teensAdults.minAge} and up train right alongside the adults, so parents and older children can take the same class.`],
+  },
+  tuitionFaqItem(),
 ];
 
 const steps = [
@@ -42,15 +61,28 @@ const steps = [
 ---
 
 <BaseLayout
-  title={`Teens & Adults Martial Arts & Fitness, ${ageLabel(program)}`}
-  description={`Martial arts and fitness for teens and adults, ages ${ageRange(program)}, in ${cityState}. Real self-defense, real fitness, no experience needed.`}
+  title="Adult Martial Arts & Self-Defense"
+  fullTitle="Adult Martial Arts, Self-Defense & Fitness | Raeford NC"
+  crumb="Teens & Adults"
+  description={`Adult karate, jiu jitsu, and self-defense classes for teens and adults (${ageRange(program)}). Serving Raeford, Fayetteville, and Hope Mills. Try a ${offer.noun}.`}
   path="/teens-adults"
+  ogImage={heroImage}
+  ogImageAlt="Adult martial arts and self-defense class training on the mat in Raeford, NC"
+  faq={faqItems}
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Adult martial arts and fitness class training on the mat" ctaLabel={offer.cta} ctaHref="/booking?program=teensAdults">
+  <ProgramHero
+    badge={`${program.name} · ${ageLabel(program)}`}
+    h1="Martial Arts & Self-Defense for Teens and Adults"
+    image={heroImage}
+    alt="Adult martial arts and self-defense class training on the mat"
+    ctaLabel={offer.cta}
+    ctaHref="/booking?program=teensAdults"
+  >
     <Fragment slot="heading">The workout you'll <em>actually look forward to.</em></Fragment>
     <Fragment slot="subtext">
-      Get in shape, burn off the stress of the day, and learn to defend yourself for real. No
-      experience needed, no judgment, and nothing like the lonely grind of a gym.
+      Adult karate, jiu jitsu, and self-defense classes. Get in shape, burn off the stress of the
+      day, and learn to defend yourself for real. No experience needed, no judgment, and nothing
+      like the lonely grind of a gym.
     </Fragment>
   </ProgramHero>
 
@@ -101,9 +133,9 @@ const steps = [
           dark
           ratioClass="aspect-[4/3]"
           images={[
-            { src: drillingTechnique, alt: "Adult students drilling a technique together" },
-            { src: partnerSelfDefense, alt: "Adults practicing partner self-defense", position: "50% 30%" },
-            { src: weaponsTraining, alt: "Adult class training with traditional weapons" },
+            { src: drillingTechnique, alt: "Adult karate students drilling kicks into pads held by partners" },
+            { src: partnerSelfDefense, alt: "Adults practicing a partner self-defense technique", position: "50% 30%" },
+            { src: weaponsTraining, alt: "Adult martial arts class training with traditional Japanese weapons" },
           ]}
         />
       </div>
@@ -132,7 +164,7 @@ const steps = [
       <div class="aspect-[4/3] overflow-hidden rounded">
         <Picture
           src={teenClass}
-          alt="Teenagers training alongside adults in class"
+          alt="Teenagers training alongside adults in a martial arts class"
           formats={["avif", "webp"]}
           widths={[400, 600, 800, 1000]}
           sizes="(min-width: 768px) 45vw, 100vw"
@@ -161,12 +193,18 @@ const steps = [
       <PhotoStrip
         ratioClass="aspect-[4/3]"
         images={[
-          { src: studentsOnTheMat, alt: "Adult students training on the dojo mat" },
+          { src: studentsOnTheMat, alt: "Adult martial arts students training on the dojo mat in Raeford, NC" },
           { src: trainingFloorWide, alt: "Wide view of the Action Zone training floor during class" },
         ]}
       />
     </div>
   </section>
+
+  <Tuition program="teensAdults" />
+
+  <div class="pb-12">
+    <FAQGroup id="teens-adults-faq" title="Adult martial arts questions" tag="Before You Start" items={faqItems} />
+  </div>
 
   <ReviewQuote id="benjamin-s" />
 

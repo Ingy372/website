@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/sections/ContactForm.astro";
 import Directions from "../components/sections/Directions.astro";
-import { business, addressFull, addressCityLine, cityState } from "../data/business";
+import { business, addressFull, addressCityLine, cityState, serviceAreaText } from "../data/business";
 import { hours } from "../data/schedule";
 
 const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)}&output=embed`;
@@ -20,7 +20,8 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)
         Let's get your family <span class="text-gold-soft">on the mat.</span>
       </h1>
       <p class="mt-5 max-w-[52ch] text-lg leading-loose text-[#C4C3D4] md:leading-normal">
-        Ask a question, tell us about a party, or just come by. We would love to meet you. Ready
+        Ask a question, tell us about a party, or just come by. We are in Raeford, and families
+        train with us from {serviceAreaText}. We would love to meet you. Ready
         to try a class? Head to our <a href="/booking" class="font-semibold text-gold-soft hover:text-gold">booking page</a> instead.
       </p>
     </div>

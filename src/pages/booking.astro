@@ -7,17 +7,20 @@ import { offer } from "../data/school";
 import { programs, programIds, ageLabel, beginnerTimes } from "../data/schedule";
 import { business } from "../data/business";
 import { trialDaysText } from "../data/schedule";
+import shareImage from "../images/homepage/kids-class.jpg";
 ---
 
 <BaseLayout
   title={offer.bookingTitle}
-  description={`Book your ${offer.noun} at ${business.displayName}. Fill out the quick form and reserve your spot in minutes.`}
+  description={`Book your ${offer.noun} at ${business.displayName} in ${business.address.city}, ${business.address.state}. Fill out the quick form and reserve your spot in minutes.`}
   path="/booking"
+  ogImage={shareImage}
+  ogImageAlt="Kids karate class training together on the dojo mat"
 >
   <SimpleHero eyebrow="New Families">
     <Fragment slot="heading">{offer.cta}.</Fragment>
     <Fragment slot="subtext">
-      Fill out the quick form below and we'll have your spot ready. Hannah is in the office
+      Fill out the quick form below and we'll have your spot ready. Hannah is in the office{" "}
       {trialDaysText} to walk you through everything in person.
     </Fragment>
   </SimpleHero>

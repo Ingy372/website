@@ -1,0 +1,41 @@
+---
+// Thank-you page for the backup booking form: /api/booking-request redirects
+// here (303) after Dojo Forge accepts the request.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { business } from "../../data/business";
+import { trialDaysText } from "../../data/schedule";
+---
+
+<BaseLayout
+  title="Request Received"
+  description={`Thanks for booking a visit to ${business.displayName}. We'll be in touch soon to confirm your class.`}
+  path="/booking/sent"
+  noindex
+>
+  <section class="py-24 text-center md:py-28">
+    <div class="mx-auto max-w-xl px-6 md:px-5">
+      <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold text-2xl text-indigo-deep" aria-hidden="true">&#10003;</div>
+      <h1 class="mb-4 text-3xl font-black text-indigo md:text-4xl">We got your request</h1>
+      <p class="mb-4 text-lg text-mist">
+        We'll reach out soon to confirm a class time. Hannah is in the office {trialDaysText}.
+      </p>
+      <p class="mb-8 text-mist">
+        In a hurry? Call <a href={business.phoneHref} class="font-bold text-indigo hover:text-gold">{business.phone}</a>.
+      </p>
+      <a href="/" class="font-bold text-indigo hover:text-gold">Back to the home page &rarr;</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // Record the lead once: only when the booking endpoint sent us here
+  // (?lead=1), then drop the flag so a reload or a shared link can't count it again.
+  (function () {
+    var url = new URL(location.href);
+    if (url.searchParams.get("lead") !== "1") return;
+    window.gtag && window.gtag("event", "generate_lead", { form_id: "booking_backup_form" });
+    window.fbq && window.fbq("track", "Lead", { content_name: "trial_booking" });
+    url.searchParams.delete("lead");
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  })();
+</script>

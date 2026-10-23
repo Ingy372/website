@@ -1,0 +1,60 @@
+---
+// "Upcoming Events" list from src/data/events.json, with Event structured
+// data. Past events are dropped at build time and hidden again in the
+// browser, so a date that passes between deploys disappears on its own.
+import { upcoming, eventWhenText, eventJsonLd, type EventKind } from "../../data/events";
+
+interface Props {
+  kind?: EventKind;
+  heading?: string;
+  /** Shown when there are no upcoming dates. */
+  emptyText: string;
+}
+const { kind, heading = "Upcoming events", emptyText } = Astro.props;
+const events = upcoming(kind);
+const schema = eventJsonLd(kind);
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<div class="rounded border border-paper-warm bg-paper-warm p-7" data-upcoming-events>
+  <h2 class="mb-4 font-display text-2xl font-black text-indigo">{heading}</h2>
+  {events.length > 0 && (
+    <ul class="flex flex-col gap-4">
+      {events.map((e) => (
+        <li class="border-b border-[#DFD9C9] pb-4 last:border-0 last:pb-0" data-event-date={e.date}>
+          <div class="font-display text-lg font-bold text-indigo">{e.title}</div>
+          <div class="text-sm font-semibold text-gold-deep">
+            {eventWhenText(e)}{e.price && ` · ${e.price}`}
+          </div>
+          {e.description && <p class="mt-1 text-[#40403A]">{e.description}</p>}
+          <a
+            href={e.bookingLink}
+            {...(isExternal(e.bookingLink) ? { target: "_blank", rel: "noopener" } : {})}
+            class="mt-2 inline-flex items-center gap-1 font-bold text-indigo hover:text-gold"
+          >
+            Reserve a spot <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+  <p class:list={["text-[#40403A]", events.length > 0 && "hidden"]} data-events-empty>{emptyText}</p>
+</div>
+
+{schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />}
+
+<script is:inline>
+  (function () {
+    var d = new Date();
+    var today = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    document.querySelectorAll("[data-upcoming-events]").forEach(function (box) {
+      var items = box.querySelectorAll("[data-event-date]");
+      var left = 0;
+      items.forEach(function (li) {
+        if (li.getAttribute("data-event-date") < today) li.remove();
+        else left++;
+      });
+      if (items.length && !left) box.querySelector("[data-events-empty]").classList.remove("hidden");
+    });
+  })();
+</script>
