@@ -16,7 +16,7 @@ import eventsBirthdayParty from "../images/events/birthday-party.jpg";
 import saturdayTraining from "../images/events/saturday-training.jpg";
 
 const events = [
-  { image: beltTesting, position: "50% 30%", alt: "An instructor tying a newly earned belt on a student during a belt test", eyebrow: "Throughout the year", title: "Belt Testing", description: "Students test for their next rank in front of the room, with family watching. Nothing is handed out here, which is exactly why it means so much when they tie on a new belt.", when: "Scheduled as students are ready", href: "/schedule", linkLabel: "See the schedule →" },
+  { image: beltTesting, position: "50% 30%", alt: "An instructor tying a newly earned karate belt on a student during a belt test", eyebrow: "Throughout the year", title: "Belt Testing", description: "Students test for their next rank in front of the room, with family watching. Nothing is handed out here, which is exactly why it means so much when they tie on a new belt.", when: "Scheduled as students are ready", href: "/schedule", linkLabel: "See the schedule →" },
   { image: eventsParentsNightOut, position: "50% 28%", alt: "Kids with glow accessories and face paint at a Parents Night Out", eyebrow: "Recurring", title: "Parents Night Out", description: "A themed evening of games and martial arts for the kids, and a few quiet hours for you. Nerf Night, Superhero Dress-Up, Water Wars, and more.", when: nextParentsNightOut ? eventWhenText(nextParentsNightOut) : "Ask us for the next date", href: "/parents-night-out", linkLabel: "Learn more →" },
   { image: demoTeam, position: "50% 22%", alt: "The Action Zone demo team performing at a community event", eyebrow: "Community", title: "Demonstrations", description: "We bring the demo team out to schools, churches, and community events around Raeford, Fayetteville, and Hope Mills. Board breaking, weapons forms, and a lot of noise.", when: "Announced on Facebook", href: "/contact?interest=demo", linkLabel: "Ask about a demo →" },
   { image: eventsBirthdayParty, position: "50% 35%", alt: "Children at a martial arts birthday party at Action Zone", eyebrow: "By booking", title: "Birthday Parties", description: "Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. We run the whole thing so you get to actually be there for it.", when: "Book your date with us", href: "/birthday-parties", linkLabel: "Learn more →" },
@@ -28,6 +28,8 @@ const events = [
   title="Events"
   description={`Belt testing, Parents Night Out, demonstrations, birthday parties, and Saturday open training at ${business.displayName} in ${cityState}.`}
   path="/events"
+  ogImage={beltTesting}
+  ogImageAlt="An instructor tying a newly earned belt on a student during a belt test"
 >
   <SimpleHero eyebrow="Events">
     <Fragment slot="heading">There is always <em>something happening.</em></Fragment>

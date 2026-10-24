@@ -150,8 +150,19 @@ const LOAD_TIMEOUT_MS = 10000;
     };
 
     var timer = setTimeout(showFallback, timeoutMs);
+    // The widget's labels sit beside its fields without being tied to them,
+    // so screen readers can't name the fields. Copy each label onto its field.
+    var labelFields = function () {
+      mount.querySelectorAll("input, select, textarea").forEach(function (field) {
+        if (field.hasAttribute("aria-label") || field.type === "hidden" || field.closest("label")) return;
+        var label = field.previousElementSibling;
+        if (label && label.tagName === "LABEL") field.setAttribute("aria-label", label.textContent.trim());
+      });
+    };
+
     new MutationObserver(function () {
       if (rendered()) clearTimeout(timer);
+      labelFields();
       // The widget swaps its form for a "Thanks! We got your request" message
       // only after its server accepts the booking (res.ok). That swap is the
       // real lead. Checked on every change so the observer stays attached.
