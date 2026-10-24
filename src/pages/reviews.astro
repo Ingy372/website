@@ -5,22 +5,29 @@ import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
 import { getReview, displayAuthor, reviewDateText, ratingText, countText } from "../data/reviews";
 
-const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
+// Real Google reviews, word for word (src/data/reviews.json). Ordered to lead
+// with ones that mention kids, karate, or a town.
+const quotes = [
+  "taylor-s", "sarah-g", "savanna-f", "amber-l", "heidi-c", "rachel-b",
+  "john-s", "courtney-m", "benjamin-s", "cara-p", "dee-a",
+].map(getReview);
 ---
 
 <BaseLayout
   title="Reviews"
-  description={`See what families say about ${business.displayName} in ${cityState}. ${ratingText} stars across ${countText} Google reviews.`}
+  fullTitle={`Reviews: Kids Martial Arts in Raeford NC | ${business.displayName}`}
+  description={`${ratingText} stars across ${countText} Google reviews from families in Raeford, Fayetteville, and Hope Mills. Read why kids love it, then try a ${offer.noun}.`}
   path="/reviews"
 >
   <header class="relative overflow-hidden bg-indigo py-20 text-center text-white md:py-20">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
       <span class="mb-5 inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] text-gold-soft uppercase">
-        What Families Say
+        Google Reviews
       </span>
-      <h1 class="mx-auto max-w-[18ch] text-[clamp(2.2rem,4.4vw,3.5rem)]">
+      <h1 class="mx-auto max-w-[18ch] text-[clamp(2.2rem,4.4vw,3.5rem)]">What Families Say</h1>
+      <p class="mx-auto mt-3 max-w-[24ch] font-display text-[clamp(1.3rem,2.3vw,1.8rem)] font-semibold leading-snug text-white/90">
         Families in Raeford <span class="text-gold-soft">trust us with their kids.</span>
-      </h1>
+      </p>
       <p class="mx-auto mt-5 max-w-[52ch] text-lg leading-loose text-[#C4C3D4] md:leading-normal">
         We are grateful for every family that has walked through our doors. Here is what some of
         them have shared.
@@ -51,9 +58,9 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
         <h2 class="text-[clamp(1.9rem,3.6vw,2.7rem)] text-indigo">Real reviews from real families.</h2>
       </div>
 
-      <div class="grid gap-8 md:grid-cols-3 md:gap-5">
+      <div class="gap-5 md:columns-2 lg:columns-3">
         {quotes.map((q) => (
-          <div class="rounded border border-paper-warm bg-white p-6">
+          <div class="mb-5 break-inside-avoid rounded border border-paper-warm bg-white p-6">
             <div class="mb-3 text-sm tracking-[2px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="text-[0.95rem] text-[#40403A]">{q.text}</p>
             <div class="mt-5 flex items-center gap-3">

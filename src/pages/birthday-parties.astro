@@ -10,7 +10,7 @@ import FactList from "../components/sections/FactList.astro";
 import SafetyRules from "../components/sections/SafetyRules.astro";
 import { birthdayPartyFacts } from "../data/parties";
 import { partySafetyRules } from "../data/safety";
-import { business, cityState } from "../data/business";
+import { offer } from "../data/school";
 
 import partyPhoto from "../images/birthday-parties/party.jpg";
 import cakeCut from "../images/birthday-parties/cake-cut.jpg";
@@ -53,11 +53,15 @@ const checkItem = "relative pl-6 text-[#40403A]";
 ---
 
 <BaseLayout
-  title="Birthday Parties"
-  description={`Book a martial arts birthday party at ${business.displayName} in ${cityState}. Ninja line, throwing wall, games, and a cake cut with a real sword. You bring the cake and food; we run the party and clean up.`}
+  title="Kids Martial Arts Birthday Parties"
+  fullTitle="Kids Martial Arts Birthday Parties | Raeford & Fayetteville"
+  crumb="Birthday Parties"
+  description={`Martial arts birthday parties: ninja line, throwing wall, sword cake cutting. For Raeford, Fayetteville, and Hope Mills. Every guest gets a ${offer.noun}.`}
   path="/birthday-parties"
+  ogImage={partyPhoto}
+  ogImageAlt="Kids celebrating a martial arts birthday party in the dojo"
 >
-  <ProgramHero badge="Birthday Parties" image={partyPhoto} alt="Children celebrating a martial arts birthday party at Action Zone" ctaLabel="Book a Party" ctaHref="/contact?interest=birthday-party">
+  <ProgramHero badge="Birthday Parties" h1="Martial Arts Birthday Parties for Kids" image={partyPhoto} alt="Kids celebrating a martial arts birthday party in the Action Zone dojo" ctaLabel="Book a Party" ctaHref="/contact?interest=birthday-party">
     <Fragment slot="heading">The party they'll <em>talk about for months.</em></Fragment>
     <Fragment slot="subtext">
       Ninja line, throwing wall, martial arts games, and a cake cut with a real sword. Your child
@@ -142,6 +146,13 @@ const checkItem = "relative pl-6 text-[#40403A]";
         ))}
       </div>
       <p class="mt-6 text-center text-[#3E3E38]">Add $10 for each child over 10.</p>
+      <div class="mx-auto mt-8 max-w-2xl rounded-r border-l-4 border-gold bg-gold/[0.09] px-6 py-5 text-center">
+        <h3 class="mb-1 font-display text-lg font-bold text-indigo">Every guest goes home with a {offer.noun}.</h3>
+        <p class="text-[#40403A]">
+          Did a guest have a blast on the ninja line? Every child at the party gets a {offer.noun} of
+          classes, free. <a href="/booking" class="font-bold text-indigo underline hover:text-gold">Claim it here</a>.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -151,7 +162,7 @@ const checkItem = "relative pl-6 text-[#40403A]";
     </div>
   </section>
 
-  <FeatureRow image={cakeCut} alt="Birthday child cutting the cake with a real sword, guided by an instructor" tag="The Moment of the Party" title="They cut the cake with a real sword.">
+  <FeatureRow image={cakeCut} alt="Birthday child cutting the cake with a real sword at a martial arts party, guided by an instructor" tag="The Moment of the Party" title="They cut the cake with a real sword.">
     <p>
       When it is time for cake, the birthday child does not reach for a plastic knife. They cut it
       with a genuine Chinese double-edged straight sword, with our instructors right there guiding

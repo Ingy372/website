@@ -3,8 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer } from "../data/school";
-import { business, addressFull, cityState, founded, numberToWords, team, directions } from "../data/business";
+import { offer, tuitionFaqItem } from "../data/school";
+import { business, addressFull, founded, numberToWords, team, directions, serviceAreaText } from "../data/business";
 import { programs, programClassLength } from "../data/schedule";
 import { safetyRules } from "../data/safety";
 
@@ -41,6 +41,7 @@ const groups = [
           "We meet our students exactly where they are the day they walk in. Your level of knowledge, your fitness, your experience: none of it matters to us. We treat our students like members of our family, and we build you from the ground up.",
         ],
       },
+      tuitionFaqItem(),
       {
         question: "Can I train alongside my child?",
         answer: [
@@ -169,9 +170,9 @@ const groups = [
     tag: "Raeford & Beyond",
     items: [
       {
-        question: "Do you have students who drive from Fayetteville or Hope Mills?",
+        question: "Do you have students who drive from Fayetteville, Hope Mills, or Fort Bragg?",
         answer: [
-          "Yes. Families come to us from Fayetteville, Hope Mills, and across Hoke County.",
+          `Yes. Families train with us from ${serviceAreaText}, and from across Hoke and Cumberland counties.`,
           `We are ${directions.driveTimes[0].timeWords} from ${directions.driveTimes[0].from}. Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one.`,
         ],
       },
@@ -195,11 +196,14 @@ const groups = [
 ---
 
 <BaseLayout
-  title="Frequently Asked Questions"
-  description={`Answers to the questions parents ask most about ${business.displayName} in ${cityState}: getting started, safety, our school, and visiting us.`}
+  title="Martial Arts FAQ for Parents"
+  fullTitle={`Martial Arts FAQ for Parents | ${business.displayName}, Raeford NC`}
+  crumb="FAQ"
+  description={`Ages, cost, safety, and what to wear for kids karate. Answers for families in Raeford, Fayetteville, and Hope Mills. Start with a ${offer.noun}.`}
   path="/faq"
+  faq={groups.flatMap((g) => g.items)}
 >
-  <SimpleHero eyebrow="Questions & Answers">
+  <SimpleHero eyebrow="Questions & Answers" h1="Questions Parents Ask">
     <Fragment slot="heading">Everything you were <em>going to ask anyway.</em></Fragment>
     <Fragment slot="subtext">
       {founded.yearsWordsCap} years of parents standing in our lobby, asking good questions. Here are the
