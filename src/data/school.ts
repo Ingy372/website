@@ -93,6 +93,13 @@ export function tuitionFaqItem() {
   };
 }
 
+/**
+ * Military discount wording for /military-families, e.g. "10% off tuition
+ * for active duty, veteran, and military spouse families". TODO(JAY: is
+ * there a military discount? Fill in, or set to "" if none.) Hidden until set.
+ */
+export const militaryDiscount = todo("military discount wording, or empty if none");
+
 /** schema.org priceRange for the LocalBusiness data, e.g. "$$" or "$99–$149/month". */
 export const priceRange = todo("price range for Google, e.g. $$");
 

@@ -1,0 +1,142 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import ProseSection from "../components/sections/ProseSection.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { offer, tuitionFaqItem } from "../data/school";
+import { founded } from "../data/business";
+import { programs, ageLabel, beginnerTimes } from "../data/schedule";
+
+import heroImage from "../images/teens-adults/partner-self-defense.jpg";
+import kidsPartnerDrill from "../images/kids/partner-drill.jpg";
+import instructorCorrectingStance from "../images/kids/instructor-correcting-stance.jpg";
+import trainingFloorWide from "../images/teens-adults/training-floor-wide.jpg";
+
+const timesText = (id: "kids" | "teensAdults") => beginnerTimes(id).map((t) => `${t.days}, ${t.time}`).join(" · ");
+
+const faqItems = [
+  {
+    question: "Does martial arts help with bullying?",
+    answer: [
+      "Yes, though often in ways parents do not expect. We never encourage a student to fight, and we never encourage them to become the aggressor. We do teach them to stand up for themselves, including when that is difficult.",
+      "As a student grows physically capable and accomplishes things they did not believe they could, their confidence rises with it. A confident child handles confrontation differently and holds a boundary more firmly, often without ever needing to raise a hand.",
+    ],
+  },
+  {
+    question: "Will self-defense training make my child aggressive?",
+    answer: [
+      "In our experience it does the opposite. We spend as much time on what martial arts is not as on what it is, and we talk openly about anger and where these skills belong and where they never do.",
+    ],
+  },
+  {
+    question: "Do you offer a one-time self-defense seminar?",
+    answer: [
+      "Our self-defense is taught in our regular classes, where skills are practiced week after week until they hold up under stress. A one-day seminar is easy to forget. Ask us if you are looking for something for a group.",
+    ],
+  },
+  {
+    question: "I have no experience. Can I still join?",
+    answer: ["Yes. Most of our adults started with no experience. Every student trains at their own level, and beginners are never thrown in over their heads."],
+  },
+  tuitionFaqItem(),
+];
+---
+
+<BaseLayout
+  title="Self-Defense Classes in Raeford, NC"
+  fullTitle="Self-Defense Classes in Raeford, NC | Action Zone CMA"
+  crumb="Self-Defense"
+  description={`Self-defense classes for kids and adults: anti-bullying skills, escapes, confidence. For Raeford, Fayetteville, and Hope Mills. Try a ${offer.noun}.`}
+  path="/self-defense"
+  ogImage={heroImage}
+  ogImageAlt="Adults practicing a partner self-defense technique on the mat"
+  faq={faqItems}
+>
+  <ProgramHero
+    badge="Self-Defense · Kids, Teens & Adults"
+    h1="Self-Defense Classes in Raeford, NC"
+    image={heroImage}
+    alt="Adults practicing a partner self-defense technique in Raeford, NC"
+    ctaLabel={offer.cta}
+    ctaHref="/booking"
+  >
+    <Fragment slot="heading">Confidence first. <em>Skills that hold up.</em></Fragment>
+    <Fragment slot="subtext">
+      Practical self-defense for kids, teens, and adults, built on karate, jiu jitsu, and
+      {" "}{founded.yearsWords} years of teaching. Learn to avoid a fight, and to end one safely.
+    </Fragment>
+  </ProgramHero>
+
+  <ProseSection kicker="Our Approach" heading="Most of self-defense happens before anyone moves.">
+    <p>
+      Real self-defense starts with how you carry yourself: awareness, a steady voice, and the
+      confidence to hold a boundary. People who look like easy targets get targeted. People who
+      look like they know what they are doing usually get left alone.
+    </p>
+    <p>
+      So we build both. Students learn physical skills, and they practice them until they are
+      automatic. They also learn when those skills belong and when to walk away. We are a
+      non-competitive school. We are not raising fighters. We are raising people who can protect
+      themselves and the people they love.
+    </p>
+  </ProseSection>
+
+  <ProseSection warm kicker="For Kids" heading="Anti-bullying skills that build quiet confidence.">
+    <p>
+      Kids ({ageLabel(programs.kids)}) learn how to stand tall, use their voice, get out of a grab
+      or a headlock, and get to an adult. They learn it in a room where respect is trained in
+      every class, so they also learn not to become the bully.
+    </p>
+    <p>
+      Parents tell us the biggest change is not the technique. It is the confidence. A child who
+      knows they can handle themselves does not have to prove it. Kids beginner classes:
+      {" "}{timesText("kids")}. See <a href="/kids">kids karate classes</a> for more.
+    </p>
+  </ProseSection>
+
+  <section class="py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        ratioClass="aspect-[4/3]"
+        images={[
+          { src: kidsPartnerDrill, alt: "Two kids practicing a self-defense partner drill", position: "50% 40%" },
+          { src: instructorCorrectingStance, alt: "Instructor guiding a young student's stance during self-defense training", position: "50% 25%" },
+          { src: trainingFloorWide, alt: "Wide view of a self-defense class on the dojo training floor" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <ProseSection kicker="For Teens & Adults" heading="Self-defense you would actually use.">
+    <p>
+      Teen and adult self-defense draws on the whole Yeshua's Ryu system: karate for striking and
+      distance, jiu jitsu for grabs, holds, and the ground, and partner drills that let you
+      practice against a real, moving person at a safe level. You also get a full-body workout
+      that never feels like a treadmill.
+    </p>
+    <p>
+      No experience is needed. The person beside you might be twenty or fifty, a natural athlete
+      or someone who has not exercised in years. Teen and adult beginner classes:
+      {" "}{timesText("teensAdults")}. See <a href="/teens-adults">teen and adult classes</a> and
+      <a href="/jiu-jitsu">jiu jitsu</a>.
+    </p>
+    <p>
+      We are in Raeford, and families come to us from Fayetteville, Hope Mills, Rockfish, Jack
+      Britt, and Fort Bragg.
+    </p>
+  </ProseSection>
+
+  <ReviewQuote id="benjamin-s" />
+
+  <div class="py-12">
+    <FAQGroup id="self-defense-faq" title="Self-defense questions" tag="Before You Start" items={faqItems} />
+  </div>
+
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
+    <Fragment slot="subtext">Come try {offer.visit}. No cost, no commitment, no experience needed.</Fragment>
+  </CTASection>
+</BaseLayout>

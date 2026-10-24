@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import ProseSection from "../components/sections/ProseSection.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { offer, tuitionFaqItem } from "../data/school";
+import { founded } from "../data/business";
+import { programs, ageLabel, beginnerTimes } from "../data/schedule";
+
+import heroImage from "../images/kids/partner-drill.jpg";
+import partnerSelfDefense from "../images/teens-adults/partner-self-defense.jpg";
+import studentsOnTheMat from "../images/teens-adults/students-on-the-mat.jpg";
+import instructorCorrectingStance from "../images/kids/instructor-correcting-stance.jpg";
+
+const timesText = (id: "kids" | "teensAdults") => beginnerTimes(id).map((t) => `${t.days}, ${t.time}`).join(" · ");
+
+const faqItems = [
+  {
+    question: "Do you teach jiu jitsu to kids?",
+    answer: [
+      `Yes. Kids ${programs.kids.minAge} to ${programs.kids.maxAge} learn jiu jitsu as part of our <a href="/kids" class="text-indigo font-bold border-b border-gold">kids martial arts classes</a>, alongside karate. Teens and adults train it in the <a href="/teens-adults" class="text-indigo font-bold border-b border-gold">teen and adult class</a>.`,
+    ],
+  },
+  {
+    question: "Is this Brazilian Jiu Jitsu?",
+    answer: [
+      "No. Jiu Jitsu here is one of the five arts in our Yeshua's Ryu system, taught alongside karate, Kung Fu, Tae Kwon Do, and traditional Japanese weapons. We are a non-competitive school, so we do not train for tournaments, and there is no separate gi or no-gi program.",
+    ],
+  },
+  {
+    question: "Is jiu jitsu safe for beginners?",
+    answer: [
+      "Yes. Beginners learn positions, escapes, and how to fall safely before they ever work against resistance. Every drill is supervised, and students train at a level right for their age and rank.",
+    ],
+  },
+  {
+    question: "Do I need experience or a uniform?",
+    answer: [`No. Comfortable clothes you can move in are perfect, and we train barefoot. Come in for a ${offer.noun} first.`],
+  },
+  tuitionFaqItem(),
+];
+---
+
+<BaseLayout
+  title="Jiu Jitsu Classes in Raeford, NC"
+  fullTitle="Jiu Jitsu Classes in Raeford, NC | Action Zone CMA"
+  crumb="Jiu Jitsu"
+  description={`Jiu jitsu for kids, teens, and adults: grappling, ground control, and escapes. Serving Raeford, Fayetteville, and Hope Mills. Start with a ${offer.noun}.`}
+  path="/jiu-jitsu"
+  ogImage={heroImage}
+  ogImageAlt="Two students practicing jiu jitsu ground technique on the mat"
+  faq={faqItems}
+>
+  <ProgramHero
+    badge="Jiu Jitsu · Kids, Teens & Adults"
+    h1="Jiu Jitsu Classes in Raeford, NC"
+    image={heroImage}
+    alt="Two students practicing jiu jitsu ground technique on the dojo mat"
+    ctaLabel={offer.cta}
+    ctaHref="/booking"
+  >
+    <Fragment slot="heading">Control, escapes, <em>and calm under pressure.</em></Fragment>
+    <Fragment slot="subtext">
+      Grappling, ground control, and escapes for kids, teens, and adults, taught as part of a
+      complete martial arts system. Non-competitive, family-run, and beginner friendly.
+    </Fragment>
+  </ProgramHero>
+
+  <ProseSection kicker="What You Learn" heading="Jiu jitsu is what happens when a fight is close.">
+    <p>
+      Karate teaches you to strike and to keep distance. Jiu jitsu teaches you what to do when the
+      distance is gone: when someone grabs you, holds you, or takes you to the ground. It is the
+      art of grappling, of controlling another person's body with leverage and position instead
+      of size and strength.
+    </p>
+    <p>
+      That is why it is such a good fit for real self-defense, and for kids especially. A smaller
+      person who understands balance, base, and leverage can escape a hold from someone much
+      bigger, without needing to throw a single punch.
+    </p>
+    <p>At Action Zone CMA, students learn:</p>
+    <ul>
+      <li><span class="absolute left-0 top-3.5 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>How to fall safely and get back up</li>
+      <li><span class="absolute left-0 top-3.5 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>Escapes from grabs, holds, and being pinned</li>
+      <li><span class="absolute left-0 top-3.5 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>Ground control: staying on top and staying safe on the bottom</li>
+      <li><span class="absolute left-0 top-3.5 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>Control without striking, so a situation ends with nobody hurt</li>
+    </ul>
+  </ProseSection>
+
+  <ProseSection warm kicker="How We Teach It" heading="One of five arts in Yeshua's Ryu.">
+    <p>
+      We do not run a stand-alone jiu jitsu gym. Jiu jitsu is one of the five arts in Yeshua's
+      Ryu, the Christian martial arts system our founder built over {founded.decades}. It is
+      taught alongside karate, Kung Fu, Tae Kwon Do, and traditional Japanese weapons, so students
+      learn to handle a situation standing up and on the ground.
+    </p>
+    <p>
+      We are also a non-competitive school. There is no trophy case, no tournament circuit, and no
+      pressure to roll hard to prove anything. Jiu jitsu here is about control, confidence, and
+      self-defense, taught in a room where students look out for each other.
+    </p>
+  </ProseSection>
+
+  <section class="py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        caption="Grappling and partner work on the mat"
+        ratioClass="aspect-[4/3]"
+        images={[
+          { src: partnerSelfDefense, alt: "Adults practicing a partner self-defense escape", position: "50% 30%" },
+          { src: studentsOnTheMat, alt: "Martial arts students training together on the dojo mat" },
+          { src: instructorCorrectingStance, alt: "Instructor guiding a young student's technique", position: "50% 25%" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <ProseSection heading="Kids jiu jitsu and adult classes">
+    <p>
+      <strong class="font-semibold text-indigo">Kids ({ageLabel(programs.kids)}).</strong> Kids jiu
+      jitsu builds body awareness, balance, and a calm head when things get physical. It is also
+      one of the best tools we have against bullying: a child who knows how to get out of a
+      headlock does not have to panic, and does not have to throw a punch. Beginner classes:
+      {" "}{timesText("kids")}.
+    </p>
+    <p>
+      <strong class="font-semibold text-indigo">Teens and adults ({ageLabel(programs.teensAdults)}).</strong>
+      Adults get practical self-defense and a full-body workout that never feels like a
+      treadmill. No experience needed. Beginner classes: {timesText("teensAdults")}.
+    </p>
+    <p>
+      Looking for jiu jitsu near you? We are in Raeford, about 25 minutes from Fayetteville, and
+      families train with us from Hope Mills, Rockfish, Jack Britt, and Fort Bragg. See the
+      <a href="/schedule">full class schedule</a>.
+    </p>
+  </ProseSection>
+
+  <ReviewQuote id="benjamin-s" />
+
+  <div class="py-12">
+    <FAQGroup id="jiu-jitsu-faq" title="Jiu jitsu questions" tag="Before You Start" items={faqItems} />
+  </div>
+
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Try jiu jitsu for a week. <em>It's free.</em></Fragment>
+    <Fragment slot="subtext">Come in for {offer.visit}. No cost, no commitment, no experience needed.</Fragment>
+  </CTASection>
+</BaseLayout>

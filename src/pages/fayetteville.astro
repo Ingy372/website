@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProgramHero from "../components/hero/ProgramHero.astro";
+import ProseSection from "../components/sections/ProseSection.astro";
+import WorthTheDrive from "../components/sections/WorthTheDrive.astro";
+import AreaDirections from "../components/sections/AreaDirections.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import ReviewQuote from "../components/sections/ReviewQuote.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { offer, tuitionFaqItem } from "../data/school";
+import { founded } from "../data/business";
+import { beginnerTimes, openTrainingTime } from "../data/schedule";
+
+import heroImage from "../images/homepage/kids-class.jpg";
+import trampoline from "../images/facility/trampoline.jpg";
+import michaelTeaching from "../images/our-story/michael-teaching.jpg";
+
+const kidsTimes = beginnerTimes("kids").map((t) => `${t.days}, ${t.time}`).join(" · ");
+
+const faqItems = [
+  {
+    question: "How far is the dojo from Fayetteville?",
+    answer: ["We are about 25 minutes from Fayetteville, at 6105 Philippi Church Rd in Raeford."],
+  },
+  {
+    question: "Is the drive worth it for a weeknight class?",
+    answer: [
+      `Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one. Kids beginner classes run ${kidsTimes}, and we keep track of missed days so you can make them up.`,
+    ],
+  },
+  {
+    question: "Do you serve Fort Bragg families?",
+    answer: ['Yes. See <a href="/military-families" class="text-indigo font-bold border-b border-gold">martial arts for Fort Bragg military families</a>.'],
+  },
+  tuitionFaqItem(),
+];
+---
+
+<BaseLayout
+  title="Martial Arts for Fayetteville Families"
+  fullTitle="Martial Arts for Fayetteville Families | Action Zone CMA"
+  crumb="Fayetteville"
+  description={`Kids karate, jiu jitsu, and self-defense for Fayetteville families, about 25 minutes away in Raeford. Teaching since ${founded.year}. Try a ${offer.noun}.`}
+  path="/fayetteville"
+  ogImage={heroImage}
+  ogImageAlt="Kids karate class training together on the dojo mat"
+  faq={faqItems}
+>
+  <ProgramHero
+    badge="Serving Fayetteville"
+    h1="Martial Arts for Fayetteville Families"
+    image={heroImage}
+    alt="Kids karate class training together on the dojo mat"
+    ctaLabel={offer.cta}
+    ctaHref="/booking"
+  >
+    <Fragment slot="heading">About 25 minutes <em>from Fayetteville.</em></Fragment>
+    <Fragment slot="subtext">
+      Karate, jiu jitsu, and self-defense for kids, teens, and adults, at a family-run Christian
+      dojo that has been teaching for {founded.yearsWords} years.
+    </Fragment>
+  </ProgramHero>
+
+  <ProseSection kicker="Fayetteville Families" heading="A different kind of martial arts school.">
+    <p>
+      Fayetteville has plenty of gyms. This is something different: a school run by one family for {founded.decades}, on two acres outside the city, where kids learn
+      martial arts and character in the same class and parents are always welcome to watch.
+    </p>
+    <p>
+      We are about 25 minutes from Fayetteville. Parents tell us the drive is worth it. The
+      playground and trampoline mean the ride home is usually a quiet one.
+    </p>
+    <p>
+      Our system, Yeshua's Ryu, draws on karate, jiu jitsu, Kung Fu, Tae Kwon Do, and the five
+      traditional Japanese weapons. We are non-competitive. We keep no trophy case. We are raising
+      the kind of people you would want living next door.
+    </p>
+  </ProseSection>
+
+  <ReviewQuote id="john-s" />
+
+  <WorthTheDrive heading="What Fayetteville families drive out for" />
+
+  <ProseSection kicker="Programs" heading="Classes for every age.">
+    <p>
+      <a href="/little-warriors">Little Warriors</a> (ages 3 to 5) is preschool karate that
+      teaches listening and focus. <a href="/kids">Kids karate</a> (6 to 12) builds confidence,
+      respect, and real self-defense. The <a href="/teens-adults">teen and adult class</a> is
+      fitness and <a href="/self-defense">self-defense</a> you would actually use, and it is
+      where parents and older kids can train together.
+    </p>
+    <p>
+      Saturday open training, {openTrainingTime}, is open to every student, all ages and ranks.
+      Military family? See <a href="/military-families">martial arts for Fort Bragg families</a>.
+    </p>
+  </ProseSection>
+
+  <section class="pb-16 md:pb-18">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2 md:px-5">
+      <AreaDirections from="Fayetteville" />
+      <PhotoStrip
+        ratioClass="aspect-square"
+        images={[
+          { src: michaelTeaching, alt: "Founder Michael Lowery teaching a class on the mat" },
+          { src: trampoline, alt: "The outdoor trampoline beside the playground" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <div class="pb-12">
+    <FAQGroup id="fayetteville-faq" title="Questions from Fayetteville families" tag="Fayetteville" items={faqItems} />
+  </div>
+
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Make the drive once. <em>The first week is free.</em></Fragment>
+    <Fragment slot="subtext">Come try {offer.visit}. No cost, no commitment, no pressure.</Fragment>
+  </CTASection>
+</BaseLayout>
