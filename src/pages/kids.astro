@@ -8,8 +8,10 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
-import { offer } from "../data/school";
-import { cityState, founded } from "../data/business";
+import Tuition from "../components/sections/Tuition.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
+import { offer, tuitionFaqItem } from "../data/school";
+import { founded } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
 const program = programs.kids;
@@ -37,6 +39,46 @@ const steps = [
   { title: "They have a blast doing it", description: "Between the ninja line, the throwing wall, and instructors who make it fun, our kids forget they are learning discipline. They just know they want to come back." },
 ];
 
+const faqItems = [
+  {
+    question: "What age can my child start kids karate?",
+    answer: [
+      `Our kids karate classes are for ages ${ageRange(program)}. Younger children, ages 3 to 5, start in <a href="/little-warriors" class="text-indigo font-bold border-b border-gold">Little Warriors</a>, our preschool karate program. At 13, students move up to the <a href="/teens-adults" class="text-indigo font-bold border-b border-gold">teen and adult class</a>.`,
+    ],
+  },
+  {
+    question: "Is this karate, or another martial art?",
+    answer: [
+      "Both. Karate is the foundation of what kids learn here, and our Yeshua's Ryu system also draws on Jiu Jitsu (grappling and escapes), Kung Fu, Tae Kwon Do, and traditional Japanese weapons. Kids get a well-rounded martial arts education instead of a single style.",
+    ],
+  },
+  tuitionFaqItem(),
+  {
+    question: "Does my child need a uniform or experience for the first class?",
+    answer: [
+      `No. Comfortable clothes they can move in are perfect, and we train barefoot. Most kids start with zero experience. Please do not buy a uniform before your ${offer.noun}; if you enroll, we will fit them properly.`,
+    ],
+  },
+];
+
+// The two "What Parents Ask First" cards are FAQ answers too.
+const parentQuestions = [
+  {
+    question: "Will karate make my child aggressive?",
+    answer: [
+      "No. In our experience it does the opposite. We spend as much time on what martial arts is not as on what it is, and we talk openly about anger and where these skills belong.",
+      "We are a non-competitive school. We are not raising fighters. We are raising the kind of people you would want living next door.",
+    ],
+  },
+  {
+    question: "Is kids karate safe?",
+    answer: [
+      "Safety comes before everything in this building. Beginners are not sparring. Students work at a level right for their age and rank, always supervised.",
+      "We teach control long before we teach contact, because a child who has not learned control has no business making any.",
+    ],
+  },
+];
+
 const belts = [
   { color: "#F5F2EA", title: "White" },
   { color: "#EBC94A", title: "Yellow" },
@@ -52,21 +94,34 @@ const belts = [
 ---
 
 <BaseLayout
-  title={`Kids Martial Arts, ${ageLabel(program)}`}
-  description={`Kids martial arts classes for ages ${ageRange(program)} in ${cityState}. Confidence, focus, respect, and real self-defense, in a non-competitive Christian dojo.`}
+  title={`Kids Karate, ${ageLabel(program)}`}
+  fullTitle={`Kids Karate & Martial Arts Classes, ${ageLabel(program)} | Raeford NC`}
+  crumb="Kids Karate"
+  description={`Kids karate and martial arts classes, ages ${ageRange(program)}. Confidence, focus, and self-defense for Raeford, Fayetteville, and Hope Mills. Try a ${offer.noun}.`}
   path="/kids"
+  ogImage={heroImage}
+  ogImageAlt="Kids karate class training together on the mat in Raeford, NC"
+  faq={[...parentQuestions, ...faqItems]}
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Kids martial arts class training together on the mat" ctaLabel={offer.cta} ctaHref="/booking?program=kids">
+  <ProgramHero
+    badge={`${program.name} · ${ageLabel(program)}`}
+    h1={`Kids Karate & Martial Arts Classes (${ageLabel(program)})`}
+    image={heroImage}
+    alt="Kids karate class training together on the mat in Raeford, NC"
+    ctaLabel={offer.cta}
+    ctaHref="/booking?program=kids"
+  >
     <Fragment slot="heading">Confidence that <em>shows up everywhere.</em></Fragment>
     <Fragment slot="subtext">
-      Practical self-defense paired with confidence, focus, and respect. High-energy classes that
-      build strength, resilience, and leadership in everyday life.
+      Karate classes for kids that pair practical self-defense with confidence, focus, and
+      respect. High-energy martial arts for kids that build strength, resilience, and leadership
+      in everyday life.
     </Fragment>
   </ProgramHero>
 
   <section class="py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
-      <ClassAtAGlance program="kids" />
+      <ClassAtAGlance program="kids" heading="Kids karate classes at a glance" />
     </div>
   </section>
 
@@ -84,6 +139,11 @@ const belts = [
         Those qualities take time, encouragement, and the right environment to grow. That is what
         we have spent {founded.yearsWords} years building here, and we would be glad to help your family
         be part of it.
+      </p>
+      <p class="mt-6 text-lg leading-loose text-[#3E3E38] md:mt-4 md:leading-normal">
+        Our kids karate classes meet in Raeford, and families drive in from Fayetteville, Hope
+        Mills, and Fort Bragg for them, because this is martial arts for kids done the way they
+        wish every activity was done.
       </p>
     </div>
   </section>
@@ -112,9 +172,9 @@ const belts = [
           dark
           ratioClass="aspect-[4/5]"
           images={[
-            { src: partnerDrill, alt: "Two kids practicing a partner drill in class", position: "50% 40%" },
-            { src: beltTest, alt: "Student performing a belt test in front of the class", position: "50% 20%" },
-            { src: ninjaLine, alt: "Kids class training beneath the ninja line strung across the dojo", position: "50% 30%" },
+            { src: partnerDrill, alt: "Two kids practicing a karate partner drill on the mat", position: "50% 40%" },
+            { src: beltTest, alt: "Young karate student performing a belt test in front of the class", position: "50% 20%" },
+            { src: ninjaLine, alt: "Kids martial arts class training beneath the ninja line strung across the dojo", position: "50% 30%" },
           ]}
         />
       </div>
@@ -128,7 +188,7 @@ const belts = [
       </SectionHead>
       <div class="grid gap-8 md:grid-cols-2 md:gap-6">
         <div class="rounded-r border border-paper-warm border-l-4 border-l-gold bg-white p-8">
-          <h3 class="mb-3 text-xl font-black text-indigo">"Will this make my child aggressive?"</h3>
+          <h3 class="mb-3 text-xl font-black text-indigo">"Will karate make my child aggressive?"</h3>
           <p class="mb-5 text-[#40403A] md:mb-3">
             No. In our experience it does the opposite. We spend as much time on what martial arts
             is not as on what it is, and we talk openly about anger and where these skills belong.
@@ -139,7 +199,7 @@ const belts = [
           </p>
         </div>
         <div class="rounded-r border border-paper-warm border-l-4 border-l-gold bg-white p-8">
-          <h3 class="mb-3 text-xl font-black text-indigo">"Is it safe?"</h3>
+          <h3 class="mb-3 text-xl font-black text-indigo">"Is kids karate safe?"</h3>
           <p class="mb-5 text-[#40403A] md:mb-3">
             Safety comes before everything in this building. Beginners are not sparring. Students
             work at a level right for their age and rank, always supervised.
@@ -158,7 +218,7 @@ const belts = [
       <PhotoStrip
         ratioClass="aspect-[4/5]"
         images={[
-          { src: instructorCorrectingStance, alt: "Instructor adjusting a young student's stance", position: "50% 25%" },
+          { src: instructorCorrectingStance, alt: "Instructor adjusting a young student's karate stance", position: "50% 25%" },
           { src: throwingWall, alt: "Kids kneeling in a line practicing blow darts at the throwing wall", position: "50% 30%" },
         ]}
       />
@@ -184,6 +244,12 @@ const belts = [
       </div>
     </div>
   </section>
+
+  <Tuition program="kids" />
+
+  <div class="pb-12">
+    <FAQGroup id="kids-faq" title="Kids karate questions" tag="For Parents" items={faqItems} />
+  </div>
 
   <ReviewQuote id="taylor-s" />
 

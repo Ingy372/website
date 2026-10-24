@@ -2,7 +2,7 @@
 // Business identity (name, address, phone, email, socials, founding year)
 // lives in ./business.ts; programs, classes, and hours live in ./schedule.ts.
 
-import { founded } from "./business";
+import { founded, todo, isTodo as s_isTodo } from "./business";
 import { ratingText, countText } from "./reviews";
 
 // ---------------------------------------------------------------------------
@@ -46,6 +46,55 @@ export const offer = {
   visit: "a trial week of classes",
   bookingTitle: "Book Your Free Trial Week",
 };
+
+// ---------------------------------------------------------------------------
+// Tuition. Shown in the "Tuition" section of each program page and the FAQ.
+// TODO(JAY: tuition). Until a value is filled in, its line is left off the
+// page and the section says "we'll go over tuition at your free trial week".
+// Write each value the way it should read, e.g. "$129 a month".
+// ---------------------------------------------------------------------------
+
+import type { ProgramId } from "./schedule";
+
+export const tuition: {
+  /** Site-wide starting price, e.g. "$99 a month". Used in the FAQ answer. */
+  startsAt: string;
+  /** Per-program monthly tuition. */
+  programs: Record<ProgramId, string>;
+  /** One-time enrollment or uniform fee, or "None". */
+  enrollmentFee: string;
+  /** Sibling / family discount wording, or "" if none. */
+  familyDiscount: string;
+} = {
+  startsAt: todo("starting monthly tuition, e.g. $99 a month"),
+  programs: {
+    littleWarriors: todo("Little Warriors monthly tuition"),
+    kids: todo("Kids monthly tuition"),
+    teensAdults: todo("Teens & Adults monthly tuition"),
+  },
+  enrollmentFee: todo("enrollment / uniform fee, or None"),
+  familyDiscount: todo("sibling or family discount, or empty if none"),
+};
+
+/** The "How much does it cost?" FAQ entry (FAQ page and program pages). */
+export function tuitionFaqItem() {
+  const known = !s_isTodo(tuition.startsAt);
+  return {
+    question: "How much does it cost?",
+    answer: known
+      ? [
+          `Programs start at <strong>${tuition.startsAt}</strong>. Your first week is free, so you can try a class before you pay anything.`,
+          "Every program page lists its tuition, and we are glad to walk you through it in person.",
+        ]
+      : [
+          `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
+          "Want the numbers before you come in? Give us a call and we will tell you.",
+        ],
+  };
+}
+
+/** schema.org priceRange for the LocalBusiness data, e.g. "$$" or "$99–$149/month". */
+export const priceRange = todo("price range for Google, e.g. $$");
 
 // ---------------------------------------------------------------------------
 // Ownership verification meta tags, rendered in every page <head> only when
@@ -98,6 +147,17 @@ export const nav = {
   parties: [
     { label: "Birthday Parties", href: "/birthday-parties" },
     { label: "Parents Night Out", href: "/parents-night-out" },
+  ],
+  styles: [
+    { label: "Karate", href: "/karate" },
+    { label: "Jiu Jitsu", href: "/jiu-jitsu" },
+    { label: "Self-Defense", href: "/self-defense" },
+  ],
+  areas: [
+    { label: "Hope Mills", href: "/hope-mills" },
+    { label: "Rockfish & Jack Britt", href: "/rockfish-jack-britt" },
+    { label: "Fayetteville", href: "/fayetteville" },
+    { label: "Fort Bragg Military Families", href: "/military-families" },
   ],
   about: [
     { label: "Our Story", href: "/our-story" },

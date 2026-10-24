@@ -17,10 +17,10 @@ export const FOUNDED_YEAR = 1993;
 export const FOUNDED_MONTH = 12;
 
 export const business = {
-  displayName: "Action Zone, CMA",
+  displayName: "Action Zone CMA",
   legalName: "CMA Martial Arts, Inc.",
   address: {
-    street: "6105 Philippi Church Rd.",
+    street: "6105 Philippi Church Rd",
     city: "Raeford",
     state: "NC",
     stateName: "North Carolina",
@@ -34,13 +34,16 @@ export const business = {
     facebook: "https://www.facebook.com/cmamtma/",
     instagram: "https://www.instagram.com/yeshuas_ryu/",
   },
-  // TODO(JAY: Google Business Profile links). Until then both fall back to a
-  // Google search, which works but isn't the listing itself.
-  //  - googleReviewsUrl: the Maps listing (Share → copy link on the profile).
-  //  - googleWriteReviewUrl: the "Ask for reviews" link from the GBP dashboard
-  //    (https://g.page/r/<id>/review).
-  googleReviewsUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
-  googleWriteReviewUrl: "https://www.google.com/search?q=Action+Zone+CMA+Raeford",
+  // Google Business Profile (place ID ChIJk5pfjKs_q4kRsLJlYEa7fjw, CID
+  // 4359127400280601264), looked up from the live listing on 2026-10-23.
+  //  - googleReviewsUrl: the listing on Google Maps.
+  //  - googleWriteReviewUrl: opens the "write a review" box directly. Google's
+  //    short "Ask for reviews" link (Business Profile → Ask for reviews,
+  //    https://g.page/r/<id>/review) does the same thing; paste it here to swap.
+  googleReviewsUrl: "https://www.google.com/maps?cid=4359127400280601264",
+  googleWriteReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJk5pfjKs_q4kRsLJlYEa7fjw",
+  /** Map pin from the Google Business Profile. */
+  geo: { latitude: 34.9764935, longitude: -79.0828535 },
 };
 
 // ---------------------------------------------------------------------------
@@ -56,6 +59,15 @@ export const team = {
 export const addressCityLine = `${business.address.city}, ${business.address.state} ${business.address.zip}`;
 export const addressFull = `${business.address.street}, ${addressCityLine}`;
 export const cityState = `${business.address.city}, ${business.address.state}`;
+
+// ---------------------------------------------------------------------------
+// Service area. One list for the homepage, footer, contact page, FAQ, and the
+// schema.org areaServed. Ordered from the dojo outward.
+// ---------------------------------------------------------------------------
+
+export const serviceArea = ["Raeford", "Rockfish", "Jack Britt", "Hope Mills", "Fort Bragg", "Fayetteville"];
+/** "Raeford, Rockfish, Jack Britt, Hope Mills, Fort Bragg, and Fayetteville" */
+export const serviceAreaText = `${serviceArea.slice(0, -1).join(", ")}, and ${serviceArea[serviceArea.length - 1]}`;
 
 // ---------------------------------------------------------------------------
 // Directions block (/contact, /facility) and the FAQ drive-time answer.
