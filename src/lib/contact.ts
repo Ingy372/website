@@ -2,16 +2,24 @@
 // email → backup log. Every failure is reported back to the caller so the
 // form shows "please call us" instead of silently dropping an inquiry.
 //
-// Configuration (Cloudflare dashboard / .dev.vars — never commit values):
-//   EMAIL                 send_email binding (Cloudflare Email Service). See
-//                         the commented block in wrangler.jsonc.
-//   CONTACT_TO_EMAIL      TODO(JAY: inbox that receives website inquiries)
-//   CONTACT_FROM_EMAIL    sender on an onboarded domain, e.g. website@actionzonecma.com
-//   TURNSTILE_SECRET_KEY  Turnstile secret. Local dev can use Cloudflare's
-//                         always-pass test secret 1x0000000000000000000000000000000AA.
+// Configuration (wrangler.jsonc vars and bindings; the secret lives only in
+// the Cloudflare dashboard, never in git):
+//   EMAIL                 send_email binding. Uses Cloudflare Email Routing
+//                         (free): the Worker can send to a *verified*
+//                         destination address on the actionzonecma.com zone.
+//   CONTACT_TO_EMAIL      inbox that receives website inquiries (a verified
+//                         Email Routing destination address)
+//   CONTACT_FROM_EMAIL    sender on the Email Routing domain, website@actionzonecma.com
+//   TURNSTILE_SECRET_KEY  Turnstile secret (Worker secret). While it is unset,
+//                         the form still sends (honeypot + rate limit only) and
+//                         logs a warning; once set, Turnstile is enforced.
+//                         Local dev can use Cloudflare's always-pass test
+//                         secret 1x0000000000000000000000000000000AA.
 //   CONTACT_RATE_LIMIT    ratelimits binding (wrangler.jsonc), per client IP.
 //   CONTACT_LOG           optional KV namespace; when bound, every submission is
 //                         also stored for 90 days as a backup copy.
+
+import { EmailMessage } from "cloudflare:email";
 
 // Topic options. Values are stable (used by ?interest= links and reports);
 // labels are what the visitor sees.
@@ -74,13 +82,7 @@ export type ContactSubmission = Record<ContactField, string>;
 export const HONEYPOT_FIELD = "company_website";
 
 interface SendEmailBinding {
-  send(message: {
-    from: string | { email: string; name?: string };
-    to: string;
-    replyTo?: string;
-    subject: string;
-    text: string;
-  }): Promise<{ messageId: string }>;
+  send(message: EmailMessage): Promise<void>;
 }
 
 export interface ContactEnv {
@@ -130,6 +132,38 @@ async function verifyTurnstile(token: string, ip: string | null, secret: string)
 }
 
 const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ");
+
+/** UTF-8 → base64, wrapped at 76 characters (RFC 2045). */
+function base64Utf8(s: string, wrap = true) {
+  const bytes = new TextEncoder().encode(s);
+  let bin = "";
+  for (const b of bytes) bin += String.fromCharCode(b);
+  const b64 = btoa(bin);
+  return wrap ? b64.replace(/.{1,76}/g, "$&\r\n").trimEnd() : b64;
+}
+
+/** RFC 2047 encoded-word for header text that may hold non-ASCII. */
+const encodeHeader = (s: string) => (/^[\x20-\x7e]*$/.test(s) ? s : `=?UTF-8?B?${base64Utf8(s, false)}?=`);
+
+/** Strip anything that could break out of an address header. */
+const safeAddress = (s: string) => s.replace(/[\r\n<>",;]/g, "").trim();
+
+/** Plain-text email as raw MIME, for the send_email binding. */
+function buildMime(m: { from: string; fromName: string; to: string; replyTo: string; subject: string; text: string }) {
+  const domain = m.from.split("@")[1] ?? "actionzonecma.com";
+  const headers = [
+    `From: ${encodeHeader(m.fromName)} <${safeAddress(m.from)}>`,
+    `To: <${safeAddress(m.to)}>`,
+    `Reply-To: <${safeAddress(m.replyTo)}>`,
+    `Subject: ${encodeHeader(oneLine(m.subject))}`,
+    `Date: ${new Date().toUTCString()}`,
+    `Message-ID: <${crypto.randomUUID()}@${domain}>`,
+    "MIME-Version: 1.0",
+    "Content-Type: text/plain; charset=UTF-8",
+    "Content-Transfer-Encoding: base64",
+  ];
+  return `${headers.join("\r\n")}\r\n\r\n${base64Utf8(m.text)}\r\n`;
+}
 
 const labelOf = (list: readonly { value: string; label: string }[], value: string) =>
   list.find((o) => o.value === value)?.label ?? value;
@@ -187,14 +221,13 @@ export async function handleContact(
   const { data, error } = parseSubmission(raw);
   if (!data) return { ok: false, status: 400, error: error! };
 
-  if (!env.TURNSTILE_SECRET_KEY) {
-    console.error("[contact] TURNSTILE_SECRET_KEY is not set; refusing submission.");
-    await backupLog(env, data, false);
-    return { ok: false, status: 503, error: "The contact form is not set up yet." };
-  }
-  const token = typeof raw["cf-turnstile-response"] === "string" ? (raw["cf-turnstile-response"] as string) : "";
-  if (!token || !(await verifyTurnstile(token, ip, env.TURNSTILE_SECRET_KEY))) {
-    return { ok: false, status: 403, error: "We couldn't verify the form. Please try again." };
+  if (env.TURNSTILE_SECRET_KEY) {
+    const token = typeof raw["cf-turnstile-response"] === "string" ? (raw["cf-turnstile-response"] as string) : "";
+    if (!token || !(await verifyTurnstile(token, ip, env.TURNSTILE_SECRET_KEY))) {
+      return { ok: false, status: 403, error: "We couldn't verify the form. Please try again." };
+    }
+  } else {
+    console.warn("[contact] TURNSTILE_SECRET_KEY is not set; accepting with honeypot + rate limit only.");
   }
 
   if (!env.EMAIL || !env.CONTACT_TO_EMAIL || !env.CONTACT_FROM_EMAIL) {
@@ -205,13 +238,15 @@ export async function handleContact(
 
   const { subject, text } = formatEmail(data);
   try {
-    await env.EMAIL.send({
-      from: { email: env.CONTACT_FROM_EMAIL, name: "Action Zone website" },
+    const raw = buildMime({
+      from: env.CONTACT_FROM_EMAIL,
+      fromName: "Action Zone website",
       to: env.CONTACT_TO_EMAIL,
       replyTo: data.email,
       subject,
       text,
     });
+    await env.EMAIL.send(new EmailMessage(env.CONTACT_FROM_EMAIL, env.CONTACT_TO_EMAIL, raw));
   } catch (err) {
     console.error("[contact] Email send failed:", err);
     await backupLog(env, data, false);
