@@ -1,0 +1,62 @@
+---
+// One "areas we serve" page, linked from the footer only (not the main menu).
+// Helps searches like "martial arts Fayetteville NC" or "karate Hope Mills"
+// find the school without adding town pages to the navigation.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import Directions from "../components/sections/Directions.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { offer } from "../data/school";
+import { cityState, directions, founded, isTodo } from "../data/business";
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const driveTime = (town: string) => {
+  const t = directions.driveTimes.find((d) => d.from === town && !isTodo(d.time))?.time;
+  return t ? cap(t) : undefined;
+};
+
+const towns = [
+  { name: "Raeford & Hoke County", line: "Our home dojo, right here for Hoke County families." },
+  { name: "Fayetteville", line: driveTime("Fayetteville") ? `${driveTime("Fayetteville")} away, and worth every mile.` : "A short drive, and worth every mile." },
+  { name: "Hope Mills", line: driveTime("Hope Mills") ? `${driveTime("Hope Mills")} away.` : "A short drive away." },
+  { name: "Rockfish & Jack Britt", line: "A quick drive for families in Rockfish and Jack Britt." },
+  { name: "Fort Bragg", line: "Military families are always welcome here." },
+];
+---
+
+<BaseLayout
+  title="Families We Serve"
+  seoTitle="Martial Arts Near Fayetteville, Hope Mills & Fort Bragg | Action Zone CMA"
+  description={`Kids karate and martial arts in ${cityState}, a short drive from Fayetteville, Hope Mills, Rockfish, Jack Britt, and Fort Bragg. Teaching families since ${founded.year}. Try a ${offer.noun}.`}
+  path="/families-we-serve"
+>
+  <SimpleHero eyebrow="Families We Serve">
+    <Fragment slot="heading">Worth the drive, <em>from every direction.</em></Fragment>
+    <Fragment slot="subtext">
+      One family dojo in {cityState}, serving kids, teens, and adults from across the area for{" "}
+      {founded.yearsWords} years.
+    </Fragment>
+  </SimpleHero>
+
+  <section class="py-20 md:py-20">
+    <div class="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3 md:gap-5 md:px-5">
+      {towns.map((t) => (
+        <div class="rounded border-t-4 border-gold bg-white p-6 shadow-[0_1px_0_rgba(25,26,62,0.06)]">
+          <h2 class="mb-2 text-xl font-black text-indigo">{t.name}</h2>
+          <p class="text-[0.95rem] text-mist">{t.line}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-paper-warm py-20 md:py-20">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <Directions />
+    </div>
+  </section>
+
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">Make the drive once. <em>The first week is free.</em></Fragment>
+    <Fragment slot="subtext">Come see why families keep making the trip.</Fragment>
+  </CTASection>
+</BaseLayout>
