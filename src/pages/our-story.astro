@@ -15,10 +15,9 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
 <BaseLayout
   title="Our Story"
+  seoTitle="Our Story | Christian Martial Arts in Raeford Since 1993"
   description={`${business.displayName} has taught Yeshua's Ryu in ${cityState} since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
   path="/our-story"
-  ogImage={michaelTeaching}
-  ogImageAlt={`Founder ${team.founder.name} teaching a martial arts class on the mat`}
 >
   <SimpleHero eyebrow="Our Story">
     <Fragment slot="heading">{founded.yearsWordsCap} years, <em>one standard.</em></Fragment>
@@ -116,7 +115,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
     <div class="aspect-[4/3] overflow-hidden rounded">
       <Picture
         src={studentActionShot}
-        alt="Martial arts students mid-technique during a training session"
+        alt="Students mid-technique during a training session"
         formats={["avif", "webp"]}
         widths={[400, 600, 800, 1120]}
         sizes="(min-width: 640px) 45vw, 100vw"
