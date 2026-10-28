@@ -13,7 +13,7 @@ import LogoBadge from "../components/motion/LogoBadge.astro";
 import ScrollReveal from "../components/motion/ScrollReveal.astro";
 import PhotoCarousel from "../components/sections/PhotoCarousel.astro";
 import { offer } from "../data/school";
-import { business, founded, team, addressCityLine, mapsDirectionsUrl, serviceAreaText } from "../data/business";
+import { business, cityState, founded, team, addressCityLine, mapsDirectionsUrl } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
 import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
@@ -80,13 +80,13 @@ const audiences = [
 // Real class photos for the "Life on the mat" strip. Alt text describes
 // what's in each frame (a few filenames don't match their contents).
 const galleryPhotos = [
-  { src: galleryBoStaff, position: "50% 30%", alt: "An instructor guiding a student's form with the bo staff during weapons training" },
-  { src: galleryWarmUp, landscape: true, alt: "Young karate students stretching through warm-ups on the dojo mat" },
+  { src: galleryBoStaff, position: "50% 30%", alt: "An instructor guiding a student's form with the bo staff" },
+  { src: galleryWarmUp, landscape: true, alt: "Young students stretching through warm-ups on the dojo mat" },
   { src: galleryOneOnOne, alt: "An instructor working one-on-one with a young yellow-belt student" },
-  { src: galleryKickDrills, landscape: true, alt: "Martial arts students drilling kicks into pads held by partners across the dojo floor" },
-  { src: galleryGroundWork, alt: "Two students practicing jiu jitsu ground technique on the mat" },
+  { src: galleryKickDrills, landscape: true, alt: "Students drilling kicks into pads held by partners across the dojo floor" },
+  { src: galleryGroundWork, alt: "Two students practicing ground technique on the mat" },
   { src: galleryStoryTime, landscape: true, alt: "An instructor reading to a circle of students seated on the mat" },
-  { src: gallerySparringGear, alt: "Smiling young karate students suited up in red sparring gear" },
+  { src: gallerySparringGear, alt: "Smiling young students suited up in red sparring gear" },
   { src: galleryDemoTeam, position: "50% 25%", alt: "The Action Zone demo team in red uniforms at a community event" },
 ];
 
@@ -105,55 +105,49 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 ---
 
 <BaseLayout
-  title="Kids Karate & Martial Arts in Raeford, NC"
-  fullTitle={`Kids Karate & Martial Arts in Raeford, NC | ${business.displayName}`}
-  description={`Kids karate, jiu jitsu, and self-defense classes for ages 3 to adult. Serving Raeford, Fayetteville, and Hope Mills since ${founded.year}. Claim your ${offer.noun}.`}
+  title={`Christian Martial Arts in ${cityState}`}
+  seoTitle="Martial Arts & Karate Classes in Raeford, NC | Action Zone CMA"
+  description={`Christian martial arts in ${cityState} since ${founded.year}: kids karate, jiu jitsu, and self-defense for ages 3 to adult. Near Fayetteville, Hope Mills, and Fort Bragg. Claim your ${offer.noun}.`}
   path="/"
-  ogImage={kidsClass}
-  ogImageAlt="Kids karate class training together on the dojo mat in Raeford, NC"
 >
   <HomeHero />
   <Marquee items={martialStyles} label="Styles we teach" duration={40} />
 
   <section class="py-20 md:py-20" id="programs">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <SectionHead reveal kicker="Find Your Class" hasSubtext>
+      <SectionHead reveal kicker="Find Your Class">
         <Fragment slot="heading">A program for every age and stage.</Fragment>
-        <Fragment slot="subtext">
-          Karate, jiu jitsu, and self-defense classes for kids, teens, and adults, all taught in
-          our Yeshua's Ryu system. Families come to us from {serviceAreaText}.
-        </Fragment>
       </SectionHead>
       <div class="grid gap-8 md:grid-cols-3 md:gap-6">
         <ProgramCard
           image={littleWarriorsClass}
-          alt="Little Warriors preschool karate students lined up in uniform on the dojo mat"
+          alt="Little Warriors students lined up in uniform for a preschool martial arts class"
           ageLabel={ageLabel(programs.littleWarriors)}
           program="littleWarriors"
           title="Little Warriors"
-          tag="Preschool Karate"
+          tag="Preschool Martial Arts"
           description="Fun, structure, and discipline that help young children develop focus, confidence, and coordination, building lifelong skills on and off the mat."
           href="/little-warriors"
         />
         <ProgramCard
           image={kidsClass}
-          alt="Kids karate class training together on the dojo mat in Raeford, NC"
+          alt="Kids martial arts class training together on the dojo mat"
           position="50% 30%"
           ageLabel={ageLabel(programs.kids)}
           program="kids"
           title="Kids Classes"
-          tag="Kids Karate & Martial Arts"
-          description="Karate classes for kids that pair practical self-defense with confidence, focus, and respect. High-energy classes that build strength, resilience, and leadership."
+          tag="Mixed Traditional Martial Arts"
+          description="Practical self-defense paired with confidence, focus, and respect. High-energy classes that build strength, resilience, and leadership in everyday life."
           href="/kids"
         />
         <ProgramCard
           image={teensAdultsClass}
-          alt="Teens and adults training together in a martial arts and self-defense class"
+          alt="Teens and adults training together in a martial arts and fitness class"
           position="50% 28%"
           ageLabel={ageLabel(programs.teensAdults)}
           program="teensAdults"
           title="Teens & Adults"
-          tag="Karate, Jiu Jitsu & Self-Defense"
+          tag="Fitness & Self-Defense"
           description="Get in shape, learn to defend yourself, relieve stress. Real martial arts plus full-body fitness. No experience needed. Just show up and grow."
           href="/teens-adults"
         />
@@ -320,7 +314,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
           </div>
       </div>
       <p class="mx-auto mb-11 max-w-[30ch] text-center font-display text-[1.35rem] font-semibold text-white">
-        Trusted by families across {serviceAreaText}.
+        Trusted by families across Raeford, Fayetteville, and Hope Mills.
       </p>
       </div>
       <div class="grid gap-8 md:grid-cols-3 md:gap-5">
@@ -337,7 +331,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       <div class="grid gap-8 md:grid-cols-2 md:gap-5">
         <ExtraCard
           image={homeBirthdayParty}
-          alt="Kids at a martial arts birthday party in the Action Zone dojo"
+          alt="Children at a martial arts birthday party at Action Zone"
           title="Birthday Parties"
           description="Ninja line, throwing wall, games, and real martial arts, with the playground outside. We run the party, serve the cake, and clean up after."
           linkLabel="Book a party →"
@@ -345,7 +339,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         />
         <ExtraCard
           image={homeParentsNightOut}
-          alt="Kids playing games at a themed Parents Night Out at the dojo"
+          alt="Kids playing games at a themed Parents Night Out event"
           position="50% 35%"
           title="Parents Night Out"
           description="Drop the kids off and enjoy an evening to yourselves. Games, training, and a whole lot of running around."
