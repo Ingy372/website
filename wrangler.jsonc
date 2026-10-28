@@ -47,7 +47,12 @@
 	// preview builds, which can't auto-create it, deploy too.
 	"kv_namespaces": [
 		{ "binding": "SESSION", "id": "a2b7acd333694db2875c7de87a58d632" }
-	]
+	],
+	"previews": {
+		"kv_namespaces": [
+			{ "binding": "SESSION", "id": "a2b7acd333694db2875c7de87a58d632" }
+		]
+	}
 	// Optional backup copy of every submission (create the namespace first):
 	// ,"kv_namespaces": [{ "binding": "CONTACT_LOG", "id": "<namespace id>" }]
 }
