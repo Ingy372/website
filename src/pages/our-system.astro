@@ -1,0 +1,110 @@
+---
+// "Our System": one page that explains Yeshua's Ryu and the arts inside it.
+// It exists so families (and Google) can find karate, jiu jitsu, kung fu,
+// taekwondo, weapons, and self-defense here, while making it clear these are
+// parts of ONE blended program, not separate classes to sign up for.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimpleHero from "../components/hero/SimpleHero.astro";
+import SectionHead from "../components/sections/SectionHead.astro";
+import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { offer } from "../data/school";
+import { cityState, founded, team } from "../data/business";
+import { programs, ageLabel } from "../data/schedule";
+
+import drillingTechnique from "../images/teens-adults/drilling-technique.jpg";
+import partnerSelfDefense from "../images/teens-adults/partner-self-defense.jpg";
+import weaponsTraining from "../images/teens-adults/weapons-training.jpg";
+
+const arts = [
+  { name: "Karate", desc: "Strikes, blocks, and stances. Power and precision standing up." },
+  { name: "Jiu Jitsu", desc: "Takedowns, escapes, holds, and submissions, with live grappling." },
+  { name: "Kung Fu", desc: "Flowing movement and hand techniques from the Chinese martial arts tradition." },
+  { name: "Tae Kwon Do", desc: "Speed, flexibility, and the kicks the Korean art is known for." },
+  { name: "Japanese Weapons", desc: "The five traditional Japanese weapons, trained with control and respect." },
+  { name: "Self-Defense", desc: "Where it all comes together: practical skills you could actually use." },
+];
+
+const programLinks = [
+  { name: programs.littleWarriors.name, age: ageLabel(programs.littleWarriors), href: "/little-warriors" },
+  { name: programs.kids.name, age: ageLabel(programs.kids), href: "/kids" },
+  { name: programs.teensAdults.name, age: ageLabel(programs.teensAdults), href: "/teens-adults" },
+];
+---
+
+<BaseLayout
+  title="Our System"
+  seoTitle="Karate, Jiu Jitsu, Kung Fu & Tae Kwon Do in Raeford, NC | Yeshua's Ryu"
+  description={`Yeshua's Ryu blends karate, jiu jitsu, kung fu, tae kwon do, Japanese weapons, and self-defense into one program at Action Zone CMA in ${cityState}. For kids, teens, and adults.`}
+  path="/our-system"
+>
+  <SimpleHero eyebrow="Our System">
+    <Fragment slot="heading">One system. <em>Every art.</em></Fragment>
+    <Fragment slot="subtext">
+      You don't pick a style here. Every student trains in Yeshua's Ryu, one blended system, in
+      every class.
+    </Fragment>
+  </SimpleHero>
+
+  <div class="mx-auto max-w-3xl px-6 md:px-5">
+    <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
+      Yeshua's Ryu is {team.founder.honorific} {team.founder.name}'s own system, drawn from more than
+      fifty years in the martial arts. He blended Karate, Jiu Jitsu, Kung Fu, Tae Kwon Do, and the five
+      traditional Japanese weapons into one, and named it for the reason he teaches: Jesus' Way.
+    </p>
+  </div>
+
+  <section class="bg-paper-warm py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="Inside Yeshua's Ryu" center>
+        <Fragment slot="heading">Six disciplines, <em>one way of training.</em></Fragment>
+      </SectionHead>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 md:gap-5">
+        {arts.map((a) => (
+          <div class="rounded border-t-4 border-gold bg-white p-6">
+            <h3 class="mb-2 text-xl font-black text-indigo">{a.name}</h3>
+            <p class="text-[0.95rem] text-mist">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        caption="Striking, grappling, and weapons, all in one system"
+        ratioClass="aspect-[4/3]"
+        images={[
+          { src: drillingTechnique, alt: "Students drilling a striking technique together" },
+          { src: partnerSelfDefense, alt: "Adults practicing a partner self-defense escape", position: "50% 30%" },
+          { src: weaponsTraining, alt: "Adult class training with traditional Japanese weapons" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="px-6 pb-20 md:px-5 md:pb-20">
+    <ReassuranceBox heading="One program, not six classes.">
+      <p>
+        There is nothing extra to sign up for. Each program teaches the whole system at a level that
+        fits its age, and has done so in {cityState} for {founded.yearsWords} years.
+      </p>
+      <ul class="flex flex-col gap-2">
+        {programLinks.map((p) => (
+          <li>
+            <a href={p.href} class="font-bold text-indigo hover:text-gold">
+              {p.name} <span class="font-normal text-mist">· {p.age}</span> <span aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </ReassuranceBox>
+  </section>
+
+  <CTASection ctaLabel={offer.cta} ctaHref="/booking">
+    <Fragment slot="heading">The journey to a Black Belt <em>starts with a single class.</em></Fragment>
+    <Fragment slot="subtext">Your {offer.first} is free. No experience needed.</Fragment>
+  </CTASection>
+</BaseLayout>

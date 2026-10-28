@@ -2,10 +2,8 @@
 interface Props {
   eyebrow: string;
   narrow?: boolean;
-  /** The page's H1 in search words; the "heading" slot then becomes a subheading. */
-  h1?: string;
 }
-const { eyebrow, narrow = true, h1 } = Astro.props;
+const { eyebrow, narrow = true } = Astro.props;
 const containerClass = narrow ? "max-w-3xl" : "max-w-6xl";
 ---
 
@@ -20,18 +18,9 @@ const containerClass = narrow ? "max-w-3xl" : "max-w-6xl";
       <span class="h-px w-[30px] bg-gold" aria-hidden="true"></span>
       {eyebrow}
     </span>
-    {h1 ? (
-      <>
-        <h1 class="max-w-[22ch] text-[clamp(2rem,4vw,3.1rem)]">{h1}</h1>
-        <p class="mt-3 max-w-[26ch] font-display text-[clamp(1.3rem,2.3vw,1.8rem)] font-semibold leading-snug text-white/90 [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
-          <slot name="heading" />
-        </p>
-      </>
-    ) : (
-      <h1 class="max-w-[16ch] text-[clamp(2.2rem,4.4vw,3.5rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
-        <slot name="heading" />
-      </h1>
-    )}
+    <h1 class="max-w-[16ch] text-[clamp(2.2rem,4.4vw,3.5rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
+      <slot name="heading" />
+    </h1>
     <p class="mt-5 max-w-[52ch] text-lg text-[#C4C3D4]">
       <slot name="subtext" />
     </p>

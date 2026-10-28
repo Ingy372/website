@@ -3,25 +3,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ProgramHero from "../components/hero/ProgramHero.astro";
 import SectionHead from "../components/sections/SectionHead.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import { business, cityState } from "../data/business";
 import FactList from "../components/sections/FactList.astro";
-import UpcomingEvents from "../components/sections/UpcomingEvents.astro";
-import { nextParentsNightOut, eventWhenText } from "../data/events";
+import { nextParentsNightOut, upcoming, eventWhenText, eventJsonLd } from "../data/events";
 import { parentsNightOutFacts } from "../data/parties";
 
 import partyPhoto from "../images/parents-night-out/party.jpg";
 
+const eventSchema = eventJsonLd("parents-night-out", new URL("/parents-night-out", Astro.site).href);
+const upcomingDates = upcoming("parents-night-out");
 ---
 
 <BaseLayout
-  title="Parents Night Out for Kids"
-  fullTitle="Parents Night Out for Kids | Raeford & Fayetteville NC"
-  crumb="Parents Night Out"
-  description={`A themed night of games and martial arts for kids, and a night off for you. Raeford, Fayetteville, and Hope Mills. New students: try a free trial week.`}
+  title="Parents Night Out"
+  description={`Drop the kids off for a themed evening of games and martial arts at ${business.displayName} in ${cityState}, and enjoy a few hours to yourselves.`}
   path="/parents-night-out"
-  ogImage={partyPhoto}
-  ogImageAlt="Kids at a themed Parents Night Out at the dojo"
 >
-  <ProgramHero badge="Parents Night Out" h1="Parents Night Out in Raeford" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
+  {eventSchema.length > 0 && (
+    <script type="application/ld+json" slot="head" set:html={JSON.stringify(eventSchema)} is:inline />
+  )}
+  <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
     <Fragment slot="heading">Drop the kids. <em>Enjoy the night.</em></Fragment>
     <Fragment slot="subtext">
       A themed evening of games, martial arts, and fun your kids won't stop talking about. Nerf
@@ -30,7 +31,7 @@ import partyPhoto from "../images/parents-night-out/party.jpg";
     </Fragment>
     {nextParentsNightOut && (
       <Fragment slot="note">
-        Next date: {eventWhenText(nextParentsNightOut)} · {nextParentsNightOut.title}
+        Next date: {eventWhenText(nextParentsNightOut)}{nextParentsNightOut.theme && ` · ${nextParentsNightOut.theme}`}
       </Fragment>
     )}
   </ProgramHero>
@@ -55,11 +56,24 @@ import partyPhoto from "../images/parents-night-out/party.jpg";
   <section class="pb-16 md:pb-20">
     <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.2fr_0.8fr] md:gap-6 md:px-5">
       <FactList heading="The night at a glance" facts={parentsNightOutFacts} />
-      <UpcomingEvents
-        kind="parents-night-out"
-        heading="Upcoming dates"
-        emptyText="Dates go up here as they are set. Ask us for the next one and we will save your child a spot."
-      />
+      <div class="rounded border border-paper-warm bg-paper-warm p-7">
+        <h2 class="mb-4 font-display text-2xl font-black text-indigo">Upcoming dates</h2>
+        {upcomingDates.length > 0 ? (
+          <ul class="flex flex-col gap-3">
+            {upcomingDates.map((e) => (
+              <li class="border-b border-[#DFD9C9] pb-3 last:border-0 last:pb-0">
+                <div class="font-semibold text-indigo">{eventWhenText(e)}</div>
+                {e.theme && <div class="text-sm text-mist">{e.theme}</div>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-[#40403A]">
+            Dates go up here as they are set. Ask us for the next one and we will save your
+            child a spot.
+          </p>
+        )}
+      </div>
     </div>
   </section>
 

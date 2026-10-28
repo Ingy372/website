@@ -1,9 +1,0 @@
-{
-  "_readme": "Site-wide announcement bar (top of every page). Set \"active\" to true to show it. \"id\" must change whenever the wording changes, so visitors who closed the old one see the new one. \"ends\" (YYYY-MM-DD, optional) hides it after that day, even before the next deploy. \"link\" is where the bar sends people (usually /booking).",
-  "active": false,
-  "id": "example-offer",
-  "text": "Enroll by Nov 15: no enrollment fee + free uniform.",
-  "linkLabel": "Book your free trial week",
-  "link": "/booking",
-  "ends": "2026-11-15"
-}

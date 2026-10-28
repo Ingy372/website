@@ -18,7 +18,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !["/404", "/family-login", "/contact/sent", "/booking/sent", "/privacy", "/sms-terms"].some((p) =>
+        !["/404", "/family-login", "/contact/sent", "/privacy", "/sms-terms"].some((p) =>
           new URL(page).pathname.replace(/\/$/, "").endsWith(p)
         ),
     }),
