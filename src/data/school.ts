@@ -48,48 +48,18 @@ export const offer = {
 };
 
 // ---------------------------------------------------------------------------
-// Tuition. Shown in the "Tuition" section of each program page and the FAQ.
-// TODO(JAY: tuition). Until a value is filled in, its line is left off the
-// page and the section says "we'll go over tuition at your free trial week".
-// Write each value the way it should read, e.g. "$129 a month".
+// Tuition. House rule (Jay, Oct 2026): never show tuition or prices on the
+// site. The FAQ answer below always points people to the free trial week.
 // ---------------------------------------------------------------------------
-
-import type { ProgramId } from "./schedule";
-
-export const tuition: {
-  /** Site-wide starting price, e.g. "$99 a month". Used in the FAQ answer. */
-  startsAt: string;
-  /** Per-program monthly tuition. */
-  programs: Record<ProgramId, string>;
-  /** One-time enrollment or uniform fee, or "None". */
-  enrollmentFee: string;
-  /** Sibling / family discount wording, or "" if none. */
-  familyDiscount: string;
-} = {
-  startsAt: todo("starting monthly tuition, e.g. $99 a month"),
-  programs: {
-    littleWarriors: todo("Little Warriors monthly tuition"),
-    kids: todo("Kids monthly tuition"),
-    teensAdults: todo("Teens & Adults monthly tuition"),
-  },
-  enrollmentFee: todo("enrollment / uniform fee, or None"),
-  familyDiscount: todo("sibling or family discount, or empty if none"),
-};
 
 /** The "How much does it cost?" FAQ entry (FAQ page and program pages). */
 export function tuitionFaqItem() {
-  const known = !s_isTodo(tuition.startsAt);
   return {
     question: "How much does it cost?",
-    answer: known
-      ? [
-          `Programs start at <strong>${tuition.startsAt}</strong>. Your first week is free, so you can try a class before you pay anything.`,
-          "Every program page lists its tuition, and we are glad to walk you through it in person.",
-        ]
-      : [
-          `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
-          "Want the numbers before you come in? Give us a call and we will tell you.",
-        ],
+    answer: [
+      `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
+      "Want to talk it over before you come in? Give us a call.",
+    ],
   };
 }
 
@@ -98,10 +68,9 @@ export function tuitionFaqItem() {
  * for active duty, veteran, and military spouse families". TODO(JAY: is
  * there a military discount? Fill in, or set to "" if none.) Hidden until set.
  */
-export const militaryDiscount = todo("military discount wording, or empty if none");
+// There is no military discount (confirmed by Jay, Oct 2026). Keep this empty.
+export const militaryDiscount = "";
 
-/** schema.org priceRange for the LocalBusiness data, e.g. "$$" or "$99–$149/month". */
-export const priceRange = todo("price range for Google, e.g. $$");
 
 // ---------------------------------------------------------------------------
 // Ownership verification meta tags, rendered in every page <head> only when
@@ -117,13 +86,12 @@ export const siteVerification: Record<"google-site-verification" | "msvalidate.0
 
 // ---------------------------------------------------------------------------
 // Cloudflare Turnstile (spam check on the contact form). The site key is
-// public. TODO(JAY: Turnstile site key for actionzonecma.com — create a widget
-// in the Cloudflare dashboard and paste its site key here; put its secret in
-// TURNSTILE_SECRET_KEY). Until then this is Cloudflare's always-pass test key,
-// which a real production secret rejects, so the form fails closed.
+// public. Widget "Action Zone contact form" (Cloudflare dashboard →
+// Turnstile). Its secret goes in the Worker secret TURNSTILE_SECRET_KEY
+// (dashboard only, never in git).
 // ---------------------------------------------------------------------------
 
-export const turnstileSiteKey = "1x00000000000000000000AA";
+export const turnstileSiteKey = "0x4AAAAAAFlSsSsO5psaCXe0";
 
 // ---------------------------------------------------------------------------
 // DojoForge hosted booking widget (Nic, Tarnished Labs) — active booking

@@ -9,7 +9,7 @@ import { todo } from "./business";
 export interface Review {
   id: string;
   author: string;
-  relationship: "Parent" | "Student";
+  relationship: "Parent" | "Student" | "Former instructor";
   source: "Google";
   /** ISO date the review was posted, or null if not yet recorded. */
   date: string | null;

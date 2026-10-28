@@ -40,12 +40,11 @@
     {
       "id": "jacy-d",
       "author": "Jacy D.",
-      "relationship": "Parent",
+      "relationship": "Former instructor",
       "source": "Google",
-      "date": "2021-11-04",
+      "date": null,
       "rating": 5,
-      "text": "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves, and learn about Jesus Christ and how great He truly is.",
-      "verify": "not shown on /reviews: text is paraphrased, and Jacy Dial appears to be an instructor (another review names 'Mr. Jacy'). Confirm before using"
+      "text": "This is a FANTASTIC place to take children so that they can gain great social skills and personally development within themselves the skills and abilities to defend themselves while learning about Jesus Christ and how great he truly is."
     },
     {
       "id": "rachel-b",

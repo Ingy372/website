@@ -77,7 +77,7 @@ export const directions = {
   driveTimes: [
     // From the existing FAQ copy ("roughly twenty-five minutes from Fayetteville").
     { from: "Fayetteville", time: "about 25 minutes", timeWords: "roughly twenty-five minutes" },
-    { from: "Hope Mills", time: todo("drive time from Hope Mills"), timeWords: todo("drive time from Hope Mills") },
+    { from: "Hope Mills", time: "about 15 to 20 minutes", timeWords: "about fifteen to twenty minutes" },
   ],
   parking: todo("where families park"),
   entrance: todo("which door to use, and where parents wait or watch"),

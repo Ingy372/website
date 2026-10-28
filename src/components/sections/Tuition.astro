@@ -1,48 +1,24 @@
 ---
-// "Tuition" block on the program pages. Prices come from `tuition` in
-// src/data/school.ts. A value that is still TODO(JAY) is left off the page,
-// and the block falls back to the free-trial-week wording below.
-import { tuition, offer } from "../../data/school";
-import { business, isTodo } from "../../data/business";
-import { programs, type ProgramId } from "../../data/schedule";
+// "Tuition" block on the program pages. House rule (Jay, Oct 2026): never
+// show tuition or prices on the site. This block only points people to the
+// free trial week and the phone; do not add numbers here.
+import { offer } from "../../data/school";
+import { business } from "../../data/business";
+import type { ProgramId } from "../../data/schedule";
 
 interface Props {
   program: ProgramId;
 }
-const { program } = Astro.props;
-const price = tuition.programs[program];
-const hasPrice = !isTodo(price);
-const extras = [
-  !isTodo(tuition.enrollmentFee) && tuition.enrollmentFee && { label: "Enrollment fee", value: tuition.enrollmentFee },
-  !isTodo(tuition.familyDiscount) && tuition.familyDiscount && { label: "Families", value: tuition.familyDiscount },
-].filter(Boolean) as { label: string; value: string }[];
 ---
 
 <section class="pb-16 md:pb-20" id="tuition">
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7">
       <h2 class="mb-3 font-display text-2xl font-black text-indigo">Tuition</h2>
-      {hasPrice ? (
-        <p class="mb-3 text-[#40403A]">
-          {programs[program].name} tuition is <strong class="font-semibold text-indigo">{price}</strong>.
-          Your first week is free, so you can see the class before you pay anything.
-        </p>
-      ) : (
-        <p class="mb-3 text-[#40403A]">
-          Your first week is free. We'll go over tuition and every option, in person and with no
-          pressure, when you come in for your {offer.noun}.
-        </p>
-      )}
-      {extras.length > 0 && (
-        <dl class="mb-3 grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
-          {extras.map((e) => (
-            <>
-              <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">{e.label}</dt>
-              <dd class="text-[#40403A]">{e.value}</dd>
-            </>
-          ))}
-        </dl>
-      )}
+      <p class="mb-3 text-[#40403A]">
+        Your first week is free. We'll go over tuition and every option, in person and with no
+        pressure, when you come in for your {offer.noun}.
+      </p>
       <p class="text-sm text-mist">
         Questions about cost? Call <a href={business.phoneHref} class="font-semibold text-indigo hover:text-gold">{business.phone}</a>.
       </p>
