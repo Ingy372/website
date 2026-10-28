@@ -19,7 +19,7 @@ import weaponsTraining from "../images/teens-adults/weapons-training.jpg";
 
 const arts = [
   { name: "Karate", desc: "Strikes, blocks, and stances. Power and precision standing up." },
-  { name: "Jiu Jitsu", desc: "Takedowns, escapes, holds, and submissions, with live grappling. Gi tops are optional." },
+  { name: "Jiu Jitsu", desc: "Takedowns, escapes, holds, and submissions, with live grappling." },
   { name: "Kung Fu", desc: "Flowing movement and hand techniques from the Chinese martial arts tradition." },
   { name: "Tae Kwon Do", desc: "Speed, flexibility, and the kicks the Korean art is known for." },
   { name: "Japanese Weapons", desc: "The five traditional Japanese weapons, trained with control and respect." },
@@ -49,9 +49,9 @@ const programLinks = [
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
-      {team.founder.honorific} {team.founder.name} earned a black belt in Karate, Jiu Jitsu, Kung Fu,
-      Tae Kwon Do, and the five traditional Japanese weapons. Then he put them
-      together into one system and named it for the reason he teaches: Yeshua's Ryu. Jesus' Way.
+      Yeshua's Ryu is {team.founder.honorific} {team.founder.name}'s own system, drawn from more than
+      fifty years in the martial arts. He blended Karate, Jiu Jitsu, Kung Fu, Tae Kwon Do, and the five
+      traditional Japanese weapons into one, and named it for the reason he teaches: Jesus' Way.
     </p>
   </div>
 
@@ -104,7 +104,7 @@ const programLinks = [
   </section>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">See the whole system <em>in one class.</em></Fragment>
+    <Fragment slot="heading">Every black belt <em>started with one class.</em></Fragment>
     <Fragment slot="subtext">Your {offer.first} is free. No experience needed.</Fragment>
   </CTASection>
 </BaseLayout>
