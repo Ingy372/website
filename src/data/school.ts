@@ -2,7 +2,7 @@
 // Business identity (name, address, phone, email, socials, founding year)
 // lives in ./business.ts; programs, classes, and hours live in ./schedule.ts.
 
-import { founded, todo, isTodo as s_isTodo } from "./business";
+import { founded } from "./business";
 import { ratingText, countText } from "./reviews";
 
 // ---------------------------------------------------------------------------
@@ -46,31 +46,6 @@ export const offer = {
   visit: "a trial week of classes",
   bookingTitle: "Book Your Free Trial Week",
 };
-
-// ---------------------------------------------------------------------------
-// Tuition. House rule (Jay, Oct 2026): never show tuition or prices on the
-// site. The FAQ answer below always points people to the free trial week.
-// ---------------------------------------------------------------------------
-
-/** The "How much does it cost?" FAQ entry (FAQ page and program pages). */
-export function tuitionFaqItem() {
-  return {
-    question: "How much does it cost?",
-    answer: [
-      `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
-      "Want to talk it over before you come in? Give us a call.",
-    ],
-  };
-}
-
-/**
- * Military discount wording for /military-families, e.g. "10% off tuition
- * for active duty, veteran, and military spouse families". TODO(JAY: is
- * there a military discount? Fill in, or set to "" if none.) Hidden until set.
- */
-// There is no military discount (confirmed by Jay, Oct 2026). Keep this empty.
-export const militaryDiscount = "";
-
 
 // ---------------------------------------------------------------------------
 // Ownership verification meta tags, rendered in every page <head> only when
@@ -123,19 +98,9 @@ export const nav = {
     { label: "Birthday Parties", href: "/birthday-parties" },
     { label: "Parents Night Out", href: "/parents-night-out" },
   ],
-  styles: [
-    { label: "Karate", href: "/karate" },
-    { label: "Jiu Jitsu", href: "/jiu-jitsu" },
-    { label: "Self-Defense", href: "/self-defense" },
-  ],
-  areas: [
-    { label: "Hope Mills", href: "/hope-mills" },
-    { label: "Rockfish & Jack Britt", href: "/rockfish-jack-britt" },
-    { label: "Fayetteville", href: "/fayetteville" },
-    { label: "Fort Bragg Military Families", href: "/military-families" },
-  ],
   about: [
     { label: "Our Story", href: "/our-story" },
+    { label: "Our System", href: "/our-system" },
     { label: "Meet the Team", href: "/meet-the-team" },
     { label: "Events", href: "/events" },
     { label: "FAQ", href: "/faq" },
