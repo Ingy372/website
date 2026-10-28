@@ -9,10 +9,8 @@ interface Props {
   alt: string;
   ctaLabel: string;
   ctaHref: string;
-  /** The page's H1, written with the words people search for. The "heading" slot (the slogan) then shows beneath it as a subheading. */
-  h1?: string;
 }
-const { badge, image, alt, ctaLabel, ctaHref, h1 } = Astro.props;
+const { badge, image, alt, ctaLabel, ctaHref } = Astro.props;
 ---
 
 <header class="relative overflow-hidden bg-indigo text-white">
@@ -26,18 +24,9 @@ const { badge, image, alt, ctaLabel, ctaHref, h1 } = Astro.props;
       <span class="mb-5 inline-block rounded-sm bg-gold/[0.16] px-4 py-1.5 text-xs font-bold tracking-[0.16em] text-gold-soft uppercase">
         {badge}
       </span>
-      {h1 ? (
-        <>
-          <h1 class="max-w-[20ch] text-[clamp(2rem,4vw,3.1rem)]">{h1}</h1>
-          <p class="mt-3 max-w-[24ch] font-display text-[clamp(1.3rem,2.3vw,1.8rem)] font-semibold leading-snug text-white/90 [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
-            <slot name="heading" />
-          </p>
-        </>
-      ) : (
-        <h1 class="max-w-[15ch] text-[clamp(2.3rem,4.6vw,3.7rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
-          <slot name="heading" />
-        </h1>
-      )}
+      <h1 class="max-w-[15ch] text-[clamp(2.3rem,4.6vw,3.7rem)] [&_em]:font-normal [&_em]:not-italic [&_em]:text-gold-soft">
+        <slot name="heading" />
+      </h1>
       <p class="my-5 max-w-[46ch] text-lg text-[#C7C6D6]">
         <slot name="subtext" />
       </p>
