@@ -1,4 +1,0 @@
-{
-  "_readme": "Upcoming dated events: Parents Night Out, belt testing, demos, camps, anything with a date. Add one object per date to \"events\". Fields: kind (\"parents-night-out\", \"belt-testing\", \"demo\", or \"other\"), title, date (YYYY-MM-DD), startTime and endTime (24-hour HH:MM, Eastern time), price (as it should read, e.g. \"$25 per child\", or \"Free\"; leave \"\" to hide), description (one or two sentences), bookingLink (where people sign up: e.g. \"/contact?interest=parents-night-out\" or a full URL; leave \"\" to send them to the contact page). Past events hide themselves. Example: { \"kind\": \"parents-night-out\", \"title\": \"Parents Night Out: Nerf Night\", \"date\": \"2026-11-14\", \"startTime\": \"18:00\", \"endTime\": \"21:00\", \"price\": \"$25 per child\", \"description\": \"Nerf battles, games, and martial arts.\", \"bookingLink\": \"/contact?interest=parents-night-out\" }",
-  "events": []
-}
