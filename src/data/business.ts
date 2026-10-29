@@ -96,6 +96,7 @@ const ONES = [
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
 export function numberToWords(n: number): string {
+  if (n < 0 || !Number.isInteger(n)) return String(n);
   if (n < 20) return ONES[n];
   if (n < 100) {
     const tens = TENS[Math.floor(n / 10)];
@@ -106,9 +107,15 @@ export function numberToWords(n: number): string {
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
+// Cloudflare Workers freeze the clock at 1970 while a Worker starts up, which
+// made this negative and crashed the server routes (contact form, booking
+// request). Pages are prerendered with the real date; the server routes never
+// show these strings, so they just get a safe value.
 const now = new Date();
-export const yearsOpen =
-  now.getFullYear() - FOUNDED_YEAR - (now.getMonth() + 1 < FOUNDED_MONTH ? 1 : 0);
+const clockOk = now.getFullYear() >= FOUNDED_YEAR;
+export const yearsOpen = clockOk
+  ? now.getFullYear() - FOUNDED_YEAR - (now.getMonth() + 1 < FOUNDED_MONTH ? 1 : 0)
+  : 0;
 const decadesWords = numberToWords(Math.floor(yearsOpen / 10));
 
 export const founded = {
