@@ -160,22 +160,24 @@ const LOAD_TIMEOUT_MS = 10000;
       });
     };
 
+    // The widget swaps its form for a "Thanks! We got your request" message
+    // only after its server accepts the booking. When that appears, announce
+    // the lead once as a "dojoforge:lead" event (no form details in it).
+    var leadAnnounced = false;
     new MutationObserver(function () {
       if (rendered()) clearTimeout(timer);
       labelFields();
-      // The widget swaps its form for a "Thanks! We got your request" message
-      // only after its server accepts the booking (res.ok). That swap is the
-      // real lead. Checked on every change so the observer stays attached.
-      if (!recordLead.done && /Thanks! We got your request/.test(mount.textContent || "")) {
-        recordLead({ id: "widget-success" });
+      if (!leadAnnounced && /Thanks! We got your request/.test(mount.textContent || "")) {
+        leadAnnounced = true;
+        window.dispatchEvent(new CustomEvent("dojoforge:lead", { detail: {} }));
       }
     }).observe(mount, { childList: true, subtree: true, characterData: true });
 
     window.__dfWidgetError = showFallback;
 
-    // A completed trial booking is the real lead. Besides the success message
-    // above, a future widget version may announce it as a "dojoforge:lead"
-    // CustomEvent or a postMessage from its own origin; each is counted once.
+    // A completed trial booking is the real lead. It arrives as a
+    // "dojoforge:lead" CustomEvent (from the success-message check above, or
+    // the widget itself) or a postMessage from the widget's origin; counted once.
     var widgetOrigin = new URL(widgetSrc).origin;
     var recordLead = function (detail) {
       if (recordLead.done) return;
