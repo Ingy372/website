@@ -15,13 +15,14 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
 
 <BaseLayout
   title="Our Story"
+  fullTitle="Our Story | Action Zone CMA | Martial Arts in Raeford, NC"
   description={`${business.displayName} has taught Yeshua's Ryu since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
   path="/our-story"
   ogImage={michaelTeaching}
   ogImageAlt={`Founder ${team.founder.name} teaching a martial arts class on the mat`}
 >
   <SimpleHero eyebrow="Our Story">
-    <Fragment slot="heading">{founded.yearsWordsCap} years, <em>one standard.</em></Fragment>
+    <Fragment slot="heading">Since {founded.year}. <em>One standard.</em></Fragment>
     <Fragment slot="subtext">
       Action Zone was not built to be the biggest school in the area. It was built to change who
       walks out the door.
@@ -164,7 +165,7 @@ import beltsAfterTest from "../images/our-story/belts-after-test.jpg";
   </section>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Come see what {founded.yearsWords} years <em>built.</em></Fragment>
+    <Fragment slot="heading">Come see what's been built <em>since {founded.year}.</em></Fragment>
     <Fragment slot="subtext">Your {offer.first} is on us. No pressure.</Fragment>
   </CTASection>
 </BaseLayout>

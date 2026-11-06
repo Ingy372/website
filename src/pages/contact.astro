@@ -2,14 +2,35 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/sections/ContactForm.astro";
 import Directions from "../components/sections/Directions.astro";
-import { business, addressFull, addressCityLine, cityState, serviceAreaText } from "../data/business";
-import { hours } from "../data/schedule";
+import { business, addressFull, addressCityLine, cityState, serviceAreaText, team } from "../data/business";
+import { hours, buildingHours, trialDaysText, formatTime } from "../data/schedule";
+import { offer } from "../data/school";
+
+// Office hours come from the building hours: the office opens when the
+// building does on class days, and Hannah is in on the trial-visit days.
+const classDays = buildingHours[0];
+const office = team.officeManager;
+const officeFirstName = office.name.split(" ")[0];
+
+const areaLinks = [
+  { label: "Fayetteville", href: "/fayetteville" },
+  { label: "Hope Mills", href: "/hope-mills" },
+  { label: "Rockfish & Jack Britt", href: "/rockfish-jack-britt" },
+];
+
+const steps = [
+  { title: "Send a message or call", text: `Use the form above or call ${business.phone}. We will get back to you quickly.` },
+  { title: `Book your ${offer.noun}`, text: `Pick a class and choose a day ${trialDaysText}.` },
+  { title: `Meet ${officeFirstName}`, text: `${office.name}, our ${office.title.toLowerCase()}, is in ${trialDaysText} to meet new families and walk you through everything. Parents are always welcome to watch class.` },
+  { title: "Sit down with us", text: "After you've seen a class, we go over tuition and the schedule that fits your family, in person." },
+];
 
 const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)}&output=embed`;
 ---
 
 <BaseLayout
   title="Contact"
+  fullTitle="Contact Action Zone CMA | Martial Arts in Raeford, NC"
   description={`Contact ${business.displayName} in ${cityState}. Address, phone, hours, and a message form for questions, parties, and events.`}
   path="/contact"
 >
@@ -49,6 +70,14 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)
           <p class="mt-1"><a href={`mailto:${business.email}`} class="text-[#40403A] hover:text-indigo">{business.email}</a></p>
         </div>
 
+        <div class="mb-5">
+          <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Office Hours</div>
+          <p class="mt-1 text-[#40403A]">
+            The office opens at {formatTime(classDays.opens)}, {classDays.label}. {office.name}, our
+            {" "}{office.title.toLowerCase()}, is in {trialDaysText}.
+          </p>
+        </div>
+
         <div class="mb-6">
           <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Building Hours</div>
           <div class="mt-1.5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[#40403A]">
@@ -75,6 +104,36 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)
         <div class="mt-6">
           <Directions />
         </div>
+
+        <div class="mt-6">
+          <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Getting here from</div>
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {areaLinks.map((a) => (
+              <li>
+                <a href={a.href} class="inline-block rounded-sm border border-indigo/25 px-4 py-2 text-sm font-semibold text-indigo transition-colors hover:border-gold">{a.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm py-20 md:py-18" aria-labelledby="next-steps">
+    <div class="mx-auto max-w-4xl px-6 md:px-5">
+      <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">Next Steps</div>
+      <h2 id="next-steps" class="mb-8 text-[clamp(1.7rem,3.2vw,2.4rem)] text-indigo">What happens when you reach out</h2>
+      <ol class="grid gap-5 sm:grid-cols-2">
+        {steps.map((s, i) => (
+          <li class="rounded border-t-4 border-gold bg-white p-6">
+            <div class="mb-2 font-display text-sm font-bold text-gold-deep">Step {i + 1}</div>
+            <h3 class="mb-2 font-display text-xl font-bold text-indigo">{s.title}</h3>
+            <p class="text-[#40403A]">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-8 text-center">
+        <a href="/booking" class="inline-block rounded-sm bg-indigo px-8 py-4 font-bold text-white transition-colors hover:bg-gold hover:text-indigo-deep">{offer.cta}</a>
       </div>
     </div>
   </section>

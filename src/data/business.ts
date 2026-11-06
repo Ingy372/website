@@ -75,8 +75,8 @@ export const serviceAreaText = `${serviceArea.slice(0, -1).join(", ")}, and ${se
 
 export const directions = {
   driveTimes: [
-    // From the existing FAQ copy ("roughly twenty-five minutes from Fayetteville").
-    { from: "Fayetteville", time: "about 25 minutes", timeWords: "roughly twenty-five minutes" },
+    // Confirmed by Jay: about 20 to 25 minutes from Fayetteville.
+    { from: "Fayetteville", time: "about 20–25 minutes", timeWords: "about twenty to twenty-five minutes" },
     { from: "Hope Mills", time: todo("drive time from Hope Mills"), timeWords: todo("drive time from Hope Mills") },
   ],
   parking: todo("where families park"),

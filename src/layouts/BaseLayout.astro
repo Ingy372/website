@@ -9,7 +9,7 @@ import AnnouncementBar from "../components/AnnouncementBar.astro";
 import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import Footer from "../components/Footer.astro";
-import { business, serviceArea, isTodo } from "../data/business";
+import { business, serviceArea, isTodo, founded } from "../data/business";
 import { siteVerification, priceRange } from "../data/school";
 import { openingHoursSpecification, closureHoursSpecification } from "../data/schedule";
 import { faqJsonLd, type FaqItem } from "../lib/faqSchema";
@@ -50,13 +50,14 @@ if (ogSource) {
 // manual action. The rating shows in page copy (from reviews.json) instead.
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  additionalType: "https://schema.org/SportsActivityLocation",
+  "@type": ["LocalBusiness", "SportsActivityLocation"],
   "@id": "https://actionzonecma.com/#business",
   name: business.displayName,
   legalName: business.legalName,
   url: "https://actionzonecma.com/",
   image: new URL("/og-image.jpg", Astro.site).href,
+  logo: new URL("/logo.png", Astro.site).href,
+  foundingDate: founded.year,
   telephone: "+1-910-429-2467",
   email: business.email,
   address: {

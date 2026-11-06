@@ -5,7 +5,14 @@ import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
-import { closedDays, weeklySchedule, upcomingClosures, closureDatesText, blackBeltTrainingTime, openTrainingTime } from "../data/schedule";
+import { closedDays, weeklySchedule, upcomingClosures, closureDatesText, blackBeltTrainingTime, openTrainingTime, programs, ageRange, beginnerTimes } from "../data/schedule";
+
+// "Which class is right for my child?" Wording comes from the program pages.
+const guide = [
+  { id: "littleWarriors" as const, title: "Little Warriors", text: "Preschool karate. Listening, focus, and confidence, taught through games and real technique." },
+  { id: "kids" as const, title: "Kids Karate", text: "Karate for kids that builds confidence, focus, respect, and real self-defense." },
+  { id: "teensAdults" as const, title: "Teens & Adults", text: "Fitness and practical self-defense, no experience needed. Parents and children 13 and up can train side by side." },
+].map((g) => ({ ...g, ages: ageRange(programs[g.id]), href: programs[g.id].href, times: beginnerTimes(g.id) }));
 
 // Closed days the grid doesn't already show as a "Closed" card.
 const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.day === d));
@@ -39,11 +46,43 @@ const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.da
 
       <WeeklyTimetable />
 
-      <p class="mt-6 text-center text-sm text-mist">
-        Closed {notInGrid.join(" and ")}. On Saturdays, {blackBeltTrainingTime} is black belt training only.
-        From {openTrainingTime} is open training and make-up classes for every student of any age or
-        rank. Belt testing is held on select Saturdays, four times a year.
-      </p>
+      <p class="mt-6 text-center text-sm text-mist">Closed {notInGrid.join(" and ")}.</p>
+
+      <div class="mx-auto mt-10 max-w-3xl rounded border-t-4 border-gold bg-white p-6 shadow-sm" role="note">
+        <h2 class="mb-4 font-display text-xl font-bold text-indigo">Saturdays</h2>
+        <dl class="flex flex-col gap-3 text-[#40403A]">
+          <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+            <dt class="font-semibold text-indigo sm:w-44 sm:shrink-0">{blackBeltTrainingTime}</dt>
+            <dd>Black belt training only.</dd>
+          </div>
+          <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+            <dt class="font-semibold text-indigo sm:w-44 sm:shrink-0">{openTrainingTime}</dt>
+            <dd>Open training and make-up classes for every student, any age or rank.</dd>
+          </div>
+          <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+            <dt class="font-semibold text-indigo sm:w-44 sm:shrink-0">Belt testing</dt>
+            <dd>Held on select Saturdays, four times a year.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="mt-14">
+        <h2 class="mb-2 text-center text-[clamp(1.7rem,3.2vw,2.4rem)] text-indigo">Which class is right for my child?</h2>
+        <p class="mb-8 text-center text-[#40403A]">Start with the class for your child's age. Beginner times are below.</p>
+        <div class="grid gap-6 md:grid-cols-3">
+          {guide.map((g) => (
+            <div class="flex flex-col rounded border-t-4 border-gold bg-white p-6 shadow-sm">
+              <div class="text-xs font-bold tracking-[0.14em] text-gold-deep uppercase">Ages {g.ages}</div>
+              <h3 class="mt-1 mb-2 font-display text-xl font-bold text-indigo">{g.title}</h3>
+              <p class="mb-3 text-[#40403A]">{g.text}</p>
+              <ul class="mb-4 flex flex-col gap-1 text-sm text-ink">
+                {g.times.map((t) => <li><span class="font-semibold">{t.days}</span> · {t.time}</li>)}
+              </ul>
+              <a href={g.href} class="mt-auto text-sm font-bold text-indigo underline hover:text-gold">More about {g.title}</a>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div class="mx-auto mt-10 max-w-2xl rounded border border-paper-warm bg-paper-warm p-6 text-center">
         <h2 class="mb-2 font-display text-lg font-bold text-indigo">Where do I start?</h2>

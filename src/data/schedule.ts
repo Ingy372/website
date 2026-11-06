@@ -47,6 +47,9 @@ const clock = (hhmm: string) => {
   return `${h12}:${String(m).padStart(2, "0")}`;
 };
 
+/** "3:00pm" */
+export const formatTime = (hhmm: string) => `${clock(hhmm)}${parts(hhmm).suffix}`;
+
 /** "4:00 – 4:45pm", or "10:00am – 12:00pm" when the halves differ. */
 export function formatRange(start: string, end: string, { bothSuffixes = false } = {}) {
   const a = parts(start);
