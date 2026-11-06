@@ -5,7 +5,7 @@ import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { offer, tuitionFaqItem } from "../data/school";
 import { business, addressFull, founded, numberToWords, team, directions, serviceAreaText } from "../data/business";
-import { programs, programClassLength } from "../data/schedule";
+import { programs, programClassLength, openTrainingTime } from "../data/schedule";
 import { safetyRules } from "../data/safety";
 
 const { littleWarriors: lw, kids, teensAdults: ta } = programs;
@@ -47,7 +47,7 @@ const groups = [
         answer: [
           // Parents and children train together in the Teens & Adults class, so its minimum age applies.
           `Yes, once they reach <strong>age ${numberToWords(ta.minAge)}</strong>.`,
-          "Our teen and adult class is where parents and older children train side by side. We also hold Saturday classes, where the entire dojo trains together regardless of age or rank.",
+          `Our teen and adult class is where parents and older children train side by side. We also hold Saturday open training (${openTrainingTime}), where the entire dojo trains together regardless of age or rank.`,
         ],
       },
     ],
@@ -122,7 +122,7 @@ const groups = [
         question: "What if we go on vacation or miss classes?",
         answer: [
           "We keep track of the days your student misses and offer them back as make-ups.",
-          "Come in on one of your off days and pick up an additional session until you are caught up. Saturday classes are also open to everyone, both as an extra day of training and as a chance to make up anything missed.",
+          `Come in on one of your off days and pick up an additional session until you are caught up. Saturday open training (${openTrainingTime}) is also open to every student, both as an extra day of training and as a chance to make up anything missed.`,
         ],
       },
     ],
@@ -206,8 +206,9 @@ const groups = [
   <SimpleHero eyebrow="Questions & Answers" h1="Questions Parents Ask">
     <Fragment slot="heading">Everything you were <em>going to ask anyway.</em></Fragment>
     <Fragment slot="subtext">
-      {founded.yearsWordsCap} years of parents standing in our lobby, asking good questions. Here are the
-      answers, written the way we would give them to you in person.
+      We have been teaching martial arts since {founded.year}, and parents have been asking good
+      questions the whole time. Here are the answers, written the way we would give them to you in
+      person.
     </Fragment>
   </SimpleHero>
 

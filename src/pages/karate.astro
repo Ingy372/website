@@ -8,7 +8,7 @@ import SectionHead from "../components/sections/SectionHead.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { founded } from "../data/business";
 import { programs, ageLabel, programClassLength } from "../data/schedule";
 
@@ -31,16 +31,9 @@ const faqItems = [
     answer: [`Little Warriors classes run ${programClassLength("littleWarriors")}. Kids, teen, and adult classes run ${programClassLength("kids")}.`],
   },
   {
-    question: "What style of karate do you teach?",
-    answer: [
-      "Karate is the foundation of Yeshua's Ryu, the Christian martial arts system our founder built. Students also learn Jiu Jitsu, Kung Fu, Tae Kwon Do, and traditional Japanese weapons, so they get a complete martial arts education instead of a single style.",
-    ],
-  },
-  {
     question: "Do you compete in karate tournaments?",
     answer: ["No. We are a non-competitive school. We keep no trophy case. Students test for every belt in front of the class, and they earn each one."],
   },
-  tuitionFaqItem(),
 ];
 ---
 
@@ -65,7 +58,7 @@ const faqItems = [
     <Fragment slot="heading">Every belt is <em>earned on this mat.</em></Fragment>
     <Fragment slot="subtext">
       Traditional karate classes for preschoolers, kids, teens, and adults, taught by one family
-      in one building for {founded.yearsWords} years.
+      that has been teaching martial arts since {founded.year}.
     </Fragment>
   </ProgramHero>
 
@@ -162,7 +155,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Try a week of karate. <em>It's free.</em></Fragment>
-    <Fragment slot="subtext">Come in for {offer.visit}. No uniform, no experience, no pressure.</Fragment>
+    <Fragment slot="heading">Come see a class <em>for yourself.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors and find the right class for your age. No uniform needed, no experience, no pressure.</Fragment>
   </CTASection>
 </BaseLayout>

@@ -8,8 +8,8 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
-import { programs, ageLabel, beginnerTimes, trialDaysText } from "../data/schedule";
+import { offer } from "../data/school";
+import { programs, ageLabel, beginnerTimes, trialDaysText, openTrainingTime } from "../data/schedule";
 
 import heroImage from "../images/little-warriors/class-photo.jpg";
 import playground from "../images/facility/playground.jpg";
@@ -31,9 +31,8 @@ const faqItems = [
   },
   {
     question: "What if we miss a class?",
-    answer: ["We keep track of missed days and offer them back as make-ups, and Saturday open training is open to every student."],
+    answer: [`We keep track of missed days and offer them back as make-ups, and Saturday open training (${openTrainingTime}) is open to every student as a make-up day.`],
   },
-  tuitionFaqItem(),
 ];
 ---
 
@@ -86,7 +85,7 @@ const faqItems = [
   <ProseSection kicker="Classes" heading="A class for everyone in the car.">
     <p>
       <a href="/little-warriors">Little Warriors</a> is preschool karate for ages 3 to 5.
-      <a href="/kids">Kids karate</a> is for ages 6 to 12. Teens and adults train together in our
+      <a href="/kids">Kids karate</a> is for ages 6 to 12. Teens and adults train together in our{" "}
       <a href="/teens-adults">teen and adult class</a>, so a parent can train too.
     </p>
     <p>
@@ -115,7 +114,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Make the drive once. <em>The first week is free.</em></Fragment>
-    <Fragment slot="subtext">Come try {offer.visit}. No cost, no commitment, no pressure.</Fragment>
+    <Fragment slot="heading">Hope Mills families, <em>come train with us.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors, watch how a class runs, and find the right fit for your child. No experience needed, no pressure.</Fragment>
   </CTASection>
 </BaseLayout>

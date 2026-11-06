@@ -9,7 +9,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import Tuition from "../components/sections/Tuition.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
 const program = programs.littleWarriors;
@@ -45,7 +45,6 @@ const faqItems = [
     question: "Can I stay and watch?",
     answer: ["Yes. Parents are always welcome to watch class. Many families also bring siblings, who can play on our outdoor playground with a parent supervising."],
   },
-  tuitionFaqItem(),
   {
     question: "What happens when my child turns 6?",
     answer: [
@@ -175,7 +174,7 @@ const results = [
     </div>
   </section>
 
-  <Tuition program="littleWarriors" />
+  <Tuition />
 
   <div class="pb-12">
     <FAQGroup id="little-warriors-faq" title="Preschool karate questions" tag="For Parents" items={faqItems} />

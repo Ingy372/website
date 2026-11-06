@@ -10,7 +10,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import Tuition from "../components/sections/Tuition.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { founded } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
@@ -52,7 +52,6 @@ const faqItems = [
       "Both. Karate is the foundation of what kids learn here, and our Yeshua's Ryu system also draws on Jiu Jitsu (grappling and escapes), Kung Fu, Tae Kwon Do, and traditional Japanese weapons. Kids get a well-rounded martial arts education instead of a single style.",
     ],
   },
-  tuitionFaqItem(),
   {
     question: "Does my child need a uniform or experience for the first class?",
     answer: [
@@ -137,7 +136,7 @@ const belts = [
       </p>
       <p class="text-lg leading-loose text-[#3E3E38] md:leading-normal">
         Those qualities take time, encouragement, and the right environment to grow. That is what
-        we have spent {founded.yearsWords} years building here, and we would be glad to help your family
+        we have been building since we started teaching martial arts in {founded.year}, and we would be glad to help your family
         be part of it.
       </p>
       <p class="mt-6 text-lg leading-loose text-[#3E3E38] md:mt-4 md:leading-normal">
@@ -245,7 +244,7 @@ const belts = [
     </div>
   </section>
 
-  <Tuition program="kids" />
+  <Tuition />
 
   <div class="pb-12">
     <FAQGroup id="kids-faq" title="Kids karate questions" tag="For Parents" items={faqItems} />

@@ -5,7 +5,7 @@ import WeeklyTimetable from "../components/schedule/WeeklyTimetable.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
-import { closedDays, weeklySchedule, upcomingClosures, closureDatesText } from "../data/schedule";
+import { closedDays, weeklySchedule, upcomingClosures, closureDatesText, blackBeltTrainingTime, openTrainingTime } from "../data/schedule";
 
 // Closed days the grid doesn't already show as a "Closed" card.
 const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.day === d));
@@ -40,8 +40,9 @@ const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.da
       <WeeklyTimetable />
 
       <p class="mt-6 text-center text-sm text-mist">
-        Closed {notInGrid.join(" and ")}. Saturday mornings are open to the whole dojo, for makeup classes, extra
-        training, and testing.
+        Closed {notInGrid.join(" and ")}. On Saturdays, {blackBeltTrainingTime} is black belt training only.
+        From {openTrainingTime} is open training and make-up classes for every student of any age or
+        rank. Belt testing is held on select Saturdays, four times a year.
       </p>
 
       <div class="mx-auto mt-10 max-w-2xl rounded border border-paper-warm bg-paper-warm p-6 text-center">
@@ -62,7 +63,7 @@ const notInGrid = closedDays.days.filter((d) => !weeklySchedule.some((w) => w.da
           href="/booking"
           class="inline-flex items-center gap-2 font-bold text-indigo hover:text-gold"
         >
-          New to Action Zone? Book your {offer.noun} <span aria-hidden="true">&rarr;</span>
+          New to Action Zone? {offer.cta} <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>

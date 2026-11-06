@@ -1,5 +1,14 @@
 {
   "_readme": "Holiday and special closures. Each entry: { \"start\": \"YYYY-MM-DD\", \"end\": \"YYYY-MM-DD\" (optional, inclusive), \"name\": \"Thanksgiving\" }. Shown on /schedule until it passes (on the next deploy). After editing, run `npm run export:closures` and copy the dates into the Dojo Forge blackout dates and Google Business Profile special hours.",
-  "_todo": "TODO(JAY: upcoming holiday closures)",
-  "closures": []
+  "closures": [
+    {
+      "start": "2026-11-11",
+      "name": "Veterans Day"
+    },
+    {
+      "start": "2026-11-22",
+      "end": "2026-11-29",
+      "name": "Thanksgiving week"
+    }
+  ]
 }
