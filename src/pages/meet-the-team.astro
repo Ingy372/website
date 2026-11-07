@@ -11,13 +11,16 @@ const { founder, headInstructor, officeManager } = team;
 import michaelPortrait from "../images/team/michael-lowery-founder-action-zone-cma.png";
 import jaysonPortrait from "../images/team/jay-lindemuth-head-instructor-action-zone-cma.png";
 import hannahPortrait from "../images/team/hannah-minter-office-manager-action-zone-cma.png";
+import teamPhoto from "../images/homepage/founder-michael-lowery-and-head-instructor-jay-lindemuth.jpg";
 ---
 
 <BaseLayout
   title="Meet the Team"
-  seoTitle="Meet the Team | Action Zone CMA | Raeford, NC"
+  fullTitle="Meet the Team | Action Zone CMA | Raeford, NC"
   description={`Meet the team at ${business.displayName} in ${business.address.city}, ${business.address.state}: ${founder.title.toLowerCase()} ${founder.name}, ${headInstructor.title.toLowerCase()} ${headInstructor.name}, and ${officeManager.name}.`}
   path="/meet-the-team"
+  ogImage={teamPhoto}
+  ogImageAlt={`Founder ${founder.name} with head instructor ${headInstructor.name} in the dojo`}
 >
   <SimpleHero eyebrow="Meet the Team">
     <Fragment slot="heading">{founded.decadesCap}. One family. <em>One system.</em></Fragment>
@@ -37,7 +40,7 @@ import hannahPortrait from "../images/team/hannah-minter-office-manager-action-z
           together, never one without the others, and he has spent more than three decades proving
           it, one student at a time.
         </p>
-        <p>Today his stepson leads the school as head instructor, and Michael is still active and involved. The standard he set is the standard we all hold.</p>
+        <p>Today the school is in his stepson's hands. But the standard he set is still the standard we hold.</p>
       </TeamPerson>
 
       <TeamPerson image={jaysonPortrait} alt={`Portrait of ${headInstructor.name}`} role={headInstructor.title} name={headInstructor.name} id={headInstructor.slug} flip position="50% 15%">

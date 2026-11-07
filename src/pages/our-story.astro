@@ -15,9 +15,11 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
 
 <BaseLayout
   title="Our Story"
-  seoTitle="Our Story | Action Zone CMA | Martial Arts in Raeford, NC"
+  fullTitle="Our Story | Action Zone CMA | Martial Arts in Raeford, NC"
   description={`${business.displayName} has taught Yeshua's Ryu since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
   path="/our-story"
+  ogImage={michaelTeaching}
+  ogImageAlt={`Founder ${team.founder.name} teaching a martial arts class on the mat`}
 >
   <SimpleHero eyebrow="Our Story">
     <Fragment slot="heading">Since {founded.year}. <em>One standard.</em></Fragment>

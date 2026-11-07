@@ -1,17 +1,11 @@
 ---
-// "Tuition" box on the program pages. Pricing is only discussed in person,
+// "Tuition" block on the program pages. Pricing is only discussed in person,
 // so this shows the same wording as the cost question on /faq (tuitionHtml in
 // src/data/school.ts).
 import { tuitionHtml } from "../../data/school";
-
-interface Props {
-  /** Add top padding when the section above has a different background. */
-  spaced?: boolean;
-}
-const { spaced = false } = Astro.props;
 ---
 
-<section class={spaced ? "py-16 md:py-20" : "pb-16 md:pb-20"} id="tuition">
+<section class="pb-16 md:pb-20" id="tuition">
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7">
       <h2 class="mb-3 font-display text-2xl font-black text-indigo">Tuition</h2>

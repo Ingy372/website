@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProgramHero from "../components/hero/ProgramHero.astro";
+import ProseSection from "../components/sections/ProseSection.astro";
 import SectionHead from "../components/sections/SectionHead.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { business, cityState } from "../data/business";
-import FactList from "../components/sections/FactList.astro";
-import { nextParentsNightOut, upcoming, eventWhenText, eventJsonLd } from "../data/events";
+import { nextParentsNightOut, eventWhenText } from "../data/events";
 import { parentsNightOutFacts, parentsNightOutThemes2027 } from "../data/parties";
+import { business } from "../data/business";
 
 import { Picture } from "astro:assets";
 import pnoNerf from "../images/parents-night-out/parents-night-out-nerf-night-raeford-nc.jpg";
@@ -19,12 +19,24 @@ import pnoNinjaLine from "../images/parents-night-out/parents-night-out-ninja-li
 import pnoCrew from "../images/parents-night-out/parents-night-out-kids-and-instructors-group.jpg";
 import partyPhoto from "../images/parents-night-out/party.jpg";
 
-const eventSchema = eventJsonLd("parents-night-out", new URL("/parents-night-out", Astro.site).href);
-const upcomingDates = upcoming("parents-night-out");
+// "A look at the night" mosaic. Spans are set per photo so wide shots stay wide
+// and tall shots stay tall; captions name what is happening in each frame.
+const nightPhotos = [
+  { src: pnoCrew, alt: "Kids and instructors smiling together at a Parents Night Out in Raeford, NC", caption: "The whole crew", span: "col-span-2 md:col-start-1 md:row-start-1 md:row-span-2", position: "50% 40%" },
+  { src: pnoCookies, alt: "Girl decorating a cookie with sprinkles", caption: "Cookie decorating", span: "row-span-2 md:col-start-3 md:row-start-1", position: "50% 35%" },
+  { src: pnoNerf, alt: "Kids with foam blasters and goggles during Nerf Night", caption: "Nerf Night", span: "md:col-start-4 md:row-start-1", position: "50% 40%" },
+  { src: pnoPajamas, alt: "Kids in pajamas relaxing on the dojo mat", caption: "Pajama night", span: "md:col-start-4 md:row-start-2", position: "50% 50%" },
+  { src: pnoFriends, alt: "Four kids laughing together on a bench", caption: "New friends", span: "col-span-2 md:col-start-1 md:row-start-3 md:row-span-2", position: "50% 45%" },
+  { src: pnoNinjaLine, alt: "Instructor spotting a girl climbing the ninja line", caption: "The ninja line", span: "row-span-2 md:col-start-3 md:row-start-3", position: "50% 30%" },
+  { src: pnoCrafts, alt: "Boy painting a craft to take home at Parents Night Out", caption: "Crafts to take home", span: "row-span-2 md:col-start-4 md:row-start-3", position: "40% 50%" },
+];
 
 // Where parents send a Parents Night Out request.
 const reserveHref = "/contact?interest=parents-night-out";
 const reserveLabel = "Reserve a Spot";
+
+// "How to reserve" gets real links; every other detail is plain text.
+const details = parentsNightOutFacts.filter((f) => f.label !== "How to reserve");
 
 const steps = ["Check-in", "A short martial arts lesson", "The theme activity", "Food", "Movie time and wind-down", "Pickup"];
 
@@ -50,30 +62,26 @@ const faqItems = [
     answer: ["Only 16 spots per night, so reserve early."],
   },
 ];
-
-// "A look at the night" mosaic. Spans are set per photo so wide shots stay wide
-// and tall shots stay tall; captions name what is happening in each frame.
-const nightPhotos = [
-  { src: pnoCrew, alt: "Kids and instructors smiling together at a Parents Night Out in Raeford, NC", caption: "The whole crew", span: "col-span-2 md:col-start-1 md:row-start-1 md:row-span-2", position: "50% 40%" },
-  { src: pnoCookies, alt: "Girl decorating a cookie with sprinkles", caption: "Cookie decorating", span: "row-span-2 md:col-start-3 md:row-start-1", position: "50% 35%" },
-  { src: pnoNerf, alt: "Kids with foam blasters and goggles during Nerf Night", caption: "Nerf Night", span: "md:col-start-4 md:row-start-1", position: "50% 40%" },
-  { src: pnoPajamas, alt: "Kids in pajamas relaxing on the dojo mat", caption: "Pajama night", span: "md:col-start-4 md:row-start-2", position: "50% 50%" },
-  { src: pnoFriends, alt: "Four kids laughing together on a bench", caption: "New friends", span: "col-span-2 md:col-start-1 md:row-start-3 md:row-span-2", position: "50% 45%" },
-  { src: pnoNinjaLine, alt: "Instructor spotting a girl climbing the ninja line", caption: "The ninja line", span: "row-span-2 md:col-start-3 md:row-start-3", position: "50% 30%" },
-  { src: pnoCrafts, alt: "Boy painting a craft to take home at Parents Night Out", caption: "Crafts to take home", span: "row-span-2 md:col-start-4 md:row-start-3", position: "40% 50%" },
-];
 ---
 
 <BaseLayout
-  title="Parents Night Out"
-  seoTitle="Parents Night Out for Kids in Raeford, NC | Action Zone CMA"
+  title="Parents Night Out for Kids in Raeford, NC"
+  fullTitle="Parents Night Out for Kids in Raeford, NC | Action Zone CMA"
+  crumb="Parents Night Out"
   description="Parents Night Out for kids 5 and up in Raeford, NC. The 4th Friday of every month, 6 to 10pm: a themed night, food, and a movie, run by our instructors."
   path="/parents-night-out"
+  ogImage={partyPhoto}
+  ogImageAlt="Kids at a themed Parents Night Out at the dojo"
+  faq={faqItems}
 >
-  {eventSchema.length > 0 && (
-    <script type="application/ld+json" slot="head" set:html={JSON.stringify(eventSchema)} is:inline />
-  )}
-  <ProgramHero badge="Parents Night Out · Ages 5+" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel={reserveLabel} ctaHref={reserveHref}>
+  <ProgramHero
+    badge="Parents Night Out · Ages 5+"
+    h1="Parents Night Out in Raeford"
+    image={partyPhoto}
+    alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree"
+    ctaLabel={reserveLabel}
+    ctaHref={reserveHref}
+  >
     <Fragment slot="heading">A night off for you. <em>A night they'll talk about all week.</em></Fragment>
     <Fragment slot="subtext">
       The 4th Friday of every month, 6 to 10pm. A themed night of fun for kids 5 and up,
@@ -81,24 +89,18 @@ const nightPhotos = [
     </Fragment>
     {nextParentsNightOut && (
       <Fragment slot="note">
-        Next date: {eventWhenText(nextParentsNightOut)}{nextParentsNightOut.theme && ` · ${nextParentsNightOut.theme}`}
+        Next date: {eventWhenText(nextParentsNightOut)} · {nextParentsNightOut.title}
       </Fragment>
     )}
   </ProgramHero>
 
-  <div class="mx-auto max-w-3xl px-6 md:px-5">
-    <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
-      <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">What It Is</div>
-      <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
-        Kids take over the dojo, <span class="text-gold-deep">once a month.</span>
-      </h2>
-      <p>
-        Once a month, kids take over the dojo for a themed night of fun. It's a chance for kids to
-        just be kids and make good memories with their friends, while parents get a well-deserved
-        break. Every night is supervised by our instructors.
-      </p>
-    </div>
-  </div>
+  <ProseSection kicker="What It Is" heading="Kids take over the dojo, once a month.">
+    <p>
+      Once a month, kids take over the dojo for a themed night of fun. It's a chance for kids to
+      just be kids and make good memories with their friends, while parents get a well-deserved
+      break. Every night is supervised by our instructors.
+    </p>
+  </ProseSection>
 
   <section class="bg-paper-warm py-20 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
@@ -143,26 +145,23 @@ const nightPhotos = [
     </div>
   </section>
 
-  <section class="py-16 md:py-20">
-    <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.2fr_0.8fr] md:gap-6 md:px-5">
-      <FactList heading="The night at a glance" facts={parentsNightOutFacts} />
-      <div class="rounded border border-paper-warm bg-paper-warm p-7">
-        <h2 class="mb-4 font-display text-2xl font-black text-indigo">Upcoming dates</h2>
-        {upcomingDates.length > 0 ? (
-          <ul class="flex flex-col gap-3">
-            {upcomingDates.map((e) => (
-              <li class="border-b border-[#DFD9C9] pb-3 last:border-0 last:pb-0">
-                <div class="font-semibold text-indigo">{eventWhenText(e)}</div>
-                {e.theme && <div class="text-sm text-mist">{e.theme}</div>}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="text-[#40403A]">
-            Dates go up here as they are set. Ask us for the next one and we will save your
-            child a spot.
-          </p>
-        )}
+  <section class="py-16 md:py-18" aria-labelledby="pno-details">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7 shadow-sm md:p-8">
+        <h2 id="pno-details" class="mb-6 font-display text-2xl font-black text-indigo">The details</h2>
+        <dl class="grid gap-x-6 gap-y-3 sm:grid-cols-[auto_1fr]">
+          {details.map((f) => (
+            <>
+              <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">{f.label}</dt>
+              <dd class="mb-2 text-[#40403A] sm:mb-0">{f.value}</dd>
+            </>
+          ))}
+          <dt class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase sm:pt-1">How to reserve</dt>
+          <dd class="text-[#40403A]">
+            Send a request through <a href={reserveHref} class="font-semibold text-indigo underline hover:text-gold">our website</a>
+            {" "}or call <a href={business.phoneHref} class="font-semibold text-indigo underline hover:text-gold">{business.phone}</a>.
+          </dd>
+        </dl>
       </div>
     </div>
   </section>
@@ -183,51 +182,7 @@ const nightPhotos = [
     </div>
   </section>
 
-  <section class="py-16 md:py-20">
-    <div class="mx-auto max-w-6xl px-6 md:px-5">
-      <SectionHead kicker="The Deal" center>
-        <Fragment slot="heading">Two happy outcomes, one evening.</Fragment>
-      </SectionHead>
-      <div class="grid gap-8 md:grid-cols-2 md:gap-6">
-        <div class="rounded border border-paper-warm bg-white p-8">
-          <div class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">For You</div>
-          <h3 class="mb-4 text-2xl font-black text-indigo">A break.</h3>
-          <ul class="flex flex-col gap-2.5">
-            {[
-              "Go out to dinner without watching the clock",
-              "Run errands at twice the speed",
-              "Enjoy a quiet house for a few hours",
-              "Leave them somewhere you already trust",
-            ].map((item) => (
-              <li class="relative pl-5 text-[#43423B]">
-                <span class="absolute left-0 top-2 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="rounded border border-paper-warm bg-white p-8">
-          <div class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">For Them</div>
-          <h3 class="mb-4 text-2xl font-black text-indigo">A blast.</h3>
-          <ul class="flex flex-col gap-2.5">
-            {[
-              "Games, martial arts, and pure FUN",
-              "A warm, welcoming crew that makes every kid feel at home",
-              "New friends and a whole lot of energy spent",
-              "Themed nights and memories that stick",
-            ].map((item) => (
-              <li class="relative pl-5 text-[#43423B]">
-                <span class="absolute left-0 top-2 h-0.5 w-2.5 bg-gold" aria-hidden="true"></span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="pb-16 md:pb-20" aria-labelledby="pno-friend">
+  <section class="py-16 md:py-18" aria-labelledby="pno-friend">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
       <div class="rounded bg-indigo p-8 text-white md:p-10">
         <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-soft uppercase">Bring a Friend</div>

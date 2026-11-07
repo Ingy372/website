@@ -17,10 +17,10 @@ export const FOUNDED_YEAR = 1993;
 export const FOUNDED_MONTH = 12;
 
 export const business = {
-  displayName: "Action Zone, CMA",
+  displayName: "Action Zone CMA",
   legalName: "CMA Martial Arts, Inc.",
   address: {
-    street: "6105 Philippi Church Rd.",
+    street: "6105 Philippi Church Rd",
     city: "Raeford",
     state: "NC",
     stateName: "North Carolina",
@@ -34,18 +34,17 @@ export const business = {
     facebook: "https://www.facebook.com/cmamtma/",
     instagram: "https://www.instagram.com/yeshuas_ryu/",
   },
-  // Google Business Profile: the Maps listing (by its CID) and the direct
-  // "write a review" box (by its place ID).
+  // Google Business Profile (place ID ChIJk5pfjKs_q4kRsLJlYEa7fjw, CID
+  // 4359127400280601264), looked up from the live listing on 2026-10-23.
+  //  - googleReviewsUrl: the listing on Google Maps.
+  //  - googleWriteReviewUrl: opens the "write a review" box directly. Google's
+  //    short "Ask for reviews" link (Business Profile → Ask for reviews,
+  //    https://g.page/r/<id>/review) does the same thing; paste it here to swap.
   googleReviewsUrl: "https://www.google.com/maps?cid=4359127400280601264",
   googleWriteReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJk5pfjKs_q4kRsLJlYEa7fjw",
-  /** Name exactly as it appears on the Google Business Profile (used in search data). */
-  gbpName: "Action Zone CMA",
-  /** The dojo's map pin, from the Google Business Profile. */
+  /** Map pin from the Google Business Profile. */
   geo: { latitude: 34.9764935, longitude: -79.0828535 },
 };
-
-/** Towns families drive in from. Used in search data and on /families-we-serve. */
-export const serviceArea = ["Raeford", "Hope Mills", "Rockfish", "Jack Britt", "Fort Bragg", "Fayetteville"];
 
 // ---------------------------------------------------------------------------
 // Team — names, titles, and the #anchor slug for each bio on /meet-the-team.
@@ -62,6 +61,15 @@ export const addressFull = `${business.address.street}, ${addressCityLine}`;
 export const cityState = `${business.address.city}, ${business.address.state}`;
 
 // ---------------------------------------------------------------------------
+// Service area. One list for the homepage, footer, contact page, FAQ, and the
+// schema.org areaServed. Ordered from the dojo outward.
+// ---------------------------------------------------------------------------
+
+export const serviceArea = ["Raeford", "Rockfish", "Jack Britt", "Hope Mills", "Fort Bragg", "Fayetteville"];
+/** "Raeford, Rockfish, Jack Britt, Hope Mills, Fort Bragg, and Fayetteville" */
+export const serviceAreaText = `${serviceArea.slice(0, -1).join(", ")}, and ${serviceArea[serviceArea.length - 1]}`;
+
+// ---------------------------------------------------------------------------
 // Directions block (/contact, /facility) and the FAQ drive-time answer.
 // ---------------------------------------------------------------------------
 
@@ -69,7 +77,7 @@ export const directions = {
   driveTimes: [
     // Confirmed by Jay: about 20 to 25 minutes from Fayetteville.
     { from: "Fayetteville", time: "about 20–25 minutes", timeWords: "about twenty to twenty-five minutes" },
-    { from: "Hope Mills", time: "about 15 to 20 minutes", timeWords: "about fifteen to twenty minutes" },
+    { from: "Hope Mills", time: todo("drive time from Hope Mills"), timeWords: todo("drive time from Hope Mills") },
   ],
   parking: todo("where families park"),
   entrance: todo("which door to use, and where parents wait or watch"),
@@ -96,7 +104,6 @@ const ONES = [
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
 export function numberToWords(n: number): string {
-  if (n < 0 || !Number.isInteger(n)) return String(n);
   if (n < 20) return ONES[n];
   if (n < 100) {
     const tens = TENS[Math.floor(n / 10)];
@@ -107,15 +114,9 @@ export function numberToWords(n: number): string {
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-// Cloudflare Workers freeze the clock at 1970 while a Worker starts up, which
-// made this negative and crashed the server routes (contact form, booking
-// request). Pages are prerendered with the real date; the server routes never
-// show these strings, so they just get a safe value.
 const now = new Date();
-const clockOk = now.getFullYear() >= FOUNDED_YEAR;
-export const yearsOpen = clockOk
-  ? now.getFullYear() - FOUNDED_YEAR - (now.getMonth() + 1 < FOUNDED_MONTH ? 1 : 0)
-  : 0;
+export const yearsOpen =
+  now.getFullYear() - FOUNDED_YEAR - (now.getMonth() + 1 < FOUNDED_MONTH ? 1 : 0);
 const decadesWords = numberToWords(Math.floor(yearsOpen / 10));
 
 export const founded = {

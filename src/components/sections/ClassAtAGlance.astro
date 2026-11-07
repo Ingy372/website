@@ -7,8 +7,10 @@ import { todo } from "../../data/business";
 
 interface Props {
   program: ProgramId;
+  /** Defaults to "<Program> at a glance". */
+  heading?: string;
 }
-const { program } = Astro.props;
+const { program, heading } = Astro.props;
 const p = programs[program];
 
 const facts = [
@@ -26,4 +28,4 @@ const facts = [
 ];
 ---
 
-<FactList heading={`${p.name} at a glance`} facts={facts} />
+<FactList heading={heading ?? `${p.name} at a glance`} facts={facts} />

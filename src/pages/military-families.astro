@@ -6,7 +6,7 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer, militaryDiscount } from "../data/school";
 import { founded, isTodo } from "../data/business";
 import { openTraining, openTrainingTime, trialDaysText } from "../data/schedule";
 
@@ -15,6 +15,7 @@ import playground from "../images/military-families/outdoor-playground-beside-do
 import beltTest from "../images/military-families/instructor-tying-belt-after-test.jpg";
 import warmUpCircle from "../images/military-families/students-in-circle-on-the-mat.jpg";
 
+const hasDiscount = !isTodo(militaryDiscount) && militaryDiscount !== "";
 
 const faqItems = [
   {
@@ -39,12 +40,17 @@ const faqItems = [
 
 <BaseLayout
   title="Martial Arts for Fort Bragg Military Families"
-  seoTitle="Martial Arts for Fort Bragg Military Families | Raeford NC"
+  fullTitle="Martial Arts for Fort Bragg Military Families | Raeford NC"
+  crumb="Military Families"
   description={`Kids karate and family martial arts near Fort Bragg, with make-up classes for busy schedules. Raeford, Fayetteville, Hope Mills. Try a ${offer.noun}.`}
   path="/military-families"
+  ogImage={heroImage}
+  ogImageAlt="Kids martial arts class standing together on the mat in Raeford, NC"
+  faq={faqItems}
 >
   <ProgramHero
     badge="Military Families Welcome"
+    h1="Martial Arts for Fort Bragg Military Families"
     image={heroImage}
     alt="Kids karate students and instructors together on the mat in Raeford, NC, near Fort Bragg"
     ctaLabel={offer.cta}
@@ -58,6 +64,13 @@ const faqItems = [
     </Fragment>
   </ProgramHero>
 
+  {hasDiscount && (
+    <div class="bg-gold/[0.12]">
+      <p class="mx-auto max-w-3xl px-6 py-5 text-center font-semibold text-indigo md:px-5">
+        Military families: {militaryDiscount}.
+      </p>
+    </div>
+  )}
 
   <ProseSection kicker="Why Families Near Post Choose Us" heading="One thing that stays the same.">
     <p>
