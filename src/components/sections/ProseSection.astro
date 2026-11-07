@@ -1,0 +1,21 @@
+---
+// A plain run of headed copy, used on the style, military, and area pages.
+interface Props {
+  kicker?: string;
+  heading: string;
+  /** Warm paper background instead of white. */
+  warm?: boolean;
+  id?: string;
+}
+const { kicker, heading, warm = false, id } = Astro.props;
+---
+
+<section id={id} class={warm ? "bg-paper-warm" : ""}>
+  <div class="mx-auto max-w-3xl px-6 py-16 md:px-5 md:py-18">
+    {kicker && <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">{kicker}</div>}
+    <h2 class="mb-5 text-[clamp(1.7rem,3.2vw,2.4rem)] text-indigo">{heading}</h2>
+    <div class="flex flex-col gap-5 text-lg leading-loose text-[#3E3E38] md:gap-4 md:leading-normal [&_a]:font-semibold [&_a]:text-indigo [&_a]:underline [&_a:hover]:text-gold [&_li]:relative [&_li]:pl-5 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2">
+      <slot />
+    </div>
+  </div>
+</section>

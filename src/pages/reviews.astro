@@ -1,6 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import revTeaching from "../images/reviews/instructor-teaching-kids-class.jpg";
+import revYellowBelt from "../images/reviews/smiling-student-new-yellow-belt.jpg";
+import revHighFive from "../images/reviews/instructor-high-five-young-student.jpg";
 import { offer } from "../data/school";
 import { business, cityState } from "../data/business";
 import { getReview, displayAuthor, reviewDateText, ratingText, countText } from "../data/reviews";
@@ -84,6 +88,20 @@ const quotes = ["jacy-d", "taylor-s", "sarah-g"].map(getReview);
           See all {countText} reviews on Google
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="pb-20 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <PhotoStrip
+        ratioClass="aspect-[4/5]"
+        caption="The kids behind the reviews"
+        images={[
+          { src: revTeaching, alt: "Instructor teaching a kids martial arts class at Action Zone CMA", position: "50% 40%" },
+          { src: revYellowBelt, alt: "Smiling student showing off a new yellow belt", position: "50% 30%" },
+          { src: revHighFive, alt: "Instructor and a young student celebrating in class", position: "50% 30%" },
+        ]}
+      />
     </div>
   </section>
 

@@ -18,24 +18,24 @@ import { programs, ageLabel, hours } from "../data/schedule";
 import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
 
-import littleWarriorsClass from "../images/homepage/little-warriors-class.jpg";
-import kidsClass from "../images/homepage/kids-class.jpg";
-import teensAdultsClass from "../images/homepage/teens-adults-class.jpg";
-import founderAndHeadInstructor from "../images/homepage/founder-and-head-instructor.jpg";
-import homeBirthdayParty from "../images/homepage/birthday-party.jpg";
+import littleWarriorsClass from "../images/little-warriors/little-warriors-preschool-martial-arts-class.jpg";
+import kidsClass from "../images/homepage/kids-karate-class-raeford-nc.jpg";
+import teensAdultsClass from "../images/homepage/teens-adults-karate-class-raeford-nc.jpg";
+import founderAndHeadInstructor from "../images/homepage/founder-michael-lowery-and-head-instructor-jay-lindemuth.jpg";
+import homeBirthdayParty from "../images/birthday-parties/kids-martial-arts-birthday-party-raeford-nc.jpg";
 import homeParentsNightOut from "../images/homepage/parents-night-out.jpg";
-import facilityNinjaLine from "../images/facility/ninja-line.jpg";
-import facilityThrowingWall from "../images/facility/throwing-wall.jpg";
-import facilityPlayground from "../images/facility/playground.jpg";
-import facilityTrampoline from "../images/facility/trampoline.jpg";
-import galleryWarmUp from "../images/little-warriors/warm-up-circle.jpg";
-import galleryOneOnOne from "../images/little-warriors/bowing-in.jpg";
-import galleryGroundWork from "../images/kids/partner-drill.jpg";
-import galleryBoStaff from "../images/kids/instructor-correcting-stance.jpg";
-import galleryStoryTime from "../images/events/saturday-training.jpg";
-import gallerySparringGear from "../images/little-warriors/earning-a-stripe.jpg";
-import galleryKickDrills from "../images/teens-adults/drilling-technique.jpg";
-import galleryDemoTeam from "../images/events/demo-team.jpg";
+import facilityNinjaLine from "../images/facility/ninja-line-obstacle-course-dojo-raeford-nc.jpg";
+import facilityThrowingWall from "../images/facility/ninja-star-throwing-wall-dojo.jpg";
+import facilityPlayground from "../images/facility/outdoor-playground-action-zone-raeford-nc.jpg";
+import facilityTrampoline from "../images/facility/outdoor-trampoline-martial-arts-school.jpg";
+import galleryBoStaff from "../images/gallery/instructor-guiding-bo-staff-form.jpg";
+import galleryWarmUp from "../images/gallery/young-students-warm-up-stretches.jpg";
+import galleryOneOnOne from "../images/gallery/instructor-one-on-one-yellow-belt-student.jpg";
+import galleryKickDrills from "../images/gallery/students-kicking-pads-held-by-partners.jpg";
+import galleryGroundWork from "../images/gallery/instructor-demonstrating-ground-technique.jpg";
+import galleryStoryTime from "../images/gallery/students-seated-circle-with-instructor.jpg";
+import gallerySparringGear from "../images/gallery/young-students-red-sparring-gear.jpg";
+import galleryDemoTeam from "../images/gallery/action-zone-demo-team-downtown-event.jpg";
 
 const facilityFeatures = [
   { image: facilityNinjaLine, position: "50% 42%", alt: "The ninja line strung across the middle of the dojo, a hanging grip-and-balance obstacle course", title: "The Ninja Line", desc: "Strung across the middle of the dojo. Grip, balance, and upper body strength training in a fun, challenging way." },
@@ -81,13 +81,13 @@ const audiences = [
 // what's in each frame (a few filenames don't match their contents).
 const galleryPhotos = [
   { src: galleryBoStaff, position: "50% 30%", alt: "An instructor guiding a student's form with the bo staff" },
-  { src: galleryWarmUp, landscape: true, alt: "Young students stretching through warm-ups on the dojo mat" },
+  { src: galleryWarmUp, landscape: true, alt: "Young students stretching through warm-ups on the dojo mat in Raeford, NC" },
   { src: galleryOneOnOne, alt: "An instructor working one-on-one with a young yellow-belt student" },
-  { src: galleryKickDrills, landscape: true, alt: "Students drilling kicks into pads held by partners across the dojo floor" },
-  { src: galleryGroundWork, alt: "Two students practicing ground technique on the mat" },
-  { src: galleryStoryTime, landscape: true, alt: "An instructor reading to a circle of students seated on the mat" },
-  { src: gallerySparringGear, alt: "Smiling young students suited up in red sparring gear" },
-  { src: galleryDemoTeam, position: "50% 25%", alt: "The Action Zone demo team in red uniforms at a community event" },
+  { src: galleryKickDrills, landscape: true, alt: "Student drilling a kick into a pad held by a partner" },
+  { src: galleryGroundWork, position: "50% 60%", alt: "An instructor demonstrating a ground technique with a student on the mat" },
+  { src: galleryStoryTime, landscape: true, alt: "Kids martial arts class seated in a circle on the mat with their instructor" },
+  { src: gallerySparringGear, position: "50% 45%", alt: "Young students suited up in red sparring gear on the dojo floor" },
+  { src: galleryDemoTeam, position: "50% 40%", alt: "The Action Zone demo team performing at a downtown community event" },
 ];
 
 const martialStyles = ["Karate", "Jiu Jitsu", "Kung Fu", "Tae Kwon Do", "Japanese Weapons"];
@@ -121,7 +121,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       <div class="grid gap-8 md:grid-cols-3 md:gap-6">
         <ProgramCard
           image={littleWarriorsClass}
-          alt="Little Warriors students lined up in uniform for a preschool martial arts class"
+          alt="Little Warriors students lined up in uniform for a preschool martial arts class in Raeford, NC"
           ageLabel={ageLabel(programs.littleWarriors)}
           program="littleWarriors"
           title="Little Warriors"

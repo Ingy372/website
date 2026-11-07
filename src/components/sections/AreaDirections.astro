@@ -1,0 +1,32 @@
+---
+// "Getting here from <town>" block on the area pages. Opens Google Maps
+// turn-by-turn directions from that town; drive time shows only when
+// confirmed in src/data/business.ts (directions.driveTimes).
+import { business, addressCityLine, addressFull, directions, isTodo } from "../../data/business";
+
+interface Props {
+  from: string;
+}
+const { from } = Astro.props;
+const drive = directions.driveTimes.find((d) => d.from === from && !isTodo(d.time));
+const mapsFrom = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(`${from}, NC`)}&destination=${encodeURIComponent(addressFull)}`;
+---
+
+<div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7">
+  <h2 class="mb-3 font-display text-2xl font-black text-indigo">Getting here from {from}</h2>
+  <p class="mb-2 text-[#40403A]">
+    {business.displayName}<br />
+    {business.address.street}<br />
+    {addressCityLine}
+  </p>
+  {drive && <p class="mb-2 text-[#40403A]">We are {drive.time} from {from}.</p>}
+  <p class="mb-5 text-sm text-mist">Classes run Monday through Thursday evenings, plus Saturday morning open training.</p>
+  <a
+    href={mapsFrom}
+    target="_blank"
+    rel="noopener"
+    class="inline-block rounded-sm bg-indigo px-5 py-3 text-sm font-bold text-white hover:bg-gold hover:text-indigo-deep"
+  >
+    Directions from {from}
+  </a>
+</div>

@@ -45,6 +45,34 @@
       "date": null,
       "rating": 5,
       "text": "This is a FANTASTIC place to take children so that they can gain great social skills and personally development within themselves the skills and abilities to defend themselves while learning about Jesus Christ and how great he truly is."
+    },
+    {
+      "id": "rachel-b",
+      "author": "Rachel B.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2023-08-30",
+      "rating": 5,
+      "text": "We have been going to Action Zone for the past several months. I have been so impressed how the instructors have firm expectations and challenge the kids to grow physically, mentally, and emotionally, well also doing so in a kind and encouraging manner. My daughter seems to be growing in confidence and I believe it is in part because of Action Zone. Edit: My son now it's in his absolutely loving their classes. He is learning how to be strong in mind and body and growing in respect and self-discipline. The instructors are very helpful and patient."
+    },
+    {
+      "id": "savanna-f",
+      "author": "Savanna F.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2020-06-10",
+      "rating": 5,
+      "text": "Little warriors class (3-5) is excellent for my little guy who enjoys anything ninja. He gets exercise, discipline, routine and structure. Learns basic defense in a controlled environment. The teachers are incredibly patient and loving, I couldn't have asked for better people to spend an hour instructing my child."
+    },
+    {
+      "id": "john-s",
+      "author": "John S.",
+      "relationship": "Parent",
+      "source": "Google",
+      "date": "2014-12-22",
+      "rating": 5,
+      "text": "Michael Lowery and his CMA team give life-changing martial arts instruction that can't be found anywhere else. CMA is the best martial arts instruction in Fayetteville and the Cape Fear region - and as a family that has lived all over the US, we learned it is the best available anywhere. The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way. The physical prowess and skill students learn is amazing to see, especially in young students, and the focus and discipline is not just physical but spiritual as well. That kind of instruction has life-long value. We can't thank Mr. Lowery and CMA enough!",
+      "excerpt": "CMA is the best martial arts instruction in Fayetteville and the Cape Fear region - and as a family that has lived all over the US, we learned it is the best available anywhere. … The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way."
     }
   ]
 }
