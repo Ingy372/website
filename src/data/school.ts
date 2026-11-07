@@ -112,3 +112,14 @@ export const nav = {
     { label: "Contact", href: "/contact" },
   ],
 };
+
+/** The "How much does it cost?" FAQ entry (style, military, and area pages). Never shows prices. */
+export function tuitionFaqItem() {
+  return {
+    question: "How much does it cost?",
+    answer: [
+      `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
+      "Want to talk it over before you come in? Give us a call.",
+    ],
+  };
+}

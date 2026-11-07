@@ -6,6 +6,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import Directions from "../components/sections/Directions.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import familyNewBelt from "../images/families-we-serve/family-celebrating-new-belt.jpg";
+import thumbsUp from "../images/families-we-serve/young-students-thumbs-up-handprint-wall.jpg";
 import { offer } from "../data/school";
 import { cityState, directions, founded, isTodo } from "../data/business";
 
@@ -15,12 +18,12 @@ const driveTime = (town: string) => {
   return t ? cap(t) : undefined;
 };
 
-const towns = [
+const towns: { name: string; line: string; href?: string }[] = [
   { name: "Raeford & Hoke County", line: "Our home dojo, right here for Hoke County families." },
-  { name: "Fayetteville", line: driveTime("Fayetteville") ? `${driveTime("Fayetteville")} away, and worth every mile.` : "A short drive, and worth every mile." },
-  { name: "Hope Mills", line: driveTime("Hope Mills") ? `${driveTime("Hope Mills")} away.` : "A short drive away." },
-  { name: "Rockfish & Jack Britt", line: "A quick drive for families in Rockfish and Jack Britt." },
-  { name: "Fort Bragg", line: "Military families are always welcome here." },
+  { name: "Fayetteville", href: "/fayetteville", line: driveTime("Fayetteville") ? `${driveTime("Fayetteville")} away, and worth every mile.` : "A short drive, and worth every mile." },
+  { name: "Hope Mills", href: "/hope-mills", line: driveTime("Hope Mills") ? `${driveTime("Hope Mills")} away.` : "A short drive away." },
+  { name: "Rockfish & Jack Britt", href: "/rockfish-jack-britt", line: "A quick drive for families in Rockfish and Jack Britt." },
+  { name: "Fort Bragg", href: "/military-families", line: "Military families are always welcome here." },
 ];
 ---
 
@@ -44,8 +47,22 @@ const towns = [
         <div class="rounded border-t-4 border-gold bg-white p-6 shadow-[0_1px_0_rgba(25,26,62,0.06)]">
           <h2 class="mb-2 text-xl font-black text-indigo">{t.name}</h2>
           <p class="text-[0.95rem] text-mist">{t.line}</p>
+          {t.href && <a href={t.href} class="mt-3 inline-block text-sm font-bold text-indigo hover:text-gold-deep">More for {t.name} families →</a>}
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="pb-20 md:pb-20">
+    <div class="mx-auto max-w-4xl px-6 md:px-5">
+      <PhotoStrip
+        ratioClass="aspect-[4/3]"
+        caption="Families from all over, one dojo"
+        images={[
+          { src: familyNewBelt, alt: "A family celebrating their daughter's new belt at Action Zone CMA", position: "50% 35%" },
+          { src: thumbsUp, alt: "Two young students giving a thumbs up at the black belt handprint wall", position: "50% 30%" },
+        ]}
+      />
     </div>
   </section>
 

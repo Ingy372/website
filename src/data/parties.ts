@@ -22,11 +22,12 @@ export const birthdayPartyFacts: Fact[] = [
 ];
 
 export const parentsNightOutFacts: Fact[] = [
-  { label: "Ages", value: todo("PNO ages") },
+  { label: "Ages", value: "5 and up" },
+  { label: "When", value: "Usually the fourth Friday of the month" },
   { label: "Usual hours", value: todo("usual PNO drop-off and pick-up times") },
   // Themes named in the existing page copy.
   { label: "Themes", value: "Nerf Night, Superhero Dress-Up, Water Wars, and more" },
-  { label: "Food", value: todo("is dinner or a snack provided") },
+  { label: "Food", value: "Changes with each night's theme. Kids are welcome to bring their own snack." },
   { label: "What to bring", value: todo("what kids should bring") },
-  { label: "Reserve a spot", value: todo("how families reserve, and whether spots are limited") },
+  { label: "Reserve a spot", value: "Request a spot on the website or give us a call. Each night is capped at 16 kids." },
 ];

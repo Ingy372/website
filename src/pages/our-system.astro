@@ -17,13 +17,13 @@ import drillingTechnique from "../images/our-system/students-drilling-striking-k
 import partnerSelfDefense from "../images/our-system/students-ground-grappling-drill.jpg";
 import weaponsTraining from "../images/our-system/students-bo-staff-weapons-training.jpg";
 
-const arts = [
-  { name: "Karate", desc: "Strikes, blocks, and stances. Power and precision standing up." },
-  { name: "Jiu Jitsu", desc: "Takedowns, escapes, holds, and submissions, with live grappling." },
+const arts: { name: string; desc: string; href?: string }[] = [
+  { name: "Karate", href: "/karate", desc: "Strikes, blocks, and stances. Power and precision standing up." },
+  { name: "Jiu Jitsu", href: "/jiu-jitsu", desc: "Takedowns, escapes, holds, and submissions, with live grappling." },
   { name: "Kung Fu", desc: "Flowing movement and hand techniques from the Chinese martial arts tradition." },
   { name: "Tae Kwon Do", desc: "Speed, flexibility, and the kicks the Korean art is known for." },
   { name: "Japanese Weapons", desc: "The five traditional Japanese weapons, trained with control and respect." },
-  { name: "Self-Defense", desc: "Where it all comes together: practical skills you could actually use." },
+  { name: "Self-Defense", href: "/self-defense", desc: "Where it all comes together: practical skills you could actually use." },
 ];
 
 const programLinks = [
@@ -65,6 +65,7 @@ const programLinks = [
           <div class="rounded border-t-4 border-gold bg-white p-6">
             <h3 class="mb-2 text-xl font-black text-indigo">{a.name}</h3>
             <p class="text-[0.95rem] text-mist">{a.desc}</p>
+            {a.href && <a href={a.href} class="mt-3 inline-block text-sm font-bold text-indigo hover:text-gold-deep">{a.name} classes →</a>}
           </div>
         ))}
       </div>

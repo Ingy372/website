@@ -8,10 +8,30 @@ import FactList from "../components/sections/FactList.astro";
 import { nextParentsNightOut, upcoming, eventWhenText, eventJsonLd } from "../data/events";
 import { parentsNightOutFacts } from "../data/parties";
 
+import { Picture } from "astro:assets";
+import pnoNerf from "../images/parents-night-out/parents-night-out-nerf-night-raeford-nc.jpg";
+import pnoCookies from "../images/parents-night-out/parents-night-out-cookie-decorating.jpg";
+import pnoCrafts from "../images/parents-night-out/parents-night-out-craft-kit.jpg";
+import pnoPajamas from "../images/parents-night-out/parents-night-out-pajama-night.jpg";
+import pnoFriends from "../images/parents-night-out/parents-night-out-friends-on-bench.jpg";
+import pnoNinjaLine from "../images/parents-night-out/parents-night-out-ninja-line-with-instructor.jpg";
+import pnoCrew from "../images/parents-night-out/parents-night-out-kids-and-instructors-group.jpg";
 import partyPhoto from "../images/parents-night-out/party.jpg";
 
 const eventSchema = eventJsonLd("parents-night-out", new URL("/parents-night-out", Astro.site).href);
 const upcomingDates = upcoming("parents-night-out");
+
+// "A look at the night" mosaic. Spans are set per photo so wide shots stay wide
+// and tall shots stay tall; captions name what is happening in each frame.
+const nightPhotos = [
+  { src: pnoCrew, alt: "Kids and instructors smiling together at a Parents Night Out in Raeford, NC", caption: "The whole crew", span: "col-span-2 md:col-start-1 md:row-start-1 md:row-span-2", position: "50% 40%" },
+  { src: pnoCookies, alt: "Girl decorating a cookie with sprinkles", caption: "Cookie decorating", span: "row-span-2 md:col-start-3 md:row-start-1", position: "50% 35%" },
+  { src: pnoNerf, alt: "Kids with foam blasters and goggles during Nerf Night", caption: "Nerf Night", span: "md:col-start-4 md:row-start-1", position: "50% 40%" },
+  { src: pnoPajamas, alt: "Kids in pajamas relaxing on the dojo mat", caption: "Pajama night", span: "md:col-start-4 md:row-start-2", position: "50% 50%" },
+  { src: pnoFriends, alt: "Four kids laughing together on a bench", caption: "New friends", span: "col-span-2 md:col-start-1 md:row-start-3 md:row-span-2", position: "50% 45%" },
+  { src: pnoNinjaLine, alt: "Instructor spotting a girl climbing the ninja line", caption: "The ninja line", span: "row-span-2 md:col-start-3 md:row-start-3", position: "50% 30%" },
+  { src: pnoCrafts, alt: "Smiling girl holding up a bouncy ball craft kit", caption: "Crafts to take home", span: "row-span-2 md:col-start-4 md:row-start-3", position: "50% 30%" },
+];
 ---
 
 <BaseLayout
@@ -53,7 +73,35 @@ const upcomingDates = upcoming("parents-night-out");
     </div>
   </div>
 
-  <section class="pb-16 md:pb-20">
+  <section class="bg-paper-warm py-20 md:py-20">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="A Look at the Night">
+        <Fragment slot="heading">This is what they'll be <em>talking about on the ride home.</em></Fragment>
+      </SectionHead>
+      <div class="grid grid-flow-dense auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[200px] md:grid-cols-4 md:gap-4">
+        {nightPhotos.map((p) => (
+          <figure class={`group relative overflow-hidden rounded ${p.span}`}>
+            <Picture
+              src={p.src}
+              alt={p.alt}
+              formats={["avif", "webp"]}
+              widths={[320, 480, 720]}
+              sizes="(min-width: 768px) 25vw, 50vw"
+              loading="lazy"
+              pictureAttributes={{ class: "block h-full w-full" }}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              style={`object-position:${p.position}`}
+            />
+            <figcaption class="absolute bottom-2 left-2 rounded-sm bg-indigo-deep/85 px-2.5 py-1 text-[0.7rem] font-bold tracking-[0.12em] text-gold-soft uppercase">
+              {p.caption}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20">
     <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.2fr_0.8fr] md:gap-6 md:px-5">
       <FactList heading="The night at a glance" facts={parentsNightOutFacts} />
       <div class="rounded border border-paper-warm bg-paper-warm p-7">
