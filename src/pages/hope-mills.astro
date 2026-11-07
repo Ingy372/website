@@ -12,7 +12,7 @@ import { offer } from "../data/school";
 import { programs, ageLabel, beginnerTimes, trialDaysText, openTrainingTime } from "../data/schedule";
 
 import heroImage from "../images/hope-mills/little-warriors-preschool-karate-near-hope-mills-nc.jpg";
-import playground from "../images/facility/outdoor-playground-action-zone-raeford-nc.jpg";
+import dojoBuilding from "../images/hope-mills/action-zone-cma-dojo-building-daytime-raeford-nc.jpg";
 import ninjaLine from "../images/hope-mills/instructor-coaching-young-student.jpg";
 
 const kidsTimes = beginnerTimes("kids").map((t) => `${t.days}, ${t.time}`).join(" · ");
@@ -100,7 +100,7 @@ const faqItems = [
       <PhotoStrip
         ratioClass="aspect-square"
         images={[
-          { src: playground, alt: "The outdoor playground beside the dojo" },
+          { src: dojoBuilding, alt: "The Action Zone CMA dojo building in Raeford on a sunny day" },
           { src: ninjaLine, alt: "An instructor coaching a young student during class" },
         ]}
       />

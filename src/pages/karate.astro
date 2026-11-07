@@ -13,9 +13,9 @@ import { founded } from "../data/business";
 import { programs, ageLabel, programClassLength } from "../data/schedule";
 
 import heroImage from "../images/karate/karate-students-with-new-belt-certificates-raeford-nc.jpg";
-import littleWarriorsClass from "../images/little-warriors/little-warriors-preschool-martial-arts-class.jpg";
-import kidsClass from "../images/homepage/kids-karate-class-raeford-nc.jpg";
-import teensAdultsClass from "../images/homepage/teens-adults-karate-class-raeford-nc.jpg";
+import littleWarriorsClass from "../images/karate/little-warriors-karate-class-white-uniforms.jpg";
+import kidsClass from "../images/karate/kids-karate-students-lined-up-in-uniform.jpg";
+import teensAdultsClass from "../images/karate/teen-adult-karate-pad-drill.jpg";
 import drillingTechnique from "../images/karate/karate-student-jumping-kick-into-pad.jpg";
 import beltsAfterTest from "../images/karate/instructor-tying-new-karate-belt.jpg";
 
@@ -89,7 +89,7 @@ const faqItems = [
       <div class="grid gap-8 md:grid-cols-3 md:gap-6">
         <ProgramCard
           image={littleWarriorsClass}
-          alt="Little Warriors preschool karate students lined up in uniform"
+          alt="Little Warriors preschool karate students in white uniforms with their instructors"
           ageLabel={ageLabel(programs.littleWarriors)}
           program="littleWarriors"
           title="Little Warriors"
@@ -99,7 +99,7 @@ const faqItems = [
         />
         <ProgramCard
           image={kidsClass}
-          alt="Kids karate class training together on the dojo mat"
+          alt="Kids karate students lined up in uniform with their belts"
           position="50% 30%"
           ageLabel={ageLabel(programs.kids)}
           program="kids"
@@ -110,7 +110,7 @@ const faqItems = [
         />
         <ProgramCard
           image={teensAdultsClass}
-          alt="Teens and adults training together in a karate and self-defense class"
+          alt="Teen and adult karate students drilling strikes on pads held by instructors"
           position="50% 28%"
           ageLabel={ageLabel(programs.teensAdults)}
           program="teensAdults"
