@@ -2,7 +2,7 @@
 // Thank-you page for the backup booking form: /api/booking-request redirects
 // here (303) after Dojo Forge accepts the request.
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { business } from "../../data/business";
+import { business, mapsDirectionsUrl } from "../../data/business";
 import { trialDaysText } from "../../data/schedule";
 ---
 
@@ -22,7 +22,11 @@ import { trialDaysText } from "../../data/schedule";
       <p class="mb-8 text-mist">
         In a hurry? Call <a href={business.phoneHref} class="font-bold text-indigo hover:text-gold">{business.phone}</a>.
       </p>
-      <a href="/" class="font-bold text-indigo hover:text-gold">Back to the home page &rarr;</a>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href={mapsDirectionsUrl} target="_blank" rel="noopener" class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">Get Directions</a>
+        <a href="/contact" class="inline-block rounded-sm border border-indigo/25 px-6 py-4 text-base font-semibold text-indigo hover:border-gold hover:text-gold-deep">Questions? Contact Us</a>
+      </div>
+      <a href="/" class="mt-8 inline-block font-bold text-indigo hover:text-gold">Back to the home page &rarr;</a>
     </div>
   </section>
 </BaseLayout>

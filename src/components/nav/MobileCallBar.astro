@@ -2,6 +2,9 @@
 // Mobile-only sticky bar: [Call] [Free Trial Week], one thumb-tap each.
 import { business } from "../../data/business";
 import { offer } from "../../data/school";
+
+// On /booking itself, jump to the form instead of reloading the page.
+const bookingHref = Astro.url.pathname.replace(/(\.html|\/)$/, "") === "/booking" ? "#book" : "/booking";
 ---
 
 <div
@@ -18,7 +21,7 @@ import { offer } from "../../data/school";
     </svg>
     Call
   </a>
-  <a href="/booking" class="flex h-[52px] items-center justify-center bg-gold px-2 text-center text-[0.9rem] font-bold leading-tight text-indigo-deep">
+  <a href={bookingHref} class="flex h-[52px] items-center justify-center bg-gold px-2 text-center text-[0.9rem] font-bold leading-tight text-indigo-deep">
     {offer.cta}
   </a>
 </div>

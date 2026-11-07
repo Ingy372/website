@@ -1,9 +1,11 @@
 ---
-import { nav } from "../data/school";
+import { nav, offer } from "../data/school";
 import { business, addressCityLine, founded, cityState, serviceAreaText } from "../data/business";
 import { hours } from "../data/schedule";
 
 const currentYear = new Date().getFullYear();
+// On /booking itself, jump to the form instead of reloading the page.
+const bookingHref = Astro.url.pathname.replace(/(\.html|\/)$/, "") === "/booking" ? "#book" : "/booking";
 ---
 
 <!-- Below lg the fixed MobileCallBar (52px + safe-area inset) sits over the
@@ -68,6 +70,7 @@ const currentYear = new Date().getFullYear();
           ))}
         </p>
         <a href="/contact" class="mb-2 block text-sm hover:text-white">Contact</a>
+        <a href={bookingHref} class="mb-2 block text-sm font-semibold text-gold-soft hover:text-white">{offer.cta}</a>
       </div>
     </div>
 

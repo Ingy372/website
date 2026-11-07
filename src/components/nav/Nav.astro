@@ -2,6 +2,9 @@
 import { nav, offer } from "../../data/school";
 import { business } from "../../data/business";
 
+// On /booking itself, the CTA jumps down to the form instead of reloading the page.
+const bookingHref = Astro.url.pathname.replace(/(\.html|\/)$/, "") === "/booking" ? "#book" : "/booking";
+
 const dropdowns = [
   { label: "Programs", items: [...nav.programs, ...nav.styles] },
   { label: "Parties", items: nav.parties },
@@ -50,7 +53,7 @@ const dropdowns = [
       ))}
 
       <a
-        href="/booking"
+        href={bookingHref}
         class="rounded-sm bg-gold px-[18px] py-[11px] text-[0.83rem] font-bold text-indigo-deep transition-colors hover:bg-gold-soft"
       >
         {offer.cta}
@@ -107,7 +110,7 @@ const dropdowns = [
     </div>
 
     <a
-      href="/booking"
+      href={bookingHref}
       class="mt-4 block rounded-sm bg-gold px-5 py-4 text-center text-base font-bold text-indigo-deep"
     >
       {offer.cta}
@@ -174,5 +177,8 @@ const dropdowns = [
   closeBtn?.addEventListener("click", () => drawer?.close());
   drawer?.addEventListener("click", (e) => {
     if (e.target === drawer) drawer.close();
+    // In-page links (like the CTA on /booking) need the menu out of the way.
+    const link = (e.target as HTMLElement).closest?.("a[href^='#']");
+    if (link) drawer.close();
   });
 </script>
