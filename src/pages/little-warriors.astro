@@ -59,6 +59,7 @@ const results = [
   { title: "They believe in themselves", desc: "A child who earns a new stripe learns that hard things are worth doing, and that they can do them." },
   { title: "They start school ready", desc: "Listening, waiting, focus, and confidence are the exact things a kindergarten teacher hopes a child walks in with." },
 ];
+import ReviewCarousel from "../components/engage/ReviewCarousel.astro";
 ---
 
 <BaseLayout
@@ -171,6 +172,12 @@ const results = [
           the mat will surprise us, and we will meet them right where they are.
         </p>
       </ReassuranceBox>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <ReviewCarousel heading="Families say it better than we can" lead={['sarah-g']} />
     </div>
   </section>
 

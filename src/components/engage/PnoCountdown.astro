@@ -1,0 +1,98 @@
+---
+// Countdown to the next Parents Night Out, from the dates in src/data/events.ts.
+// The page is built ahead of time, so the browser picks the next date itself:
+// a night that has passed since the last deploy is skipped, never shown stale.
+//   variant="block"  — date, theme, and days/hours/minutes tiles (PNO page)
+//   variant="inline" — one line, e.g. "Fri, Nov 27 · 20 days away" (cards, bar)
+// The built HTML already holds the next date as text, so no JS still reads right.
+// Minutes tick once a minute; there are no seconds, so nothing flickers.
+import { upcoming, eventWhenText } from "../../data/events";
+
+interface Props {
+  variant?: "block" | "inline";
+  /** Extra classes on the wrapper. */
+  class?: string;
+}
+const { variant = "inline", class: extra = "" } = Astro.props;
+const dates = upcoming("parents-night-out").map((e) => ({ start: e.start, end: e.end, theme: e.theme ?? "", when: eventWhenText(e) }));
+const next = dates[0];
+const shortDay = (when: string) => when.split(" · ")[0].replace(/^(\w{3})\w*,\s(\w{3})\w*/, "$1, $2");
+---
+
+{next && variant === "inline" && (
+  <span class={`pno-cd ${extra}`} data-pno-countdown="inline" data-dates={JSON.stringify(dates)}>
+    <span data-cd-date>{shortDay(next.when)}</span><span data-cd-rel></span>
+  </span>
+)}
+
+{next && variant === "block" && (
+  <div class={`pno-cd-block ${extra}`} data-pno-countdown="block" data-dates={JSON.stringify(dates)}>
+    <div class="pcb-kicker">Next Parents Night Out</div>
+    <div class="pcb-theme" data-cd-theme>{next.theme || next.when.split(" · ")[0]}</div>
+    <div class="pcb-when" data-cd-when>{next.theme ? next.when : next.when.split(" · ")[1]}</div>
+    <div class="pcb-tiles" data-cd-tiles hidden>
+      <div><b data-cd-d>0</b><span>days</span></div>
+      <div><b data-cd-h>0</b><span>hours</span></div>
+      <div><b data-cd-m>0</b><span>minutes</span></div>
+    </div>
+    <div class="pcb-now" data-cd-now hidden>Happening tonight. Call to check for an open spot.</div>
+  </div>
+)}
+
+<style>
+  .pno-cd-block { padding: 1.5rem; border-radius: 4px; background: var(--color-indigo); color: #fff; }
+  .pcb-kicker { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-gold-soft); }
+  .pcb-theme { margin-top: 0.35rem; font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; line-height: 1.15; }
+  .pcb-when { margin-top: 0.3rem; font-size: 0.92rem; color: #C7C6D6; }
+  .pcb-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin-top: 1rem; }
+  .pcb-tiles div { padding: 0.7rem 0.4rem; border-radius: 4px; background: rgb(255 255 255 / 0.07); text-align: center; }
+  .pcb-tiles b { display: block; font-family: var(--font-display); font-size: 1.9rem; font-weight: 900; line-height: 1; color: var(--color-gold-soft); font-variant-numeric: tabular-nums; }
+  .pcb-tiles span { display: block; margin-top: 0.3rem; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #C7C6D6; }
+  .pcb-now { margin-top: 1rem; font-weight: 700; color: var(--color-gold-soft); }
+</style>
+
+<script>
+  type D = { start: string; end: string; theme: string; when: string };
+  // "2026-11-27T18:00" is Raeford (Eastern) time; turn it into a real instant.
+  const eastern = (local: string) => {
+    const guess = new Date(`${local}:00Z`);
+    const tz = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", timeZoneName: "longOffset" })
+      .formatToParts(guess).find((p) => p.type === "timeZoneName")?.value.replace("GMT", "") || "-05:00";
+    return new Date(`${local}:00${tz}`);
+  };
+  const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? "" : "s"}`;
+
+  function render() {
+    const now = new Date();
+    document.querySelectorAll<HTMLElement>("[data-pno-countdown]").forEach((el) => {
+      const dates: D[] = JSON.parse(el.dataset.dates || "[]");
+      const next = dates.find((d) => eastern(d.end) > now);
+      if (!next) { el.hidden = true; return; }
+      const start = eastern(next.start);
+      const ms = start.getTime() - now.getTime();
+      const live = ms <= 0;
+      const days = Math.floor(ms / 864e5), hours = Math.floor((ms % 864e5) / 36e5), mins = Math.floor((ms % 36e5) / 6e4);
+
+      if (el.dataset.pnoCountdown === "inline") {
+        el.querySelector("[data-cd-date]")!.textContent = next.when.split(" · ")[0].replace(/^(\w{3})\w*,\s(\w{3})\w*/, "$1, $2");
+        const startDay = new Date(start.toLocaleDateString("en-US", { timeZone: "America/New_York" }));
+        const today = new Date(now.toLocaleDateString("en-US", { timeZone: "America/New_York" }));
+        const dayDiff = Math.round((startDay.getTime() - today.getTime()) / 864e5);
+        el.querySelector("[data-cd-rel]")!.textContent = live || dayDiff === 0 ? " · tonight" : dayDiff === 1 ? " · tomorrow" : ` · ${dayDiff} days away`;
+      } else {
+        el.querySelector("[data-cd-theme]")!.textContent = next.theme || next.when.split(" · ")[0];
+        el.querySelector("[data-cd-when]")!.textContent = next.theme ? next.when : next.when.split(" · ")[1];
+        (el.querySelector("[data-cd-tiles]") as HTMLElement).hidden = live;
+        (el.querySelector("[data-cd-now]") as HTMLElement).hidden = !live;
+        if (!live) {
+          el.querySelector("[data-cd-d]")!.textContent = String(days);
+          el.querySelector("[data-cd-h]")!.textContent = String(hours);
+          el.querySelector("[data-cd-m]")!.textContent = String(mins);
+          el.querySelector("[data-cd-tiles]")!.setAttribute("aria-label", `${plural(days, "day")}, ${plural(hours, "hour")}, ${plural(mins, "minute")} to go`);
+        }
+      }
+    });
+  }
+  render();
+  window.setInterval(render, 60000);
+</script>

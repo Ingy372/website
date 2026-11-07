@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CountUp from "../components/motion/CountUp.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import { Picture } from "astro:assets";
 import CTASection from "../components/sections/CTASection.astro";
@@ -8,7 +9,7 @@ import { business, cityState, founded, team } from "../data/business";
 import { ratingText } from "../data/reviews";
 
 import michaelTeaching from "../images/our-story/founder-michael-lowery-teaching-class.jpg";
-import michaelPortrait from "../images/team/michael-lowery-founder-action-zone-cma.png";
+import michaelPortrait from "../images/our-story/founder-michael-lowery-holding-kick-pad.jpg";
 import studentActionShot from "../images/our-story/students-kicking-pad-drill-raeford-dojo.jpg";
 import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-test.jpg";
 ---
@@ -70,13 +71,13 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
       <div class="mx-auto h-40 w-40 overflow-hidden rounded-full">
         <Picture
           src={michaelPortrait}
-          alt={`Portrait of founder ${team.founder.name}`}
+          alt={`Founder ${team.founder.name} holding a kicking pad for a student`}
           formats={["avif", "webp"]}
           widths={[160, 320]}
           sizes="160px"
           pictureAttributes={{ class: "block h-full w-full" }}
           class="h-full w-full object-cover"
-          style="object-position:50% 20%"
+          style="object-position:40% 30%"
         />
       </div>
       <blockquote class="text-lg italic leading-relaxed text-[#E8E7F0]">
@@ -105,11 +106,11 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
         <div class="mt-1 text-sm text-mist">Teaching since</div>
       </div>
       <div>
-        <div class="font-display text-3xl font-black text-indigo">480+</div>
+        <div class="font-display text-3xl font-black text-indigo"><CountUp value="480" />+</div>
         <div class="mt-1 text-sm text-mist">Hours to Black Belt</div>
       </div>
       <div>
-        <div class="font-display text-3xl font-black text-indigo">{ratingText}</div>
+        <div class="font-display text-3xl font-black text-indigo"><CountUp value={ratingText} /></div>
         <div class="mt-1 text-sm text-mist">Google rating</div>
       </div>
     </div>

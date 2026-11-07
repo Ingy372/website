@@ -1,0 +1,138 @@
+---
+// Swipeable carousel of real Google reviews (verbatim, from reviews.json).
+// Phones: swipe, one card at a time with the next one peeking. Desktop: arrows.
+// No JS: it is still a scrollable row. Gentle auto-advance every 7s only while
+// on screen, stops for good on the first touch, click, or key press, and never
+// runs with reduce motion.
+import { reviews, displayAuthor, ratingText, countText } from "../../data/reviews";
+import { business } from "../../data/business";
+
+interface Props {
+  /** "dark" on indigo sections, "light" on paper. */
+  theme?: "dark" | "light";
+  /** Show the rating line and the "see all on Google" link above the cards. */
+  heading?: string;
+  /** Put these review ids first, in this order. */
+  lead?: string[];
+}
+const { theme = "light", heading, lead = [] } = Astro.props;
+const ordered = [...lead.map((id) => reviews.find((r) => r.id === id)!).filter(Boolean), ...reviews.filter((r) => !lead.includes(r.id))];
+const brand = business.displayName.split(",")[0];
+const dark = theme === "dark";
+---
+
+<div class:list={["rc", dark ? "rc-dark" : "rc-light"]} data-review-carousel>
+  {heading && (
+    <div class="rc-head">
+      <h2 class="rc-title">{heading}</h2>
+      <div class="rc-rating"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> {ratingText} from {countText} Google reviews</div>
+    </div>
+  )}
+  <div class="rc-track" role="region" aria-roledescription="carousel" aria-label={`Reviews of ${brand}`} tabindex="0" data-rc-track>
+    {ordered.map((r, i) => (
+      <figure class="rc-card" aria-roledescription="slide" aria-label={`${i + 1} of ${ordered.length}`}>
+        <div class="rc-stars" aria-label={`${r.rating} out of 5 stars`}>{"★".repeat(r.rating)}</div>
+        <blockquote class="rc-quote">"{r.excerpt ?? r.text}"</blockquote>
+        <figcaption class="rc-who">
+          <span class="rc-avatar" aria-hidden="true">{r.author.charAt(0)}</span>
+          <span><b>{displayAuthor(r)}</b><span class="rc-src">{r.relationship} · Google review</span></span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="rc-controls">
+    <button type="button" class="rc-arrow" data-rc-prev aria-label="Previous review">&larr;</button>
+    <div class="rc-dots" data-rc-dots aria-hidden="true">
+      {ordered.map(() => <span class="rc-dot"></span>)}
+    </div>
+    <button type="button" class="rc-arrow" data-rc-next aria-label="Next review">&rarr;</button>
+  </div>
+  <div class="rc-all">
+    <a href={business.googleReviewsUrl} target="_blank" rel="noopener">Read all {countText} reviews on Google &rarr;</a>
+  </div>
+</div>
+
+<style>
+  .rc { --rc-fg: var(--color-ink); --rc-muted: var(--color-mist); --rc-card: #fff; --rc-line: var(--color-paper-warm); --rc-accent: var(--color-gold-deep); }
+  .rc-dark { --rc-fg: #E8E7F0; --rc-muted: #A9A8BE; --rc-card: rgb(255 255 255 / 0.05); --rc-line: rgb(255 255 255 / 0.1); --rc-accent: var(--color-gold-soft); }
+  .rc-head { margin-bottom: 1.25rem; text-align: center; }
+  .rc-title { font-family: var(--font-display); font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 900; color: var(--rc-fg); text-wrap: balance; }
+  .rc-light .rc-title { color: var(--color-indigo); }
+  .rc-rating { margin-top: 0.4rem; font-size: 0.9rem; color: var(--rc-muted); }
+  .rc-rating span { color: var(--color-gold); letter-spacing: 2px; }
+  .rc-track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 86%; gap: 1rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0.25rem;
+    padding: 0.25rem 0.25rem 0.75rem; scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .rc-track::-webkit-scrollbar { display: none; }
+  .rc-track:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 4px; border-radius: 6px; }
+  @media (min-width: 640px) { .rc-track { grid-auto-columns: calc((100% - 1rem) / 2); } }
+  @media (min-width: 1024px) { .rc-track { grid-auto-columns: calc((100% - 2rem) / 3); } }
+  .rc-card {
+    scroll-snap-align: start; display: flex; flex-direction: column; margin: 0;
+    padding: 1.4rem; border: 1px solid var(--rc-line); border-left: 3px solid var(--color-gold);
+    border-radius: 4px; background: var(--rc-card);
+  }
+  .rc-stars { color: var(--color-gold); letter-spacing: 2px; }
+  .rc-quote { flex: 1; margin: 0.6rem 0 0; font-size: 0.93rem; font-style: italic; line-height: 1.7; color: var(--rc-fg); }
+  .rc-who { display: flex; align-items: center; gap: 0.7rem; margin-top: 1rem; font-size: 0.88rem; color: var(--rc-fg); }
+  .rc-who b { display: block; color: var(--rc-accent); }
+  .rc-src { display: block; font-size: 0.75rem; color: var(--rc-muted); }
+  .rc-avatar { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; flex: none; border-radius: 99px; background: rgb(201 162 39 / 0.2); font-family: var(--font-display); font-weight: 700; color: var(--rc-accent); }
+  .rc-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
+  .rc-arrow { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--rc-line); border-radius: 99px; color: var(--rc-fg); font-size: 1.1rem; }
+  .rc-light .rc-arrow { border-color: #D9D3C3; color: var(--color-indigo); }
+  .rc-arrow:hover { border-color: var(--color-gold); }
+  .rc-dots { display: flex; gap: 0.4rem; }
+  .rc-dot { width: 0.5rem; height: 0.5rem; border-radius: 99px; background: var(--rc-line); transition: width 0.2s, background-color 0.2s; }
+  .rc-light .rc-dot { background: #D9D3C3; }
+  .rc-dot.on { width: 1.4rem; background: var(--color-gold); }
+  .rc-all { margin-top: 0.8rem; text-align: center; font-size: 0.88rem; font-weight: 700; }
+  .rc-all a { color: var(--rc-accent); }
+  @media (prefers-reduced-motion: reduce) { .rc-dot { transition: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-review-carousel]").forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-rc-track]")!;
+    const cards = [...track.children] as HTMLElement[];
+    const dots = [...root.querySelectorAll<HTMLElement>(".rc-dot")];
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const behavior: ScrollBehavior = reduce ? "auto" : "smooth";
+
+    const current = () => {
+      const left = track.getBoundingClientRect().left;
+      let best = 0, dist = Infinity;
+      cards.forEach((c, i) => { const d = Math.abs(c.getBoundingClientRect().left - left); if (d < dist) { dist = d; best = i; } });
+      return best;
+    };
+    const go = (i: number) => {
+      const n = (i + cards.length) % cards.length;
+      track.scrollTo({ left: cards[n].offsetLeft - track.offsetLeft - 4, behavior });
+    };
+    const paint = () => { const c = current(); dots.forEach((d, i) => d.classList.toggle("on", i === c)); };
+    let raf = 0;
+    track.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
+    paint();
+
+    let auto = !reduce;
+    const stop = () => { auto = false; };
+    root.querySelector("[data-rc-prev]")!.addEventListener("click", () => { stop(); go(current() - 1); });
+    root.querySelector("[data-rc-next]")!.addEventListener("click", () => { stop(); go(current() + 1); });
+    ["pointerdown", "touchstart", "wheel", "keydown", "focusin"].forEach((ev) => root.addEventListener(ev, stop, { passive: true }));
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(current() + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(current() - 1); }
+    });
+
+    if (auto && "IntersectionObserver" in window) {
+      let visible = false;
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.5 }).observe(track);
+      const timer = window.setInterval(() => {
+        if (!auto) return window.clearInterval(timer);
+        if (visible && !document.hidden) go(current() + 1);
+      }, 7000);
+    }
+  });
+</script>

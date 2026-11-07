@@ -80,6 +80,7 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(addressFull)
 
         <div class="mb-6">
           <div class="text-xs font-bold tracking-[0.1em] text-gold-deep uppercase">Building Hours</div>
+          <p class="mt-1 text-sm font-semibold text-indigo" data-open-status></p>
           <div class="mt-1.5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[#40403A]">
             {hours.summary.map((row) => (
               <>

@@ -1,0 +1,126 @@
+---
+// Tap-to-enlarge for photo groups. Put data-lightbox on a wrapper and every
+// photo inside it opens full screen, with previous/next, swipe on phones,
+// arrow keys and Esc on desktop, and the phone's back button closes it.
+// Uses the largest size Astro already generated, so nothing new downloads
+// until a photo is opened. Placed once in BaseLayout.
+---
+
+<dialog id="lightbox" class="lb" aria-label="Photo viewer">
+  <figure class="lb-fig">
+    <img class="lb-img" alt="" data-lb-img />
+    <figcaption class="lb-cap" data-lb-cap></figcaption>
+  </figure>
+  <button type="button" class="lb-btn lb-close" data-lb-close aria-label="Close photo">&times;</button>
+  <button type="button" class="lb-btn lb-prev" data-lb-prev aria-label="Previous photo">&larr;</button>
+  <button type="button" class="lb-btn lb-next" data-lb-next aria-label="Next photo">&rarr;</button>
+  <div class="lb-count" data-lb-count aria-live="polite"></div>
+</dialog>
+
+<style is:global>
+  [data-lightbox] img { cursor: zoom-in; }
+</style>
+<style>
+  .lb { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgb(10 11 28 / 0.96); color: #fff; }
+  .lb::backdrop { background: rgb(10 11 28 / 0.9); }
+  .lb-fig { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; margin: 0; padding: 3.5rem max(0.75rem, env(safe-area-inset-right)) calc(3.5rem + env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left)); }
+  .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 3px; touch-action: pan-y; user-select: none; }
+  .lb-cap { margin-top: 0.75rem; max-width: 40rem; text-align: center; font-size: 0.85rem; color: #C7C6D6; }
+  .lb-btn { position: absolute; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 99px; background: rgb(255 255 255 / 0.1); color: #fff; font-size: 1.4rem; }
+  .lb-btn:hover { background: rgb(255 255 255 / 0.2); }
+  .lb-btn:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; }
+  .lb-close { top: calc(0.6rem + env(safe-area-inset-top)); right: 0.6rem; font-size: 1.8rem; }
+  .lb-prev { left: 0.6rem; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 0.6rem; top: 50%; transform: translateY(-50%); }
+  .lb-count { position: absolute; top: calc(1.4rem + env(safe-area-inset-top)); left: 1rem; font-size: 0.8rem; color: #A9A8BE; }
+  @media (max-width: 640px) { .lb-prev, .lb-next { top: auto; bottom: calc(0.6rem + env(safe-area-inset-bottom)); transform: none; } }
+  .lb[open] .lb-img { animation: lb-in 0.25s ease-out; }
+  @keyframes lb-in { from { opacity: 0; transform: scale(0.97); } }
+  @media (prefers-reduced-motion: reduce) { .lb[open] .lb-img { animation: none; } }
+</style>
+
+<script>
+  const dlg = document.getElementById("lightbox") as HTMLDialogElement | null;
+  if (dlg && typeof dlg.showModal === "function" && document.querySelector("[data-lightbox]")) {
+    const img = dlg.querySelector<HTMLImageElement>("[data-lb-img]")!;
+    const cap = dlg.querySelector<HTMLElement>("[data-lb-cap]")!;
+    const count = dlg.querySelector<HTMLElement>("[data-lb-count]")!;
+    let group: HTMLImageElement[] = [];
+    let index = 0;
+    let pushed = false;
+    let opener: HTMLElement | null = null;
+
+    // Largest candidate from the <picture>: prefer AVIF, then WebP, then the <img> srcset.
+    const biggest = (el: HTMLImageElement) => {
+      const pic = el.closest("picture");
+      const sets = [
+        pic?.querySelector('source[type="image/avif"]')?.getAttribute("srcset"),
+        pic?.querySelector('source[type="image/webp"]')?.getAttribute("srcset"),
+        el.getAttribute("srcset"),
+      ].filter(Boolean) as string[];
+      for (const set of sets) {
+        const best = set.split(",").map((s) => s.trim().split(/\s+/)).map(([u, w]) => ({ u, w: parseInt(w) || 0 })).sort((a, b) => b.w - a.w)[0];
+        if (best?.u) return best.u;
+      }
+      return el.currentSrc || el.src;
+    };
+    const show = (i: number) => {
+      index = (i + group.length) % group.length;
+      const el = group[index];
+      img.src = biggest(el);
+      img.alt = el.alt;
+      cap.textContent = el.alt;
+      count.textContent = `${index + 1} / ${group.length}`;
+      const multi = group.length > 1;
+      dlg.querySelectorAll<HTMLElement>("[data-lb-prev],[data-lb-next]").forEach((b) => (b.hidden = !multi));
+    };
+    const open = (el: HTMLImageElement) => {
+      const root = el.closest("[data-lightbox]")!;
+      group = [...root.querySelectorAll<HTMLImageElement>("img")];
+      opener = el;
+      show(group.indexOf(el));
+      dlg.showModal();
+      history.pushState({ lightbox: true }, "");
+      pushed = true;
+    };
+    const close = () => {
+      if (!dlg.open) return;
+      dlg.close();
+    };
+    dlg.addEventListener("close", () => {
+      if (pushed) { pushed = false; history.back(); }
+      opener?.focus({ preventScroll: true });
+    });
+    window.addEventListener("popstate", () => { if (dlg.open) { pushed = false; dlg.close(); } });
+
+    document.addEventListener("click", (e) => {
+      const t = (e.target as HTMLElement).closest?.("[data-lightbox] img") as HTMLImageElement | null;
+      if (!t) return;
+      e.preventDefault();
+      open(t);
+    });
+    // Keyboard users: make the photos focusable and open them with Enter.
+    document.querySelectorAll<HTMLImageElement>("[data-lightbox] img").forEach((el) => {
+      el.tabIndex = 0;
+      el.setAttribute("role", "button");
+      el.setAttribute("aria-label", `View larger: ${el.alt}`);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(el); } });
+    });
+    dlg.querySelector("[data-lb-close]")!.addEventListener("click", close);
+    dlg.querySelector("[data-lb-prev]")!.addEventListener("click", () => show(index - 1));
+    dlg.querySelector("[data-lb-next]")!.addEventListener("click", () => show(index + 1));
+    dlg.addEventListener("click", (e) => { if (e.target === dlg || (e.target as HTMLElement).classList.contains("lb-fig")) close(); });
+    dlg.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") show(index + 1);
+      if (e.key === "ArrowLeft") show(index - 1);
+    });
+    let x0: number | null = null;
+    img.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    img.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 50 && group.length > 1) show(index + (dx < 0 ? 1 : -1));
+    });
+  }
+</script>

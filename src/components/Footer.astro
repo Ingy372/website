@@ -62,6 +62,7 @@ const bookingHref = Astro.url.pathname.replace(/(\.html|\/)$/, "") === "/booking
 
       <div>
         <h2 class="mb-3.5 font-body text-[0.74rem] font-bold leading-normal tracking-[0.16em] text-gold-soft uppercase">Visit</h2>
+        <p class="mb-2 text-sm text-[#C7C6D6]" data-open-status></p>
         <p class="mb-3 text-sm leading-[1.75]">
           {hours.summary.map((row) => (
             <>

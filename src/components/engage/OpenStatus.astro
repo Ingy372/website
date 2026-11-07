@@ -1,0 +1,77 @@
+---
+// "Open now" status for call buttons and hours blocks. Any element with
+// [data-open-status] gets filled in the browser with Raeford (Eastern) time:
+//   "Open now · until 9 PM"  /  "Opens today at 3 PM"  /  "Opens Mon at 3 PM"
+// [data-open-status="short"] gets the compact form ("Open now" / "Opens 3 PM").
+// Hours and closures come from src/data/schedule.ts and closures.json, so the
+// footer, Contact page, and this badge never disagree. Placed once in BaseLayout.
+// Built HTML leaves these empty, so a stale build can never claim "open".
+import { buildingHours } from "../../data/schedule";
+import closureData from "../../data/closures.json";
+
+const data = {
+  hours: buildingHours.map((h) => ({ days: h.days, opens: h.opens, closes: h.closes })),
+  closures: closureData.closures,
+};
+---
+
+<script is:inline type="application/json" id="open-status-data" set:html={JSON.stringify(data)} />
+
+<style is:global>
+  [data-open-status]:empty { display: none; }
+  [data-open-status] { display: inline-flex; align-items: center; gap: 0.35em; }
+  [data-open-status]::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 99px; background: #9A99AA; flex: none; }
+  [data-open-status][data-state="open"]::before { background: #3FB37F; box-shadow: 0 0 0 3px rgb(63 179 127 / 0.25); }
+</style>
+
+<script is:inline>
+  (function () {
+    var els = document.querySelectorAll("[data-open-status]");
+    var src = document.getElementById("open-status-data");
+    if (!els.length || !src) return;
+    var data = JSON.parse(src.textContent);
+    var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var toMin = function (hhmm) { var p = hhmm.split(":"); return +p[0] * 60 + +p[1]; };
+    var label = function (hhmm) {
+      var p = hhmm.split(":"), h = +p[0], m = +p[1];
+      return (h % 12 || 12) + (m ? ":" + String(m).padStart(2, "0") : "") + (h < 12 ? " AM" : " PM");
+    };
+    function eastern(d) {
+      var parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "long" }).formatToParts(d);
+      var o = {}; parts.forEach(function (p) { o[p.type] = p.value; });
+      return { iso: o.year + "-" + o.month + "-" + o.day, dow: DAYS.indexOf(o.weekday), min: +o.hour * 60 + +o.minute };
+    }
+    function closed(iso) {
+      return data.closures.some(function (c) { return iso >= c.start && iso <= (c.end || c.start); });
+    }
+    function hoursFor(dow) {
+      return data.hours.filter(function (h) { return h.days.indexOf(DAYS[dow]) !== -1; })[0];
+    }
+    function render() {
+      var now = new Date(), e = eastern(now), state = "closed", long = "", short = "";
+      var today = !closed(e.iso) && hoursFor(e.dow);
+      if (today && e.min >= toMin(today.opens) && e.min < toMin(today.closes)) {
+        state = "open"; short = "Open now"; long = "Open now · until " + label(today.closes);
+      } else if (today && e.min < toMin(today.opens)) {
+        short = "Opens " + label(today.opens); long = "Opens today at " + label(today.opens);
+      } else {
+        for (var i = 1; i <= 14; i++) {
+          var d = new Date(now.getTime() + i * 864e5), de = eastern(d), h = !closed(de.iso) && hoursFor(de.dow);
+          if (h) {
+            var dayName = i === 1 ? "tomorrow" : SHORT[de.dow];
+            short = "Opens " + (i === 1 ? "tomorrow" : SHORT[de.dow]);
+            long = "Closed now · opens " + dayName + " at " + label(h.opens);
+            break;
+          }
+        }
+      }
+      els.forEach(function (el) {
+        el.textContent = el.getAttribute("data-open-status") === "short" ? short : long;
+        el.setAttribute("data-state", state);
+      });
+    }
+    render();
+    setInterval(render, 60000);
+  })();
+</script>

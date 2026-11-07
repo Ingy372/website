@@ -5,25 +5,26 @@ import HomeHero from "../components/hero/HomeHero.astro";
 import SectionHead from "../components/sections/SectionHead.astro";
 import ProgramCard from "../components/cards/ProgramCard.astro";
 import ExtraCard from "../components/cards/ExtraCard.astro";
-import QuoteCard from "../components/sections/QuoteCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import Marquee from "../components/motion/Marquee.astro";
 import CountUp from "../components/motion/CountUp.astro";
 import LogoBadge from "../components/motion/LogoBadge.astro";
 import ScrollReveal from "../components/motion/ScrollReveal.astro";
 import PhotoCarousel from "../components/sections/PhotoCarousel.astro";
+import ReviewCarousel from "../components/engage/ReviewCarousel.astro";
+import PnoCountdown from "../components/engage/PnoCountdown.astro";
 import { offer } from "../data/school";
 import { business, founded, team, addressCityLine, mapsDirectionsUrl, serviceAreaText } from "../data/business";
 import { programs, ageLabel, hours } from "../data/schedule";
-import { getReview, displayAuthor, ratingText, countText } from "../data/reviews";
+import { ratingText, countText } from "../data/reviews";
 import { nextParentsNightOut } from "../data/events";
 
 import littleWarriorsClass from "../images/little-warriors/little-warriors-preschool-martial-arts-class.jpg";
 import kidsClass from "../images/homepage/kids-karate-class-raeford-nc.jpg";
 import teensAdultsClass from "../images/homepage/teens-adults-karate-class-raeford-nc.jpg";
 import founderAndHeadInstructor from "../images/homepage/founder-michael-lowery-and-head-instructor-jay-lindemuth.jpg";
-import homeBirthdayParty from "../images/birthday-parties/kids-martial-arts-birthday-party-raeford-nc.jpg";
-import homeParentsNightOut from "../images/homepage/parents-night-out-girl-kicking-pad-with-instructor.jpg";
+import homeBirthdayParty from "../images/homepage/birthday-party-sword-cake-cutting.jpg";
+import homeParentsNightOut from "../images/homepage/parents-night-out-superhero-costume-night.jpg";
 import facilityNinjaLine from "../images/facility/ninja-line-obstacle-course-dojo-raeford-nc.jpg";
 import facilityThrowingWall from "../images/facility/ninja-star-throwing-wall-dojo.jpg";
 import facilityPlayground from "../images/facility/outdoor-playground-action-zone-raeford-nc.jpg";
@@ -101,7 +102,6 @@ const values = [
   "Humility",
 ];
 
-const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
 ---
 
 <BaseLayout
@@ -305,7 +305,9 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       <SectionHead reveal kicker="Life on the Mat">
         <Fragment slot="heading">A look inside the dojo.</Fragment>
       </SectionHead>
-      <PhotoCarousel label="Photos from class at Action Zone" photos={galleryPhotos} />
+      <div data-lightbox>
+        <PhotoCarousel label="Photos from class at Action Zone" photos={galleryPhotos} />
+      </div>
     </div>
   </section>
 
@@ -323,9 +325,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         Trusted by families across {serviceAreaText}.
       </p>
       </div>
-      <div class="grid gap-8 md:grid-cols-3 md:gap-5">
-        {quotes.map((r) => <QuoteCard quote={r.text} who={displayAuthor(r)} />)}
-      </div>
+      <ReviewCarousel theme="dark" lead={["taylor-s", "benjamin-s", "sarah-g"]} />
     </div>
   </section>
 
@@ -337,7 +337,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       <div class="grid gap-8 md:grid-cols-2 md:gap-5">
         <ExtraCard
           image={homeBirthdayParty}
-          alt="Children at a martial arts birthday party at Action Zone"
+          alt="Instructor helping a birthday child cut the cake with a sword while friends watch"
           title="Birthday Parties"
           description="Ninja line, throwing wall, games, and real martial arts, with the playground outside. We run the party, serve the cake, and clean up after."
           linkLabel="Book a party →"
@@ -345,13 +345,15 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
         />
         <ExtraCard
           image={homeParentsNightOut}
-          alt="Girl kicking a pad held by an instructor during games at a Parents Night Out"
+          alt="Child in a superhero costume at a Parents Night Out dress-up night"
           position="50% 35%"
           title="Parents Night Out"
           description="Drop the kids off and enjoy an evening to yourselves. Games, training, and a whole lot of running around."
           linkLabel={nextParentsNightOut ? "Next date →" : "See details →"}
           href="/parents-night-out"
-        />
+        >
+          {nextParentsNightOut && <><strong class="text-indigo">Next:</strong> <PnoCountdown variant="inline" /></>}
+        </ExtraCard>
       </div>
     </div>
   </section>
@@ -367,6 +369,7 @@ const quotes = ["taylor-s", "benjamin-s", "sarah-g"].map(getReview);
       </div>
       <div>
         <h2 class="mb-2 text-xs font-bold tracking-[0.15em] text-gold-deep uppercase">Hours</h2>
+        <p class="mb-1 text-sm font-semibold text-indigo" data-open-status></p>
         <p class="text-[#40403A]">
           {hours.summary.map((row) => (
             <>

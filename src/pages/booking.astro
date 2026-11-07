@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import DojoForgeWidget from "../components/booking/DojoForgeWidget.astro";
 import TrustSignals from "../components/sections/TrustSignals.astro";
+import ReviewCarousel from "../components/engage/ReviewCarousel.astro";
 import { offer } from "../data/school";
 import { programs, programIds, ageLabel, beginnerTimes } from "../data/schedule";
 import { business } from "../data/business";
@@ -49,7 +50,11 @@ import shareImage from "../images/homepage/kids-karate-class-raeford-nc.jpg";
         <TrustSignals />
       </div>
 
-      <p class="mx-auto mt-6 max-w-xl text-center text-sm text-mist">
+      <div class="mt-12">
+        <ReviewCarousel heading="What families say after their first week" />
+      </div>
+
+      <p class="mx-auto mt-10 max-w-xl text-center text-sm text-mist">
         Looking for current class times instead? See the <a
           href="/schedule" class="font-semibold text-indigo hover:text-gold">full schedule</a>.
       </p>

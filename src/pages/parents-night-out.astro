@@ -8,6 +8,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import { nextParentsNightOut, eventWhenText } from "../data/events";
 import { parentsNightOutFacts, parentsNightOutThemes2027 } from "../data/parties";
 import { business } from "../data/business";
+import PnoCountdown from "../components/engage/PnoCountdown.astro";
 
 import { Picture } from "astro:assets";
 import pnoNerf from "../images/parents-night-out/parents-night-out-nerf-night-raeford-nc.jpg";
@@ -17,7 +18,7 @@ import pnoPajamas from "../images/parents-night-out/parents-night-out-pajama-nig
 import pnoFriends from "../images/parents-night-out/parents-night-out-friends-on-bench.jpg";
 import pnoNinjaLine from "../images/parents-night-out/parents-night-out-ninja-line-with-instructor.jpg";
 import pnoCrew from "../images/parents-night-out/parents-night-out-kids-and-instructors-group.jpg";
-import partyPhoto from "../images/parents-night-out/party.jpg";
+import partyPhoto from "../images/parents-night-out/parents-night-out-kids-cheering-with-instructor-raeford-nc.jpg";
 
 // "A look at the night" mosaic. Spans are set per photo so wide shots stay wide
 // and tall shots stay tall; captions name what is happening in each frame.
@@ -78,7 +79,7 @@ const faqItems = [
     badge="Parents Night Out · Ages 5+"
     h1="Parents Night Out in Raeford"
     image={partyPhoto}
-    alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree"
+    alt="Kids cheering and flexing with an instructor on the mat at a Parents Night Out in Raeford, NC"
     ctaLabel={reserveLabel}
     ctaHref={reserveHref}
   >
@@ -107,7 +108,7 @@ const faqItems = [
       <SectionHead kicker="A Look at the Night">
         <Fragment slot="heading">This is what they'll be <em>talking about on the ride home.</em></Fragment>
       </SectionHead>
-      <div class="grid grid-flow-dense auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[200px] md:grid-cols-4 md:gap-4">
+      <div data-lightbox class="grid grid-flow-dense auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[200px] md:grid-cols-4 md:gap-4">
         {nightPhotos.map((p) => (
           <figure class={`group relative overflow-hidden rounded ${p.span}`}>
             <Picture
@@ -147,6 +148,7 @@ const faqItems = [
 
   <section class="py-16 md:py-18" aria-labelledby="pno-details">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <PnoCountdown variant="block" class="mb-6" />
       <div class="rounded border-x border-b border-t-4 border-x-paper-warm border-b-paper-warm border-t-gold bg-white p-7 shadow-sm md:p-8">
         <h2 id="pno-details" class="mb-6 font-display text-2xl font-black text-indigo">The details</h2>
         <dl class="grid gap-x-6 gap-y-3 sm:grid-cols-[auto_1fr]">

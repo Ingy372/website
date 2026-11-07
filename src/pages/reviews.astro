@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import PhotoStrip from "../components/sections/PhotoStrip.astro";
+import CountUp from "../components/motion/CountUp.astro";
 import revTeaching from "../images/reviews/instructor-teaching-kids-class-seated-circle.jpg";
 import revYellowBelt from "../images/reviews/smiling-student-new-yellow-belt.jpg";
 import revHighFive from "../images/reviews/instructor-and-young-student-celebrating.jpg";
@@ -38,7 +39,7 @@ const quotes = [
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-5">
-        <div class="font-display text-4xl font-black text-gold-soft">{ratingText}</div>
+        <div class="font-display text-4xl font-black text-gold-soft"><CountUp value={ratingText} /></div>
         <div>
           <div class="text-xl tracking-[3px] text-gold" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <div class="text-sm text-[#C4C3D4]">Based on {countText} Google reviews</div>

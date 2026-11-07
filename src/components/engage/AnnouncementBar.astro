@@ -1,0 +1,73 @@
+---
+// Thin announcement bar above the nav. It scrolls away with the page (the nav
+// is the sticky part), so it never covers content. Shows, in order:
+//   1. a holiday closure starting within the next 10 days (closures.json)
+//   2. otherwise the next Parents Night Out with a live countdown (events.ts)
+// The X hides that one message for this visitor; a new message shows again.
+// Left off /booking, the thank-you pages, and the PNO page itself.
+import { upcomingClosures, closureDatesText } from "../../data/schedule";
+import { nextParentsNightOut } from "../../data/events";
+import PnoCountdown from "./PnoCountdown.astro";
+
+const path = Astro.url.pathname.replace(/(\.html|\/)$/, "");
+const hiddenOn = ["/booking", "/booking/sent", "/contact/sent", "/parents-night-out"];
+
+const in10Days = new Date(Date.now() + 10 * 864e5).toISOString().slice(0, 10);
+const closure = upcomingClosures.find((c) => c.start <= in10Days);
+const show = !hiddenOn.includes(path) && (closure || nextParentsNightOut);
+const key = closure ? `closure-${closure.start}` : `pno-${nextParentsNightOut?.start ?? ""}`;
+---
+
+{show && (
+  <div class="ab" id="announcement-bar" data-key={key} data-ends={closure ? closure.end ?? closure.start : ""}>
+    <div class="ab-inner">
+      {closure ? (
+        <p>
+          <b>Closed {closureDatesText(closure)}</b> for {closure.name}.
+          <a href="/schedule">See the schedule &rarr;</a>
+        </p>
+      ) : (
+        <p>
+          <b>Parents Night Out</b>
+          <span class="ab-sep" aria-hidden="true">·</span>
+          <PnoCountdown variant="inline" />
+          <span class="ab-extra"><span class="ab-sep" aria-hidden="true">·</span>16 spots</span>
+          <a href="/parents-night-out">Reserve a spot &rarr;</a>
+        </p>
+      )}
+      <button type="button" class="ab-x" aria-label="Hide this announcement" data-ab-close>&times;</button>
+    </div>
+  </div>
+)}
+{show && (
+  <script is:inline>
+    (function () {
+      // Runs right after the bar is parsed, so a dismissed bar never flashes or shifts the page.
+      var bar = document.getElementById("announcement-bar");
+      if (!bar) return;
+      var key = "az_ab_hidden";
+      var ends = bar.getAttribute("data-ends");
+      var today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+      var hide = ends && ends < today;
+      try { hide = hide || localStorage.getItem(key) === bar.getAttribute("data-key"); } catch (e) {}
+      if (hide) { bar.remove(); return; }
+      bar.querySelector("[data-ab-close]").addEventListener("click", function () {
+        try { localStorage.setItem(key, bar.getAttribute("data-key")); } catch (e) {}
+        bar.remove();
+      });
+    })();
+  </script>
+)}
+
+<style>
+  .ab { background: var(--color-indigo-deep); color: #D9D8E6; font-size: 0.82rem; }
+  .ab-inner { position: relative; max-width: 72rem; margin: 0 auto; padding: 0.55rem 2.75rem; text-align: center; }
+  .ab p { margin: 0; line-height: 1.5; }
+  .ab b { color: #fff; }
+  .ab-sep { margin: 0 0.35rem; color: var(--color-gold); }
+  .ab a { margin-left: 0.6rem; font-weight: 700; color: var(--color-gold-soft); white-space: nowrap; }
+  .ab a:hover { color: #fff; }
+  .ab-x { position: absolute; top: 50%; right: 0.5rem; transform: translateY(-50%); width: 2.25rem; height: 2.25rem; font-size: 1.3rem; line-height: 1; color: #A9A8BE; }
+  .ab-x:hover { color: #fff; }
+  @media (max-width: 420px) { .ab-extra { display: none; } .ab a { display: block; margin: 0.1rem 0 0; } }
+</style>

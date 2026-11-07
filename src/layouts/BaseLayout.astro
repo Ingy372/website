@@ -8,6 +8,10 @@ import BeltBar from "../components/BeltBar.astro";
 import AnnouncementBar from "../components/AnnouncementBar.astro";
 import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
+import AnnouncementBar from "../components/engage/AnnouncementBar.astro";
+import ClassFinder from "../components/engage/ClassFinder.astro";
+import OpenStatus from "../components/engage/OpenStatus.astro";
+import Lightbox from "../components/engage/Lightbox.astro";
 import Footer from "../components/Footer.astro";
 import { business, serviceArea, isTodo, founded } from "../data/business";
 import { siteVerification, priceRange } from "../data/school";
@@ -144,11 +148,15 @@ const faqSchema = faq.length > 0 ? faqJsonLd(faq) : null;
     </a>
     <AnnouncementBar />
     <BeltBar />
+    <AnnouncementBar />
     <Nav />
     <main id="main">
       <slot />
     </main>
     <Footer />
     <MobileCallBar />
+    <ClassFinder />
+    <Lightbox />
+    <OpenStatus />
   </body>
 </html>

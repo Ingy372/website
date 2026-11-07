@@ -90,6 +90,7 @@ const belts = [
   { color: "#5A3A24", title: "Brown / Black Stripe", stripe: true },
   { color: "#14141C", title: "Black" },
 ];
+import ReviewCarousel from "../components/engage/ReviewCarousel.astro";
 ---
 
 <BaseLayout
@@ -251,6 +252,12 @@ const belts = [
   </div>
 
   <ReviewQuote id="taylor-s" />
+
+  <section class="bg-paper-warm py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <ReviewCarousel heading="Families say it better than we can" lead={['rachel-b', 'savanna-f']} />
+    </div>
+  </section>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=kids">
     <Fragment slot="heading">Come see it for yourself. <em>The {offer.first} is free.</em></Fragment>

@@ -1,0 +1,315 @@
+---
+// "Which class is right for my child?" A two-question finder that cuts through
+// the navigation: who the class is for, then what the family hopes to get out
+// of it, then the one program to start with, its beginner times, and the
+// trial-week button preset to that program (/booking?program=...).
+//
+// Opens two ways:
+//  - any element with [data-open-class-finder] (hero link, schedule page), on any page
+//  - automatically, once per browser, on browsing pages only, after the visitor
+//    has scrolled 40% of the page or spent 20 seconds on it. Never on landing,
+//    so it doesn't count as an intrusive mobile pop-up for Google.
+// "No thanks, I want to look around" is on every step. No tracking is added.
+import { programs, beginnerTimes, ageLabel, type ProgramId } from "../../data/schedule";
+import { offer } from "../../data/school";
+import { getReview } from "../../data/reviews";
+
+// Pages where the finder may open on its own. Program pages, booking,
+// contact, parties, legal, and thank-you pages are left alone.
+const AUTO_PATHS = [
+  "/", "/schedule", "/our-system", "/our-story", "/faq", "/families-we-serve", "/reviews",
+  "/meet-the-team", "/facility", "/events", "/karate", "/jiu-jitsu", "/self-defense",
+  "/fayetteville", "/hope-mills", "/rockfish-jack-britt", "/military-families",
+];
+const path = Astro.url.pathname.replace(/(\.html|\/)$/, "") || "/";
+const autoOpen = AUTO_PATHS.includes(path === "/index" ? "/" : path);
+
+const friendsReview = getReview("sarah-g");
+const friendsQuote = "…helped her make new friends and raised her self confidence.";
+if (!friendsReview.text.includes(friendsQuote.slice(1, -1))) throw new Error("ClassFinder: Sarah G. quote is no longer verbatim");
+
+type Who = "little" | "kid" | "teen" | "adult";
+const whoOptions: { id: Who; label: string; sub: string; program: ProgramId }[] = [
+  { id: "little", label: "My child, age 3 to 5", sub: "Preschool", program: "littleWarriors" },
+  { id: "kid", label: "My child, age 6 to 12", sub: "Elementary and middle school", program: "kids" },
+  { id: "teen", label: "My teen, 13 or older", sub: "Teens train with adults", program: "teensAdults" },
+  { id: "adult", label: "Me", sub: "Adults of any experience", program: "teensAdults" },
+];
+
+const childGoals = [
+  { id: "listen", label: "Getting my child to listen the first time" },
+  { id: "defend", label: "Being able to defend themselves" },
+  { id: "social", label: "A chance to be social and make friends" },
+  { id: "all", label: "A little of everything" },
+];
+const adultGoals = [
+  { id: "fit", label: "Getting in real shape" },
+  { id: "defend", label: "Defending myself and my family" },
+  { id: "together", label: "Training with my teen" },
+  { id: "all", label: "A little of everything" },
+];
+
+// What each answer means at Action Zone, in the site's existing words.
+const pitch: Record<string, string> = {
+  "little:listen": "Little Warriors builds listening, focus, and confidence through games and real technique, all sized for three to five year olds.",
+  "little:defend": "Little Warriors learn age-appropriate kicks, blocks, and stances, and the confidence that comes with them.",
+  "kid:listen": "The attention it takes to learn a technique is the same attention that listens in class and at home. Respect is trained in every class, not printed on a poster.",
+  "kid:defend": "Your child learns to protect themselves and others, along with the wisdom to know when those skills belong and when to walk away.",
+  "teen:listen": "The concentration it takes to master a technique carries straight into school, home, and everything else they juggle.",
+  "teen:defend": "Practical self-defense that actually works, taught with control, so they carry real confidence in how they move through the world.",
+  "teen:social": "Teens train in a group that notices when they are there and misses them when they are not.",
+  "adult:fit": "A full-body workout that builds strength, endurance, and coordination while you are too busy learning to notice you are exercising.",
+  "adult:defend": "Practical self-defense that actually works, taught with control, so you carry real confidence in how you move through the world.",
+  "adult:together": "Parents and kids 13 and up can train side by side in the Teens & Adults class.",
+  "little:all": "Listening, focus, and confidence, taught through games and real technique.",
+  "kid:all": "Confidence, focus, respect, and real self-defense, in high-energy classes that send an active kid home pleasantly worn out.",
+  "teen:all": "Fitness, focus, and self-defense, with Christian character at the center of it.",
+  "adult:all": "Get in shape, leave the stress on the mat, and learn self-defense you would actually use.",
+};
+
+const programData = Object.fromEntries(
+  (Object.keys(programs) as ProgramId[]).map((id) => [
+    id,
+    {
+      name: programs[id].name,
+      href: programs[id].href,
+      age: ageLabel(programs[id]),
+      times: beginnerTimes(id).map((t) => `${t.days} · ${t.time}`),
+    },
+  ]),
+);
+
+const config = {
+  autoOpen,
+  cta: offer.cta,
+  who: whoOptions,
+  pitch,
+  programs: programData,
+  friends: { quote: friendsQuote, who: `${friendsReview.author}, Little Warriors parent` },
+};
+---
+
+<dialog id="class-finder" class="cf" aria-labelledby="cf-title">
+  <div class="cf-panel">
+    <button type="button" class="cf-x" data-cf-close aria-label="Close">&times;</button>
+
+    <!-- Step 1: who -->
+    <div data-cf-step="1">
+      <div class="cf-kicker">Find the right class · 1 of 2</div>
+      <h2 id="cf-title" class="cf-title" tabindex="-1">Who is the class for?</h2>
+      <p class="cf-sub">Two quick taps and we'll point you to the class that fits.</p>
+      <div class="cf-options">
+        {whoOptions.map((o) => (
+          <button type="button" class="cf-opt" data-cf-who={o.id}>
+            <span class="cf-opt-label">{o.label}</span>
+            <span class="cf-opt-sub">{o.sub}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 2: what they hope for -->
+    <div data-cf-step="2" hidden>
+      <div class="cf-kicker">Find the right class · 2 of 2</div>
+      <h2 class="cf-title" tabindex="-1" data-cf-goal-title>What are you hoping it gives them?</h2>
+      <div class="cf-options" data-cf-goals="child">
+        {childGoals.map((g) => (
+          <button type="button" class="cf-opt" data-cf-goal={g.id}><span class="cf-opt-label">{g.label}</span></button>
+        ))}
+      </div>
+      <div class="cf-options" data-cf-goals="adult" hidden>
+        {adultGoals.map((g) => (
+          <button type="button" class="cf-opt" data-cf-goal={g.id}><span class="cf-opt-label">{g.label}</span></button>
+        ))}
+      </div>
+      <button type="button" class="cf-back" data-cf-back>&larr; Back</button>
+    </div>
+
+    <!-- Step 3: the answer -->
+    <div data-cf-step="3" hidden>
+      <div class="cf-kicker">Your best place to start</div>
+      <h2 class="cf-title" tabindex="-1"><span data-cf-program></span></h2>
+      <div class="cf-age" data-cf-age></div>
+      <p class="cf-pitch" data-cf-pitch></p>
+      <blockquote class="cf-quote" data-cf-quote hidden></blockquote>
+      <div class="cf-times">
+        <div class="cf-times-label">Beginner classes</div>
+        <ul data-cf-times></ul>
+      </div>
+      <a class="cf-cta" data-cf-cta href="/booking">{offer.cta}</a>
+      <p class="cf-fine">Your first week is free. We go over everything else in person, with no pressure.</p>
+      <a class="cf-more" data-cf-more href="/">See the program page &rarr;</a>
+      <button type="button" class="cf-back" data-cf-back>&larr; Back</button>
+    </div>
+
+    <button type="button" class="cf-nothanks" data-cf-close>No thanks, I want to look around</button>
+  </div>
+</dialog>
+
+<script is:inline type="application/json" id="class-finder-data" set:html={JSON.stringify(config)} />
+
+<style>
+  .cf {
+    margin: auto auto 0;
+    width: 100%;
+    max-width: 30rem;
+    max-height: 92dvh;
+    padding: 0;
+    border: 0;
+    border-radius: 14px 14px 0 0;
+    background: #fff;
+    color: var(--color-ink);
+    box-shadow: 0 -10px 40px rgba(15, 16, 41, 0.35);
+  }
+  @media (min-width: 640px) {
+    .cf { margin: auto; border-radius: 10px; }
+  }
+  .cf::backdrop { background: rgba(15, 16, 41, 0.6); }
+  .cf[open] { animation: cf-in 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes cf-in { from { transform: translateY(24px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cf[open] { animation: none; } }
+
+  .cf-panel {
+    position: relative;
+    overflow-y: auto;
+    max-height: 92dvh;
+    padding: 1.6rem 1.4rem calc(1.2rem + env(safe-area-inset-bottom));
+    border-top: 5px solid var(--color-gold);
+  }
+  .cf-x {
+    position: absolute; top: 0.6rem; right: 0.7rem;
+    width: 2.5rem; height: 2.5rem; font-size: 1.7rem; line-height: 1; color: var(--color-mist);
+  }
+  .cf-kicker { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-gold-deep); }
+  .cf-title { margin-top: 0.35rem; font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; line-height: 1.15; color: var(--color-indigo); padding-right: 2rem; }
+  .cf-sub { margin-top: 0.4rem; font-size: 0.93rem; color: var(--color-mist); }
+  .cf-options { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
+  .cf-opt {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem;
+    width: 100%; padding: 0.95rem 1rem; text-align: left;
+    border: 1.5px solid #E2DCCB; border-radius: 6px; background: var(--color-paper);
+    transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+  }
+  .cf-opt:hover, .cf-opt:focus-visible { border-color: var(--color-gold); background: #fff; }
+  .cf-opt:active { transform: scale(0.99); }
+  .cf-opt-label { font-weight: 700; color: var(--color-indigo); }
+  .cf-opt-sub { font-size: 0.8rem; color: var(--color-mist); }
+  .cf-back { margin-top: 0.9rem; font-size: 0.85rem; font-weight: 600; color: var(--color-mist); }
+  .cf-age { display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.6rem; border-radius: 3px; background: var(--color-indigo); color: var(--color-gold-soft); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .cf-pitch { margin-top: 0.9rem; color: #3E3E38; line-height: 1.6; }
+  .cf-quote { margin-top: 0.8rem; padding-left: 0.8rem; border-left: 3px solid var(--color-gold); font-size: 0.9rem; font-style: italic; color: #3E3E38; }
+  .cf-quote :global(span) { display: block; margin-top: 0.25rem; font-size: 0.78rem; font-style: normal; font-weight: 700; color: var(--color-gold-deep); }
+  .cf-times { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 6px; background: var(--color-paper-warm); }
+  .cf-times-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-gold-deep); }
+  .cf-times li { font-size: 0.92rem; font-weight: 600; color: var(--color-indigo); }
+  .cf-cta { display: block; margin-top: 1.1rem; padding: 1rem; border-radius: 3px; background: var(--color-gold); color: var(--color-indigo-deep); text-align: center; font-weight: 700; }
+  .cf-cta:hover { background: var(--color-gold-soft); }
+  .cf-fine { margin-top: 0.5rem; text-align: center; font-size: 0.78rem; color: var(--color-mist); }
+  .cf-more { display: block; margin-top: 0.7rem; text-align: center; font-size: 0.88rem; font-weight: 700; color: var(--color-indigo); }
+  .cf-nothanks {
+    display: block; width: 100%; margin-top: 1.2rem; padding: 0.85rem;
+    border: 1.5px solid #D9D3C3; border-radius: 3px; background: #fff;
+    font-weight: 700; color: var(--color-indigo);
+  }
+  .cf-nothanks:hover { border-color: var(--color-indigo); }
+  .cf :focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; }
+  .cf-title:focus { outline: none; }
+</style>
+
+<script is:inline>
+  (function () {
+    var dlg = document.getElementById("class-finder");
+    var dataEl = document.getElementById("class-finder-data");
+    if (!dlg || !dataEl || typeof dlg.showModal !== "function") return;
+    var cfg = JSON.parse(dataEl.textContent);
+    var KEY = "az_class_finder_seen";
+    var who = null;
+
+    function seen() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+    function markSeen() { try { localStorage.setItem(KEY, "1"); } catch (e) {} }
+
+    function step(n) {
+      dlg.querySelectorAll("[data-cf-step]").forEach(function (s) { s.hidden = s.getAttribute("data-cf-step") !== String(n); });
+      // Focus the step's heading (no ring) so screen readers hear the question first.
+      var first = dlg.querySelector('[data-cf-step="' + n + '"] .cf-title');
+      if (first) first.focus({ preventScroll: true });
+    }
+    function open() {
+      if (dlg.open) return;
+      markSeen();
+      step(1);
+      dlg.showModal();
+      var t = dlg.querySelector("#cf-title"); if (t) t.focus({ preventScroll: true });
+    }
+    function close() { if (dlg.open) dlg.close(); }
+
+    dlg.querySelectorAll("[data-cf-close]").forEach(function (b) { b.addEventListener("click", close); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
+    dlg.querySelectorAll("[data-cf-back]").forEach(function (b) {
+      b.addEventListener("click", function () { step(b.closest('[data-cf-step="3"]') ? 2 : 1); });
+    });
+
+    dlg.querySelectorAll("[data-cf-who]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        who = b.getAttribute("data-cf-who");
+        var adult = who === "adult";
+        dlg.querySelector('[data-cf-goals="child"]').hidden = adult;
+        dlg.querySelector('[data-cf-goals="adult"]').hidden = !adult;
+        dlg.querySelector("[data-cf-goal-title]").textContent = adult ? "What are you hoping to get out of it?" : "What are you hoping it gives them?";
+        step(2);
+      });
+    });
+
+    dlg.querySelectorAll("[data-cf-goal]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var goal = b.getAttribute("data-cf-goal");
+        var opt = cfg.who.filter(function (o) { return o.id === who; })[0];
+        var p = cfg.programs[opt.program];
+        dlg.querySelector("[data-cf-program]").textContent = "Start with " + p.name + ".";
+        dlg.querySelector("[data-cf-age]").textContent = p.age;
+        var key = who + ":" + goal;
+        var pitch = cfg.pitch[key] || cfg.pitch[who + ":all"];
+        var quote = dlg.querySelector("[data-cf-quote]");
+        if (goal === "social" && (who === "little" || who === "kid")) {
+          pitch = "Your child trains side by side with kids their own age, every class. One Little Warriors parent put it this way:";
+          quote.innerHTML = "";
+          quote.appendChild(document.createTextNode("“" + cfg.friends.quote + "”"));
+          var cite = document.createElement("span"); cite.textContent = cfg.friends.who; quote.appendChild(cite);
+          quote.hidden = false;
+        } else {
+          quote.hidden = true;
+        }
+        dlg.querySelector("[data-cf-pitch]").textContent = pitch;
+        var ul = dlg.querySelector("[data-cf-times]"); ul.innerHTML = "";
+        p.times.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+        dlg.querySelector("[data-cf-cta]").href = "/booking?program=" + opt.program;
+        var more = dlg.querySelector("[data-cf-more]");
+        more.href = p.href; more.innerHTML = "See the " + p.name + " page &rarr;";
+        step(3);
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest("[data-open-class-finder]");
+      if (t) { e.preventDefault(); open(); }
+    });
+
+    if (cfg.autoOpen && !seen()) {
+      var armed = true;
+      var fire = function () {
+        if (!armed) return;
+        // Don't interrupt someone typing or with another dialog open.
+        if (document.querySelector("dialog[open]") || /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || "")) return;
+        armed = false;
+        window.removeEventListener("scroll", onScroll);
+        open();
+      };
+      var onScroll = function () {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max > 0 && window.scrollY / max >= 0.4) fire();
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      setTimeout(fire, 20000);
+    }
+  })();
+</script>
