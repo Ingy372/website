@@ -14,9 +14,11 @@ interface Props {
   heading?: string;
   /** Put these review ids first, in this order. */
   lead?: string[];
+  /** Most cards to show (keeps the row of dots short). */
+  max?: number;
 }
-const { theme = "light", heading, lead = [] } = Astro.props;
-const ordered = [...lead.map((id) => reviews.find((r) => r.id === id)!).filter(Boolean), ...reviews.filter((r) => !lead.includes(r.id))];
+const { theme = "light", heading, lead = [], max = 8 } = Astro.props;
+const ordered = [...lead.map((id) => reviews.find((r) => r.id === id)!).filter(Boolean), ...reviews.filter((r) => !lead.includes(r.id))].slice(0, max);
 const brand = business.displayName.split(",")[0];
 const dark = theme === "dark";
 ---
