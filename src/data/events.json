@@ -3,26 +3,6 @@
   "events": [
     {
       "kind": "parents-night-out",
-      "title": "Parents Night Out",
-      "date": "2026-11-27",
-      "startTime": "18:00",
-      "endTime": "22:00",
-      "price": "",
-      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
-      "bookingLink": "/contact?interest=parents-night-out"
-    },
-    {
-      "kind": "parents-night-out",
-      "title": "Parents Night Out",
-      "date": "2026-12-25",
-      "startTime": "18:00",
-      "endTime": "22:00",
-      "price": "",
-      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
-      "bookingLink": "/contact?interest=parents-night-out"
-    },
-    {
-      "kind": "parents-night-out",
       "title": "Parents Night Out: Glow Party",
       "date": "2027-01-22",
       "startTime": "18:00",
@@ -120,27 +100,7 @@
       "price": "",
       "description": "Science Night for kids 5 and up, supervised by our instructors.",
       "bookingLink": "/contact?interest=parents-night-out"
-    },
-    {
-      "kind": "parents-night-out",
-      "title": "Parents Night Out: Mystery Detectives",
-      "date": "2027-11-26",
-      "startTime": "18:00",
-      "endTime": "22:00",
-      "price": "",
-      "description": "Mystery Detectives for kids 5 and up, supervised by our instructors.",
-      "bookingLink": "/contact?interest=parents-night-out"
-    },
-    {
-      "kind": "parents-night-out",
-      "title": "Parents Night Out: Christmas Night",
-      "date": "2027-12-24",
-      "startTime": "18:00",
-      "endTime": "22:00",
-      "price": "",
-      "description": "Christmas Night for kids 5 and up, supervised by our instructors.",
-      "bookingLink": "/contact?interest=parents-night-out"
     }
   ],
-  "_pno_note": "Parents Night Out dates follow the 4th-Friday rule (Jay, Nov 2026). Check holidays: 2026-11-27, 2026-12-25, 2027-11-26, 2027-12-24."
+  "_pno_note": "Parents Night Out follows the 4th-Friday rule. Skipped for now (holidays): 2026-11-27, 2026-12-25, 2027-11-26, 2027-12-24. Add a date back here if one of those nights is on."
 }

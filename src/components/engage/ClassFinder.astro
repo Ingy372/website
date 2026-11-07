@@ -41,65 +41,57 @@ const whoOptions: { id: Who; label: string; sub: string; program: ProgramId }[] 
 // the site's own program pages; nothing here promises a result.
 interface Goal { id: string; label: string; short: string; shortLittle?: string; lines: Partial<Record<Who, string>> }
 
+// Every option is something nearly every family wants, listed in the order
+// most parents care about them, so most visitors check all of them. Merged
+// overlapping wishes (energy + screens, friends + role models) so no line
+// is wasted.
 const childGoals: Goal[] = [
   { id: "listen", label: "Listens the first time", short: "listening", lines: {
     little: "Little Warriors practice listening and following directions through games, built for three to five year olds.",
     kid: "Every class runs on clear instructions and quick responses. Kids practice listening the first time, over and over, every class.",
   } },
-  { id: "focus", label: "Better focus at school and home", short: "focus", lines: {
-    little: "Short, active drills build attention span a little at a time, so it never feels like a lesson.",
-    kid: "The attention it takes to learn a technique is the same attention that finishes homework and listens in class.",
-  } },
-  { id: "confidence", label: "More confidence, less shy", short: "confidence", lines: {
+  { id: "confidence", label: "Real confidence", short: "confidence", lines: {
     little: "Every new skill they learn gives them an “I did it” moment, in front of people cheering them on.",
     kid: "Every belt your child earns is proof they set a goal and reached it. That feeling builds into real self-belief.",
   } },
-  { id: "defend", label: "Can defend themselves and handle bullies", short: "self-defense", shortLittle: "staying safe", lines: {
+  { id: "defend", label: "Can protect themselves and handle bullies", short: "self-defense", shortLittle: "staying safe", lines: {
     little: "Age-appropriate kicks, blocks, and stances, plus the basics of staying safe, in a controlled environment.",
     kid: "Real self-defense, plus the wisdom to know when those skills belong and when to walk away and get help.",
-  } },
-  { id: "energy", label: "Burns off energy the right way", short: "burning off energy", lines: {
-    little: "All that energy has to go somewhere. In Little Warriors it goes into games and real technique.",
-    kid: "High-energy classes give it somewhere to go, and send an active kid home pleasantly worn out.",
-  } },
-  { id: "friends", label: "Makes friends", short: "making friends", lines: {
-    little: "They train side by side with kids their own age, with partner games every class.",
-    kid: "They train side by side with kids their own age, in partner drills and team games.",
   } },
   { id: "respect", label: "Respect and self-discipline", short: "respect", lines: {
     little: "Simple routines like lining up, waiting a turn, and listening to the instructor, practiced every class.",
     kid: "Respect is trained in every class, not printed on a poster. Parents tell us it follows their kids home.",
   } },
-  { id: "screens", label: "Less screen time, more moving", short: "less screen time", lines: {
-    little: "A class they look forward to that gets them moving, with routine and structure built in.",
-    kid: "Real exercise a few days a week that doesn't feel like exercise, because they're busy learning.",
+  { id: "focus", label: "Better focus at school and home", short: "focus", lines: {
+    little: "Short, active drills build attention span a little at a time, so it never feels like a lesson.",
+    kid: "The attention it takes to learn a technique is the same attention that finishes homework and listens in class.",
   } },
-  { id: "faith", label: "Character rooted in faith", short: "character", lines: {
-    little: "Yeshua's Ryu pairs martial arts with Christian character, taught at a preschool level.",
-    kid: "Yeshua's Ryu pairs martial arts with Christian character, so what they learn on the mat shapes who they are off it.",
+  { id: "energy", label: "Active, healthy, and off screens", short: "staying active", lines: {
+    little: "All that energy has to go somewhere. In Little Warriors it goes into games and real technique, with routine and structure built in.",
+    kid: "High-energy classes they look forward to, a few days a week, that send an active kid home pleasantly worn out.",
+  } },
+  { id: "friends", label: "Good friends and positive role models", short: "good influences", lines: {
+    little: "They train side by side with kids their own age, led by black belt instructors who teach Christian character at a preschool level.",
+    kid: "They train with kids their own age, led by black belt instructors. Yeshua's Ryu pairs martial arts with Christian character, so what they learn on the mat shapes who they are off it.",
   } },
 ];
 
 const teenGoals: Goal[] = [
-  { id: "confidence", label: "More confidence", short: "confidence", lines: { teen: "Every rank is earned, never handed out. That kind of progress builds confidence that holds up outside the dojo." } },
-  { id: "defend", label: "Can defend themselves", short: "self-defense", lines: { teen: "Practical self-defense that actually works, taught with control, so they carry real confidence in how they move through the world." } },
-  { id: "fit", label: "Gets in shape", short: "fitness", lines: { teen: "A full-body workout that builds strength, endurance, and coordination while they're too busy learning to notice." } },
-  { id: "focus", label: "Better focus in school", short: "focus", lines: { teen: "The concentration it takes to master a technique carries straight into school and everything else they juggle." } },
+  { id: "confidence", label: "Real confidence", short: "confidence", lines: { teen: "Every rank is earned, never handed out. That kind of progress builds confidence that holds up outside the dojo." } },
+  { id: "defend", label: "Can protect themselves", short: "self-defense", lines: { teen: "Practical self-defense that actually works, taught with control, so they carry real confidence in how they move through the world." } },
   { id: "respect", label: "Respect and self-discipline", short: "discipline", lines: { teen: "Firm expectations taught in a kind, encouraging way. Respect and self-discipline are part of every class." } },
-  { id: "group", label: "A good group to be part of", short: "finding a good group", lines: { teen: "A place where people notice when they show up and miss them when they don't. A better place for a teenager to be." } },
-  { id: "screens", label: "Less screen time", short: "less screen time", lines: { teen: "A few evenings a week of real training, with people, off the phone." } },
-  { id: "faith", label: "Character rooted in faith", short: "character", lines: { teen: "Yeshua's Ryu pairs real martial arts with Christian character. They leave stronger in body, mind, and spirit." } },
+  { id: "focus", label: "Better focus in school", short: "focus", lines: { teen: "The concentration it takes to master a technique carries straight into school and everything else they juggle." } },
+  { id: "fit", label: "In shape and off the phone", short: "fitness", lines: { teen: "A full-body workout a few evenings a week, with people, off the phone. They're too busy learning to notice they're exercising." } },
+  { id: "group", label: "A positive crowd and role models", short: "a positive crowd", lines: { teen: "A place where people notice when they show up and miss them when they don't, led by black belt instructors who teach Christian character. A better place for a teenager to be." } },
 ];
 
 const adultGoals: Goal[] = [
   { id: "fit", label: "Get in real shape", short: "getting in shape", lines: { adult: "A full-body workout that builds strength, endurance, and coordination while you're too busy learning to notice you're exercising." } },
-  { id: "stress", label: "Leave the stress at the door", short: "stress relief", lines: { adult: "There's nothing quite like a hard hour of training to clear your head. Whatever the day handed you stays at the door." } },
   { id: "defend", label: "Protect myself and my family", short: "self-defense", lines: { adult: "Practical self-defense that actually works, taught with control, so you carry real confidence in how you move through the world." } },
-  { id: "together", label: "Train alongside my teen", short: "training as a family", lines: { adult: "Parents and kids 13 and up train together in the Teens & Adults class. Same mat, same goals." } },
+  { id: "stress", label: "Leave the stress at the door", short: "stress relief", lines: { adult: "There's nothing quite like a hard hour of training to clear your head. Whatever the day handed you stays at the door." } },
+  { id: "confidence", label: "Feel more confident", short: "confidence", lines: { adult: "No experience needed. Beginners get a class built for them, and every new rank is something you earned." } },
   { id: "focus", label: "More focus and discipline", short: "focus", lines: { adult: "The concentration it takes to master a technique carries straight into work, home, and everything else you juggle." } },
-  { id: "community", label: "Be part of a community", short: "community", lines: { adult: "You're not grinding alone. You become part of a group that notices when you're there and misses you when you're not." } },
-  { id: "new", label: "Learn something new, at any age", short: "learning something new", lines: { adult: "No experience needed. Everyone starts somewhere, and beginners get a class built for them." } },
-  { id: "faith", label: "Grow in faith, not just fitness", short: "faith", lines: { adult: "Our Yeshua's Ryu system pairs real martial arts with Christian character. You leave stronger in body, mind, and spirit." } },
+  { id: "community", label: "A positive community", short: "community", lines: { adult: "You become part of a group that notices when you're there and misses you when you're not, built on Christian character. Parents and kids 13 and up can even train together." } },
 ];
 
 // Verbatim review lines, matched to goals. Checked at build time so a
@@ -109,13 +101,13 @@ const quoteDefs: { review: string; text: string; who: string; goals: string[]; f
   { review: "sarah-g", text: "It has also given her a positive focus for her energy, helped her make new friends and raised her self confidence.", who: "Little Warriors parent", goals: ["friends", "confidence", "energy", "focus"], for: ["little", "kid"] },
   { review: "rachel-b", text: "He is learning how to be strong in mind and body and growing in respect and self-discipline.", who: "parent", goals: ["respect", "focus", "confidence"], for: ["kid"] },
   { review: "rachel-b", text: "My daughter seems to be growing in confidence and I believe it is in part because of Action Zone.", who: "parent", goals: ["confidence"], for: ["kid"] },
-  { review: "savanna-f", text: "He gets exercise, discipline, routine and structure. Learns basic defense in a controlled environment.", who: "Little Warriors parent", goals: ["defend", "screens", "respect", "energy"], for: ["little"] },
-  { review: "john-s", text: "The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way.", who: "parent", goals: ["focus", "respect", "faith", "confidence", "defend", "fit", "group", "screens"], for: ["kid", "teen"] },
+  { review: "savanna-f", text: "He gets exercise, discipline, routine and structure. Learns basic defense in a controlled environment.", who: "Little Warriors parent", goals: ["defend", "energy", "respect"], for: ["little"] },
+  { review: "john-s", text: "The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way.", who: "parent", goals: ["focus", "respect", "confidence", "defend", "fit", "group"], for: ["kid", "teen"] },
   { review: "jacy-d", text: "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves", who: "parent", goals: ["friends", "defend"], for: ["kid"] },
   { review: "cara-p", text: "I enjoy seeing them grow, mature, and strengthen in areas of behavior, teamwork, confidence, and respect.", who: "parent", goals: ["respect", "confidence", "friends", "listen"], for: ["kid", "little"] },
   { review: "heidi-c", text: "The instructors are very patient, but teach the importance of owning the responsibility of your actions.", who: "Little Warriors parent", goals: ["respect", "listen"], for: ["little"] },
-  { review: "amber-l", text: "That make Biblical principles an important aspect and speak about Jesus and the Bible in ways the kids understand and soak in.", who: "parent", goals: ["faith"], for: ["little", "kid"] },
-  { review: "benjamin-s", text: "I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here.", who: "adult student", goals: ["fit", "stress", "defend", "together", "focus", "community", "new", "faith"], for: ["adult"] },
+  { review: "amber-l", text: "That make Biblical principles an important aspect and speak about Jesus and the Bible in ways the kids understand and soak in.", who: "parent", goals: ["friends"], for: ["little", "kid"] },
+  { review: "benjamin-s", text: "I visited 5-6 different gyms, watched classes, asked questions, gathered details, and called more then that before landing here.", who: "adult student", goals: ["fit", "stress", "defend", "confidence", "focus", "community"], for: ["adult"] },
 ];
 const quotes = quoteDefs.map((q) => {
   const r = getReview(q.review);
@@ -374,7 +366,8 @@ const goalSets: { key: "child" | "teen" | "adult"; goals: Goal[] }[] = [
       var display = { littleWarriors: "Little Warriors", kids: "Kids Classes", teensAdults: "Teens & Adults classes" }[opt.program] || p.name;
       var subject = who === "adult" ? "you" : who === "teen" ? "your teen" : "your child";
       dlg.querySelector("[data-cf-headline]").textContent =
-        display + (display === "Little Warriors" ? " is" : " are") + " built for " + joinList(chosen.slice(0, 2).map(shortOf)) + ".";
+        display + (display === "Little Warriors" ? " is" : " are") + " built for " +
+        (chosen.length === all.length ? "all of it" : joinList(chosen.slice(0, 2).map(shortOf))) + ".";
       dlg.querySelector("[data-cf-age]").textContent = p.age;
       dlg.querySelector("[data-cf-intro]").textContent =
         "Here is how we work on " + (chosen.length > 1 ? "what you picked" : "that") + " for " + subject + ":";
@@ -395,7 +388,7 @@ const goalSets: { key: "child" | "teen" | "adult"; goals: Goal[] }[] = [
       var best = null, score = 0;
       cfg.quotes.forEach(function (q) {
         if (q.for.indexOf(who) === -1) return;
-        var s = q.goals.filter(function (g) { return picked.indexOf(g) !== -1; }).length;
+        var s = q.goals.filter(function (g) { return picked.indexOf(g) !== -1; }).length + (q.for[0] === who ? 0.5 : 0);
         if (s > score) { score = s; best = q; }
       });
       var quote = dlg.querySelector("[data-cf-quote]");
