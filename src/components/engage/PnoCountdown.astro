@@ -14,7 +14,12 @@ interface Props {
   class?: string;
 }
 const { variant = "inline", class: extra = "" } = Astro.props;
-const dates = upcoming("parents-night-out").map((e) => ({ start: e.start, end: e.end, theme: e.theme ?? "", when: eventWhenText(e) }));
+const dates = upcoming("parents-night-out").map((e) => ({
+  start: `${e.date}T${e.startTime}`,
+  end: `${e.date}T${e.endTime}`,
+  theme: e.title.replace(/^Parents Night Out:?\s*/, ""),
+  when: eventWhenText(e),
+}));
 const next = dates[0];
 const shortDay = (when: string) => when.split(" · ")[0].replace(/^(\w{3})\w*,\s(\w{3})\w*/, "$1, $2");
 ---

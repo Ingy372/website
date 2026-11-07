@@ -5,7 +5,6 @@ import type { ImageMetadata } from "astro";
 import Analytics from "../components/Analytics.astro";
 import FirstTouch from "../components/FirstTouch.astro";
 import BeltBar from "../components/BeltBar.astro";
-import AnnouncementBar from "../components/AnnouncementBar.astro";
 import Nav from "../components/nav/Nav.astro";
 import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import AnnouncementBar from "../components/engage/AnnouncementBar.astro";
@@ -148,7 +147,6 @@ const faqSchema = faq.length > 0 ? faqJsonLd(faq) : null;
     </a>
     <AnnouncementBar />
     <BeltBar />
-    <AnnouncementBar />
     <Nav />
     <main id="main">
       <slot />
