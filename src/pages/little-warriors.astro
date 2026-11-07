@@ -8,6 +8,7 @@ import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { offer } from "../data/school";
+import Tuition from "../components/sections/Tuition.astro";
 import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
@@ -134,6 +135,8 @@ const results = [
       </ReassuranceBox>
     </div>
   </section>
+
+  <Tuition />
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=littleWarriors">
     <Fragment slot="heading">See it for yourself. <em>The {offer.first} is free.</em></Fragment>

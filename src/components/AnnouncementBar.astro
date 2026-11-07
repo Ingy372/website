@@ -1,0 +1,54 @@
+---
+// Dismissible site-wide offer bar, driven by src/data/announcement.json.
+// Hidden when inactive or past its "ends" date (checked at build time and
+// again in the browser, so an expired offer disappears without a redeploy).
+// A visitor who closes it won't see that same announcement (same id) again.
+import data from "../data/announcement.json";
+
+const today = new Date().toISOString().slice(0, 10);
+const show = data.active && data.text && (!data.ends || data.ends >= today);
+---
+
+{show && (
+  <div id="announcement-bar" data-id={data.id} data-ends={data.ends ?? ""} class="relative bg-gold text-indigo-deep">
+    <div class="mx-auto flex max-w-6xl items-center justify-center gap-x-3 px-12 py-2.5 text-center text-sm font-semibold">
+      <p>
+        {data.text}
+        {data.link && (
+          <a href={data.link} class="ml-1 whitespace-nowrap font-bold underline underline-offset-2 hover:no-underline">
+            {data.linkLabel || "Learn more"} <span aria-hidden="true">&rarr;</span>
+          </a>
+        )}
+      </p>
+    </div>
+    <button
+      type="button"
+      id="announcement-close"
+      class="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-xl leading-none"
+      aria-label="Close announcement"
+    >
+      &times;
+    </button>
+  </div>
+  <script is:inline>
+    (function () {
+      var bar = document.getElementById("announcement-bar");
+      if (!bar) return;
+      var key = "az_announcement_closed";
+      var id = bar.getAttribute("data-id");
+      var ends = bar.getAttribute("data-ends");
+      var today = new Date();
+      var local = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+      var closed = null;
+      try { closed = localStorage.getItem(key); } catch (e) {}
+      if ((ends && ends < local) || closed === id) {
+        bar.remove();
+        return;
+      }
+      document.getElementById("announcement-close").addEventListener("click", function () {
+        try { localStorage.setItem(key, id); } catch (e) {}
+        bar.remove();
+      });
+    })();
+  </script>
+)}

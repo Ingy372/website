@@ -11,6 +11,7 @@ import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
 import { Picture } from "astro:assets";
 import { offer } from "../data/school";
+import Tuition from "../components/sections/Tuition.astro";
 import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
@@ -168,6 +169,8 @@ const steps = [
       />
     </div>
   </section>
+
+  <Tuition />
 
   <ReviewQuote id="benjamin-s" />
 
