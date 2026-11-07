@@ -24,7 +24,7 @@ export const birthdayPartyFacts: Fact[] = [
 export const parentsNightOutFacts: Fact[] = [
   { label: "Ages", value: "5 and up" },
   { label: "When", value: "Usually the fourth Friday of the month" },
-  { label: "Usual hours", value: todo("usual PNO drop-off and pick-up times") },
+  { label: "Usual hours", value: "Drop-off at 6 PM, pick-up at 10 PM" },
   // Themes named in the existing page copy.
   { label: "Themes", value: "Nerf Night, Superhero Dress-Up, Water Wars, and more" },
   { label: "Food", value: "Changes with each night's theme. Kids are welcome to bring their own snack." },
