@@ -113,13 +113,17 @@ export const nav = {
   ],
 };
 
-/** The "How much does it cost?" FAQ entry (style, military, and area pages). Never shows prices. */
+// Tuition. Pricing is only discussed in person, after a family has seen a
+// class, never over the phone or on the site.
+
+/** Tuition wording, as HTML (the last sentence links to /booking). */
+export const tuitionHtml = [
+  "Your first week is free.",
+  "Tuition depends on the program and schedule that fits your family, so we go over it in person after you've seen a class.",
+  `<a href="/booking" class="font-semibold text-indigo underline hover:text-gold">Book your free week</a> and we'll sit down with you.`,
+].join(" ");
+
+/** The "How much does it cost?" FAQ entry (/faq only). */
 export function tuitionFaqItem() {
-  return {
-    question: "How much does it cost?",
-    answer: [
-      `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
-      "Want to talk it over before you come in? Give us a call.",
-    ],
-  };
+  return { question: "How much does it cost?", answer: [tuitionHtml] };
 }

@@ -22,12 +22,27 @@ export const birthdayPartyFacts: Fact[] = [
 ];
 
 export const parentsNightOutFacts: Fact[] = [
+  { label: "When", value: "The 4th Friday of each month" },
+  { label: "What time", value: "6:00pm to 10:00pm" },
   { label: "Ages", value: "5 and up" },
-  { label: "When", value: "Usually the fourth Friday of the month" },
-  { label: "Usual hours", value: "Drop-off at 6 PM, pick-up at 10 PM" },
-  // Themes named in the existing page copy.
-  { label: "Themes", value: "Nerf Night, Superhero Dress-Up, Water Wars, and more" },
-  { label: "Food", value: "Changes with each night's theme. Kids are welcome to bring their own snack." },
-  { label: "What to bring", value: todo("what kids should bring") },
-  { label: "Reserve a spot", value: "Request a spot on the website or give us a call. Each night is capped at 16 kids." },
+  { label: "Food", value: "Included, and it changes every event. Sometimes pizza, sometimes hot dogs and chips, fruit spreads, and other yummies." },
+  { label: "What to bring", value: "A water bottle, a snack if your child is a picky eater, and an optional pillow and blanket for movie time" },
+  { label: "Spots", value: "Only 16 spots per night, so reserve early" },
+  { label: "How to reserve", value: "Send a request through our website or call (910) 429-2467" },
+];
+
+/** 2027 Parents Night Out themes, one per month (confirmed by Jay). */
+export const parentsNightOutThemes2027 = [
+  { month: "January", theme: "Glow Party" },
+  { month: "February", theme: "Nerf Night" },
+  { month: "March", theme: "Ninja Night" },
+  { month: "April", theme: "Superhero Night" },
+  { month: "May", theme: "Painting & Tie-Dye Night" },
+  { month: "June", theme: "Summer Night" },
+  { month: "July", theme: "Christmas in July" },
+  { month: "August", theme: "Nerf Night" },
+  { month: "September", theme: "VBS Night" },
+  { month: "October", theme: "Science Night" },
+  { month: "November", theme: "Mystery Detectives" },
+  { month: "December", theme: "Christmas Night" },
 ];

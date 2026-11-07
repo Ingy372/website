@@ -2,11 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProgramHero from "../components/hero/ProgramHero.astro";
 import SectionHead from "../components/sections/SectionHead.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import { business, cityState } from "../data/business";
 import FactList from "../components/sections/FactList.astro";
 import { nextParentsNightOut, upcoming, eventWhenText, eventJsonLd } from "../data/events";
-import { parentsNightOutFacts } from "../data/parties";
+import { parentsNightOutFacts, parentsNightOutThemes2027 } from "../data/parties";
 
 import { Picture } from "astro:assets";
 import pnoNerf from "../images/parents-night-out/parents-night-out-nerf-night-raeford-nc.jpg";
@@ -20,6 +21,35 @@ import partyPhoto from "../images/parents-night-out/party.jpg";
 
 const eventSchema = eventJsonLd("parents-night-out", new URL("/parents-night-out", Astro.site).href);
 const upcomingDates = upcoming("parents-night-out");
+
+// Where parents send a Parents Night Out request.
+const reserveHref = "/contact?interest=parents-night-out";
+const reserveLabel = "Reserve a Spot";
+
+const steps = ["Check-in", "A short martial arts lesson", "The theme activity", "Food", "Movie time and wind-down", "Pickup"];
+
+const faqItems = [
+  {
+    question: "Does my child need to be a student?",
+    answer: ["No. Friends are welcome, and every student gets a free pass to bring one."],
+  },
+  {
+    question: "What should my child wear?",
+    answer: ["Something comfortable. A uniform isn't needed."],
+  },
+  {
+    question: "Can my child bring their own snack?",
+    answer: ["Of course. We understand some kids are picky eaters."],
+  },
+  {
+    question: "What about food allergies?",
+    answer: ["Let us know on the registration form, and send a safe snack along if you'd like."],
+  },
+  {
+    question: "How many kids can come?",
+    answer: ["Only 16 spots per night, so reserve early."],
+  },
+];
 
 // "A look at the night" mosaic. Spans are set per photo so wide shots stay wide
 // and tall shots stay tall; captions name what is happening in each frame.
@@ -36,18 +66,18 @@ const nightPhotos = [
 
 <BaseLayout
   title="Parents Night Out"
-  description={`Drop the kids off for a themed evening of games and martial arts at ${business.displayName} in ${cityState}, and enjoy a few hours to yourselves.`}
+  seoTitle="Parents Night Out for Kids in Raeford, NC | Action Zone CMA"
+  description="Parents Night Out for kids 5 and up in Raeford, NC. The 4th Friday of every month, 6 to 10pm: a themed night, food, and a movie, run by our instructors."
   path="/parents-night-out"
 >
   {eventSchema.length > 0 && (
     <script type="application/ld+json" slot="head" set:html={JSON.stringify(eventSchema)} is:inline />
   )}
-  <ProgramHero badge="Parents Night Out" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
-    <Fragment slot="heading">Drop the kids. <em>Enjoy the night.</em></Fragment>
+  <ProgramHero badge="Parents Night Out · Ages 5+" image={partyPhoto} alt="Kids in pajamas at a themed Parents Night Out around the Christmas tree" ctaLabel={reserveLabel} ctaHref={reserveHref}>
+    <Fragment slot="heading">A night off for you. <em>A night they'll talk about all week.</em></Fragment>
     <Fragment slot="subtext">
-      A themed evening of games, martial arts, and fun your kids won't stop talking about. Nerf
-      Night, Superhero Dress-Up, Water Wars, and more. You get a few hours to yourself, they get a
-      night to remember.
+      The 4th Friday of every month, 6 to 10pm. A themed night of fun for kids 5 and up,
+      supervised by our instructors.
     </Fragment>
     {nextParentsNightOut && (
       <Fragment slot="note">
@@ -58,17 +88,14 @@ const nightPhotos = [
 
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="py-20 text-lg leading-loose text-[#3E3E38] md:py-16 md:leading-normal">
+      <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">What It Is</div>
       <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">
-        When did you two last <span class="text-gold-deep">finish a conversation?</span>
+        Kids take over the dojo, <span class="text-gold-deep">once a month.</span>
       </h2>
-      <p class="mb-6 md:mb-4">
-        Between work, school, and everything in between, a quiet evening can feel impossible to
-        come by. Parents Night Out gives you a few hours to yourself, and gives your kids a themed
-        night they can't wait for.
-      </p>
       <p>
-        Your kids get a themed night they look forward to, in a place you already trust, with
-        instructors who make every kid feel at home. You get a few hours that are actually yours.
+        Once a month, kids take over the dojo for a themed night of fun. It's a chance for kids to
+        just be kids and make good memories with their friends, while parents get a well-deserved
+        break. Every night is supervised by our instructors.
       </p>
     </div>
   </div>
@@ -101,6 +128,21 @@ const nightPhotos = [
     </div>
   </section>
 
+  <section class="py-16 md:py-18" aria-labelledby="pno-night">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <div class="mb-3 text-center text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">The Night</div>
+      <h2 id="pno-night" class="mb-10 text-center text-[clamp(1.7rem,3.2vw,2.4rem)] text-indigo">What a night looks like</h2>
+      <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {steps.map((step, i) => (
+          <li class="flex items-center gap-4 rounded border-t-4 border-gold bg-paper-warm p-5 lg:flex-col lg:items-start lg:gap-2">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo font-display text-sm font-bold text-white">{i + 1}</span>
+            <span class="font-display text-lg font-bold leading-snug text-indigo">{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
   <section class="py-16 md:py-20">
     <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.2fr_0.8fr] md:gap-6 md:px-5">
       <FactList heading="The night at a glance" facts={parentsNightOutFacts} />
@@ -125,7 +167,23 @@ const nightPhotos = [
     </div>
   </section>
 
-  <section class="pb-16 md:pb-20">
+  <section class="bg-paper-warm py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <SectionHead kicker="One Theme a Month" center>
+        <Fragment slot="heading">2027 themes</Fragment>
+      </SectionHead>
+      <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {parentsNightOutThemes2027.map((t) => (
+          <li class="rounded bg-white p-4">
+            <div class="text-xs font-bold tracking-[0.14em] text-gold-deep uppercase">{t.month}</div>
+            <div class="mt-1 font-display text-lg font-bold leading-snug text-indigo">{t.theme}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20">
     <div class="mx-auto max-w-6xl px-6 md:px-5">
       <SectionHead kicker="The Deal" center>
         <Fragment slot="heading">Two happy outcomes, one evening.</Fragment>
@@ -169,8 +227,28 @@ const nightPhotos = [
     </div>
   </section>
 
-  <CTASection ctaLabel="Ask About the Next Date" ctaHref="/contact?interest=parents-night-out">
-    <Fragment slot="heading">Your next quiet evening <em>is closer than you think.</em></Fragment>
-    <Fragment slot="subtext">We hold Parents Night Out regularly. Reach out for the next date and to reserve your child's spot.</Fragment>
+  <section class="pb-16 md:pb-20" aria-labelledby="pno-friend">
+    <div class="mx-auto max-w-3xl px-6 md:px-5">
+      <div class="rounded bg-indigo p-8 text-white md:p-10">
+        <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-soft uppercase">Bring a Friend</div>
+        <h2 id="pno-friend" class="mb-4 text-[clamp(1.6rem,3vw,2.2rem)]">Their first night is <span class="text-gold-soft">on us.</span></h2>
+        <p class="text-lg leading-relaxed text-[#D6D5E2]">
+          Every student who signs up for Parents Night Out gets a pass to bring a friend who doesn't
+          train with us. Their first Parents Night Out is free.
+        </p>
+        <p class="mt-3 text-sm text-[#B7B6C8]">
+          One free visit per friend. Brothers and sisters of current students don't count as friends.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="py-12">
+    <FAQGroup id="pno-faq" title="Parents Night Out questions" tag="Before You Book" items={faqItems} />
+  </div>
+
+  <CTASection ctaLabel={reserveLabel} ctaHref={reserveHref}>
+    <Fragment slot="heading">Only 16 spots a night. <em>Reserve early.</em></Fragment>
+    <Fragment slot="subtext">The 4th Friday of every month, 6 to 10pm, for kids 5 and up.</Fragment>
   </CTASection>
 </BaseLayout>

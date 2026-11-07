@@ -27,10 +27,9 @@ const faqItems = [
   {
     question: "Can the whole family train?",
     answer: [
-      "Yes. We teach ages 3 through adult. Parents and children 13 and up can train side by side in the teen and adult class, and on Saturdays the whole dojo trains together regardless of age or rank.",
+      `Yes. We teach ages 3 through adult. Parents and children 13 and up can train side by side in the teen and adult class, and at Saturday open training (${openTrainingTime}) the whole dojo trains together regardless of age or rank.`,
     ],
   },
-  tuitionFaqItem(),
   {
     question: "Can we try it before we commit?",
     answer: [`Yes. Your first week is free. Book a ${offer.noun} online, or come by ${trialDaysText} when Hannah, our office manager, is in to walk you through everything.`],
@@ -72,9 +71,9 @@ const faqItems = [
       known by name.
     </p>
     <p>
-      Action Zone CMA has been teaching in Raeford for {founded.yearsWords} years, in Hoke County
-      just outside Fort Bragg. Families also come to us from Fayetteville, Hope Mills, Rockfish,
-      and Jack Britt.
+      Action Zone CMA has been teaching martial arts since {founded.year}. Our dojo is in Raeford,
+      in Hoke County just outside Fort Bragg, and families also come to us from Fayetteville, Hope
+      Mills, Rockfish, and Jack Britt.
     </p>
   </ProseSection>
 
@@ -98,8 +97,8 @@ const faqItems = [
       one of your off days and pick up an extra session until you are caught up.
     </p>
     <p>
-      {openTraining.day} open training, {openTrainingTime}, is open to every student, all ages and
-      ranks. It doubles as a make-up day and a chance for the whole family to train together.
+      {openTraining.day} open training, {openTrainingTime}, is open to every student of any age or
+      rank. It doubles as a make-up day and a chance for the whole family to train together.
     </p>
   </ProseSection>
 
@@ -128,7 +127,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
-    <Fragment slot="subtext">Come try {offer.visit}. No cost, no commitment, no pressure.</Fragment>
+    <Fragment slot="heading">Find your family's <em>place on the mat.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors and see how a class runs. Make-up classes keep training on track when schedules change.</Fragment>
   </CTASection>
 </BaseLayout>

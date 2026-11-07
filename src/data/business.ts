@@ -67,8 +67,8 @@ export const cityState = `${business.address.city}, ${business.address.state}`;
 
 export const directions = {
   driveTimes: [
-    // From the existing FAQ copy ("roughly twenty-five minutes from Fayetteville").
-    { from: "Fayetteville", time: "about 25 minutes", timeWords: "roughly twenty-five minutes" },
+    // Confirmed by Jay: about 20 to 25 minutes from Fayetteville.
+    { from: "Fayetteville", time: "about 20–25 minutes", timeWords: "about twenty to twenty-five minutes" },
     { from: "Hope Mills", time: "about 15 to 20 minutes", timeWords: "about fifteen to twenty minutes" },
   ],
   parking: todo("where families park"),

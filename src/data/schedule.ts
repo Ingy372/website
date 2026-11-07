@@ -47,6 +47,9 @@ const clock = (hhmm: string) => {
   return `${h12}:${String(m).padStart(2, "0")}`;
 };
 
+/** "3:00pm" */
+export const formatTime = (hhmm: string) => `${clock(hhmm)}${parts(hhmm).suffix}`;
+
 /** "4:00 – 4:45pm", or "10:00am – 12:00pm" when the halves differ. */
 export function formatRange(start: string, end: string, { bothSuffixes = false } = {}) {
   const a = parts(start);
@@ -96,14 +99,28 @@ const tuesdayThursday: SessionDef[] = [
   { id: "black-belt-teen-adult", name: "Black Belt Club, Teens & Adults", program: "teensAdults", level: "intermediate", inviteOnly: true, start: "20:00", end: "21:00" },
 ];
 
-export const openTraining = {
+// Saturday: black belts train first, then the whole dojo trains together.
+export const blackBeltTraining = {
   day: "Saturday" as Weekday,
+  name: "Black Belt Training",
   start: "10:00",
-  end: "12:00",
-  description: "All ages, all ranks. Open mat, makeup classes, and testing.",
+  end: "11:00",
+  description: "Black belts only.",
   note: "Not bookable for trials.",
 };
-export const openTrainingTime = formatRange(openTraining.start, openTraining.end);
+/** "10:00 – 11:00am" */
+export const blackBeltTrainingTime = formatRange(blackBeltTraining.start, blackBeltTraining.end);
+
+export const openTraining = {
+  day: "Saturday" as Weekday,
+  name: "Open Training",
+  start: "11:00",
+  end: "12:00",
+  description: "Open training and make-up classes for every student, any age or rank. Belt testing is held on select Saturdays, four times a year.",
+  note: "Not bookable for trials.",
+};
+/** "11:00am – 12:00pm" */
+export const openTrainingTime = formatRange(openTraining.start, openTraining.end, { bothSuffixes: true });
 
 export interface ClassSession extends SessionDef {
   time: string;
@@ -115,7 +132,8 @@ export interface WeeklyScheduleDay {
   day: Weekday;
   classes: ClassSession[];
   closed?: boolean;
-  openTraining?: { timeRange: string; description: string; note: string };
+  /** Saturday's blocks, in order. */
+  saturday?: { timeRange: string; name: string; description: string; note: string }[];
 }
 
 const expand = (defs: SessionDef[]): ClassSession[] =>
@@ -135,7 +153,12 @@ export const weeklySchedule: WeeklyScheduleDay[] = [
   {
     day: "Saturday",
     classes: [],
-    openTraining: { timeRange: openTrainingTime, description: openTraining.description, note: openTraining.note },
+    saturday: [blackBeltTraining, openTraining].map((b) => ({
+      timeRange: formatRange(b.start, b.end, { bothSuffixes: true }),
+      name: b.name,
+      description: b.description,
+      note: b.note,
+    })),
   },
 ];
 
@@ -239,3 +262,13 @@ const buildDay = new Date().toISOString().slice(0, 10);
 export const upcomingClosures: Closure[] = (closureData.closures as Closure[])
   .filter((c) => (c.end ?? c.start) >= buildDay)
   .sort((a, b) => a.start.localeCompare(b.start));
+
+/** Upcoming closures for the LocalBusiness JSON-LD (00:00 to 00:00 means closed all day). */
+export const closureHoursSpecification = upcomingClosures.map((c) => ({
+  "@type": "OpeningHoursSpecification",
+  name: c.name,
+  opens: "00:00",
+  closes: "00:00",
+  validFrom: c.start,
+  validThrough: c.end ?? c.start,
+}));

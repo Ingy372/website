@@ -9,7 +9,7 @@ import MobileCallBar from "../components/nav/MobileCallBar.astro";
 import Footer from "../components/Footer.astro";
 import { business, serviceArea, team, FOUNDED_YEAR } from "../data/business";
 import { siteVerification } from "../data/school";
-import { openingHoursSpecification } from "../data/schedule";
+import { openingHoursSpecification, closureHoursSpecification } from "../data/schedule";
 
 interface Props {
   title: string;
@@ -61,6 +61,7 @@ const localBusinessSchema = {
     addressCountry: "US",
   },
   openingHoursSpecification,
+  ...(closureHoursSpecification.length ? { specialOpeningHoursSpecification: closureHoursSpecification } : {}),
   sameAs: [business.googleReviewsUrl, business.socials.facebook, business.socials.instagram],
   url: Astro.site,
 };

@@ -8,7 +8,7 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { programs, ageLabel, beginnerTimes, openTrainingTime } from "../data/schedule";
 
 import heroImage from "../images/rockfish-jack-britt/teens-adults-partner-training-near-rockfish-nc.jpg";
@@ -33,10 +33,9 @@ const faqItems = [
   {
     question: "Can my kids and I train at the same time?",
     answer: [
-      "Children 13 and up can train beside a parent in the teen and adult class. Younger kids have their own classes, and on Saturdays the whole dojo trains together.",
+      `Children 13 and up can train beside a parent in the teen and adult class. Younger kids have their own classes, and at Saturday open training (${openTrainingTime}) the whole dojo trains together.`,
     ],
   },
-  tuitionFaqItem(),
 ];
 ---
 
@@ -69,7 +68,8 @@ const faqItems = [
     <p>
       Classes run Monday through Thursday afternoons and evenings, so they fit after school and
       after work. Kids beginner classes are {times("kids")}. Saturday open training,
-      {" "}{openTrainingTime}, is open to every student.
+      {" "}{openTrainingTime}, is open to every student of any age or rank, and doubles as a
+      make-up day.
     </p>
   </ProseSection>
 
@@ -117,7 +117,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Come see us. <em>The first week is free.</em></Fragment>
-    <Fragment slot="subtext">Try {offer.visit}. No cost, no commitment, no pressure.</Fragment>
+    <Fragment slot="heading">Come see us. <em>We're close to home.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors and see how a class runs. No experience needed, no pressure.</Fragment>
   </CTASection>
 </BaseLayout>

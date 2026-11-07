@@ -6,7 +6,7 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { founded } from "../data/business";
 import { programs, ageLabel, beginnerTimes } from "../data/schedule";
 
@@ -21,26 +21,19 @@ const faqItems = [
   {
     question: "Do you teach jiu jitsu to kids?",
     answer: [
-      `Yes. Kids and adults both learn jiu jitsu. It is taught inside our regular classes: the <a href="/kids" class="text-indigo font-bold border-b border-gold">kids martial arts classes</a> and the <a href="/teens-adults" class="text-indigo font-bold border-b border-gold">teen and adult classes</a>. There is no separate jiu jitsu class to sign up for.`,
+      `Yes. Kids ${programs.kids.minAge} to ${programs.kids.maxAge} learn jiu jitsu as part of our <a href="/kids" class="text-indigo font-bold border-b border-gold">kids martial arts classes</a>, alongside karate. Teens and adults train it in the <a href="/teens-adults" class="text-indigo font-bold border-b border-gold">teen and adult class</a>.`,
     ],
   },
   {
-    question: "Is this Brazilian Jiu Jitsu?",
+    question: "Is jiu jitsu safe for beginners?",
     answer: [
-      "No. Our jiu jitsu is our own blend, part of our Yeshua's Ryu system. It is not Brazilian or Japanese jiu jitsu specifically. It is taught alongside karate, Kung Fu, Tae Kwon Do, and traditional Japanese weapons.",
-    ],
-  },
-  {
-    question: "Do you spar and grapple live?",
-    answer: [
-      "Yes. Students do live sparring and live grappling, so they learn how their technique holds up against a real, resisting partner.",
+      "Yes. Beginners learn positions, escapes, and how to fall safely before they ever work against resistance. Every drill is supervised, and students train at a level right for their age and rank.",
     ],
   },
   {
     question: "Do I need experience or a uniform?",
-    answer: [`No experience needed. Gi tops are optional. Comfortable clothes you can move in are perfect, and we train barefoot. Come in for a ${offer.noun} first.`],
+    answer: [`No. Comfortable clothes you can move in are perfect, and we train barefoot. Come in for a ${offer.noun} first.`],
   },
-  tuitionFaqItem(),
 ];
 ---
 
@@ -116,19 +109,20 @@ const faqItems = [
 
   <ProseSection heading="Jiu jitsu for kids and adults">
     <p>
-      Kids and adults both learn jiu jitsu as part of their regular classes. No experience needed.
+      <strong class="font-semibold text-indigo">Kids ({ageLabel(programs.kids)}).</strong> Kids jiu
+      jitsu builds body awareness, balance, and a calm head when things get physical. It is also
+      one of the best tools we have against bullying. Kids learn how to stay calm if someone grabs
+      them, get out of a headlock, and take control of the situation, or get away to an adult if
+      they can. Beginner classes: {timesText("kids")}.
     </p>
     <p>
-      <strong class="font-semibold text-indigo">Kids ({ageLabel(programs.kids)}).</strong> Beginner
-      classes: {timesText("kids")}.
+      <strong class="font-semibold text-indigo">Teens and adults ({ageLabel(programs.teensAdults)}).</strong>{" "}
+      Adults get practical self-defense and a full-body workout that never feels like a
+      treadmill. No experience needed. Beginner classes: {timesText("teensAdults")}.
     </p>
     <p>
-      <strong class="font-semibold text-indigo">Teens and adults ({ageLabel(programs.teensAdults)}).</strong>
-      Beginner classes: {timesText("teensAdults")}.
-    </p>
-    <p>
-      Looking for jiu jitsu near you? We are in Raeford, about 25 minutes from Fayetteville, and
-      families train with us from Hope Mills, Rockfish, Jack Britt, and Fort Bragg. See the
+      Looking for jiu jitsu near you? We are in Raeford, about 20–25 minutes from Fayetteville, and
+      families train with us from Hope Mills, Rockfish, Jack Britt, and Fort Bragg. See the{" "}
       <a href="/schedule">full class schedule</a>.
     </p>
   </ProseSection>
@@ -140,7 +134,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Try jiu jitsu for a week. <em>It's free.</em></Fragment>
-    <Fragment slot="subtext">Come in for {offer.visit}. No cost, no commitment, no experience needed.</Fragment>
+    <Fragment slot="heading">Start with a week <em>on our mat.</em></Fragment>
+    <Fragment slot="subtext">See how we train and let us help you find the right class for your age and experience. No experience needed.</Fragment>
   </CTASection>
 </BaseLayout>
