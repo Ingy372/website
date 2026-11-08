@@ -375,8 +375,8 @@ const goalSets: { key: "child" | "teen" | "adult"; goals: Goal[] }[] = [
       var all = goalsFor(who);
       // Keep the order shown on screen so the result reads naturally.
       var chosen = all.filter(function (g) { return picked.indexOf(g.id) !== -1; });
-      var shown = chosen.slice(0, 3);
-      var rest = chosen.slice(3);
+      var shown = chosen.slice(0, 4);
+      var rest = chosen.slice(4);
 
       var display = { littleWarriors: "Little Warriors", kids: "Kids Classes", teensAdults: "Teens & Adults classes" }[opt.program] || p.name;
       var subject = who === "adult" ? "you" : who === "teen" ? "your teen" : "your child";
@@ -385,7 +385,7 @@ const goalSets: { key: "child" | "teen" | "adult"; goals: Goal[] }[] = [
         (chosen.length === all.length ? "all of it" : joinList(chosen.slice(0, 2).map(shortOf))) + ".";
       dlg.querySelector("[data-cf-age]").textContent = p.age;
       dlg.querySelector("[data-cf-intro]").textContent =
-        "Here is how we work on " + (chosen.length > 1 ? "what you picked" : "that") + " for " + subject + ":";
+        "Here is how we work on " + (rest.length ? "your top picks" : chosen.length > 1 ? "what you picked" : "that") + " for " + subject + ":";
 
       var ul = dlg.querySelector("[data-cf-points]"); ul.innerHTML = "";
       shown.forEach(function (g) {
@@ -397,7 +397,7 @@ const goalSets: { key: "child" | "teen" | "adult"; goals: Goal[] }[] = [
       });
       var more = dlg.querySelector("[data-cf-more-goals]");
       more.hidden = rest.length === 0;
-      if (rest.length) more.textContent = "We work on " + joinList(rest.map(shortOf)) + " in every class, too.";
+      if (rest.length) more.textContent = "Plus the other " + (rest.length === 1 ? "one" : rest.length) + " you picked, built into every class.";
 
       // Best matching verbatim review: most overlap with what they picked.
       var best = null, score = 0;
