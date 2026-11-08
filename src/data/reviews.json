@@ -1,10 +1,10 @@
 {
   "summary": {
     "rating": 5.0,
-    "count": 83,
-    "countLabel": "83",
+    "count": 94,
+    "countLabel": "94",
     "source": "Google",
-    "lastChecked": "2026-10-23"
+    "lastChecked": "2026-11-08"
   },
   "_todo": "Reviews are copied word for word from the Google Business Profile (pulled 2026-10-23); only line breaks and broken apostrophes were cleaned up. Update summary.count and lastChecked when the Google count changes.",
   "reviews": [

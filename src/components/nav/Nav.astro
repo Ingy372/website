@@ -6,9 +6,11 @@ import { business } from "../../data/business";
 const bookingHref = Astro.url.pathname.replace(/(\.html|\/)$/, "") === "/booking" ? "#book" : "/booking";
 
 const dropdowns = [
-  { label: "Programs", items: [...nav.programs, ...nav.styles] },
-  { label: "Parties", items: nav.parties },
-  { label: "About", items: nav.about },
+  // Karate, Jiu Jitsu, and Self-Defense stay off the menus (they are SEO pages,
+  // linked from the footer and page copy so search engines still find them).
+  { label: "Programs", items: nav.programs },
+  { label: "Events", items: [{ label: "All Events", href: "/events" }, ...nav.parties] },
+  { label: "About", items: nav.about.filter((i) => i.href !== "/events") },
 ];
 ---
 
