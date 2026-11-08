@@ -12,9 +12,9 @@ export const isTodo = (value: string) => value.startsWith("TODO(JAY");
 
 // Every "since …", "… years", and "… decades" string on the site is computed from this.
 export const FOUNDED_YEAR = 1993;
-// Founded late in 1993, so a full year is only counted once this month passes
-// (32 years until December 2026). Month assumed (December); not yet confirmed.
-export const FOUNDED_MONTH = 12;
+// Opened October 1, 1993 (confirmed by Jay, Nov 2026), so a new year is counted
+// each October.
+export const FOUNDED_MONTH = 10;
 
 export const business = {
   displayName: "Action Zone CMA",

@@ -22,7 +22,7 @@ export const birthdayPartyFacts: Fact[] = [
 ];
 
 export const parentsNightOutFacts: Fact[] = [
-  { label: "When", value: "The 4th Friday of each month" },
+  { label: "When", value: "The 4th Friday of each month (November and December move earlier for the holidays)" },
   { label: "What time", value: "6:00pm to 10:00pm" },
   { label: "Ages", value: "5 and up" },
   { label: "Food", value: "Included, and it changes every event. Sometimes pizza, sometimes hot dogs and chips, fruit spreads, and other yummies." },

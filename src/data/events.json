@@ -3,6 +3,26 @@
   "events": [
     {
       "kind": "parents-night-out",
+      "title": "Parents Night Out",
+      "date": "2026-11-13",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out",
+      "date": "2026-12-18",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
       "title": "Parents Night Out: Glow Party",
       "date": "2027-01-22",
       "startTime": "18:00",
@@ -100,7 +120,27 @@
       "price": "",
       "description": "Science Night for kids 5 and up, supervised by our instructors.",
       "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Mystery Detectives",
+      "date": "2027-11-12",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Mystery Detectives for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Christmas Night",
+      "date": "2027-12-17",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Christmas Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
     }
   ],
-  "_pno_note": "Parents Night Out follows the 4th-Friday rule. Skipped for now (holidays): 2026-11-27, 2026-12-25, 2027-11-26, 2027-12-24. Add a date back here if one of those nights is on."
+  "_pno_note": "Parents Night Out is usually the 4th Friday. November and December move earlier because of the holidays: Nov 13 and Dec 18 in 2026, Nov 12 and Dec 17 in 2027 (Jay, Nov 2026)."
 }
