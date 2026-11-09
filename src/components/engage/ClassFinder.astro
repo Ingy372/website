@@ -115,7 +115,6 @@ const quoteDefs: { review: string; text: string; who: string; goals: string[]; f
   { review: "rachel-b", text: "My daughter seems to be growing in confidence and I believe it is in part because of Action Zone.", who: "parent", goals: ["confidence"], for: ["kid"] },
   { review: "savanna-f", text: "He gets exercise, discipline, routine and structure. Learns basic defense in a controlled environment.", who: "Little Warriors parent", goals: ["defend", "energy", "respect"], for: ["little"] },
   { review: "john-s", text: "The focus and discipline our son learned with Mr. Lowery and CMA made all the difference in his life, in the best way.", who: "parent", goals: ["focus", "respect", "confidence", "defend", "fit", "group", "emotions", "stress", "faith"], for: ["kid", "teen"] },
-  { review: "jacy-d", text: "This is a fantastic place to take children so that they can gain great social skills, develop the ability to defend themselves", who: "parent", goals: ["friends", "defend"], for: ["kid"] },
   { review: "cara-p", text: "I enjoy seeing them grow, mature, and strengthen in areas of behavior, teamwork, confidence, and respect.", who: "parent", goals: ["respect", "confidence", "friends", "listen", "emotions"], for: ["kid", "little"] },
   { review: "heidi-c", text: "The instructors are very patient, but teach the importance of owning the responsibility of your actions.", who: "Little Warriors parent", goals: ["respect", "listen"], for: ["little"] },
   { review: "amber-l", text: "That make Biblical principles an important aspect and speak about Jesus and the Bible in ways the kids understand and soak in.", who: "parent", goals: ["faith"], for: ["little", "kid"] },
@@ -123,6 +122,7 @@ const quoteDefs: { review: string; text: string; who: string; goals: string[]; f
 ];
 const quotes = quoteDefs.map((q) => {
   const r = getReview(q.review);
+  if (r.verify) throw new Error(`ClassFinder: review ${q.review} is still unconfirmed`);
   if (!r.text.includes(q.text)) throw new Error(`ClassFinder: quote from ${q.review} is not verbatim`);
   return { text: q.text, who: `${r.author}, ${q.who}`, goals: q.goals, for: q.for };
 });
