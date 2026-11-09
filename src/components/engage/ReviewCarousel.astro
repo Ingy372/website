@@ -4,7 +4,7 @@
 // No JS: it is still a scrollable row. Gentle auto-advance every 7s only while
 // on screen, stops for good on the first touch, click, or key press, and never
 // runs with reduce motion.
-import { reviews, displayAuthor, ratingText, countText } from "../../data/reviews";
+import { reviews, ratingText, countText } from "../../data/reviews";
 import { business } from "../../data/business";
 
 interface Props {
@@ -18,7 +18,9 @@ interface Props {
   max?: number;
 }
 const { theme = "light", heading, lead = [], max = 8 } = Astro.props;
-const ordered = [...lead.map((id) => reviews.find((r) => r.id === id)!).filter(Boolean), ...reviews.filter((r) => !lead.includes(r.id))].slice(0, max);
+// Reviews still flagged "verify" (unconfirmed text or author) never show here.
+const shown = reviews.filter((r) => !r.verify);
+const ordered = [...lead.map((id) => shown.find((r) => r.id === id)).filter((r): r is (typeof shown)[number] => !!r), ...shown.filter((r) => !lead.includes(r.id))].slice(0, max);
 const brand = business.displayName.split(",")[0];
 const dark = theme === "dark";
 ---
@@ -37,7 +39,7 @@ const dark = theme === "dark";
         <blockquote class="rc-quote">"{r.excerpt ?? r.text}"</blockquote>
         <figcaption class="rc-who">
           <span class="rc-avatar" aria-hidden="true">{r.author.charAt(0)}</span>
-          <span><b>{displayAuthor(r)}</b><span class="rc-src">{r.relationship} · Google review</span></span>
+          <span><b>{r.author}</b><span class="rc-src">{r.relationship} · Google review</span></span>
         </figcaption>
       </figure>
     ))}
