@@ -1,0 +1,121 @@
+---
+// One announcement bar above the nav. It scrolls away with the page (the nav
+// is the sticky part), so it never covers content. Shows, in order:
+//   1. the offer in src/data/announcement.json, while it's active and not past
+//      its "ends" date (e.g. the free-uniform offer)
+//   2. otherwise a holiday closure starting within 10 days (closures.json)
+//   3. otherwise the next Parents Night Out, with a live countdown (events.json)
+// Both the offer and the fallback are in the page, and the browser picks: when
+// the offer ends (or a visitor closes it), the fallback takes its place without
+// waiting for a redeploy. Each X hides that one message for that visitor.
+import offerData from "../../data/announcement.json";
+import { upcomingClosures, closureDatesText } from "../../data/schedule";
+import { nextParentsNightOut } from "../../data/events";
+import PnoCountdown from "./PnoCountdown.astro";
+
+const path = Astro.url.pathname.replace(/(\.html|\/)$/, "");
+const today = new Date().toISOString().slice(0, 10);
+const offer = offerData.active && offerData.text && (!offerData.ends || offerData.ends >= today) ? offerData : null;
+// On /booking, the offer's link jumps to the form instead of reloading.
+const offerLink = offer?.link === "/booking" && path === "/booking" ? "#book" : offer?.link;
+
+// The fallback stays off pages where it would point at itself or interrupt.
+const fallbackHiddenOn = ["/booking", "/booking/sent", "/contact/sent", "/parents-night-out"];
+const in10Days = new Date(Date.now() + 10 * 864e5).toISOString().slice(0, 10);
+const closure = upcomingClosures.find((c) => c.start <= in10Days);
+const fallback = !fallbackHiddenOn.includes(path) && (closure || nextParentsNightOut);
+const fallbackKey = closure ? `closure-${closure.start}` : `pno-${nextParentsNightOut?.date ?? ""}`;
+---
+
+{(offer || fallback) && (
+  <div id="announcement-bar">
+    {offer && (
+      <div class="ab ab-offer" data-ab="offer" data-key={offer.id} data-ends={offer.ends ?? ""}>
+        <div class="ab-inner">
+          <p>
+            {offer.text}
+            {offerLink && (
+              <a href={offerLink}>{offer.linkLabel || "Learn more"} <span aria-hidden="true">&rarr;</span></a>
+            )}
+          </p>
+          <button type="button" class="ab-x" aria-label="Close announcement" data-ab-close>&times;</button>
+        </div>
+      </div>
+    )}
+    {fallback && (
+      <div class="ab ab-info" data-ab="fallback" data-key={fallbackKey} data-ends={closure ? closure.end ?? closure.start : ""} hidden={!!offer}>
+        <div class="ab-inner">
+          {closure ? (
+            <p>
+              <b>Closed {closureDatesText(closure)}</b> for {closure.name}.
+              <a href="/schedule">See the schedule &rarr;</a>
+            </p>
+          ) : (
+            <p>
+              <b>Parents Night Out</b>
+              <span class="ab-sep" aria-hidden="true">·</span>
+              <PnoCountdown variant="inline" />
+              <span class="ab-extra"><span class="ab-sep" aria-hidden="true">·</span>16 spots</span>
+              <a href="/parents-night-out">Reserve a spot &rarr;</a>
+            </p>
+          )}
+          <button type="button" class="ab-x" aria-label="Hide this announcement" data-ab-close>&times;</button>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+{(offer || fallback) && (
+  <script is:inline>
+    (function () {
+      // Runs right after the bar is parsed, so a closed bar never flashes or shifts the page.
+      var wrap = document.getElementById("announcement-bar");
+      if (!wrap) return;
+      var KEY = "az_ab_hidden_v2";
+      var hidden = [];
+      try { hidden = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) {}
+      var d = new Date();
+      var today = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+      var gone = function (el) {
+        if (!el) return true;
+        var ends = el.getAttribute("data-ends");
+        return (ends && ends < today) || hidden.indexOf(el.getAttribute("data-key")) !== -1;
+      };
+      var offer = wrap.querySelector('[data-ab="offer"]');
+      var fallback = wrap.querySelector('[data-ab="fallback"]');
+      var render = function () {
+        if (offer && gone(offer)) { offer.remove(); offer = null; }
+        if (fallback && gone(fallback)) { fallback.remove(); fallback = null; }
+        if (fallback) fallback.hidden = !!offer;
+        if (!offer && !fallback) wrap.remove();
+      };
+      wrap.querySelectorAll("[data-ab-close]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var box = b.closest("[data-ab]");
+          hidden.push(box.getAttribute("data-key"));
+          try { localStorage.setItem(KEY, JSON.stringify(hidden)); } catch (e) {}
+          render();
+        });
+      });
+      render();
+    })();
+  </script>
+)}
+
+<style>
+  .ab { font-size: 0.84rem; }
+  .ab-offer { background: var(--color-gold); color: var(--color-indigo-deep); font-weight: 600; }
+  .ab-offer a { color: var(--color-indigo-deep); text-decoration: underline; text-underline-offset: 2px; }
+  .ab-offer a:hover { text-decoration: none; }
+  .ab-info { background: var(--color-indigo-deep); color: #D9D8E6; }
+  .ab-info b { color: #fff; }
+  .ab-info a { color: var(--color-gold-soft); }
+  .ab-info a:hover { color: #fff; }
+  .ab-inner { position: relative; max-width: 72rem; margin: 0 auto; padding: 0.6rem 2.9rem; text-align: center; }
+  .ab p { margin: 0; line-height: 1.5; }
+  .ab-sep { margin: 0 0.35rem; color: var(--color-gold); }
+  .ab a { margin-left: 0.5rem; font-weight: 700; white-space: nowrap; }
+  .ab-x { position: absolute; top: 50%; right: 0.4rem; transform: translateY(-50%); width: 2.5rem; height: 2.5rem; font-size: 1.3rem; line-height: 1; opacity: 0.75; }
+  .ab-x:hover { opacity: 1; }
+  @media (max-width: 420px) { .ab-extra { display: none; } .ab-info a { display: block; margin: 0.1rem 0 0; } }
+</style>

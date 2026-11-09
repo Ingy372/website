@@ -1,0 +1,146 @@
+{
+  "_readme": "Upcoming dated events: Parents Night Out, belt testing, demos, camps, anything with a date. Parents Night Out prices are never shown, so leave its price \"\". Add one object per date to \"events\". Fields: kind (\"parents-night-out\", \"belt-testing\", \"demo\", or \"other\"), title, date (YYYY-MM-DD), startTime and endTime (24-hour HH:MM, Eastern time), price (as it should read, e.g. \"$25 per child\", or \"Free\"; leave \"\" to hide), description (one or two sentences), bookingLink (where people sign up: e.g. \"/contact?interest=parents-night-out\" or a full URL; leave \"\" to send them to the contact page). Past events hide themselves. Example: { \"kind\": \"parents-night-out\", \"title\": \"Parents Night Out: Nerf Night\", \"date\": \"2026-11-14\", \"startTime\": \"18:00\", \"endTime\": \"21:00\", \"price\": \"\", \"description\": \"Nerf battles, games, and martial arts.\", \"bookingLink\": \"/contact?interest=parents-night-out\" }",
+  "events": [
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out",
+      "date": "2026-11-13",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out",
+      "date": "2026-12-18",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "A themed night of fun for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Glow Party",
+      "date": "2027-01-22",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Glow Party for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Nerf Night",
+      "date": "2027-02-26",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Nerf Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Ninja Night",
+      "date": "2027-03-26",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Ninja Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Superhero Night",
+      "date": "2027-04-23",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Superhero Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Painting & Tie-Dye Night",
+      "date": "2027-05-28",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Painting & Tie-Dye Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Summer Night",
+      "date": "2027-06-25",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Summer Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Christmas in July",
+      "date": "2027-07-23",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Christmas in July for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Nerf Night",
+      "date": "2027-08-27",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Nerf Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: VBS Night",
+      "date": "2027-09-24",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "VBS Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Science Night",
+      "date": "2027-10-22",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Science Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Mystery Detectives",
+      "date": "2027-11-12",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Mystery Detectives for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    },
+    {
+      "kind": "parents-night-out",
+      "title": "Parents Night Out: Christmas Night",
+      "date": "2027-12-17",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "price": "",
+      "description": "Christmas Night for kids 5 and up, supervised by our instructors.",
+      "bookingLink": "/contact?interest=parents-night-out"
+    }
+  ],
+  "_pno_note": "Parents Night Out is usually the 4th Friday. November and December move earlier because of the holidays: Nov 13 and Dec 18 in 2026, Nov 12 and Dec 17 in 2027 (Jay, Nov 2026)."
+}

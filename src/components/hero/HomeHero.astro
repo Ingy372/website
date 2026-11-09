@@ -22,16 +22,21 @@ import CountUp from "../motion/CountUp.astro";
       <h1 style="--hero-delay:70ms" class="hero-in max-w-[15ch] text-[clamp(2.4rem,4.6vw,4rem)]">
         Discipline that follows them <span class="text-gold-soft">off the mat.</span>
       </h1>
-      <p style="--hero-delay:140ms" class="hero-in mt-6 max-w-[44ch] text-lg text-[#C9C8D8]">
-        A family dojo serving <b class="font-semibold text-white">Raeford</b>, <b
-          class="font-semibold text-white">Fayetteville</b>, and <b
-          class="font-semibold text-white">Hope Mills</b>. Where kids, teens, and adults build
-        confidence, focus, and real self-defense. One belt at a time.
+      <p style="--hero-delay:105ms" class="hero-in mt-4 max-w-[30ch] font-display text-[clamp(1.15rem,2vw,1.5rem)] font-semibold leading-snug text-white/90">
+        Kids Karate &amp; Christian Martial Arts in Raeford, NC
+      </p>
+      <p style="--hero-delay:140ms" class="hero-in mt-6 max-w-[46ch] text-lg text-[#C9C8D8]">
+        Karate, jiu jitsu, and self-defense classes for kids, teens, and adults. A family dojo
+        serving <b class="font-semibold text-white">Raeford</b>, <b
+          class="font-semibold text-white">Fayetteville</b>, <b
+          class="font-semibold text-white">Hope Mills</b>, and <b
+          class="font-semibold text-white">Fort Bragg</b>, building confidence, focus, and real
+        self-defense. One belt at a time.
       </p>
       <div style="--hero-delay:210ms" class="hero-in mt-9 flex flex-wrap gap-8">
         <div class="border-l-2 border-gold pl-3.5">
-          <b class="block font-display text-[1.75rem] font-black text-white"><CountUp value={founded.yearsNumeral} /></b>
-          <span class="text-[0.78rem] text-[#B0AFC2]">Years, one family</span>
+          <b class="block font-display text-[1.75rem] font-black text-white">Since {founded.year}</b>
+          <span class="text-[0.78rem] text-[#B0AFC2]">In operation</span>
         </div>
         <div class="border-l-2 border-gold pl-3.5">
           <b class="block font-display text-[1.75rem] font-black text-white">
@@ -65,6 +70,9 @@ import CountUp from "../motion/CountUp.astro";
       >
         Have a question first? Ask us
       </a>
+      <button type="button" data-open-class-finder class="mt-3 block w-full text-center text-sm font-bold text-gold-deep hover:text-indigo">
+        Not sure which class? Find the right fit &rarr;
+      </button>
       <div class="mt-3 text-center text-[0.76rem] text-mist">
         Or call <a href={business.phoneHref} class="font-bold text-indigo">{business.phone}</a>
       </div>

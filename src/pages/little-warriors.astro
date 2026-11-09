@@ -7,8 +7,9 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import ReassuranceBox from "../components/sections/ReassuranceBox.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import ClassAtAGlance from "../components/sections/ClassAtAGlance.astro";
+import Tuition from "../components/sections/Tuition.astro";
+import FAQGroup from "../components/sections/FAQGroup.astro";
 import { offer } from "../data/school";
-import { cityState } from "../data/business";
 import { programs, ageLabel, ageRange } from "../data/schedule";
 
 const program = programs.littleWarriors;
@@ -19,12 +20,37 @@ import instructorTeachingKick from "../images/little-warriors/instructor-teachin
 import matGame from "../images/little-warriors/little-warriors-mat-game.jpg";
 import earningAStripe from "../images/little-warriors/little-warriors-in-sparring-gear.jpg";
 import bowingIn from "../images/little-warriors/little-warriors-one-on-one-with-instructor.jpg";
-import parentWatchingFromLobby from "../images/little-warriors/little-warriors-class-parents-watching.jpg";
+import parentWatchingFromLobby from "../images/little-warriors/little-warriors-jumping-game-on-mat.jpg";
 
 const classSteps = [
   { image: warmUpCircle, position: "50% 38%", alt: "Young students in a circle warming up at the start of a Little Warriors class", title: "Move and warm up", description: "Every class starts with the whole body: stretches, movement, and energy spent on purpose. It settles them and gets them ready to learn." },
   { image: instructorTeachingKick, position: "50% 35%", alt: "Instructor teaching a preschool student how to throw a kick", title: "Learn a skill", description: "Age-appropriate kicks, blocks, and stances, taught one clear step at a time, with an instructor watching and helping every child." },
   { image: matGame, position: "50% 45%", alt: "Little Warriors playing an active game on the dojo mat", title: "Play with a point", description: "Games and drills that never feel like a lesson, but quietly teach listening, patience, teamwork, and taking turns." },
+];
+
+const faqItems = [
+  {
+    question: "Is 3 too young for karate?",
+    answer: [
+      "No. Little Warriors is preschool karate built specifically for 3, 4, and 5 year olds. Classes are short, active, and broken into small pieces, so a young child can follow along and feel successful.",
+    ],
+  },
+  {
+    question: "What happens in a preschool karate class?",
+    answer: [
+      "Each class moves from a warm-up, to one clear skill like a kick, block, or stance, to a game that quietly teaches listening, waiting, and teamwork. Students earn stripes on their belt as they go, so they can see their progress.",
+    ],
+  },
+  {
+    question: "Can I stay and watch?",
+    answer: ["Yes. Parents are always welcome to watch class. Many families also bring siblings, who can play on our outdoor playground with a parent supervising."],
+  },
+  {
+    question: "What happens when my child turns 6?",
+    answer: [
+      'They move up to our <a href="/kids" class="text-indigo font-bold border-b border-gold">kids karate classes</a> for ages 6 to 12, already knowing the room, the instructors, and how a class works.',
+    ],
+  },
 ];
 
 const results = [
@@ -33,25 +59,38 @@ const results = [
   { title: "They believe in themselves", desc: "A child who earns a new stripe learns that hard things are worth doing, and that they can do them." },
   { title: "They start school ready", desc: "Listening, waiting, focus, and confidence are the exact things a kindergarten teacher hopes a child walks in with." },
 ];
+import ReviewCarousel from "../components/engage/ReviewCarousel.astro";
 ---
 
 <BaseLayout
-  title={`Little Warriors Martial Arts, ${ageLabel(program)}`}
-  seoTitle="Preschool Karate for Ages 3–5 | Little Warriors | Raeford, NC"
-  description={`Little Warriors is martial arts built from the ground up for ages ${ageRange(program)} in ${cityState}. Focus, listening, and confidence, taught through the fun of martial arts.`}
+  title={`Preschool Karate, ${ageLabel(program)}`}
+  fullTitle={`Preschool Karate, ${ageLabel(program)} | Little Warriors | Raeford NC`}
+  crumb="Little Warriors Preschool Karate"
+  description={`Preschool karate for ages ${ageRange(program)}: focus, listening, and confidence through martial arts. Serving Raeford, Fayetteville, and Hope Mills. Try a ${offer.noun}.`}
   path="/little-warriors"
+  ogImage={heroImage}
+  ogImageAlt="Little Warriors preschool karate class standing at attention on the mat"
+  faq={faqItems}
 >
-  <ProgramHero badge={`${program.name} · ${ageLabel(program)}`} image={heroImage} alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat" ctaLabel={offer.cta} ctaHref="/booking?program=littleWarriors">
+  <ProgramHero
+    badge={`${program.name} · ${ageLabel(program)}`}
+    h1={`Little Warriors: Preschool Karate & Martial Arts (${ageLabel(program)})`}
+    image={heroImage}
+    alt="Little Warriors class of three-to-five-year-olds standing at attention on the mat"
+    ctaLabel={offer.cta}
+    ctaHref="/booking?program=littleWarriors"
+  >
     <Fragment slot="heading">Small students. <em>Big beginnings.</em></Fragment>
     <Fragment slot="subtext">
-      Little Warriors is martial arts built from the ground up for our youngest students. Before
-      the kicks and blocks, they learn to listen, to focus, and to finish what they start.
+      Little Warriors is preschool karate and toddler martial arts, built from the ground up for
+      our youngest students. Before the kicks and blocks, they learn to listen, to focus, and to
+      finish what they start.
     </Fragment>
   </ProgramHero>
 
   <section class="py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-6 md:px-5">
-      <ClassAtAGlance program="littleWarriors" />
+      <ClassAtAGlance program="littleWarriors" heading="Preschool karate at a glance" />
     </div>
   </section>
 
@@ -60,8 +99,9 @@ const results = [
       <h2 class="mb-5 text-[clamp(1.8rem,3.4vw,2.5rem)] text-indigo">All that energy has to go somewhere.</h2>
       <p class="mb-6 text-lg leading-loose text-[#3E3E38] md:mb-4 md:leading-normal">
         A three, four, or five year old is not short on energy, curiosity, or opinions. What they
-        are still learning is how to focus it &mdash; how to wait their turn, follow a direction
-        the first time, and keep going when something gets hard.
+        are still learning is how to focus it: how to wait their turn, follow a direction the
+        first time, and keep going when something gets hard. That is what karate for 3, 4, and 5
+        year olds is really about.
       </p>
       <p class="text-lg leading-loose text-[#3E3E38] md:leading-normal">
         That is what Little Warriors is really for. The martial arts are real, but at this age,
@@ -111,8 +151,8 @@ const results = [
         ratioClass="aspect-square"
         images={[
           { src: earningAStripe, alt: "Smiling Little Warriors students suited up in red sparring gear", position: "50% 40%" },
-          { src: bowingIn, alt: "Little Warriors bowing in at the start of class", position: "50% 35%" },
-          { src: parentWatchingFromLobby, alt: "Parent watching a Little Warriors class from the lobby", position: "50% 40%" },
+          { src: bowingIn, alt: "Instructor working one-on-one with a Little Warriors student on a block", position: "50% 35%" },
+          { src: parentWatchingFromLobby, alt: "Little Warriors jumping during an active game on the mat", position: "50% 40%" },
         ]}
       />
     </div>
@@ -134,6 +174,18 @@ const results = [
       </ReassuranceBox>
     </div>
   </section>
+
+  <section class="bg-paper-warm py-16 md:py-18">
+    <div class="mx-auto max-w-6xl px-6 md:px-5">
+      <ReviewCarousel heading="Families say it better than we can" lead={['sarah-g']} />
+    </div>
+  </section>
+
+  <Tuition />
+
+  <div class="pb-12">
+    <FAQGroup id="little-warriors-faq" title="Preschool karate questions" tag="For Parents" items={faqItems} />
+  </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking?program=littleWarriors">
     <Fragment slot="heading">See it for yourself. <em>The {offer.first} is free.</em></Fragment>

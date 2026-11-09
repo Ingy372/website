@@ -2,6 +2,7 @@
 // Shared shell for /privacy and /sms-terms: title, effective date, and
 // prose styles. `noindex` keeps a page out of search results.
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { offer } from "../../data/school";
 
 interface Props {
   title: string;
@@ -20,6 +21,10 @@ const { title, description, path, effectiveDate, noindex = false } = Astro.props
     <p class="mb-10 text-sm text-mist">Effective {effectiveDate}</p>
     <div class="flex flex-col gap-4 text-[1.02rem] text-[#40403A] [&_a]:font-semibold [&_a]:text-indigo [&_a]:underline [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-indigo [&_li]:ml-5 [&_li]:list-disc [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5">
       <slot />
+    </div>
+    <div class="mt-12 flex flex-wrap items-center gap-4 border-t border-paper-warm pt-8">
+      <a href="/booking" class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">{offer.cta}</a>
+      <a href="/contact" class="font-semibold text-indigo hover:text-gold">Questions? Contact us</a>
     </div>
   </article>
 </BaseLayout>

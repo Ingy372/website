@@ -7,7 +7,6 @@
 
 export const safetyRules: string[] = [
   "Every class is led and supervised by our instructors, at a level right for each student's age and rank.",
-  "Beginners do not spar. We teach control long before we teach contact.",
   "The throwing wall is used only under close instructor supervision.",
   "Parents are always welcome to watch class.",
   // Confirmed by Jay: a parent supervises siblings on the outdoor playground.

@@ -5,35 +5,100 @@ import { Picture } from "astro:assets";
 import CTASection from "../components/sections/CTASection.astro";
 import { offer } from "../data/school";
 import { business, cityState, founded, team } from "../data/business";
-import { ratingText } from "../data/reviews";
 
 import michaelTeaching from "../images/our-story/founder-michael-lowery-teaching-class.jpg";
-import michaelPortrait from "../images/team/michael-lowery-founder-action-zone-cma.png";
-import studentActionShot from "../images/our-story/student-kicking-pad-during-training.jpg";
+import michaelPortrait from "../images/our-story/founder-michael-lowery-smiling-in-dojo.jpg";
+import studentActionShot from "../images/our-story/students-kicking-pad-drill-raeford-dojo.jpg";
 import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-test.jpg";
 ---
 
 <BaseLayout
   title="Our Story"
-  seoTitle="Our Story | Christian Martial Arts in Raeford Since 1993"
-  description={`${business.displayName} has taught Yeshua's Ryu in ${cityState} since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
+  fullTitle="Our Story | Action Zone CMA | Martial Arts in Raeford, NC"
+  description={`${business.displayName} has taught Yeshua's Ryu since ${founded.year}. The story of founder ${team.founder.name} and the school he built.`}
   path="/our-story"
+  ogImage={michaelTeaching}
+  ogImageAlt={`Founder ${team.founder.name} teaching a martial arts class on the mat`}
 >
   <SimpleHero eyebrow="Our Story">
-    <Fragment slot="heading">{founded.yearsWordsCap} years, <em>one standard.</em></Fragment>
+    <Fragment slot="heading">Since {founded.year}. <em>One standard.</em></Fragment>
     <Fragment slot="subtext">
       Action Zone was not built to be the biggest school in the area. It was built to change who
       walks out the door.
     </Fragment>
   </SimpleHero>
 
-  <div class="mx-auto max-w-3xl px-6 md:px-5">
-    <p class="py-20 font-display text-2xl font-semibold text-indigo md:py-16">
-      In {founded.year}, {team.founder.name} built a martial arts school next to his own home in {business.address.city}.
-    </p>
-  </div>
+  <section class="mx-auto max-w-3xl px-6 pt-20 md:pt-16 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">It didn't start in a dojo.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        At eight years old, Michael Lowery was attacked and robbed outside his family's business at Washington, D.C.'s Union Market. Soon after, a man who did business with his father began teaching him martial arts on a basketball court across the street. Michael was hooked. He studied every move he could find, even the ones on TV in <em>The Wild Wild West</em>, <em>Kung Fu</em>, and <em>The Green Hornet</em>, and practiced them with joy.
+      </p>
+    </div>
+  </section>
 
-  <figure class="px-6 md:px-5">
+  <section class="mx-auto max-w-3xl px-6 pt-14 md:pt-12 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">Hard years. Real lessons.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        Michael is a member of the Lumbee Tribe, from a line of warriors that includes the legendary Henry Berry Lowry. He grew up in Wagram and Fayetteville, North Carolina, through the racial unrest of the '60s and '70s, and spent summers at the family business in D.C., some of them living in an old World War II army bus with no heat or running water. His real-world training came on Hay Street, Fort Bragg Road, and Bragg Boulevard, often against soldiers home from Vietnam. He worked as an iron worker and welder in rough places, and by his own account, he didn't always make the right choices.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pt-14 md:pt-12 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">Then he met Jesus.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        In 1983, a radical encounter with Jesus changed everything. Michael began attending Manna Church, served in youth ministry for two years, and was blessed to sit under the teaching of Michael Fletcher. A couple of years later, he stepped into his first commercial dojo.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pt-14 md:pt-12 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">Faith and art, together.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        At 28, one of his teachers, Master Jung, invited him to Korea to study combat taekwondo and Buddhism. Michael said no. He had to work, and he had his own faith: he was "a Jesus person." Master Jung's answer stayed with him: then couple your faith with your art. That became Yeshua's Ryu, "Jesus' Way." It's a kinder approach that blends the arts Michael mastered as praise to God's grace, love, forgiveness, and mercies that are new every morning.
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-16 bg-indigo py-20 text-white md:mt-14 md:py-18">
+    <div class="mx-auto grid max-w-4xl gap-8 px-6 md:px-5 sm:grid-cols-[auto_1fr] sm:items-center">
+      <div class="mx-auto h-40 w-40 overflow-hidden rounded-full">
+        <Picture
+          src={michaelPortrait}
+          alt={`Founder ${team.founder.name} smiling in the dojo`}
+          formats={["avif", "webp"]}
+          widths={[160, 320]}
+          sizes="160px"
+          pictureAttributes={{ class: "block h-full w-full" }}
+          class="h-full w-full object-cover"
+          style="object-position:50% 40%"
+        />
+      </div>
+      <blockquote class="text-lg italic leading-relaxed text-[#E8E7F0]">
+        <p class="mb-6 md:mb-4">
+          "Our focus isn't on winning trophies or gaining recognition. Instead, we seek
+          self-enlightenment and a deeper spiritual understanding through the demanding practice of
+          martial arts."
+        </p>
+        <p>"Knowledge is incomplete without wisdom, and our habits define who we become."</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pt-14 md:pt-12 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">More than 35 years of teaching.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        Since then, Michael has trained law enforcement officers, Fort Bragg soldiers and their spouses, prison officers, pastors, security professionals, and countless men, women, and children. He opened Action Zone in 1993 in Wilmington, moved to Good Middling Dr in Fayetteville, and eventually to Raeford, into the building he built himself.
+      </p>
+    </div>
+  </section>
+
+  <figure class="px-6 pt-14 md:px-5 md:pt-12">
     <div class="mx-auto aspect-square max-w-lg overflow-hidden rounded">
       <Picture
         src={michaelTeaching}
@@ -49,6 +114,15 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
     <figcaption class="mt-3 text-center text-sm font-semibold text-mist">{team.founder.honorific} {team.founder.name}, founder</figcaption>
   </figure>
 
+  <section class="mx-auto max-w-3xl px-6 pt-14 md:pt-12 md:px-5">
+    <h2 class="mb-5 text-[clamp(1.6rem,3vw,2.2rem)] text-indigo">A family legacy.</h2>
+    <div class="text-lg leading-loose text-[#40403A] md:leading-normal">
+      <p class="mb-6 md:mb-4">
+        Today Michael is still active and involved, overseeing the family dojo. His son Jayson Lindemuth and daughter-in-law Hannah carry his legacy forward, fully intact. More than anything, Michael loves Jesus, and he especially loves kids.
+      </p>
+    </div>
+  </section>
+
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="py-20 text-lg leading-loose text-[#40403A] md:py-16 md:leading-normal">
       <p class="mb-6 md:mb-4">
@@ -61,31 +135,6 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
     </div>
   </div>
 
-  <section class="bg-indigo py-20 text-white md:py-18">
-    <div class="mx-auto grid max-w-4xl gap-8 px-6 md:px-5 sm:grid-cols-[auto_1fr] sm:items-center">
-      <div class="mx-auto h-40 w-40 overflow-hidden rounded-full">
-        <Picture
-          src={michaelPortrait}
-          alt={`Portrait of founder ${team.founder.name}`}
-          formats={["avif", "webp"]}
-          widths={[160, 320]}
-          sizes="160px"
-          pictureAttributes={{ class: "block h-full w-full" }}
-          class="h-full w-full object-cover"
-          style="object-position:50% 20%"
-        />
-      </div>
-      <blockquote class="text-lg italic leading-relaxed text-[#E8E7F0]">
-        <p class="mb-6 md:mb-4">
-          "Our focus isn't on winning trophies or gaining recognition. Instead, we seek
-          self-enlightenment and a deeper spiritual understanding through the demanding practice of
-          martial arts."
-        </p>
-        <p>"Knowledge is incomplete without wisdom, and our habits define who we become."</p>
-      </blockquote>
-    </div>
-  </section>
-
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <p class="py-20 text-lg leading-loose text-[#40403A] md:py-16 md:leading-normal">
       That standard shows up in who is allowed to teach here. Every instructor has put in a
@@ -97,16 +146,16 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
   <section class="bg-paper-warm py-18 md:py-14">
     <div class="mx-auto grid max-w-3xl grid-cols-3 gap-6 px-6 md:px-5 text-center">
       <div>
-        <div class="font-display text-3xl font-black text-indigo">{founded.year}</div>
-        <div class="mt-1 text-sm text-mist">Teaching since</div>
+        <div class="whitespace-nowrap font-display text-2xl font-black text-indigo sm:text-3xl">Free</div>
+        <div class="mt-1 text-sm text-mist">Your first week of classes</div>
       </div>
       <div>
-        <div class="font-display text-3xl font-black text-indigo">480+</div>
-        <div class="mt-1 text-sm text-mist">Hours to Black Belt</div>
+        <div class="whitespace-nowrap font-display text-2xl font-black text-indigo sm:text-3xl">Flexible</div>
+        <div class="mt-1 text-sm text-mist">Make up any missed class</div>
       </div>
       <div>
-        <div class="font-display text-3xl font-black text-indigo">{ratingText}</div>
-        <div class="mt-1 text-sm text-mist">Google rating</div>
+        <div class="whitespace-nowrap font-display text-2xl font-black text-indigo sm:text-3xl">Welcome</div>
+        <div class="mt-1 text-sm text-mist">Parents can always watch</div>
       </div>
     </div>
   </section>
@@ -140,14 +189,13 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
   <div class="mx-auto max-w-3xl px-6 md:px-5">
     <div class="pb-14 text-lg leading-loose text-[#40403A] md:pb-16 md:leading-normal">
       <p class="mb-6 md:mb-4">
-        Michael's stepson, {team.headInstructor.name}, runs the school today as head instructor, and
-        Michael is still active and involved. {team.headInstructor.name} first stepped onto this mat at
-        three years old and has spent twenty-six years in the art since. Same building. Same
-        system. Same standard.
+        Michael's son, {team.headInstructor.name}, runs the school today as head instructor.
+        {team.headInstructor.name} first stepped onto a mat at
+        three years old and has spent twenty-six years in the art since. Same system. Same standard.
       </p>
       <p>
-        {founded.yearsWordsCap} years in one town means most of the people on this floor are not strangers,
-        and we teach like it.
+        We have been teaching martial arts since {founded.year}, and most of the people on this floor
+        are not strangers. We teach like it.
       </p>
     </div>
   </div>
@@ -162,7 +210,7 @@ import beltsAfterTest from "../images/our-story/students-new-belts-after-rank-te
   </section>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Come see what {founded.yearsWords} years <em>built.</em></Fragment>
+    <Fragment slot="heading">Come see what's been built <em>since {founded.year}.</em></Fragment>
     <Fragment slot="subtext">Your {offer.first} is on us. No pressure.</Fragment>
   </CTASection>
 </BaseLayout>

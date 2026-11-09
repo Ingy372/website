@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SimpleHero from "../components/hero/SimpleHero.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer } from "../data/school";
-import { business, addressFull, cityState, founded, numberToWords, team, directions } from "../data/business";
-import { programs, programClassLength } from "../data/schedule";
+import { offer, tuitionFaqItem } from "../data/school";
+import { business, addressFull, founded, numberToWords, team, directions, serviceAreaText } from "../data/business";
+import { programs, programClassLength, openTrainingTime } from "../data/schedule";
 import { safetyRules } from "../data/safety";
 
 const { littleWarriors: lw, kids, teensAdults: ta } = programs;
@@ -41,12 +41,13 @@ const groups = [
           "We meet our students exactly where they are the day they walk in. Your level of knowledge, your fitness, your experience: none of it matters to us. We treat our students like members of our family, and we build you from the ground up.",
         ],
       },
+      tuitionFaqItem(),
       {
         question: "Can I train alongside my child?",
         answer: [
           // Parents and children train together in the Teens & Adults class, so its minimum age applies.
           `Yes, once they reach <strong>age ${numberToWords(ta.minAge)}</strong>.`,
-          "Our teen and adult class is where parents and older children train side by side. We also hold Saturday classes, where the entire dojo trains together regardless of age or rank.",
+          `Our teen and adult class is where parents and older children train side by side. We also hold Saturday open training (${openTrainingTime}), where the entire dojo trains together regardless of age or rank.`,
         ],
       },
     ],
@@ -61,7 +62,7 @@ const groups = [
         answer: [
           "In our experience it does the opposite, and it is something we take seriously.",
           "We spend as much time on what martial arts <em>is not</em> as on what it is. We talk about anger. What it feels like, what to do with it, and where these skills belong and where they never do. A student who cannot control themselves has not learned martial arts. They have only learned motion.",
-          "We are also a non-competitive school. We keep no trophy case. We are not raising fighters. We are raising the kind of people you would want living next door.",
+          "We are also a non-competitive school, focused on self-improvement. We are not raising fighters. We are raising the kind of people you would want living next door.",
         ],
       },
       {
@@ -121,7 +122,7 @@ const groups = [
         question: "What if we go on vacation or miss classes?",
         answer: [
           "We keep track of the days your student misses and offer them back as make-ups.",
-          "Come in on one of your off days and pick up an additional session until you are caught up. Saturday classes are also open to everyone, both as an extra day of training and as a chance to make up anything missed.",
+          `Come in on one of your off days and pick up an additional session until you are caught up. Saturday open training (${openTrainingTime}) is also open to every student, both as an extra day of training and as a chance to make up anything missed.`,
         ],
       },
     ],
@@ -169,9 +170,9 @@ const groups = [
     tag: "Raeford & Beyond",
     items: [
       {
-        question: "Do you have students who drive from Fayetteville or Hope Mills?",
+        question: "Do you have students who drive from Fayetteville, Hope Mills, or Fort Bragg?",
         answer: [
-          "Yes. Families come to us from Fayetteville, Hope Mills, and across Hoke County.",
+          `Yes. Families train with us from ${serviceAreaText}, and from across Hoke and Cumberland counties.`,
           `We are ${directions.driveTimes[0].timeWords} from ${directions.driveTimes[0].from}. Parents tell us the drive is worth it. The playground and trampoline mean the ride home is usually a quiet one.`,
         ],
       },
@@ -195,15 +196,19 @@ const groups = [
 ---
 
 <BaseLayout
-  title="Frequently Asked Questions"
-  description={`Answers to the questions parents ask most about ${business.displayName} in ${cityState}: getting started, safety, our school, and visiting us.`}
+  title="Martial Arts FAQ for Parents"
+  fullTitle={`Martial Arts FAQ for Parents | ${business.displayName}, Raeford NC`}
+  crumb="FAQ"
+  description={`Ages, cost, safety, and what to wear for kids karate. Answers for families in Raeford, Fayetteville, and Hope Mills. Start with a ${offer.noun}.`}
   path="/faq"
+  faq={groups.flatMap((g) => g.items)}
 >
-  <SimpleHero eyebrow="Questions & Answers">
+  <SimpleHero eyebrow="Questions & Answers" h1="Questions Parents Ask">
     <Fragment slot="heading">Everything you were <em>going to ask anyway.</em></Fragment>
     <Fragment slot="subtext">
-      {founded.yearsWordsCap} years of parents standing in our lobby, asking good questions. Here are the
-      answers, written the way we would give them to you in person.
+      We have been teaching martial arts since {founded.year}, and parents have been asking good
+      questions the whole time. Here are the answers, written the way we would give them to you in
+      person.
     </Fragment>
   </SimpleHero>
 

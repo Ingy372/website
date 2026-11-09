@@ -3,10 +3,17 @@
 //   og-image.jpg          1200x630 Open Graph / Twitter card image
 //   apple-touch-icon.png  180x180 iOS home-screen icon
 //   favicon.ico           16x16 + 32x32 for browsers/crawlers that ask for /favicon.ico
+//   logo.png              512x512 school badge on white, for Google's business data
 // The icons reuse the "AZ" mark from public/favicon.svg until the real logo
 // (with a simplified small-size mark) arrives from the client.
 import sharp from "sharp";
 import { writeFileSync } from "node:fs";
+
+if (process.argv.includes("--logo-only")) {
+  await buildLogo();
+  console.log("Wrote public/logo.png");
+  process.exit(0);
+}
 
 const OG_SOURCE = "src/images/homepage/teens-adults-class.jpg";
 
@@ -45,4 +52,18 @@ const entries = pngs.map((png, i) => {
 });
 writeFileSync("public/favicon.ico", Buffer.concat([header, ...entries, ...pngs]));
 
-console.log("Wrote public/og-image.jpg, public/apple-touch-icon.png, public/favicon.ico");
+await buildLogo();
+
+console.log("Wrote public/og-image.jpg, public/apple-touch-icon.png, public/favicon.ico, public/logo.png");
+
+// The school badge, trimmed and centered on a white square. Also runnable on
+// its own: node scripts/build-social-images.mjs --logo-only
+async function buildLogo() {
+  const raw = await sharp("src/images/School_logo_black_background.svg", { density: 300 }).png().toBuffer();
+  const flat = await sharp(raw).flatten({ background: "#ffffff" }).png().toBuffer();
+  const badge = await sharp(flat).trim({ background: "#ffffff", threshold: 10 }).resize(448, 448, { fit: "contain", background: "#ffffff" }).png().toBuffer();
+  await sharp({ create: { width: 512, height: 512, channels: 3, background: "#ffffff" } })
+    .composite([{ input: badge, gravity: "center" }])
+    .png()
+    .toFile("public/logo.png");
+}

@@ -18,7 +18,7 @@ const inputClass =
 const LOAD_TIMEOUT_MS = 10000;
 ---
 
-<div class="rounded border border-paper-warm bg-white p-5 sm:p-8">
+<div id="book" class="scroll-mt-24 rounded border border-paper-warm bg-white p-5 sm:p-8">
   <div data-dojo-forge-widget class="min-h-[420px]">
     <p data-df-placeholder class="py-16 text-center text-sm text-mist">Loading the booking form…</p>
   </div>
@@ -96,8 +96,8 @@ const LOAD_TIMEOUT_MS = 10000;
 </div>
 
 <p id="df-switch" class="mt-4 text-center text-sm text-mist">
-  Form not working on your phone?
-  <a href="#booking-request" data-show-booking-request class="font-semibold text-indigo underline hover:text-gold">Use our simple form</a>
+  Form not working on your phone?{" "}
+  <a href="#booking-request" data-show-booking-request class="font-semibold text-indigo underline hover:text-gold">Use our simple form</a>{" "}
   or call <a href={business.phoneHref} class="font-semibold text-indigo hover:text-gold">{business.phone}</a>.
 </p>
 
@@ -150,21 +150,34 @@ const LOAD_TIMEOUT_MS = 10000;
     };
 
     var timer = setTimeout(showFallback, timeoutMs);
+    // The widget's labels sit beside its fields without being tied to them,
+    // so screen readers can't name the fields. Copy each label onto its field.
+    var labelFields = function () {
+      mount.querySelectorAll("input, select, textarea").forEach(function (field) {
+        if (field.hasAttribute("aria-label") || field.type === "hidden" || field.closest("label")) return;
+        var label = field.previousElementSibling;
+        if (label && label.tagName === "LABEL") field.setAttribute("aria-label", label.textContent.trim());
+      });
+    };
+
+    // The widget swaps its form for a "Thanks! We got your request" message
+    // only after its server accepts the booking. When that appears, announce
+    // the lead once as a "dojoforge:lead" event (no form details in it).
+    var leadAnnounced = false;
     new MutationObserver(function () {
       if (rendered()) clearTimeout(timer);
-      // The widget swaps its form for a "Thanks! We got your request" message
-      // only after its server accepts the booking (res.ok). That swap is the
-      // real lead. Checked on every change so the observer stays attached.
-      if (!recordLead.done && /Thanks! We got your request/.test(mount.textContent || "")) {
-        recordLead({ id: "widget-success" });
+      labelFields();
+      if (!leadAnnounced && /Thanks! We got your request/.test(mount.textContent || "")) {
+        leadAnnounced = true;
+        window.dispatchEvent(new CustomEvent("dojoforge:lead", { detail: {} }));
       }
     }).observe(mount, { childList: true, subtree: true, characterData: true });
 
     window.__dfWidgetError = showFallback;
 
-    // A completed trial booking is the real lead. Besides the success message
-    // above, a future widget version may announce it as a "dojoforge:lead"
-    // CustomEvent or a postMessage from its own origin; each is counted once.
+    // A completed trial booking is the real lead. It arrives as a
+    // "dojoforge:lead" CustomEvent (from the success-message check above, or
+    // the widget itself) or a postMessage from the widget's origin; counted once.
     var widgetOrigin = new URL(widgetSrc).origin;
     var recordLead = function (detail) {
       if (recordLead.done) return;

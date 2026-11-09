@@ -7,6 +7,7 @@
 // put the link back in Nav.astro/Footer.astro.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { business } from "../data/business";
+import { offer } from "../data/school";
 
 ---
 
@@ -26,6 +27,9 @@ import { business } from "../data/business";
       <a href={business.phoneHref} class="inline-block rounded-sm bg-gold px-7 py-4 text-base font-bold text-indigo-deep hover:bg-gold-soft">
         Call {business.phone}
       </a>
+      <p class="mt-6 text-sm text-mist">
+        New to Action Zone? <a href="/booking" class="font-semibold text-indigo hover:text-gold">{offer.cta}</a>
+      </p>
     </div>
   </section>
 </BaseLayout>

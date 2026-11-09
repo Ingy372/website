@@ -14,7 +14,7 @@ interface Props {
 const { image, alt, number, title, description, position } = Astro.props;
 ---
 
-<div class="rounded border border-paper-warm bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-[0_16px_36px_-20px_rgba(25,26,62,0.4)]">
+<div class="group rounded border border-paper-warm bg-white p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gold hover:shadow-[0_16px_36px_-20px_rgba(25,26,62,0.4)] motion-reduce:hover:translate-y-0">
   <div class="-mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden rounded-t">
     <Picture
       src={image}
@@ -23,7 +23,7 @@ const { image, alt, number, title, description, position } = Astro.props;
       widths={[280, 420, 640, 800]}
       sizes="(min-width: 768px) 360px, calc(100vw - 48px)"
       pictureAttributes={{ class: "block h-full w-full" }}
-      class="h-full w-full object-cover"
+      class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
       style={position ? `object-position:${position}` : undefined}
     />
   </div>

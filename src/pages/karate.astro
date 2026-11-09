@@ -8,14 +8,14 @@ import SectionHead from "../components/sections/SectionHead.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { founded } from "../data/business";
 import { programs, ageLabel, programClassLength } from "../data/schedule";
 
 import heroImage from "../images/karate/karate-students-with-new-belt-certificates-raeford-nc.jpg";
-import littleWarriorsClass from "../images/little-warriors/little-warriors-preschool-martial-arts-class.jpg";
-import kidsClass from "../images/homepage/kids-karate-class-raeford-nc.jpg";
-import teensAdultsClass from "../images/homepage/teens-adults-karate-class-raeford-nc.jpg";
+import littleWarriorsClass from "../images/karate/little-warriors-karate-class-white-uniforms.jpg";
+import kidsClass from "../images/karate/kids-karate-students-lined-up-in-uniform.jpg";
+import teensAdultsClass from "../images/karate/teen-adult-karate-pad-drill.jpg";
 import drillingTechnique from "../images/karate/karate-student-jumping-kick-into-pad.jpg";
 import beltsAfterTest from "../images/karate/instructor-tying-new-karate-belt.jpg";
 
@@ -31,27 +31,25 @@ const faqItems = [
     answer: [`Little Warriors classes run ${programClassLength("littleWarriors")}. Kids, teen, and adult classes run ${programClassLength("kids")}.`],
   },
   {
-    question: "What style of karate do you teach?",
-    answer: [
-      "Karate is the foundation of Yeshua's Ryu, the Christian martial arts system our founder built. Students also learn Jiu Jitsu, Kung Fu, Tae Kwon Do, and traditional Japanese weapons, so they get a complete martial arts education instead of a single style.",
-    ],
-  },
-  {
     question: "Do you compete in karate tournaments?",
-    answer: ["No. We are a non-competitive school. We keep no trophy case. Students test for every belt in front of the class, and they earn each one."],
+    answer: ["Not as a school right now. We are a non-competitive school, and our focus is self-improvement. Students test for every belt in front of the class, and they earn each one."],
   },
-  tuitionFaqItem(),
 ];
 ---
 
 <BaseLayout
   title="Karate Classes in Raeford, NC"
-  seoTitle="Karate Classes in Raeford, NC for Kids & Adults"
+  fullTitle="Karate Classes in Raeford, NC for Kids & Adults"
+  crumb="Karate"
   description={`Karate classes for kids, teens, and adults, ages 3 and up, since ${founded.year}. Serving Raeford, Fayetteville, and Hope Mills. Start with a ${offer.noun}.`}
   path="/karate"
+  ogImage={heroImage}
+  ogImageAlt="Young karate student performing a belt test in front of the class"
+  faq={faqItems}
 >
   <ProgramHero
     badge={`Karate · Ages ${programs.littleWarriors.minAge}+`}
+    h1="Karate Classes in Raeford, NC for Kids & Adults"
     image={heroImage}
     alt="Karate students holding their new belt certificates after a rank test in Raeford, NC"
     ctaLabel={offer.cta}
@@ -60,7 +58,7 @@ const faqItems = [
     <Fragment slot="heading">Every belt is <em>earned on this mat.</em></Fragment>
     <Fragment slot="subtext">
       Traditional karate classes for preschoolers, kids, teens, and adults, taught by one family
-      in one building for {founded.yearsWords} years.
+      that has been teaching martial arts since {founded.year}.
     </Fragment>
   </ProgramHero>
 
@@ -73,8 +71,8 @@ const faqItems = [
     <p>
       At Action Zone CMA, karate is the backbone of Yeshua's Ryu, the Christian martial arts
       system our founder built. Every class pairs real technique with character: respect,
-      discipline, perseverance, and humility. We are a non-competitive school, so nobody is
-      training for a trophy. They are training to become someone.
+      discipline, perseverance, and humility. We are a non-competitive school, so the focus
+      stays on each student's own growth. They are training to become someone.
     </p>
     <p>
       Our dojo is in Raeford, and families come to us from Fayetteville, Hope Mills, Rockfish,
@@ -91,7 +89,7 @@ const faqItems = [
       <div class="grid gap-8 md:grid-cols-3 md:gap-6">
         <ProgramCard
           image={littleWarriorsClass}
-          alt="Little Warriors preschool karate students lined up in uniform"
+          alt="Little Warriors preschool karate students in white uniforms with their instructors"
           ageLabel={ageLabel(programs.littleWarriors)}
           program="littleWarriors"
           title="Little Warriors"
@@ -101,7 +99,7 @@ const faqItems = [
         />
         <ProgramCard
           image={kidsClass}
-          alt="Kids karate class training together on the dojo mat"
+          alt="Kids karate students lined up in uniform with their belts"
           position="50% 30%"
           ageLabel={ageLabel(programs.kids)}
           program="kids"
@@ -112,7 +110,7 @@ const faqItems = [
         />
         <ProgramCard
           image={teensAdultsClass}
-          alt="Teens and adults training together in a karate and self-defense class"
+          alt="Teen and adult karate students drilling strikes on pads held by instructors"
           position="50% 28%"
           ageLabel={ageLabel(programs.teensAdults)}
           program="teensAdults"
@@ -134,7 +132,7 @@ const faqItems = [
     <p>
       Classes follow a steady rhythm: a warm-up that gets the body moving, focused technique
       broken into clear steps, partner drills at the right level for each student, and time to
-      put it all together. Beginners never spar. We teach control long before we teach contact.
+      put it all together. We teach control long before we teach contact.
     </p>
   </ProseSection>
 
@@ -157,7 +155,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Try a week of karate. <em>It's free.</em></Fragment>
-    <Fragment slot="subtext">Come in for {offer.visit}. No uniform, no experience, no pressure.</Fragment>
+    <Fragment slot="heading">Come see a class <em>for yourself.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors and find the right class for your age. No uniform needed, no experience, no pressure.</Fragment>
   </CTASection>
 </BaseLayout>

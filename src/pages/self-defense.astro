@@ -6,7 +6,7 @@ import PhotoStrip from "../components/sections/PhotoStrip.astro";
 import FAQGroup from "../components/sections/FAQGroup.astro";
 import ReviewQuote from "../components/sections/ReviewQuote.astro";
 import CTASection from "../components/sections/CTASection.astro";
-import { offer, tuitionFaqItem } from "../data/school";
+import { offer } from "../data/school";
 import { founded } from "../data/business";
 import { programs, ageLabel, beginnerTimes } from "../data/schedule";
 
@@ -15,7 +15,10 @@ import kidsPartnerDrill from "../images/self-defense/kids-self-defense-blocking-
 import instructorCorrectingStance from "../images/self-defense/instructor-guiding-student-strike.jpg";
 import trainingFloorWide from "../images/self-defense/self-defense-class-training-floor.jpg";
 
-const timesText = (id: "kids" | "teensAdults") => beginnerTimes(id).map((t) => `${t.days}, ${t.time}`).join(" · ");
+const classTimes = [
+  { label: `Kids (${ageLabel(programs.kids)})`, times: beginnerTimes("kids") },
+  { label: `Teens & Adults (${ageLabel(programs.teensAdults)})`, times: beginnerTimes("teensAdults") },
+];
 
 const faqItems = [
   {
@@ -41,18 +44,22 @@ const faqItems = [
     question: "I have no experience. Can I still join?",
     answer: ["Yes. Most of our adults started with no experience. Every student trains at their own level, and beginners are never thrown in over their heads."],
   },
-  tuitionFaqItem(),
 ];
 ---
 
 <BaseLayout
   title="Self-Defense Classes in Raeford, NC"
-  seoTitle="Self-Defense Classes in Raeford, NC | Action Zone CMA"
+  fullTitle="Self-Defense Classes in Raeford, NC | Action Zone CMA"
+  crumb="Self-Defense"
   description={`Self-defense classes for kids and adults: anti-bullying skills, escapes, confidence. For Raeford, Fayetteville, and Hope Mills. Try a ${offer.noun}.`}
   path="/self-defense"
+  ogImage={heroImage}
+  ogImageAlt="Adults practicing a partner self-defense technique on the mat"
+  faq={faqItems}
 >
   <ProgramHero
     badge="Self-Defense · Kids, Teens & Adults"
+    h1="Self-Defense Classes in Raeford, NC"
     image={heroImage}
     alt="Students practicing a partner self-defense drill in Raeford, NC"
     ctaLabel={offer.cta}
@@ -60,8 +67,9 @@ const faqItems = [
   >
     <Fragment slot="heading">Confidence first. <em>Skills that hold up.</em></Fragment>
     <Fragment slot="subtext">
-      Practical self-defense for kids, teens, and adults, built on karate, jiu jitsu, and
-      {" "}{founded.yearsWords} years of teaching. Learn to avoid a fight, and to end one safely.
+      Practical self-defense for kids, teens, and adults, built on karate and jiu jitsu, from a
+      family teaching martial arts since {founded.year}. Learn to avoid a fight, and to end one
+      safely.
     </Fragment>
   </ProgramHero>
 
@@ -77,18 +85,23 @@ const faqItems = [
       non-competitive school. We are not raising fighters. We are raising people who can protect
       themselves and the people they love.
     </p>
+    <p>
+      Our founder has trained Fort Bragg soldiers, law enforcement, and security professionals for
+      more than 35 years. The self-defense we teach is built on real-world experience, not theory.
+    </p>
   </ProseSection>
 
   <ProseSection warm kicker="For Kids" heading="Anti-bullying skills that build quiet confidence.">
     <p>
-      Kids ({ageLabel(programs.kids)}) learn how to stand tall, use their voice, get out of a grab
-      or a headlock, and get to an adult. They learn it in a room where respect is trained in
-      every class, so they also learn not to become the bully.
+      Kids ({ageLabel(programs.kids)}) learn how to stand tall, use their voice, and get out of a
+      grab. If someone puts them in a headlock, they learn how to get out of it and take control
+      of the situation, or get away to an adult if they can. They learn it in a room where respect
+      is trained in every class, so they also learn not to become the bully.
     </p>
     <p>
       Parents tell us the biggest change is not the technique. It is the confidence. A child who
-      knows they can handle themselves does not have to prove it. Kids beginner classes:
-      {" "}{timesText("kids")}. See <a href="/kids">kids karate classes</a> for more.
+      knows they can handle themselves does not have to prove it. See{" "}
+      <a href="/kids">kids karate classes</a> for more.
     </p>
   </ProseSection>
 
@@ -114,15 +127,38 @@ const faqItems = [
     </p>
     <p>
       No experience is needed. The person beside you might be twenty or fifty, a natural athlete
-      or someone who has not exercised in years. Teen and adult beginner classes:
-      {" "}{timesText("teensAdults")}. See <a href="/teens-adults">teen and adult classes</a> and
-      <a href="/jiu-jitsu">jiu jitsu</a>.
+      or someone who has not exercised in years. See <a href="/teens-adults">teen and adult
+      classes</a> and <a href="/jiu-jitsu">jiu jitsu</a>.
     </p>
     <p>
       We are in Raeford, and families come to us from Fayetteville, Hope Mills, Rockfish, Jack
       Britt, and Fort Bragg.
     </p>
   </ProseSection>
+
+  <section class="bg-paper-warm" aria-labelledby="class-times-heading">
+    <div class="mx-auto max-w-3xl px-6 py-14 md:px-5">
+      <div class="mb-3 text-xs font-bold tracking-[0.2em] text-gold-deep uppercase">Class Times</div>
+      <h2 id="class-times-heading" class="mb-6 text-[clamp(1.5rem,2.8vw,2rem)] text-indigo">Beginner self-defense classes</h2>
+      <dl class="divide-y divide-paper-warm overflow-hidden rounded-sm border-t-4 border-gold bg-white shadow-sm">
+        {classTimes.map((c) => (
+          <div class="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+            <dt class="font-display text-lg font-bold text-indigo">{c.label}</dt>
+            <dd>
+              <ul class="flex flex-col gap-1 sm:text-right">
+                {c.times.map((t) => (
+                  <li class="text-ink"><span class="font-semibold">{t.days}</span><span class="text-mist"> · </span>{t.time}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-4 text-sm text-mist">
+        See the <a href="/schedule" class="font-semibold text-indigo underline hover:text-gold">full class schedule</a>.
+      </p>
+    </div>
+  </section>
 
   <ReviewQuote id="benjamin-s" />
 
@@ -131,7 +167,7 @@ const faqItems = [
   </div>
 
   <CTASection ctaLabel={offer.cta} ctaHref="/booking">
-    <Fragment slot="heading">Your {offer.first} is <em>completely free.</em></Fragment>
-    <Fragment slot="subtext">Come try {offer.visit}. No cost, no commitment, no experience needed.</Fragment>
+    <Fragment slot="heading">Build confidence <em>that holds up.</em></Fragment>
+    <Fragment slot="subtext">Meet our instructors and see how a class runs. No experience needed, no pressure.</Fragment>
   </CTASection>
 </BaseLayout>

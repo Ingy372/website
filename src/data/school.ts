@@ -2,7 +2,7 @@
 // Business identity (name, address, phone, email, socials, founding year)
 // lives in ./business.ts; programs, classes, and hours live in ./schedule.ts.
 
-import { founded } from "./business";
+import { founded, todo } from "./business";
 import { ratingText, countText } from "./reviews";
 
 // ---------------------------------------------------------------------------
@@ -48,6 +48,34 @@ export const offer = {
 };
 
 // ---------------------------------------------------------------------------
+// Tuition. Pricing is only discussed in person, after a family has seen a
+// class, never over the phone or on the site. This one wording is used by the
+// Tuition box on the program pages and the cost question on /faq.
+// ---------------------------------------------------------------------------
+
+/** Tuition wording, as HTML (the last sentence links to /booking). */
+export const tuitionHtml = [
+  "Your first week is free.",
+  "Tuition depends on the program and schedule that fits your family, so we go over it in person after you've seen a class.",
+  `<a href="/booking" class="font-semibold text-indigo underline hover:text-gold">Book your free week</a> and we'll sit down with you.`,
+].join(" ");
+
+/** The "How much does it cost?" FAQ entry (/faq only). */
+export function tuitionFaqItem() {
+  return { question: "How much does it cost?", answer: [tuitionHtml] };
+}
+
+/**
+ * Military discount wording for /military-families, e.g. "10% off tuition
+ * for active duty, veteran, and military spouse families". TODO(JAY: is
+ * there a military discount? Fill in, or set to "" if none.) Hidden until set.
+ */
+export const militaryDiscount = todo("military discount wording, or empty if none");
+
+/** schema.org priceRange for the LocalBusiness data, e.g. "$$" or "$99–$149/month". */
+export const priceRange = todo("price range for Google, e.g. $$");
+
+// ---------------------------------------------------------------------------
 // Ownership verification meta tags, rendered in every page <head> only when
 // set. TODO(JAY: verification tokens) — paste each content="" value, or leave
 // null for any service verified by DNS record instead.
@@ -61,12 +89,13 @@ export const siteVerification: Record<"google-site-verification" | "msvalidate.0
 
 // ---------------------------------------------------------------------------
 // Cloudflare Turnstile (spam check on the contact form). The site key is
-// public. Widget "Action Zone contact form" (Cloudflare dashboard →
-// Turnstile). Its secret goes in the Worker secret TURNSTILE_SECRET_KEY
-// (dashboard only, never in git).
+// public. TODO(JAY: Turnstile site key for actionzonecma.com — create a widget
+// in the Cloudflare dashboard and paste its site key here; put its secret in
+// TURNSTILE_SECRET_KEY). Until then this is Cloudflare's always-pass test key,
+// which a real production secret rejects, so the form fails closed.
 // ---------------------------------------------------------------------------
 
-export const turnstileSiteKey = "0x4AAAAAAFlSsSsO5psaCXe0";
+export const turnstileSiteKey = "1x00000000000000000000AA";
 
 // ---------------------------------------------------------------------------
 // DojoForge hosted booking widget (Nic, Tarnished Labs) — active booking
@@ -98,9 +127,21 @@ export const nav = {
     { label: "Birthday Parties", href: "/birthday-parties" },
     { label: "Parents Night Out", href: "/parents-night-out" },
   ],
+  styles: [
+    { label: "Karate", href: "/karate" },
+    { label: "Jiu Jitsu", href: "/jiu-jitsu" },
+    { label: "Self-Defense", href: "/self-defense" },
+  ],
+  areas: [
+    { label: "Hope Mills", href: "/hope-mills" },
+    { label: "Rockfish & Jack Britt", href: "/rockfish-jack-britt" },
+    { label: "Fayetteville", href: "/fayetteville" },
+    { label: "Fort Bragg Military Families", href: "/military-families" },
+  ],
   about: [
     { label: "Our Story", href: "/our-story" },
     { label: "Our System", href: "/our-system" },
+    { label: "Families We Serve", href: "/families-we-serve" },
     { label: "Meet the Team", href: "/meet-the-team" },
     { label: "Events", href: "/events" },
     { label: "FAQ", href: "/faq" },
@@ -112,14 +153,3 @@ export const nav = {
     { label: "Contact", href: "/contact" },
   ],
 };
-
-/** The "How much does it cost?" FAQ entry (style, military, and area pages). Never shows prices. */
-export function tuitionFaqItem() {
-  return {
-    question: "How much does it cost?",
-    answer: [
-      `Your first week is free, so you can see a class before you pay anything. We will go over tuition and every option in person, with no pressure, during your ${offer.noun}.`,
-      "Want to talk it over before you come in? Give us a call.",
-    ],
-  };
-}

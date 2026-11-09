@@ -20,7 +20,7 @@ const { image, alt, title, description, linkLabel, href, eyebrow, when, position
 const Heading = headingLevel;
 ---
 
-<a href={href} class="block overflow-hidden rounded border border-paper-warm bg-white transition-all hover:-translate-y-1 hover:border-gold">
+<a href={href} class="group block overflow-hidden rounded border border-paper-warm bg-white transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gold hover:shadow-[0_18px_40px_-20px_rgba(25,26,62,0.45)] motion-reduce:hover:translate-y-0">
   <div class="aspect-square overflow-hidden">
     <Picture
       src={image}
@@ -29,7 +29,7 @@ const Heading = headingLevel;
       widths={[280, 420, 560, 760]}
       sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
       pictureAttributes={{ class: "block h-full w-full" }}
-      class="h-full w-full object-cover"
+      class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
       style={position ? `object-position:${position}` : undefined}
     />
   </div>
@@ -40,6 +40,7 @@ const Heading = headingLevel;
     <Heading class="mb-1.5 text-xl font-black text-indigo">{title}</Heading>
     <p class="text-sm text-mist">{description}</p>
     {when && <div class="mt-3 text-sm text-mist"><strong class="text-indigo">When:</strong> {when}</div>}
+    {Astro.slots.has("default") && <div class="mt-3 text-sm text-mist"><slot /></div>}
     <span class="mt-3.5 inline-block text-sm font-bold text-gold-deep">{linkLabel}</span>
   </div>
 </a>

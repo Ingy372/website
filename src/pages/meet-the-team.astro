@@ -11,12 +11,16 @@ const { founder, headInstructor, officeManager } = team;
 import michaelPortrait from "../images/team/michael-lowery-founder-action-zone-cma.png";
 import jaysonPortrait from "../images/team/jay-lindemuth-head-instructor-action-zone-cma.png";
 import hannahPortrait from "../images/team/hannah-minter-office-manager-action-zone-cma.png";
+import teamPhoto from "../images/homepage/founder-michael-lowery-and-head-instructor-jay-lindemuth.jpg";
 ---
 
 <BaseLayout
   title="Meet the Team"
+  fullTitle="Meet the Team | Action Zone CMA | Raeford, NC"
   description={`Meet the team at ${business.displayName} in ${business.address.city}, ${business.address.state}: ${founder.title.toLowerCase()} ${founder.name}, ${headInstructor.title.toLowerCase()} ${headInstructor.name}, and ${officeManager.name}.`}
   path="/meet-the-team"
+  ogImage={teamPhoto}
+  ogImageAlt={`Founder ${founder.name} with head instructor ${headInstructor.name} in the dojo`}
 >
   <SimpleHero eyebrow="Meet the Team">
     <Fragment slot="heading">{founded.decadesCap}. One family. <em>One system.</em></Fragment>
@@ -29,14 +33,13 @@ import hannahPortrait from "../images/team/hannah-minter-office-manager-action-z
   <section class="py-20 md:py-20">
     <div class="mx-auto flex max-w-4xl flex-col gap-20 px-6 md:px-5 md:gap-20">
       <TeamPerson image={michaelPortrait} alt={`Portrait of ${founder.name}`} role={founder.title} name={founder.name} id={founder.slug} position="50% 25%">
-        <p>Everything here began with Michael. He founded the school, and he created the system it teaches.</p>
         <p>
-          What his students talk about is not the belts he has earned, though there are many. It is
-          the way he teaches. He believes a martial artist should be built in mind, body, and spirit
-          together, never one without the others, and he has spent {founded.yearsWords} years proving
-          it, one student at a time.
+          Michael's training began on a basketball court after he was robbed at age eight, and it was
+          sharpened in some of Fayetteville's roughest places. After meeting Jesus in 1983, he set out
+          to couple his faith with his art, and Yeshua's Ryu was born. He has trained soldiers, police
+          officers, pastors, and families for more than 35 years, and he still oversees the dojo he
+          founded in 1993.
         </p>
-        <p>Today his stepson leads the school as head instructor, and Michael is still active and involved. The standard he set is the standard we all hold.</p>
       </TeamPerson>
 
       <TeamPerson image={jaysonPortrait} alt={`Portrait of ${headInstructor.name}`} role={headInstructor.title} name={headInstructor.name} id={headInstructor.slug} flip position="50% 15%">
@@ -79,7 +82,7 @@ import hannahPortrait from "../images/team/hannah-minter-office-manager-action-z
         We are not a franchise. <span class="text-gold-soft">We are a family.</span>
       </h2>
       <p class="text-lg leading-loose text-[#B7B6C8] md:leading-normal">
-        The same people, in the same building, teaching the same system for {founded.yearsWords} years.
+        The same family, teaching the same system, teaching martial arts since {founded.year}.
         When you train here, you become part of that.
       </p>
     </div>
